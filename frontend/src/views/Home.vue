@@ -1,51 +1,6 @@
 <template>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="Mark Otto, Jacob Thornton, 그리고 Bootstrap 기여자들">
-<meta name="generator" content="Hugo 0.88.1">
-<title>Carousel Template · Bootstrap v5.1</title>
 
-<link rel="canonical" href="https://getbootstrap.kr/docs/5.1/examples/carousel/">
 
-<!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#7952b3">
-
-<!-- 네비게이션 바-->
-<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-    <!-- 로고 -->
-    <img src="../assets/Logo.png" width="100" />
-    <!-- 예약버튼 -->
-    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-
-        <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
-
-        <router-view />
-    </ul>
-    <!-- 프로필 버튼 -->
-    <div class="dropdown text-end">
-        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" width="50" height="50" class="rounded-circle">
-        </a>
-        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
-    </div>
-</div>
-
-<hr>
 
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -291,8 +246,6 @@
 </footer>
 </template>
 
-  
-  
 <script>
 export default {
 
@@ -307,17 +260,56 @@ export default {
         msg: String
     },
     method: {
-        plus() {
-            this.count++;
+        //구글 버튼
+        googleLoginBtn() {
+
+            window.gapi.signin2.render('my-signin2', {
+                scope: 'profile email',
+                width: 240,
+                height: 50,
+                longtitle: true,
+                theme: 'dark',
+                onsuccess: this.onSuccess,
+                onfailure: this.onFailure,
+            });
+            setTimeout(function () {
+                //display:none이기 때문에 시간차를 두고 코드로 클릭을 한다.
+                document.querySelector('.abcRioButton').click();
+            }, 1500)
+
         },
-        minus() {
-            this.count--;
-        }
+        //구글 로그인 이후 실행되는 콜백함수(성공)
+        async onSuccess(googleUser) {
+
+            const user_join_type = "g"
+            const googleEmail = googleUser.getBasicProfile().pu
+            console.log(googleEmail)
+
+            const res = await fetch('https://123.121.123.1/api/sns_signup_check', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: `${googleEmail}`,
+                    user_join_type: user_join_type
+                }),
+            })
+
+            const data = await res.json();
+            this.checkSnSLogin(data, googleEmail, user_join_type);
+
+        },
+        //구글 로그인 콜백함수 (실패)
+        onFailure(error) {
+            // eslint-disable-next-line
+            console.log(error);
+        },
+
     }
 }
 </script>
-  
-  
+
 <style>
 h1,
 h4 {

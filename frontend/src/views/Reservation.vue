@@ -1,5 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="test">
+  <form>
+  
     <h1>Reservation</h1>
   
     <div>
@@ -8,7 +10,9 @@
       <button type="button" @click="minus()">-</button>
     </div>
 
-  </div>
+
+</form>
+</div>
 </template>
 
 <script>
@@ -17,6 +21,8 @@ export default {
     data() {
         return {
           personCount: 0,
+          input: "",
+          output: "",
         }
     },
   methods:{
@@ -26,6 +32,11 @@ export default {
     minus(){
       if(this.personCount != 0)
       this.personCount--;
+    },
+    change(){
+      let temp = this.input;
+      this.input = this.output;
+      this.output = temp;
     }
   }
 }
@@ -33,6 +44,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.test{
+  background-color: white;
+  border-radius: 10px;
+}
 h3 {
   margin: 40px 0 0;
 }

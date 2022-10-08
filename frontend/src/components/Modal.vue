@@ -186,10 +186,12 @@ export default {
 
 .kakaoBtn > img {
   width: 30%;
+  cursor: pointer;
 }
 
 .googleBtn > img {
   width: 30%;
+  cursor: pointer;
 }
 
 .closeBtn > button {

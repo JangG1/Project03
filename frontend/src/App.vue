@@ -12,45 +12,48 @@
     <!-- 네비게이션 바-->
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <!-- 로고 -->
-        
+
         <router-link class="pageLink" v-bind:to="'/'">
-                    <div class="logo">
-                        <router-link v-bind:to="'/'"> <img src="./assets/Logo.png" alt="logo" style="width:120px; height:90px; "></router-link>
-                    </div>
-                </router-link>
+            <div class="logo">
+                <router-link v-bind:to="'/'"> <img src="./assets/Logo.png" alt="logo" style="width:120px; height:90px; "></router-link>
+            </div>
+        </router-link>
         <!-- 예약버튼 -->
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
 
         </ul>
-    
 
-    <div class="profileBox mt-5">
-        <!--로그인-->
-        <div @click="loginModal = true">
-            <ProfileItem :profile="getProfile" :email="getEmail" />
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+
+            <router-link to="/Calendar" class="nav-link px-2 link-secondary">달력</router-link>
+
+        </ul>
+
+        <div class="profileBox mt-5">
+            <!--로그인-->
+            <div @click="loginModal = true">
+                <ProfileItem :profile="getProfile" :email="getEmail" />
+            </div>
+            <!--로그아웃-->
+            <!-- <div class="logoutBtn" @click="logout" v-show="!isLogin">로그아웃</div> -->
+            <div class="logoutBtnEmpty" @click="logout" v-show="isLogin">로그아웃</div>
         </div>
-        <!--로그아웃-->
-        <!-- <div class="logoutBtn" @click="logout" v-show="!isLogin">로그아웃</div> -->
-        <div class="logoutBtnEmpty" @click="logout" v-show="isLogin">로그아웃</div>
+
     </div>
-    
-</div>
-<div class="px-5">
-    
-</div>
-
-<div v-show="!isLogin">
-    <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
-</div>
-<div class="layerPopup" v-show="isLoading">
-    <div class="spinner"></div>
-  </div>
   
-  <hr>
 
-  <router-view></router-view>
+    <div v-show="!isLogin">
+        <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
+    </div>
+    <div class="layerPopup" v-show="isLoading">
+        <div class="spinner"></div>
+    </div>
+
+    <hr>
+
+    <router-view></router-view>
 </div>
 </template>
 
@@ -94,10 +97,7 @@ export default {
         logout() {
             this.$store.commit("logout");
             this.$router.go("/");
-        },
-        showModal() {
-            return true;
-        },
+        }
     },
 };
 </script>
@@ -113,7 +113,7 @@ export default {
     margin: 0 auto;
 }
 
-.logo{
+.logo {
     height: 60px;
 }
 
@@ -130,12 +130,14 @@ nav a.router-link-exact-active {
     color: #42b983;
 }
 
-.nav-link{
- margin-top: 45px;
- margin-left: 15px;
+.nav-link {
+    margin-top: 45px;
+    margin-left: 15px;
 }
+
 .profileBox {
-    float: right;        
+    float: right;
+    cursor: pointer;
 }
 
 .profileBox>div {

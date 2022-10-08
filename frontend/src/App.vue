@@ -32,8 +32,8 @@
             <ProfileItem :profile="getProfile" :email="getEmail" />
         </div>
         <!--로그아웃-->
-        <div class="logoutBtn" @click="logout" v-show="isLogin">로그아웃</div>
-        <div class="logoutBtnEmpty" v-show="!isLogin">로그아웃</div>
+        <div class="logoutBtn" @click="logout" v-show="!isLogin">로그아웃</div>
+        <div class="logoutBtnEmpty" v-show="isLogin">로그아웃</div>
     </div>
     
 </div>

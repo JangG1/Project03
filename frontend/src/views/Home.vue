@@ -24,7 +24,6 @@
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
     
         <div class="carousel-inner">
@@ -37,7 +36,7 @@
                     <div class="carousel-caption">
                         <h1>지금 갈 수 있는 여행지는 어디?</h1>
                         <br>
-                        <h4>자세히 보기</h4>
+                        <p>자세히 보기</p>
                     </div>
                 </div>
             </div>
@@ -51,39 +50,26 @@
                         <h1>아름다운 야경과 낭만의 도시</h1>
                         <h4>10월 3일 헝가리 부다페스트 취항합니다</h4>
                         <br>
-                        <h4>자세히 보기</h4>
+                        <p>자세히 보기</p>
                     </div>
                 </div>
             </div>
             <!--배너3-->
             <div class="carousel-item">
                 <svg class="banner" viewBox="0 100 900 190" width="1520" height="600">
-                    <image href="../assets/banner2.jpg" />
+                    <image href="../assets/banner3.jpg" />
                 </svg>
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>아름다운 야경과 낭만의 도시</h1>
-                        <p>10월 3일 헝가리 부다페스트 취항합니다</p>
+                        <h1>실시간 항공권 비교하고</h1>
+                        <h2>특가 항공권 예약하세요!</h2>
                         <br>
                         <p>자세히 보기</p>
                     </div>
                 </div>
             </div>
-            <!--배너4-->
-            <div class="carousel-item">
-                <svg class="banner" viewBox="0 100 900 190" width="1520" height="600">
-                    <image href="../assets/banner2.jpg" />
-                </svg>
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>아름다운 야경과 낭만의 도시</h1>
-                        <p>10월 3일 헝가리 부다페스트 취항합니다</p>
-                        <br>
-                        <p>자세히 보기</p>
-                    </div>
-                </div>
-            </div>
-    
+         
+            <!--배너 좌우 이동 버튼-->
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -95,6 +81,84 @@
         </button>
     </div>
     
+<!--항공 예약 박스-->
+<div>
+<div>
+
+    <div>
+        <div>
+            왕복
+        </div>
+        <div>
+            편도
+        </div>
+    </div>
+
+    <div>
+        출발지
+    </div>
+    <div>
+        도착지
+    </div>
+    <div>
+        가는 날 ~ 오는날
+    </div>
+
+</div>
+<div>승객 수</div>
+<div>좌석 등급</div>
+<div>항공편 검색</div>
+</div>
+
+<!--------------------------------------------------------------------------------->
+
+<form class="row g-3">
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password</label>
+    <input type="password" class="form-control" id="inputPassword4">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress" class="form-label">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress2" class="form-label">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="col-md-6">
+    <label for="inputCity" class="form-label">City</label>
+    <input type="text" class="form-control" id="inputCity">
+  </div>
+  <div class="col-md-4">
+    <label for="inputState" class="form-label">State</label>
+    <select id="inputState" class="form-select">
+      <option selected>Choose...</option>
+      <option>...</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="inputZip" class="form-label">Zip</label>
+    <input type="text" class="form-control" id="inputZip">
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </div>
+</form>
+
+<!--------------------------------------------------------------------------------->
+
     <!-- 조회버튼 -->
     <div class="refer">
         <!--예약 조회 버튼-->
@@ -288,10 +352,7 @@
     </script>
     
     <style>
-    h1,
-    h4 {
-        color: black;
-    }
+   
     
     h5 {
         font-size: 18px;

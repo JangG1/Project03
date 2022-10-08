@@ -15,7 +15,7 @@
         
         <router-link class="pageLink" v-bind:to="'/'">
                     <div class="logo">
-                        <router-link v-bind:to="'/'"> <img src="./assets/Logo.png" alt="logo" style="width:120px; height:100px; "></router-link>
+                        <router-link v-bind:to="'/'"> <img src="./assets/Logo.png" alt="logo" style="width:120px; height:90px; "></router-link>
                     </div>
                 </router-link>
         <!-- 예약버튼 -->
@@ -32,8 +32,8 @@
             <ProfileItem :profile="getProfile" :email="getEmail" />
         </div>
         <!--로그아웃-->
-        <div class="logoutBtn" @click="logout" v-show="!isLogin">로그아웃</div>
-        <div class="logoutBtnEmpty" v-show="isLogin">로그아웃</div>
+        <!-- <div class="logoutBtn" @click="logout" v-show="!isLogin">로그아웃</div> -->
+        <div class="logoutBtnEmpty" @click="logout" v-show="isLogin">로그아웃</div>
     </div>
     
 </div>
@@ -113,6 +113,10 @@ export default {
     margin: 0 auto;
 }
 
+.logo{
+    height: 60px;
+}
+
 nav {
     padding: 30px;
 }
@@ -126,9 +130,12 @@ nav a.router-link-exact-active {
     color: #42b983;
 }
 
+.nav-link{
+ margin-top: 45px;
+ margin-left: 15px;
+}
 .profileBox {
-    float: right;
-    margin-right: 3rem;
+    float: right;        
 }
 
 .profileBox>div {

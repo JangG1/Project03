@@ -3,7 +3,7 @@
 
     <div class="carousel-inner">
 
-        <span class="bannertest">
+        <span class="">
             <!--배너1-->
             <div class="carousel-item active">
                 <!--배너 좌우 이동 버튼-->
@@ -52,7 +52,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 300" width="1700" height="630">
+                <svg class="banner" viewBox="0 60 900 340" width="1670" height="630">
                     <image href="../assets/banner2.jpg" />
                 </svg>
                 <div class="container">
@@ -83,7 +83,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 300" width="1700" height="630">
+                <svg class="banner" viewBox="0 60 900 340" width="1670" height="630">
                     <image href="../assets/banner3.jpg" />
                 </svg>
                 <div class="container">
@@ -102,49 +102,41 @@
 
         <form class="res-form">
             <div class="date-area-select">
-            <button type="button" @click="test" class="btn-field" id="resRoundTrip">왕복</button>
-            <button type="button" class="btn-field" id="resOneWay">편도</button>
-            <br>
-            <div>
-                <!-- <button type="button" class="btn-field" id="resFrom">출발지</button> -->
-                <input type="text" v-model="fromBtn">
-            </div>
-            <div class="ppg-refresh">
-                <img src="../assets/papagoRefresh.png" @click="change" />
-            </div>
-            <div id="toBtn">
-                <!-- <button type="button" class="btn-field" id="resTo">도착지</button> -->
-                <input type="text" v-model="toBtn">
-            </div>
-            <br>
+                <button type="button" @click="toggleRoundTrip" class="btn-field" id="resRoundTrip">왕복</button>
+                <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
+                <br>
+                <br>
+                <div>
+                    <img type="button" class="fromBtn" src="../assets/test.jpg" />
+                    <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
+                    <img type="button" class="toBtn" src="../assets/test.jpg" />
+                </div>
+                <br>                
+                <br>
+                <hr>
+                <Datepicker v-if="show1" class="datePicker" v-model="date" placeholder="                         가는날 ~ 오는날" modelAuto range />
+                <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                              탑승일 선택" />
 
-            <button type="button" class="btn-field" id="resDate">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                </svg>
-                &nbsp; 가는날 ~ 오는날
-            </button>
-            <Datepicker class="datePicker" v-model="date" modelAuto range />
-        </div>
-            <br>
+            </div>
 
             <!--승객수 팝업-->
             <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
-            <br>
+
             <div class="popup-view" :class="{ active : popupView }">
                 <pop-up @close-popup="popUp()"></pop-up>
             </div>
-            <!--모달 테스트-->
 
             <!--좌석 선택-->
-            <label class="form-label">좌석 등급</label>
+
             <select id="inputState" class="form-select">
-                <option selected>일반석</option>
+                <option selected>좌석 등급</option>
+                <option>일반석</option>
                 <option>이코노미</option>
                 <option>비즈니스</option>
             </select>
 
             <input type="submit" value="항공편 검색" class="submit-btn">
+
         </form>
 
     </div>
@@ -158,22 +150,22 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
-        &nbsp; 예약 조회 &nbsp; ㅣ
+        <span>&nbsp; 예약 조회 &nbsp;</span>
     </button>
     <!-- 버튼-->
-    <button type="button" class="btn btn-lg btn-default">
+    <button type="button" class="btn btn-lg btn-default" id="checkIn">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
             <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z" />
         </svg>
-        &nbsp; 체크인 &nbsp; ㅣ
+        <span>&nbsp; 체크인 &nbsp;</span>
     </button>
     <!--항공편 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default">
+    <button type="button" class="btn btn-lg btn-default">&nbsp;
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
             <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
         </svg>
-        &nbsp; 항공편 조회
+    <span>&nbsp; 항공편 조회 </span>
     </button>
 
 </div>
@@ -183,63 +175,106 @@
 <!-- 추천 여행지 -->
 
 <div class="recommendProduct">
-    <h3>지금 떠나기 좋은 여행</h3>
-    <br>
-    <div class="row">
+    <h3>지금 떠나기 좋은 여행</h3><br>
+    <div class="">
+        <div class="container">
 
-        <!-- 추천 여행지 1 -->
+            <div class="row row-cols-4 row-cols-sm-2 row-cols-md-4 g-3">
+                <!--추천 여행지 1-->
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="../assets/rec1.jpg" width="300" height="400" />
+                        <div class="card-body">
+                            <h5>서울/인천- 두바이</h5>
+                            <h6>일반석 왕복</h6>
+                            <h6>KRW 1,158,500 ~</h6>
+                            <br>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--추천 여행지 2-->
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="../assets/rec2.jpg" width="300" height="400" />
+                        <div class="card-body">
+                            <h5>서울/인천- 후쿠오카</h5>
+                            <h6>일반석 왕복</h6>
+                            <h6>KRW 704,200 ~</h6>
+                            <br>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--추천 여행지 3-->
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="../assets/rec3.jpg" width="300" height="400" />
+                        <div class="card-body">
+                            <h5>서울/인천- 싱가포르</h5>
+                            <h6>일반석 왕복</h6>
+                            <h6>KRW 591,800 ~</h6>
+                            <br>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--추천 여행지 4-->
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="../assets/rec4.jpg" width="300" height="400" />
+                        <div class="card-body">
+                            <h5>서울/인천- 바르셀로나</h5>
+                            <h6>일반석 왕복</h6>
+                            <h6>KRW 909,200 ~</h6>
+                            <br>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--추천 여행지 5-->
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="../assets/rec5.jpg" width="300" height="400" />
+                        <div class="card-body">
+                            <h5>서울/인천- 치앙마이</h5>
+                            <h6>일반석 왕복</h6>
+                            <h6>KRW 1,546,800 ~</h6>
+                            <br>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="col-lg-3">
-            <img src="../assets/rec1.jpg" width="300" height="400" />
-            <h5>서울/인천- 두바이</h5>
-            <h6>일반석 왕복</h6>
-            <h6>KRW 1,158,500 ~</h6>
-            <p><a class="btn btn-secondary" href="#">자세히 보기 &raquo;</a></p>
+            </div>
         </div>
-
-        <!-- 추천 여행지 2 -->
-        <div class="col-lg-3">
-
-            <img src="../assets/rec2.jpg" width="300" height="400" />
-            <h5>서울/인천- 두바이</h5>
-            <h6>일반석 왕복</h6>
-            <h6>KRW 340,600 ~</h6>
-            <p><a class="btn btn-secondary" href="#">자세히 보기 &raquo;</a></p>
-
-        </div>
-        <!-- 추천 여행지 3 -->
-        <div class="col-lg-3">
-            <img src="../assets/rec3.jpg" width="300" height="400" />
-            <h5>서울/인천- 후쿠오카</h5>
-            <h6>일반석 왕복</h6>
-            <h6>KRW 704,200 ~</h6>
-            <p><a class="btn btn-secondary" href="#">자세히 보기 &raquo;</a></p>
-        </div>
-
-        <!-- 추천 여행지 4 -->
-        <div class="col-lg-3">
-            <img src="../assets/rec4.jpg" width="300" height="400" />
-            <h5>서울/인천- 바르셀로나</h5>
-            <h6>일반석 왕복</h6>
-            <h6>KRW 909,200 ~</h6>
-            <p><a class="btn btn-secondary" href="#">자세히 보기 &raquo;</a></p>
-        </div>
-
-        <!-- 추천 여행지 5 -->
-        <div class="col-lg-3">
-            <img src="../assets/rec5.jpg" width="300" height="400" />
-            <h5>서울/인천- 치앙마이</h5>
-            <h6>일반석 왕복</h6>
-            <h6>KRW 1,546,800 ~</h6>
-            <p><a class="btn btn-secondary" href="#">자세히 보기 &raquo;</a></p>
-        </div>
-
     </div>
-
-    <hr class="featurette-divider">
+    <br>
+    <hr>
 
     <div class="row featurette">
         <div class="col-md-7">
+            <br>
             <h1 class="featurette-heading">복잡한 여행을 Easy하게!</h1><br>
             <h3 class="text-muted">전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
             <p class="lead">자세히 보기</p>
@@ -331,10 +366,13 @@ export default {
     },
     data() {
         return {
-            toBtn: "",
-            fromBtn: "",
+            toBtn: null,
+            fromBtn: null,
             date: null,
+            oneWay: null,
             popupView: false,
+            show1: true,
+            show2: false,
         }
     },
     methods: {
@@ -354,7 +392,15 @@ export default {
         },
         closePopup: function () {
             this.$emit('close-popup')
-        }
+        },
+        toggleRoundTrip() {
+            this.show1 = true;
+            this.show2 = false;
+        },
+        toggleOneWay() {
+            this.show1 = false;
+            this.show2 = true;
+        },
 
     }
 }
@@ -368,12 +414,23 @@ h5 {
 }
 
 img {
-    border-radius: 15px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 15px 0px rgb(39, 39, 39), 8px 8px 16px -10px rgba(0, 0, 0, .15);
 }
-.carousel-caption{
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: white;
+}
+
+.carousel-caption {
     margin-left: 600px;
 }
-.carousel-indicators{
+
+.carousel-indicators {
     margin-left: 855px;
 }
 
@@ -387,21 +444,8 @@ img {
 
 .banner {
     border-radius: 15px;
+    box-shadow: -8px -8px 16px -10px rgba(255, 255, 255, 1), 8px 8px 16px -10px rgba(0, 0, 0, .15);
 }
-
-/* .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-} */
-
-/* @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
-} */
 
 .carousel-control-prev {
     width: 40px;
@@ -414,9 +458,10 @@ img {
     /* 선 두께 */
     transform: rotate(225deg);
     /* 각도 */
-    position: absolute;
+
     top: 50%;
-    left: 680px;
+    left: 700px;
+
 }
 
 .carousel-control-next {
@@ -434,15 +479,18 @@ img {
     top: 50%;
     right: 50px;
 }
-
+svg, span{
+    color: rgb(139, 139, 139);
+    font-size: 24px;
+}
 .refer {
-    margin-top: 50px;
     text-align: center;
+    
 }
 
 .recommendProduct {
-    margin-top: 50px;
-    margin-left: 50px;
+    margin-top: 40px;    
+    color: rgb(139, 139, 139);
 }
 
 .tip {
@@ -457,80 +505,110 @@ img {
     text-align: center;
 }
 
+.carousel-inner {
+    height: 800px;
+}
+
 .res-form {
-    width: 650px;            
-    border: 3px solid;
-    border-radius: 10px;
-    background-color: rgb(151, 177, 216);
-    padding: 15px;
+    width: 650px;
+    height: 740px;
+    box-shadow: 7px 7px 15px 0px rgb(123, 123, 123), 8px 8px 16px -10px rgba(0, 0, 0, .15);
+    border: 2px solid rgb(193, 188, 188);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.938);
     margin: 0 auto;
     margin-top: 10px;
+    margin-left: 10px;
     position: absolute;
+    padding: 15px;
 }
 
-.date-area-select{
-    background-color: white(151, 177, 216);
-    border: 1px solid;
-}
-
-.btn-field {
-    color: black;
-    background-color: yellow;
-    margin-bottom: 10px;
+.res-form button,
+.submit-btn {
     border: none;
-    border-radius: 5px;
-    padding: 10px;
-    width: 70px;
-    margin: 5px;
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 20px;
+    font-size: 24px;
+    color: #999;
+    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(249, 249, 249) 100%);    
+    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);  
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
 
 }
 
 .submit-btn {
-    color: white;
-    background-color: rgb(53, 79, 210);
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    display: auto;
-
-    width: 400px;
-
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
+    width: 300px;
+    height: 50px;
 }
 
-.ppg-refresh>img {
+.date-area-select {
+    height: 410px;
+    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);  
+    border-radius: 50px;
+    border: 1px solid rgb(193, 188, 188);
+    padding: 50px;
+}
+
+#resRoundTrip,
+#resOneWay {
+    width: 85px;
+    display: inline;
+    margin: 6px;
+
+}
+
+.ppg-refresh {
     width: 50px;
-    height: 50px;
+    height: 40px;
     margin: 0rem 1rem 0rem 1rem;
     vertical-align: middle;
     cursor: pointer;
 }
-
-/* 
-#resRoundTrip,
-#resOneWay {} */
 
 #resFrom,
 #resTo {
     width: 100px;
 }
 
-#resDate,
-#resPassenger {
-    width: 250px;
-}
-
-.datePicker,
+#resPassenger,
 #inputState {
-    width: 250px;
+    width: 565px;
+    height: 70px;
     display: table;
     margin-left: auto;
     margin-right: auto;
+    color: #999;
+    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
+    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);    
 
+}
+
+#inputState {
+    padding-left: 50px;
+    font-size: 22px;
+}
+
+.fromBtn,
+.toBtn {
+    width: 150px;
+    height: 100px;
+}
+
+.datePicker {
+    width: 400px;
+    border-radius: 20px;
+    color: #999;
+    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
+    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 9px;
 }
 
 .popup-view {
@@ -555,10 +633,13 @@ img {
     visibility: visible;
 }
 
-.bannertest {
-    float: right;
-
+#checkIn {
+    border-radius: 0px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    padding-left: 30px;
+    padding-right: 20px;
 }
 
-
+.col {}
 </style>

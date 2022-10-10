@@ -15,19 +15,19 @@
 
         <router-link class="pageLink" v-bind:to="'/'">
             <div class="logo">
-                <router-link v-bind:to="'/'"> <img src="./assets/Logo.png" alt="logo" style="width:120px; height:90px; "></router-link>
+                <router-link v-bind:to="'/'"> <img src="./assets/Logo.png" style="width:110px; height:80px; "></router-link>
             </div>
         </router-link>
         <!-- 예약버튼 -->
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 
-            <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
+            <router-link to="/Reservation" class="nav-link px-2 link-secondary"></router-link>
 
         </ul>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 
-            <router-link to="/Calendar" class="nav-link px-2 link-secondary">달력</router-link>
+            <router-link to="/Calendar" class="nav-link px-2 link-secondary"></router-link>
 
         </ul>
 

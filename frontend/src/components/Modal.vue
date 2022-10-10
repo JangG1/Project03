@@ -154,6 +154,8 @@ export default {
 </script>
 
 <style>
+
+
 .login-modal {
   position: fixed;
   top: 50%;
@@ -165,14 +167,17 @@ export default {
 
   text-align: center;
   border-radius: 25px;
-  background-color: white;
+  background-color: rgb(239, 239, 239); 
 
-  z-index: 8;
-  box-shadow: 2px 2px 10px lightgrey;
+  z-index: 8;  
+
+  box-shadow: -8px -8px 16px -10px rgba(255, 255, 255, 1), 8px 8px 16px -10px rgba(0, 0, 0, .15);
+    border: 3px solid rgb(193, 188, 188);
 }
 
 .loginBtns {
   justify-content: center;
+  
 }
 
 .loginBtns > div {
@@ -182,6 +187,8 @@ export default {
   padding: 20px;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
+  border: 1.5px solid rgb(193, 188, 188);
+    border-radius: 20px;
 }
 
 .kakaoBtn > img {
@@ -195,11 +202,19 @@ export default {
 }
 
 .closeBtn > button {
-  width: 30%;
-  background: #0d66ff;
-  color: white;
-  border: 1px solid #dbdbdb;
-  border-radius: 10px;
-  padding: 3%;
+  width: 150px;
+  height: 50px;
+  border: none;
+    border: 1.5px solid rgb(193, 188, 188);
+    border-radius: 20px;
+    font-size: 24px;
+    color: #999;
+    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
+    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 </style>

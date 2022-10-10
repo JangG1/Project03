@@ -44,9 +44,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #eee;
+}
 .test{
   background-color: white;
   border-radius: 10px;
+
+  text-align: right;
+  line-height: var(--button-height);
+  font-size: 48px;
+  font-family: Helvetica;
+  padding: 0 20px;
+  color: #666;
 }
 h3 {
   margin: 40px 0 0;

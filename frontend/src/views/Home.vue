@@ -475,7 +475,7 @@ img {
 
 .btn-field {
     color: black;
-    background-color: blue;
+    background-color: yellow;
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;

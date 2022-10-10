@@ -9,7 +9,7 @@
     <div class="carousel-inner">
         <!--배너1-->
         <div class="carousel-item active">
-            <svg class="banner" viewBox="0 100 900 190" width="1520" height="600">
+            <svg class="banner" viewBox="0 100 900 100" width="800" height="500">
                 <image href="../assets/banner1.jpg" />
             </svg>
             <div class="container">
@@ -50,7 +50,7 @@
         </div>
 
         <!--배너 좌우 이동 버튼-->
-    </div>
+   
     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -59,8 +59,8 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
-</div>
 
+</div>
 <!--항공 예약 박스-->
 <!--------------------------------------------------------------------------------->
 
@@ -109,8 +109,9 @@
 
         <input type="submit" value="항공편 검색" class="submit-btn">
     </form>
-</div>
 
+</div>
+</div>
 <!--------------------------------------------------------------------------------->
 
 <!-- 조회버튼 -->
@@ -462,13 +463,13 @@ img {
 }
 
 .res-form {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    float: right;
+
 }
 
+/* 
 #resRoundTrip,
-#resOneWay {}
+#resOneWay {} */
 
 #resFrom,
 #resTo {
@@ -509,5 +510,9 @@ img {
     opacity: 1;
     display: block;
     visibility: visible;
+}
+
+.carousel-inner{
+    width: 800px;
 }
 </style>

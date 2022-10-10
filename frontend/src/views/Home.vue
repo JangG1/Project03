@@ -470,6 +470,7 @@ img {
 
 .date-area-select{
     background-color: white(151, 177, 216);
+    border: 1px solid;
 }
 
 .btn-field {

@@ -1,116 +1,153 @@
 <template>
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
 
     <div class="carousel-inner">
-        <!--배너1-->
-        <div class="carousel-item active">
-            <svg class="banner" viewBox="0 100 900 100" width="800" height="500">
-                <image href="../assets/banner1.jpg" />
-            </svg>
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>지금 갈 수 있는 여행지는 어디?</h1>
-                    <br>
-                    <p>자세히 보기</p>
+
+        <span class="bannertest">
+            <!--배너1-->
+            <div class="carousel-item active">
+                <!--배너 좌우 이동 버튼-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <!--슬라이드 페이지 표시-->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <!--배너 이미지-->
+                <svg class="banner" viewBox="0 60 900 340" width="1670" height="630">
+                    <image href="../assets/banner1.jpg" />
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>지금 갈 수 있는 여행지는 어디?</h1>
+                        <br>
+                        <p>자세히 보기</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--배너2-->
-        <div class="carousel-item">
-            <svg class="banner" viewBox="0 100 900 190" width="1520" height="600">
-                <image href="../assets/banner2.jpg" />
-            </svg>
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>아름다운 야경과 낭만의 도시</h1>
-                    <h4>10월 3일 헝가리 부다페스트 취항합니다</h4>
-                    <br>
-                    <p>자세히 보기</p>
+            <!--배너2-->
+            <div class="carousel-item">
+                <!--배너 좌우 이동 버튼-->
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <!--슬라이드 페이지 표시-->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <!--배너 이미지-->
+                <svg class="banner" viewBox="0 60 900 300" width="1700" height="630">
+                    <image href="../assets/banner2.jpg" />
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>아름다운 야경과 낭만의 도시</h1>
+                        <h4>10월 3일 헝가리 부다페스트 취항합니다</h4>
+                        <br>
+                        <p>자세히 보기</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--배너3-->
-        <div class="carousel-item">
-            <svg class="banner" viewBox="0 100 900 190" width="1520" height="600">
-                <image href="../assets/banner3.jpg" />
-            </svg>
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>실시간 항공권 비교하고</h1>
-                    <h2>특가 항공권 예약하세요!</h2>
-                    <br>
-                    <p>자세히 보기</p>
+            <!--배너3-->
+            <div class="carousel-item">
+                <!--배너 좌우 이동 버튼-->
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <!--슬라이드 페이지 표시-->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <!--배너 이미지-->
+                <svg class="banner" viewBox="0 60 900 300" width="1700" height="630">
+                    <image href="../assets/banner3.jpg" />
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>실시간 항공권 비교하고</h1>
+                        <h2>특가 항공권 예약하세요!</h2>
+                        <br>
+                        <p>자세히 보기</p>
+                    </div>
                 </div>
             </div>
+        </span>
+
+        <!--항공 예약 박스-->
+        <!--------------------------------------------------------------------------------->
+
+        <form class="res-form">
+            <div class="date-area-select">
+            <button type="button" @click="test" class="btn-field" id="resRoundTrip">왕복</button>
+            <button type="button" class="btn-field" id="resOneWay">편도</button>
+            <br>
+            <div>
+                <!-- <button type="button" class="btn-field" id="resFrom">출발지</button> -->
+                <input type="text" v-model="fromBtn">
+            </div>
+            <div class="ppg-refresh">
+                <img src="../assets/papagoRefresh.png" @click="change" />
+            </div>
+            <div id="toBtn">
+                <!-- <button type="button" class="btn-field" id="resTo">도착지</button> -->
+                <input type="text" v-model="toBtn">
+            </div>
+            <br>
+
+            <button type="button" class="btn-field" id="resDate">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                </svg>
+                &nbsp; 가는날 ~ 오는날
+            </button>
+            <Datepicker class="datePicker" v-model="date" modelAuto range />
         </div>
+            <br>
 
-        <!--배너 좌우 이동 버튼-->
-   
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+            <!--승객수 팝업-->
+            <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
+            <br>
+            <div class="popup-view" :class="{ active : popupView }">
+                <pop-up @close-popup="popUp()"></pop-up>
+            </div>
+            <!--모달 테스트-->
 
-</div>
-<!--항공 예약 박스-->
-<!--------------------------------------------------------------------------------->
+            <!--좌석 선택-->
+            <label class="form-label">좌석 등급</label>
+            <select id="inputState" class="form-select">
+                <option selected>일반석</option>
+                <option>이코노미</option>
+                <option>비즈니스</option>
+            </select>
 
-<div class="res-form">
-    <form>
-        <button type="button" @click="test" class="btn-field" id="resRoundTrip">왕복</button>
-        <button type="button" class="btn-field" id="resOneWay">편도</button>
-        <br>
-        <div>
-            <button type="button" class="btn-field" id="resFrom">출발지</button>
-            <input type="text" v-model="fromBtn">
-        </div>
-        <div class="ppg-refresh">
-            <img src="../assets/papagoRefresh.png" @click="change" />
-        </div>
-        <div id="toBtn">
-            <button type="button" class="btn-field" id="resTo">도착지</button>
-            <input type="text" v-model="toBtn">
-        </div>
-        <br>
+            <input type="submit" value="항공편 검색" class="submit-btn">
+        </form>
 
-        <button type="button" class="btn-field" id="resDate">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-            </svg>
-            &nbsp; 가는날 ~ 오는날
-        </button>
-        <Datepicker class="datePicker" v-model="date" modelAuto range />
-        <br>
-
-        <!--승객수 팝업-->
-        <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
-        <br>
-        <div class="popup-view" :class="{ active : popupView }">
-            <pop-up @close-popup="popUp()"></pop-up>
-        </div>
-<!--모달 테스트-->
-
-        <!--좌석 선택-->
-        <label class="form-label">좌석 등급</label>
-        <select id="inputState" class="form-select">
-            <option selected>일반석</option>
-            <option>이코노미</option>
-            <option>비즈니스</option>
-        </select>
-
-        <input type="submit" value="항공편 검색" class="submit-btn">
-    </form>
-
-</div>
+    </div>
 </div>
 <!--------------------------------------------------------------------------------->
 
@@ -333,6 +370,12 @@ h5 {
 img {
     border-radius: 15px;
 }
+.carousel-caption{
+    margin-left: 600px;
+}
+.carousel-indicators{
+    margin-left: 855px;
+}
 
 .loginBtn {
     color: black;
@@ -344,53 +387,52 @@ img {
 
 .banner {
     border-radius: 15px;
-    margin-top: 15px;
 }
 
-.bd-placeholder-img {
+/* .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-}
+} */
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .bd-placeholder-img-lg {
         font-size: 3.5rem;
     }
-}
+} */
 
 .carousel-control-prev {
-    width: 50px;
+    width: 40px;
     /* 사이즈 */
-    height: 50px;
+    height: 40px;
     /* 사이즈 */
-    border-top: 10px solid white;
+    border-top: 8px solid white;
     /* 선 두께 */
-    border-right: 10px solid white;
+    border-right: 8px solid white;
     /* 선 두께 */
     transform: rotate(225deg);
     /* 각도 */
     position: absolute;
     top: 50%;
-    left: 70px;
+    left: 680px;
 }
 
 .carousel-control-next {
-    width: 50px;
+    width: 40px;
     /* 사이즈 */
-    height: 50px;
+    height: 40px;
     /* 사이즈 */
-    border-top: 10px solid white;
+    border-top: 8px solid white;
     /* 선 두께 */
-    border-right: 10px solid white;
+    border-right: 8px solid white;
     /* 선 두께 */
     transform: rotate(45deg);
     /* 각도 */
     position: absolute;
-    top: 46%;
-    right: 70px;
+    top: 50%;
+    right: 50px;
 }
 
 .refer {
@@ -416,13 +458,18 @@ img {
 }
 
 .res-form {
-    width: 700px;
-    height: 600px;
-
-    border-radius: 5px;
-    background-color: rgb(228, 226, 226);
-    padding: 20px;
+    width: 650px;            
+    border: 3px solid;
+    border-radius: 10px;
+    background-color: rgb(151, 177, 216);
+    padding: 15px;
     margin: 0 auto;
+    margin-top: 10px;
+    position: absolute;
+}
+
+.date-area-select{
+    background-color: white(151, 177, 216);
 }
 
 .btn-field {
@@ -439,7 +486,7 @@ img {
 
 .submit-btn {
     color: white;
-    background-color: black;
+    background-color: rgb(53, 79, 210);
     margin-top: 30px;
     margin-bottom: 30px;
     padding: 10px;
@@ -460,11 +507,6 @@ img {
     margin: 0rem 1rem 0rem 1rem;
     vertical-align: middle;
     cursor: pointer;
-}
-
-.res-form {
-    float: right;
-
 }
 
 /* 
@@ -512,7 +554,10 @@ img {
     visibility: visible;
 }
 
-.carousel-inner{
-    width: 800px;
+.bannertest {
+    float: right;
+
 }
+
+
 </style>

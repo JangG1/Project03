@@ -27,23 +27,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.FT.app.myPage.domain.ResList;
 import com.FT.app.myPage.mapper.ResListMapper;
+import com.FT.app.product.service.ProdService;
+import com.FT.app.product.vo.ProdVO;
 
 @RestController
 @RequestMapping("/res")
 public class ResController {
 	private ResListMapper mapper;
+	@Autowired
+	private ProdService prodService;
+
+	
+	@GetMapping("/productDetail/all")
+	public List<ProdVO> getAllProductList() throws Exception {
+		return prodService.getProductList();
+	}
 	
 	//ResList 보관함에 저장
 	@PostMapping("/resList/upload")
 	public int upload(
 			@RequestParam("email") String email,
-			@RequestParam("res_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime trans_date,
+			@RequestParam("res_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime res_date,
 			@RequestParam("kind") String kind,
 			@RequestParam("input") String input,
 			@RequestParam("output") String output,
 			HttpServletRequest request)throws IOException {
 
-		return mapper.insertResListContent(email,trans_date,kind,input,output);
+		return mapper.insertResListContent(email,res_date,kind,input,output);
 	}
 	
 	//voice_trans 보관함 아이템 불러오기 email 기준 전부

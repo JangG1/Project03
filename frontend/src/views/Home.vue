@@ -29,7 +29,7 @@
                     <div class="carousel-caption">
                         <h1>지금 갈 수 있는 여행지는 어디?</h1>
                         <br>
-                        <p>자세히 보기</p>
+                        <h4>자세히 보기</h4>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         <h1>아름다운 야경과 낭만의 도시</h1>
                         <h4>10월 3일 헝가리 부다페스트 취항합니다</h4>
                         <br>
-                        <p>자세히 보기</p>
+                        <h4>자세히 보기</h4>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         <h1>실시간 항공권 비교하고</h1>
                         <h2>특가 항공권 예약하세요!</h2>
                         <br>
-                        <p>자세히 보기</p>
+                        <h4>자세히 보기</h4>
                     </div>
                 </div>
             </div>
@@ -106,17 +106,18 @@
                 <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
                 <br>
                 <br>
-                <div>
-                    <img type="button" class="fromBtn" src="../assets/test.jpg" />
+                <div class="FromTo">
+                    <!-- <img type="button" class="fromBtn" id="fromBtn" src="../assets/FromArea/seoul.jpg" /> -->
+                    <input type="button" v-model="fromBtn" @click="popUp">                    
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
-                    <img type="button" class="toBtn" src="../assets/test.jpg" />
+                    <!-- <img type="button" class="toBtn" id="toBtn" src="../assets/ToArea/main.jpg" /> -->
+                    <input type="button" v-model="toBtn" @click="popUp">
                 </div>
-                <br>                
+                <br>
                 <br>
                 <hr>
-                <Datepicker v-if="show1" class="datePicker" v-model="date" placeholder="                         가는날 ~ 오는날" modelAuto range />
-                <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                              탑승일 선택" />
-
+                <Datepicker v-if="show1" class="datePicker" v-model="date" placeholder="                              가는날 ~ 오는날" modelAuto range />
+                <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
             </div>
 
             <!--승객수 팝업-->
@@ -126,6 +127,9 @@
                 <pop-up @close-popup="popUp()"></pop-up>
             </div>
 
+            <div>
+
+            </div>
             <!--좌석 선택-->
 
             <select id="inputState" class="form-select">
@@ -165,7 +169,7 @@
             <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
         </svg>
-    <span>&nbsp; 항공편 조회 </span>
+        <span>&nbsp; 항공편 조회 </span>
     </button>
 
 </div>
@@ -343,9 +347,9 @@
 
     </div>
 
-    <!-- /END THE FEATURETTES -->
 
-</div><!-- /.container -->
+
+</div>
 
 <!-- FOOTER -->
 <footer class="container">
@@ -356,7 +360,9 @@
 
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
-import PopUp from '@/views/PopUp.vue';
+import PopUp from './PopUp.vue';
+// import FromArea from './FromArea.vue';
+// import ToArea from './ToArea.vue';
 import axios from '../axios';
 
 export default {
@@ -364,17 +370,21 @@ export default {
     components: {
         Datepicker,
         PopUp,
+        // FromArea,
+        // ToArea
     },
+    props: ['AdultCount'],
     data() {
         return {
-            toBtn: null,
-            fromBtn: null,
+            toBtn: "",
+            fromBtn: "",
             date: null,
             oneWay: null,
             popupView: false,
             show1: true,
             show2: false,
-            products: [],
+            product: [],
+            count: 0,
         }
     },
     methods: {
@@ -403,14 +413,24 @@ export default {
             this.show1 = false;
             this.show2 = true;
         },
-        getData () {
-                axios.get('api/user/all')
+        getData() {
+            axios.get('api/user/all')
                 .then((response) => {
                     this.products = response.data
                 })
-            },
-
-    }
+        },
+        fromSearch() {
+            alert("fromSearch")
+        },
+        toSearch() {
+            alert("toSearch")
+        },
+        changeCount(value) {
+            this.count = value;
+        },
+     
+        
+}
 }
 </script>
 
@@ -431,7 +451,6 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: white;
 }
 
 .carousel-caption {
@@ -451,7 +470,7 @@ body {
 }
 
 .banner {
-    border-radius: 15px;   
+    border-radius: 15px;
 }
 
 .carousel-control-prev {
@@ -486,17 +505,20 @@ body {
     top: 50%;
     right: 50px;
 }
-svg, span{
+
+svg,
+span {
     color: rgb(139, 139, 139);
     font-size: 24px;
 }
+
 .refer {
     text-align: center;
-    
+
 }
 
 .recommendProduct {
-    margin-top: 40px;    
+    margin-top: 40px;
     color: rgb(139, 139, 139);
 }
 
@@ -518,11 +540,11 @@ svg, span{
 
 .res-form {
     width: 650px;
-    height: 740px;
+    height: 750px;
     box-shadow: 7px 7px 15px 0px rgb(123, 123, 123), 8px 8px 16px -10px rgba(0, 0, 0, .15);
     border: 2px solid rgb(193, 188, 188);
     border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.938);
+    background-color: rgba(252, 252, 252, 0.957);
     margin: 0 auto;
     margin-top: 10px;
     margin-left: 10px;
@@ -530,15 +552,16 @@ svg, span{
     padding: 15px;
 }
 
-.res-form button,
+.datePicker,
+.btn-field,
+.form-select,
 .submit-btn {
     border: none;
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
     font-size: 24px;
     color: #999;
-    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(249, 249, 249) 100%);    
-    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);  
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
     display: table;
     margin-left: auto;
     margin-right: auto;
@@ -547,14 +570,23 @@ svg, span{
 
 }
 
+.FromTo input {
+    width: 200px;
+    height: 100px;
+    border: none;
+    background-color: none;
+    text-align: center;
+    cursor: pointer;
+}
+
 .submit-btn {
     width: 300px;
     height: 50px;
 }
 
 .date-area-select {
-    height: 410px;
-    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);  
+    height: 430px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.612) 0%, rgb(237, 237, 237) 100%);
     border-radius: 50px;
     border: 1px solid rgb(193, 188, 188);
     padding: 50px;
@@ -590,7 +622,7 @@ svg, span{
     margin-right: auto;
     color: #999;
     background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
-    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);    
+    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);
 }
 
 #inputState {
@@ -605,16 +637,17 @@ svg, span{
 }
 
 .datePicker {
-    width: 400px;
+    width: 450px;
     border-radius: 20px;
     color: #999;
-    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
+    /*background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);*/
     box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
     display: table;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    margin-top: 30px;    
     padding: 9px;
+    
 }
 
 .popup-view {
@@ -628,8 +661,8 @@ svg, span{
     width: 60%;
     height: 40%;
     text-align: center;
-    border-radius: 25px;
-    background-color: white;
+    border-radius: px;
+    background-color: rgb(244, 244, 244);
     box-shadow: 2px 2px 10px lightgrey;
 }
 
@@ -647,5 +680,4 @@ svg, span{
     padding-right: 20px;
 }
 
-.col {}
 </style>

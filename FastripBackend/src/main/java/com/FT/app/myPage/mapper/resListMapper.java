@@ -15,20 +15,20 @@ import com.FT.app.myPage.domain.ResList;
 
 @Mapper
 public interface ResListMapper {
-	@Select("select count(*) from res")
-	int getCountResList();
+//	@Select("select count(*) from res")
+//	int getCountResList();
 
-	@Select("select * from res")
-	List<ResList> getResList();
-	
+//	@Select("select * from res")
+//	List<ResList> getResList();
+//	
 	@Select("select * from res where email = #{email} order by res_no desc")
 	List<ResList> getResListByEmail(@Param("email") String email);
-	
-	@Select("select * from res where email = #{email} and res_no = #{res_no}")
-	ResList getResList(
-			@Param("email") String email,
-			@Param("res_no") int res_no);
-	
+//	
+//	@Select("select * from res where email = #{email} and res_no = #{res_no}")
+//	ResList getResList(
+//			@Param("email") String email,
+//			@Param("res_no") int res_no);
+//	
 	@Insert("insert into res(email,res_date,kind,input,output) "
 			+"values(#{email},#{trans_date},#{kind},#{input},#{output,jdbcType=VARCHAR})")
 	int insertResListContent(
@@ -37,10 +37,10 @@ public interface ResListMapper {
 			@Param("kind") String kind,
 			@Param("input") String input,
 			@Param("output") String output);
-	
-	@Delete("delete from res where email = #{email} and res_no = #{res_no}")
-	int deleteResListContent(
-     		@Param("email") String email,
-			@Param("res_no") int res_no);
+//	
+//	@Delete("delete from res where email = #{email} and res_no = #{res_no}")
+//	int deleteResListContent(
+//     		@Param("email") String email,
+//			@Param("res_no") int res_no);
 	
 }

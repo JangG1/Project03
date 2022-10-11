@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class resList {
+public class ResList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long res_no;

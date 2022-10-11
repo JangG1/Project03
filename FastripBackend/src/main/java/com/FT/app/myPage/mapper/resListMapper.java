@@ -11,36 +11,36 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.FT.app.myPage.domain.resList;
+import com.FT.app.myPage.domain.ResList;
 
 @Mapper
-public interface resListMapper {
+public interface ResListMapper {
 	@Select("select count(*) from res")
 	int getCountResList();
 
-//	@Select("select * from res")
-//	List<resList> getResList();
-//	
-//	@Select("select * from res where email = #{email} order by res_no desc")
-//	List<resList> getResListByEmail(@Param("email") String email);
-//	
-//	@Select("select * from res where email = #{email} and res_no = #{res_no}")
-//	resList getResList(
-//			@Param("email") String email,
-//			@Param("res_no") int res_no);
-//	
-//	@Insert("insert into res(email,res_date,kind,input,output) "
-//			+"values(#{email},#{trans_date},#{kind},#{input},#{output,jdbcType=VARCHAR})")
-//	int insertResListContent(
-//			@Param("email") String email,
-//			@Param("res_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime res_date,
-//			@Param("kind") String kind,
-//			@Param("input") String input,
-//			@Param("output") String output);
+	@Select("select * from res")
+	List<ResList> getResList();
 	
-//	@Delete("delete from res where email = #{email} and res_no = #{res_no}")
-//	int deleteResListContent(
-//			@Param("email") String email,
-//			@Param("res_no") int res_no);
+	@Select("select * from res where email = #{email} order by res_no desc")
+	List<ResList> getResListByEmail(@Param("email") String email);
+	
+	@Select("select * from res where email = #{email} and res_no = #{res_no}")
+	ResList getResList(
+			@Param("email") String email,
+			@Param("res_no") int res_no);
+	
+	@Insert("insert into res(email,res_date,kind,input,output) "
+			+"values(#{email},#{trans_date},#{kind},#{input},#{output,jdbcType=VARCHAR})")
+	int insertResListContent(
+			@Param("email") String email,
+			@Param("res_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime res_date,
+			@Param("kind") String kind,
+			@Param("input") String input,
+			@Param("output") String output);
+	
+	@Delete("delete from res where email = #{email} and res_no = #{res_no}")
+	int deleteResListContent(
+     		@Param("email") String email,
+			@Param("res_no") int res_no);
 	
 }

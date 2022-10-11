@@ -25,15 +25,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.FT.app.myPage.domain.resList;
-import com.FT.app.myPage.mapper.resListMapper;
+import com.FT.app.myPage.domain.ResList;
+import com.FT.app.myPage.mapper.ResListMapper;
 
 @RestController
 @RequestMapping("/res")
-public class resController {
-	private resListMapper mapper;
+public class ResController {
+	private ResListMapper mapper;
 	
-	//resList 보관함에 저장
+	//ResList 보관함에 저장
 	@PostMapping("/resList/upload")
 	public int upload(
 			@RequestParam("email") String email,
@@ -48,7 +48,7 @@ public class resController {
 	
 	//voice_trans 보관함 아이템 불러오기 email 기준 전부
 	@GetMapping("/resList/list/{email}")
-	public List<resList> getList(
+	public List<ResList> getList(
 			@PathVariable("email") String email){
 		return mapper.getResListByEmail(email);
 	}

@@ -357,6 +357,7 @@
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
 import PopUp from '@/views/PopUp.vue';
+import axios from '../axios';
 
 export default {
     name: 'HelloWorld',
@@ -373,6 +374,7 @@ export default {
             popupView: false,
             show1: true,
             show2: false,
+            products: [],
         }
     },
     methods: {
@@ -401,6 +403,12 @@ export default {
             this.show1 = false;
             this.show2 = true;
         },
+        getData () {
+                axios.get('api/user/all')
+                .then((response) => {
+                    this.products = response.data
+                })
+            },
 
     }
 }

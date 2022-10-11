@@ -443,8 +443,7 @@ body {
 }
 
 .banner {
-    border-radius: 15px;
-    box-shadow: -8px -8px 16px -10px rgba(255, 255, 255, 1), 8px 8px 16px -10px rgba(0, 0, 0, .15);
+    border-radius: 15px;   
 }
 
 .carousel-control-prev {
@@ -584,7 +583,6 @@ svg, span{
     color: #999;
     background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
     background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);    
-
 }
 
 #inputState {

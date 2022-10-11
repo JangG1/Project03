@@ -153,11 +153,13 @@ nav a.router-link-exact-active {
 }
 
 .logoutBtnEmpty {
-    color: black;
+    color: #999;
     border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
     padding: 10px 20px 10px 20px;
+    box-shadow: 5.5px 5.5px 15px 0px rgb(39, 39, 39), 8px 8px 16px -10px rgba(0, 0, 0, .15);
+    border: 3px solid rgb(193, 188, 188);
 }
 
 .layerPopup {

@@ -1,9 +1,9 @@
 <template>
 <div class="login-modal px-5 py-5" v-if="loginModal">
     <div class="login-text my-4">
-        <h4>로그인</h4>
+        <p>로그인</p>
     </div>
-    <div class="loginBtns mt-5 mb-5">
+    <div class="loginBtns mt-4 mb-5">
         <div @click="kakaoLogin" class="kakaoBtn mb-3">
             <img src="@/assets/kakaoLogo.png" alt="" />
             <br />
@@ -158,6 +158,11 @@ export default {
 </script>
 
 <style>
+p{
+  color: #999;
+  font-size: 24px;
+}
+
 .login-modal {
     position: fixed;
     top: 50%;

@@ -1,36 +1,42 @@
 <template>
-<Datepicker v-model="date" modelAuto range />
+
 <div>
     <!--승객수 팝업-->
 
     <div>
-        <span>승객 수 : {{ count }}</span>
-        <Reservation :count="count" @change="changeCount" />
+        <h1>자식1</h1>
+        <span>승객 수 : {{ cicityOfChildty }} </span><br>
+        <span>이름 : {{ name }} </span><br>
+        <span>번호 : {{ phone }} </span><br>
     </div>
+    
 </div>
 </template>
 
 <script>
-import Datepicker from '@vuepic/vue-datepicker';
+
 import '@vuepic/vue-datepicker/dist/main.css'
-import Reservation from '@/views/Reservation.vue';
+
 
 export default {
     name: "HelloWorld",
-    props: ['AdultCount'],
+    props: ['cicityOfChildty','name','phone'],
+    computed:{
+    },
     components: {
-        Datepicker,
-        Reservation
+        
+        
     },
     data() {
         return {
             date: null,
             count: 0,
+            abc: false
         };
     },
     methods: {
-        changeCount(value) {
-            this.count = value;
+        changeUser(){
+            this.$emit('child')
         }
     }
 }

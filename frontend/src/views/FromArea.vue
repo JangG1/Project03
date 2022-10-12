@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h3>도착지 검색</h3>
+                <h3>출발지 검색</h3>
                 <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
             </div>
         </div>
@@ -16,8 +16,8 @@
     </div>
 </template>
 
-    
-    
+  
+  
 <script>
 export default {
     name: 'HelloWorld',
@@ -34,8 +34,8 @@ export default {
     }
 }
 </script>
-    
-    
+  
+  
 <style scoped>
 h3 {
     float: left;

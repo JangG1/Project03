@@ -11,20 +11,35 @@
 
     </form>
 </div>
+<h1>부모</h1>
+<div>{{city}}</div>
+  <button type="button" @click="changeName">교체</button>
+  <Calendar :cicityOfChildty="city"></Calendar>
+  <Calendar 
+  :name="name"
+  :phone="phone"
+  >
+  </Calendar>
+
+
 </template>
 
 <script>
+import Calendar from './Calendar.vue';
 
 
 export default {
     name: 'HelloWorld',
     components: {
-
+        Calendar,
+      
     },
-    props:["count"],
+    props:[""],
     data() {
         return {
-
+            city: "Seoul",
+            name: "Jiwon",
+            phone: "1234-5678",            
         }
     },
     methods: {
@@ -45,6 +60,12 @@ export default {
         },
         decrement() {
             this.$emit("change", this.count - 1);
+        },
+        changeName(){
+            this.city = "Dio"
+        },
+        parents(){
+            console.log("잘받았어")
         }
     }
 }

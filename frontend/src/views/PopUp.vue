@@ -1,9 +1,9 @@
-<template>
+<template>    
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <h3>승객 선택</h3>
-            <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
+<button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>                        
         </div>
     </div>
     <hr>
@@ -11,12 +11,10 @@
     <div class="row">
         <div class="col-sm-6 col-md-3">
             <div>
-                <h4>성인</h4><br><br>
-                <!-- <img src="../assets/plus.png" @click="AdultPlus"> -->
+                <h4>성인</h4><br><br>                
                 <button type="button" @click="AdultPlus">+</button>
                 <span>&nbsp; {{ AdultCount }} &nbsp;</span>
-                <!-- <img src="../assets/minus.png" @click="AdultMinus"> -->
-                <button type="button" @click="AdultMinus">-</button>
+                <button type="button" @click="AdultMinus">-</button>                
             </div>
         </div>
         <div class="col-sm-6 ">
@@ -37,22 +35,38 @@
         </div>
         <button type="button" class="submitBtn" @click="submit()">확인</button>
     </div>
-
+  <div>{{city}}</div>
+  <button type="button" @click="changeName">교체</button>
 </div>
+<Calendar :city="city"></Calendar>
+<Calendar 
+:name="name"
+:phone="phone"
+:hasDog="hasDog"
+>
+</Calendar>
+
 </template>
 
 <script>
+import Calendar from './Calendar.vue';
+
 export default {
     name: 'HelloWorld',
-    components: {
-
+    props : {            
     },
-    props: ["count"],
+    components: {
+        Calendar,
+},
     data() {
         return {
-            AdultCount: 0,
+            AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
+            name: 'Hoza',
+            phone: '1234-5678',
+            hasDog: true,
+            city: "Tokyo"
         }
     },
     methods: {
@@ -79,7 +93,11 @@ export default {
         InfantMinus() {
             if (this.InfantCount != 0)
                 this.InfantCount--;
+        },
+        changeName(){
+            this.city = "Dio";
         }
+        
     }
 }
 </script>

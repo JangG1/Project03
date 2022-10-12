@@ -107,11 +107,18 @@
                 <br>
                 <br>
                 <div class="FromTo">
-                    <!-- <img type="button" class="fromBtn" id="fromBtn" src="../assets/FromArea/seoul.jpg" /> -->
-                    <input type="button" v-model="fromBtn" @click="popUp">                    
+                    <!--FromArea-->
+                    <input type="button" v-model="fromBtn" @click="fromAreaPopUp">
+                    <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
+                        <FromArea @close-popup="fromAreaPopUp"></FromArea>
+                    </div>
+                    <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
-                    <!-- <img type="button" class="toBtn" id="toBtn" src="../assets/ToArea/main.jpg" /> -->
-                    <input type="button" v-model="toBtn" @click="popUp">
+                    <!--ToArea-->
+                    <input type="button" v-model="toBtn" @click="toAreaPopUp">
+                    <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
+                        <ToArea @close-popup="toAreaPopUp"></ToArea>
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -124,7 +131,7 @@
             <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
 
             <div class="popup-view" :class="{ active : popupView }">
-                <pop-up @close-popup="popUp()"></pop-up>
+                <PopUp @close-popup="popUp()"></PopUp>
             </div>
 
             <div>
@@ -147,6 +154,9 @@
 </div>
 <!--------------------------------------------------------------------------------->
 
+<!--Test Zone-->
+<h1>{{city}}</h1>
+<h1>{{cityOfChild}}</h1>
 <!-- 조회버튼 -->
 <div class="refer">
     <!--예약 조회 버튼-->
@@ -181,6 +191,7 @@
 <div class="recommendProduct">
     <h3>지금 떠나기 좋은 여행</h3><br>
     <div class="">
+
         <div class="container">
 
             <div class="row row-cols-4 row-cols-sm-2 row-cols-md-4 g-3">
@@ -347,8 +358,6 @@
 
     </div>
 
-
-
 </div>
 
 <!-- FOOTER -->
@@ -361,8 +370,8 @@
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
 import PopUp from './PopUp.vue';
-// import FromArea from './FromArea.vue';
-// import ToArea from './ToArea.vue';
+import FromArea from './FromArea.vue';
+import ToArea from './ToArea.vue';
 import axios from '../axios';
 
 export default {
@@ -370,13 +379,14 @@ export default {
     components: {
         Datepicker,
         PopUp,
-        // FromArea,
-        // ToArea
+        FromArea,
+        ToArea,
     },
-    props: ['AdultCount'],
+    props: ['cityOfChild'],
     data() {
-        return {
+        return {            
             toBtn: "",
+            city: "123",
             fromBtn: "",
             date: null,
             oneWay: null,
@@ -385,6 +395,10 @@ export default {
             show2: false,
             product: [],
             count: 0,
+            fromAreaView: false,
+            toAreaView: false,
+            showModal: false, //true일 때 모달창 보여짐
+            modalDatas: [], //모달에 보낼 데이터 배열
         }
     },
     methods: {
@@ -402,8 +416,11 @@ export default {
         popUp() {
             this.popupView = (this.popupView) ? false : true
         },
-        closePopup: function () {
-            this.$emit('close-popup')
+        fromAreaPopUp() {
+            this.fromAreaView = (this.fromAreaView) ? false : true
+        },
+        toAreaPopUp() {
+            this.toAreaView = (this.toAreaView) ? false : true
         },
         toggleRoundTrip() {
             this.show1 = true;
@@ -419,18 +436,11 @@ export default {
                     this.products = response.data
                 })
         },
-        fromSearch() {
-            alert("fromSearch")
+        openModal: function (event) {
+            this.modalDatas = event;
         },
-        toSearch() {
-            alert("toSearch")
-        },
-        changeCount(value) {
-            this.count = value;
-        },
-     
-        
-}
+
+    }
 }
 </script>
 
@@ -645,9 +655,9 @@ span {
     display: table;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;    
+    margin-top: 30px;
     padding: 9px;
-    
+
 }
 
 .popup-view {
@@ -655,6 +665,7 @@ span {
     display: none;
     visibility: hidden;
     position: fixed;
+    z-index: 1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -680,4 +691,19 @@ span {
     padding-right: 20px;
 }
 
+.fromAreaView,
+.toAreaView {
+    padding: 20px;
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 40%;
+    text-align: center;
+    border-radius: 15px;
+    background-color: rgb(246, 246, 246);
+    box-shadow: 2px 2px 10px lightgrey;
+}
 </style>

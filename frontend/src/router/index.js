@@ -16,6 +16,17 @@ const routes = [
     path: '/Calendar',
     name: 'Calendar',
     component: () => import('../views/Calendar.vue')
+  },
+  {
+    path: '/WebView',
+    name: 'WebView',
+    component: () => import('../views/WebView.vue')
+  }
+  ,
+  {
+    path: '/Modal',
+    name: 'Modal',
+    component: () => import('../views/Modal.vue')
   }
 ]
 

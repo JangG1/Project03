@@ -177,7 +177,7 @@ p{
     background-color: white;
 
     z-index: 8;
-
+    border-radius: 15px;
     box-shadow: -8px -8px 16px -10px rgba(255, 255, 255, 1), 8px 8px 16px -10px rgba(0, 0, 0, .15);
     border: 3px solid rgb(193, 188, 188);
 }

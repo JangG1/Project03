@@ -661,7 +661,7 @@ span {
     width: 60%;
     height: 40%;
     text-align: center;
-    border-radius: px;
+    border-radius: 15px;
     background-color: rgb(244, 244, 244);
     box-shadow: 2px 2px 10px lightgrey;
 }

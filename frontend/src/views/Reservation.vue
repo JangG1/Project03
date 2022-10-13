@@ -1,77 +1,51 @@
 <template>
 <div class="test">
-    <form>
-
-        <h1>Reservation</h1>
-
-        <button type="button" @click="decrement">-</button>
-        <button type="button" @click="increment">+</button>
-        <hr>
-
-
-    </form>
+    <h1>Reservation</h1>
 </div>
 <h1>부모</h1>
-<div>{{city}}</div>
-  <button type="button" @click="changeName">교체</button>
-  <Calendar :cicityOfChildty="city"></Calendar>
-  <Calendar 
-  :name="name"
-  :phone="phone"
-  >
-  </Calendar>
+
+<Calendar></Calendar>
+
+<Modal :name="name" @update-name="updateName"></Modal>
+{{name}}
 
 
+<PopUp :count="count" @update-count="updateCount"></PopUp>
+{{count}}
 </template>
 
 <script>
 import Calendar from './Calendar.vue';
-
+import Modal from './Modal.vue';
+import PopUp from './PopUp.vue';
 
 export default {
     name: 'HelloWorld',
     components: {
         Calendar,
-      
+        Modal,
+        PopUp
+
     },
-    props:[""],
+    props: [""],
     data() {
         return {
-            city: "Seoul",
-            name: "Jiwon",
-            phone: "1234-5678",            
+            name: "",
+            AdultCount: 0,
+            count: 0
         }
     },
     methods: {
-        plus() {
-            this.personCount++;
+        updateName(name){
+            this.name = name;
         },
-        minus() {
-            if (this.personCount != 0)
-                this.personCount--;
+        updateCount(count){
+            this.count = count;
         },
-        change() {
-            let temp = this.input;
-            this.input = this.output;
-            this.output = temp;
-        },
-        increment() {
-            this.$emit("change", this.count + 1);
-        },
-        decrement() {
-            this.$emit("change", this.count - 1);
-        },
-        changeName(){
-            this.city = "Dio"
-        },
-        parents(){
-            console.log("잘받았어")
-        }
+        
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
 body {

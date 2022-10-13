@@ -1,9 +1,9 @@
-<template>    
+<template>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <h3>승객 선택</h3>
-<button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>                        
+            <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
         </div>
     </div>
     <hr>
@@ -11,10 +11,10 @@
     <div class="row">
         <div class="col-sm-6 col-md-3">
             <div>
-                <h4>성인</h4><br><br>                
+                <h4>성인</h4><br><br>
                 <button type="button" @click="AdultPlus">+</button>
                 <span>&nbsp; {{ AdultCount }} &nbsp;</span>
-                <button type="button" @click="AdultMinus">-</button>                
+                <button type="button" @click="AdultMinus">-</button>
             </div>
         </div>
         <div class="col-sm-6 ">
@@ -35,41 +35,42 @@
         </div>
         <button type="button" class="submitBtn" @click="submit()">확인</button>
     </div>
-  <div>{{city}}</div>
-  <button type="button" @click="changeName">교체</button>
+
 </div>
-<Calendar :city="city"></Calendar>
-<Calendar 
-:name="name"
-:phone="phone"
-:hasDog="hasDog"
->
-</Calendar>
+<!--Test-->
+
+<div id="app">
+    <h1>popup.vue</h1>
+    <form @submit="updateCount">
+        <button type="button" @click="countPlus">+</button>
+        <input type="text" 
+        v-model="count"        
+        @input="updateCount"><br> <br>
+    <button type="submit">Submit</button>
+    </form>
+</div>
 
 </template>
 
 <script>
-import Calendar from './Calendar.vue';
-
 export default {
     name: 'HelloWorld',
-    props : {            
-    },
+    props: {},
     components: {
-        Calendar,
-},
+
+    },
     data() {
         return {
             AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
-            name: 'Hoza',
-            phone: '1234-5678',
-            hasDog: true,
-            city: "Tokyo"
+            count: 1
         }
     },
     methods: {
+        countPlus() {
+            this.count++;
+        },
         AdultPlus() {
             this.AdultCount++;
 
@@ -94,10 +95,14 @@ export default {
             if (this.InfantCount != 0)
                 this.InfantCount--;
         },
-        changeName(){
-            this.city = "Dio";
-        }
+        updateCount() {            
+            this.$emit('update-count', this.count);
+            
+        },
         
+        
+        
+
     }
 }
 </script>
@@ -117,7 +122,7 @@ h4 {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    
+
 }
 
 span {
@@ -131,18 +136,18 @@ img {
     height: 30px;
 }
 
-button:not(#closeBtn,.submitBtn){
+button:not(#closeBtn, .submitBtn) {
     width: 40px;
     border: none;
     border: 1px solid rgb(193, 188, 188);
     border-radius: 15px;
     font-size: 24px;
     color: #999;
-    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);   
+    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
 }
 
 .container {
-    background-color: rgb(244, 244, 244);    
+    background-color: rgb(244, 244, 244);
     border-radius: 15px;
 }
 
@@ -158,7 +163,7 @@ button:not(#closeBtn,.submitBtn){
     border-radius: 15px;
     font-size: 24px;
     color: #999;
-    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);   
+    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
 }
 
 #closeBtn {
@@ -167,9 +172,9 @@ button:not(#closeBtn,.submitBtn){
     float: right;
     margin-top: 22px;
     margin-right: 14px;
-    border: none;   
+    border: none;
     font-size: 24px;
     color: #999;
-    background-color: rgb(244, 244, 244);  
+    background-color: rgb(244, 244, 244);
 }
 </style>

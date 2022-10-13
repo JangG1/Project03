@@ -3,6 +3,7 @@
     <img :src="profile" alt="profile-logo" />
   </div>
 </template>
+
 <script>
 export default {
   name: "ProfileItem",
@@ -23,6 +24,7 @@ export default {
   computed: {},
 };
 </script>
+
 <style scoped>
   #profile > img {
     display: inline-block;

@@ -112,6 +112,7 @@
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close-popup="fromAreaPopUp"></FromArea>
                     </div>
+
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
                     <!--ToArea-->
@@ -131,9 +132,11 @@
             <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
 
             <div class="popup-view" :class="{ active : popupView }">
-                <PopUp @close-popup="popUp()"></PopUp>
-            </div>
+                <PopUp @close-popup="popUp()" :count="count" @update-count="updateCount"></PopUp>
 
+            </div>
+            {{count}}
+            <input type="text" v-model="count">
             <div>
 
             </div>
@@ -155,8 +158,7 @@
 <!--------------------------------------------------------------------------------->
 
 <!--Test Zone-->
-<h1>{{city}}</h1>
-<h1>{{cityOfChild}}</h1>
+
 <!-- 조회버튼 -->
 <div class="refer">
     <!--예약 조회 버튼-->
@@ -374,6 +376,7 @@ import FromArea from './FromArea.vue';
 import ToArea from './ToArea.vue';
 import axios from '../axios';
 
+
 export default {
     name: 'HelloWorld',
     components: {
@@ -384,9 +387,9 @@ export default {
     },
     props: ['cityOfChild'],
     data() {
-        return {            
+        return {
+            isModalViewed: false,
             toBtn: "",
-            city: "123",
             fromBtn: "",
             date: null,
             oneWay: null,
@@ -394,7 +397,7 @@ export default {
             show1: true,
             show2: false,
             product: [],
-            count: 0,
+            count: 1,
             fromAreaView: false,
             toAreaView: false,
             showModal: false, //true일 때 모달창 보여짐
@@ -415,12 +418,16 @@ export default {
         },
         popUp() {
             this.popupView = (this.popupView) ? false : true
+
         },
         fromAreaPopUp() {
             this.fromAreaView = (this.fromAreaView) ? false : true
         },
         toAreaPopUp() {
             this.toAreaView = (this.toAreaView) ? false : true
+        },
+        closePopUp() {
+
         },
         toggleRoundTrip() {
             this.show1 = true;
@@ -436,11 +443,12 @@ export default {
                     this.products = response.data
                 })
         },
-        openModal: function (event) {
-            this.modalDatas = event;
+        updateCount(count) {
+            this.count = count;
         },
 
-    }
+    },
+ 
 }
 </script>
 
@@ -649,8 +657,7 @@ span {
 .datePicker {
     width: 450px;
     border-radius: 20px;
-    color: #999;
-    /*background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);*/
+    color: #999;    
     box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
     display: table;
     margin-left: auto;
@@ -706,4 +713,8 @@ span {
     background-color: rgb(246, 246, 246);
     box-shadow: 2px 2px 10px lightgrey;
 }
+
+
+
+
 </style>

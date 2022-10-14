@@ -26,9 +26,8 @@
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <router-link to="/Calendar" class="nav-link px-2 link-secondary">달력</router-link>
           </ul>
-          WebView
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <router-link to="/WebView" class="nav-link px-2 link-secondary">Test1</router-link>
+              <router-link to="/WebView" class="nav-link px-2 link-secondary">Test</router-link>
           </ul>
           Modal
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">

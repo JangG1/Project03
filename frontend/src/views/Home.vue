@@ -135,7 +135,8 @@
                 <PopUp @close-popup="popUp()" :count="count" @update-count="updateCount"></PopUp>
 
             </div>
-
+            {{count}}
+            <input type="text" v-model="count">
             <div>
 
             </div>

@@ -47,12 +47,30 @@ public class ProdController {
 		return prodService.getProductList();
 	}
 
-	@GetMapping("/productDetail/saleslist/{sellerid}")
-	public List<ProdVO> getSalseList(@PathVariable("sellerid") String sellerid) throws Exception {
-		return prodService.getSalseList(sellerid);
+	@GetMapping("/productDetail/bestImage/{productno}")
+	public List<ProdVO> getAllProductImageList(@PathVariable("productno") int productno) throws Exception {
+		return prodService.getProductImageList(productno);
 	}
 
+	@PostMapping("/upload/img/{productno}")
+	public void productImageUpload(@PathVariable("productno") int productno,
+			@RequestParam("fileList") List<MultipartFile> fileList) {
+		File file = new File("./src/main/resources/images/product/" + productno + "/");
 
+		boolean directoryCreated = file.mkdir();
+		System.out.println(productno);
+		try {
+			for (MultipartFile multipartFile : fileList) {
+				FileOutputStream writer = new FileOutputStream(
+						"./src/main/resources/images/product/" + productno + "/" + multipartFile.getOriginalFilename());
+				System.out.println(multipartFile.getOriginalFilename());
+				writer.write(multipartFile.getBytes());
+				writer.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }

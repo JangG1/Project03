@@ -2,7 +2,13 @@ package com.FT.app.product.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.FT.app.product.service.ProdService;
 import com.FT.app.product.vo.ProdVO;
+import com.bcpr.backend.TTS.helper.ttsHelper;
 
 @RestController
 @RequestMapping(value = "api/product/*")
@@ -31,10 +38,17 @@ public class ProdController {
 	public String test() {
 		return "상품 테스트";
 	}
-	
+
 	@PostMapping("/add")
-	public void send(@RequestBody String send) {
-		System.out.println(send);
+    public void getTTShelper(
+    		@RequestBody HashMap<String, Object> requestJsonHashMap,
+    		HttpServletRequest request,
+    		HttpServletResponse response)  throws IOException {
+		HashMap<String, Object> rtnMap = new HashMap<String, Object>();
+		rtnMap.put("test", requestJsonHashMap.get("test"));
+		String tts = (String) rtnMap.get("test");
+		String path = request.getServletContext().getRealPath("resources");
+		System.out.println(rtnMap);
 	}
 	
 	@GetMapping("/productDetail/{productno}")

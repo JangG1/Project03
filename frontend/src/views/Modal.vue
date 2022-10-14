@@ -1,25 +1,35 @@
 <template>
-<div>
+    <div class="test">
+      <h1>This is a Test page. </h1>
+      <div id="demo">
+          <button @click="submitBtn()">post하기</button>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import axios from 'axios';
 
-
-</div>
-</template>
-
-<script>
-export default {
+  export default {
     name: "HelloWorld",
-    props: [''],
-    computed: {},
-    components: {},
-    data() {
-        return {
-            date: null,
-            count: 0,
-            name: "",
-        };
+    data() {},
+    mounted() {
+      this.load();
     },
     methods: {
-
+      load() {
+        this.axios.get('/api/twitter/').then(res => { 
+          console.log(res.data);
+        });
+      },
+      submitBtn() {
+          axios.post('/api/twitter/post', "this is string").then(res => {
+              console.log(res);
+          }).catch(err => {
+              console.log(err);
+          });
+      }
     }
-}
-</script>
+  }
+  
+  </script>

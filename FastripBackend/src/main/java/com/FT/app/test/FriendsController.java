@@ -35,6 +35,7 @@ public class FriendsController {
 
     @PostMapping("/post")
     public String PostTest(@RequestBody String msg) {
+    	System.out.println(msg);
         return "post success!!!"+msg;
     }
 }

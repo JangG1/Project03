@@ -50,6 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         
         http.authorizeRequests().antMatchers("/resources/**").permitAll();
         
+        http.authorizeRequests().antMatchers("/api/product").permitAll();
+        http.authorizeRequests().antMatchers("/api/product/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/product/add").permitAll();
+        
+        http.authorizeRequests().antMatchers("/api/twitter").permitAll();
+        http.authorizeRequests().antMatchers("/api/twitter/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/twitter/post").permitAll();
+        
         http.authorizeRequests().antMatchers("/api/login").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET,"/api/users").hasAnyAuthority("ROLE_USER");

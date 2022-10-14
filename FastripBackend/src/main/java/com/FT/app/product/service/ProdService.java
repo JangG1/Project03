@@ -29,20 +29,11 @@ public class ProdService {
 		return prodMapper.findProduct(productno);
 	}
 
-	public String getOption1(int productno) {
-		return prodMapper.findOption1(productno);
-	}
-
 	public List<ProdVO> getProductImageList(int productno) {
 		List<ProdVO> list = prodMapper.findAllProductImage(productno).subList(0, 6);
 		return list;
 	}
 
-	public int insertProduct(ProdVO target) {
-		ProdVO result = new ProdVO();
-		prodMapper.insertProduct(target, result);
-		return result.getProductno();
-	}
 
 		
 }

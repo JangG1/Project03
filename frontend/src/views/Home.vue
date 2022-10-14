@@ -135,8 +135,7 @@
                 <PopUp @close-popup="popUp()" :count="count" @update-count="updateCount"></PopUp>
 
             </div>
-            {{count}}
-            <input type="text" v-model="count">
+
             <div>
 
             </div>
@@ -170,10 +169,10 @@
     </button>
     <!-- 버튼-->
     <span>I</span>
-    <button type="button" class="btn btn-lg btn-default" id="checkIn">        
+    <button type="button" class="btn btn-lg btn-default" id="checkIn">
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
             <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z" />
-        </svg>        
+        </svg>
         <a href="">체크인</a>
     </button>
     <span>I</span>
@@ -381,7 +380,6 @@ import FromArea from './FromArea.vue';
 import ToArea from './ToArea.vue';
 import axios from 'axios';
 
-
 export default {
     name: 'HelloWorld',
     components: {
@@ -450,27 +448,31 @@ export default {
                     this.products = response.data
                 })
         },
-        sendData(){
-             axios
-                .post("/api/product/add",{
-                    test: "test",
-                 })
-                 .then(res => {
-                     console.log(res)
-                     console.log("보내짐")
-                 })
-                 .catch(err => {
-                     console.log(err)
-                     console.log("안보내짐")                     
+        sendData() {
+            axios
+                .post("/api/product/add", {
+                    test: this.test,
                 })
-             },
-         
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
+        },
+
         updateCount(count) {
             this.count = count;
         },
 
     },
- 
+
+    created() {
+            this.getData();
+        },
+        
 }
 </script>
 
@@ -482,13 +484,15 @@ h5 {
 }
 
 a {
-  text-decoration: none;
-  color: rgb(77, 77, 77);
-  font-size: 24px;
-  margin-left: 20px;
+    text-decoration: none;
+    color: rgb(77, 77, 77);
+    font-size: 24px;
+    margin-left: 20px;
 }
 
-a:hover,a:visited,a:active{
+a:hover,
+a:visited,
+a:active {
     color: rgb(77, 77, 77);
 }
 
@@ -559,21 +563,22 @@ body {
 
 svg,
 span {
-    color: rgb(77, 77, 77);    
+    color: rgb(77, 77, 77);
 }
 
 .refer {
-    text-align: center;    
+    text-align: center;
 }
 
-.refer button{
+.refer button {
     width: 400px;
 }
 
-.refer span{
-    
+.refer span {
+
     font-size: 30px;
 }
+
 .recommendProduct {
     margin-top: 40px;
     color: rgb(139, 139, 139);
@@ -653,7 +658,7 @@ span {
 #resOneWay {
     width: 85px;
     display: inline;
-    margin: 6px;    
+    margin: 6px;
 }
 
 .ppg-refresh {
@@ -695,7 +700,7 @@ span {
 .datePicker {
     width: 450px;
     border-radius: 20px;
-    color: #999;    
+    color: #999;
     box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
     display: table;
     margin-left: auto;
@@ -728,7 +733,7 @@ span {
     visibility: visible;
 }
 
-#checkIn {    
+#checkIn {
     padding-left: 30px;
     padding-right: 20px;
 }
@@ -748,8 +753,4 @@ span {
     background-color: rgb(246, 246, 246);
     box-shadow: 2px 2px 10px lightgrey;
 }
-
-
-
-
 </style>

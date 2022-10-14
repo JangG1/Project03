@@ -63,6 +63,6 @@ h3 {
     border: none;
     font-size: 24px;
     color: #999;
-    background-color: rgb(244, 244, 244);
+    background-color: rgb(246, 246, 246);
 }
 </style>

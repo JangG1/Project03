@@ -108,7 +108,7 @@
                 <br>
                 <div class="FromTo">
                     <!--FromArea-->
-                    <input type="button" v-model="fromBtn" @click="fromAreaPopUp">
+                    <img type="button" src="../assets/FromArea/seoul.jpg" @click="fromAreaPopUp" width="200">
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close-popup="fromAreaPopUp"></FromArea>
                     </div>
@@ -116,7 +116,7 @@
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
                     <!--ToArea-->
-                    <input type="button" v-model="toBtn" @click="toAreaPopUp">
+                    <img type="button" src="../assets/ToArea/main.jpg" @click="toAreaPopUp" width="200">
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
                         <ToArea @close-popup="toAreaPopUp"></ToArea>
                     </div>
@@ -163,25 +163,27 @@
 <div class="refer">
     <!--예약 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
-        <span>&nbsp; 예약 조회 &nbsp;</span>
+        <a href="">예약 조회</a>
     </button>
     <!-- 버튼-->
-    <button type="button" class="btn btn-lg btn-default" id="checkIn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+    <span>I</span>
+    <button type="button" class="btn btn-lg btn-default" id="checkIn">        
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
             <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z" />
-        </svg>
-        <span>&nbsp; 체크인 &nbsp;</span>
+        </svg>        
+        <a href="">체크인</a>
     </button>
+    <span>I</span>
     <!--항공편 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default">&nbsp;
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
             <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
         </svg>
-        <span>&nbsp; 항공편 조회 </span>
+        <a href="">항공편 조회</a>
     </button>
 
 </div>
@@ -192,6 +194,9 @@
 
 <div class="recommendProduct">
     <h3>지금 떠나기 좋은 여행</h3><br>
+    {{products}}
+    <input type="text" name="아이디" class="inputValues" id="id" v-model="test" />
+    <button type="button" @click="sendData()">보내기</button>
     <div class="">
 
         <div class="container">
@@ -374,7 +379,7 @@ import Datepicker from '@vuepic/vue-datepicker';
 import PopUp from './PopUp.vue';
 import FromArea from './FromArea.vue';
 import ToArea from './ToArea.vue';
-import axios from '../axios';
+import axios from 'axios';
 
 
 export default {
@@ -402,6 +407,8 @@ export default {
             toAreaView: false,
             showModal: false, //true일 때 모달창 보여짐
             modalDatas: [], //모달에 보낼 데이터 배열
+            products: [],
+            test: ""
         }
     },
     methods: {
@@ -438,11 +445,26 @@ export default {
             this.show2 = true;
         },
         getData() {
-            axios.get('api/user/all')
+            axios.get('api/product/all')
                 .then((response) => {
                     this.products = response.data
                 })
         },
+        sendData(){
+             axios
+                .post("/api/product/add",{
+                    test: "test",
+                 })
+                 .then(res => {
+                     console.log(res)
+                     console.log("보내짐")
+                 })
+                 .catch(err => {
+                     console.log(err)
+                     console.log("안보내짐")                     
+                })
+             },
+         
         updateCount(count) {
             this.count = count;
         },
@@ -457,6 +479,17 @@ h5 {
     font-size: 18px;
     margin-top: 20px;
 
+}
+
+a {
+  text-decoration: none;
+  color: rgb(77, 77, 77);
+  font-size: 24px;
+  margin-left: 20px;
+}
+
+a:hover,a:visited,a:active{
+    color: rgb(77, 77, 77);
 }
 
 img {
@@ -526,15 +559,21 @@ body {
 
 svg,
 span {
-    color: rgb(139, 139, 139);
-    font-size: 24px;
+    color: rgb(77, 77, 77);    
 }
 
 .refer {
-    text-align: center;
-
+    text-align: center;    
 }
 
+.refer button{
+    width: 400px;
+}
+
+.refer span{
+    
+    font-size: 30px;
+}
 .recommendProduct {
     margin-top: 40px;
     color: rgb(139, 139, 139);
@@ -607,15 +646,14 @@ span {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.612) 0%, rgb(237, 237, 237) 100%);
     border-radius: 50px;
     border: 1px solid rgb(193, 188, 188);
-    padding: 50px;
+    padding: 30px;
 }
 
 #resRoundTrip,
 #resOneWay {
     width: 85px;
     display: inline;
-    margin: 6px;
-
+    margin: 6px;    
 }
 
 .ppg-refresh {
@@ -662,7 +700,7 @@ span {
     display: table;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    margin-top: 43px;
     padding: 9px;
 
 }
@@ -690,10 +728,7 @@ span {
     visibility: visible;
 }
 
-#checkIn {
-    border-radius: 0px;
-    border-left: 1px solid;
-    border-right: 1px solid;
+#checkIn {    
     padding-left: 30px;
     padding-right: 20px;
 }

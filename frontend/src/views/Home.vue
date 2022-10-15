@@ -149,7 +149,7 @@
                 <option>비즈니스</option>
             </select>
 
-            <input type="submit" value="항공편 검123색" class="submit-btn">
+            <input type="submit" value="항공편 검색" class="submit-btn">
 
         </form>
 

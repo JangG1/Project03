@@ -33,6 +33,7 @@
                 <button type="button" @click="InfantMinus">-</button>
             </div>
         </div>
+        
         <button type="button" class="submitBtn" @click="submit()">확인</button>
     </div>
 

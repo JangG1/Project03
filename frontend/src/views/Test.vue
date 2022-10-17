@@ -1,4 +1,4 @@
-<template>123
+<template>
  <!--승객수 팝업-->
  <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
  <button type="button" class="btn-field" id="resPassenger" @click="closePopup">종료</button>

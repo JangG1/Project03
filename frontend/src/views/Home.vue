@@ -130,10 +130,9 @@
 
             <!--승객수 팝업-->
             <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
-
+            test
             <div class="popup-view" :class="{ active : popupView }">
                 <PopUp @close-popup="popUp()" :count="count" @update-count="updateCount"></PopUp>
-
             </div>
             {{count}}
             <input type="text" v-model="count">

@@ -22,7 +22,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 340" width="1670" height="630">
+                <svg class="banner" viewBox="0 60 900 300" width="1800" height="630">
                     <image href="../assets/banner1.jpg" />
                 </svg>
                 <div class="container">
@@ -52,7 +52,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 340" width="1670" height="630">
+                <svg class="banner" viewBox="0 60 900 300" width="1800" height="630">
                     <image href="../assets/banner2.jpg" />
                 </svg>
                 <div class="container">
@@ -83,7 +83,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 340" width="1670" height="630">
+                <svg class="banner" viewBox="0 60 900 300" width="1800" height="630">
                     <image href="../assets/banner3.jpg" />
                 </svg>
                 <div class="container">
@@ -130,7 +130,7 @@
 
             <!--승객수 팝업-->
             <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
-            test
+
             <div class="popup-view" :class="{ active : popupView }">
                 <PopUp @close-popup="popUp()" :count="count" @update-count="updateCount"></PopUp>
             </div>
@@ -193,9 +193,17 @@
 
 <div class="recommendProduct">
     <h3>지금 떠나기 좋은 여행</h3><br>
-    {{products}}
+    
     <input type="text" name="아이디" class="inputValues" id="id" v-model="test" />
-    <button type="button" @click="sendData()">보내기</button>
+    <button type="button" @click="sendData()">보내기</button><br>
+    이메일
+    <input type="text" name="아이디" class="inputValues" id="id" v-model="email" /><br>
+    출발
+    <input type="text" name="아이디" class="inputValues" id="id" v-model="fromArea" /><br>
+    도착
+    <input type="text" name="아이디" class="inputValues" id="id" v-model="toArea" /><br>
+
+    <button type="button" @click="testSend()">보내기</button><br>
     <div class="">
 
         <div class="container">
@@ -390,8 +398,7 @@ export default {
     },
     props: ['cityOfChild'],
     data() {
-        return {
-            isModalViewed: false,
+        return {        
             toBtn: "",
             fromBtn: "",
             date: null,
@@ -406,7 +413,14 @@ export default {
             showModal: false, //true일 때 모달창 보여짐
             modalDatas: [], //모달에 보낼 데이터 배열
             products: [],
-            test: ""
+            test: "",
+            test1: "",
+            test2: "",
+            res_date: "",
+            seat: "",
+            fromArea: "",
+            toArea: "",
+            
         }
     },
     methods: {
@@ -448,9 +462,26 @@ export default {
                     this.products = response.data
                 })
         },
+        testSend() {
+            axios
+                .post("/res/test", {
+                    email: this.email,                
+                    fromArea: this.fromArea,
+                    toArea: this.toArea,
+                    
+                })
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
+        },
         sendData() {
             axios
-                .post("/api/product/add", {
+                .post("/res/add", {
                     test: this.test,
                 })
                 .then(res => {
@@ -462,6 +493,7 @@ export default {
                     console.log("안보내짐")
                 })
         },
+        
 
         updateCount(count) {
             this.count = count;
@@ -529,33 +561,27 @@ body {
 }
 
 .carousel-control-prev {
+    /* 사이즈 */
     width: 40px;
-    /* 사이즈 */
-    height: 40px;
-    /* 사이즈 */
+    height: 40px;    
     border-top: 8px solid white;
     /* 선 두께 */
     border-right: 8px solid white;
-    /* 선 두께 */
-    transform: rotate(225deg);
     /* 각도 */
-
+    transform: rotate(225deg);
     top: 50%;
     left: 700px;
-
 }
 
 .carousel-control-next {
+    /* 사이즈 */
     width: 40px;
-    /* 사이즈 */
     height: 40px;
-    /* 사이즈 */
+    /* 선 두께 */
     border-top: 8px solid white;
-    /* 선 두께 */
     border-right: 8px solid white;
-    /* 선 두께 */
-    transform: rotate(45deg);
     /* 각도 */
+    transform: rotate(45deg);
     position: absolute;
     top: 50%;
     right: 50px;

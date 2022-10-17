@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.FT.app.product.domain.ProdList;
 import com.FT.app.product.service.ProdService;
-import com.FT.app.product.vo.ProdVO;
 
 @RestController
 @RequestMapping(value = "api/product/*")
@@ -38,17 +38,17 @@ public class ProdController {
 	}
 	
 	@GetMapping("/productDetail/{productno}")
-	public ProdVO getProductList(@PathVariable("productno") int productno) throws Exception {
+	public ProdList getProductList(@PathVariable("productno") int productno) throws Exception {
 		return prodService.getProductList(productno);
 	}
 
 	@GetMapping("/productDetail/all")
-	public List<ProdVO> getAllProductList() throws Exception {
+	public List<ProdList> getAllProductList() throws Exception {
 		return prodService.getProductList();
 	}
 
 	@GetMapping("/productDetail/bestImage/{productno}")
-	public List<ProdVO> getAllProductImageList(@PathVariable("productno") int productno) throws Exception {
+	public List<ProdList> getAllProductImageList(@PathVariable("productno") int productno) throws Exception {
 		return prodService.getProductImageList(productno);
 	}
 

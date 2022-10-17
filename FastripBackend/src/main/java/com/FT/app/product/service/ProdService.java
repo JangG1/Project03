@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.FT.app.product.domain.ProdList;
 import com.FT.app.product.mapper.ProdMapper;
-import com.FT.app.product.vo.ProdVO;
 
 @Service
 public class ProdService {
@@ -17,16 +17,16 @@ public class ProdService {
 		this.prodMapper = prodMapper;
 	}
 
-	public List<ProdVO> getProductList() {
+	public List<ProdList> getProductList() {
 		return prodMapper.findAllProduct();
 	}
 
-	public ProdVO getProductList(int productno) {
+	public ProdList getProductList(int productno) {
 		return prodMapper.findProduct(productno);
 	}
 
-	public List<ProdVO> getProductImageList(int productno) {
-		List<ProdVO> list = prodMapper.findAllProductImage(productno).subList(0, 6);
+	public List<ProdList> getProductImageList(int productno) {
+		List<ProdList> list = prodMapper.findAllProductImage(productno).subList(0, 6);
 		return list;
 	}
 

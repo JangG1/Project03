@@ -54,9 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/api/product/**").permitAll();
         http.authorizeRequests().antMatchers("/api/product/add").permitAll();
         
-        http.authorizeRequests().antMatchers("/api/twitter").permitAll();
-        http.authorizeRequests().antMatchers("/api/twitter/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/twitter/post").permitAll();
+        http.authorizeRequests().antMatchers("/res/**").permitAll();
+        http.authorizeRequests().antMatchers("/res/resList/**").permitAll();
+        http.authorizeRequests().antMatchers("/res/resList/upload").permitAll();
+        
         
         http.authorizeRequests().antMatchers("/api/login").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();

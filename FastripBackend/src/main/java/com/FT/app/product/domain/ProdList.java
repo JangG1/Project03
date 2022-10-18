@@ -41,10 +41,7 @@ public class ProdList {
 	private Way way; //Enum 사용 (왕복,편도)
 	
 	@Column(nullable = false, length = 50)
-	private String fromArea;
-	
-	@Column(nullable = false, length = 50)
-	private String toArea;
+	private String area;
 	
 	@Column(nullable = false, length = 100)
 	private String price;

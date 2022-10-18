@@ -62,12 +62,4 @@ public class ProdController {
 		
 	}
 	
-	
-	//voice_trans 보관함 아이템 불러오기 email 기준 전부
-	@GetMapping("/resList/list/{email}")
-	public List<ResList> getList(
-			@PathVariable("email") String email){
-		return mapper.getResListByEmail(email);
-	}
-	
 }

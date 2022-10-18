@@ -193,7 +193,7 @@
 
 <div class="recommendProduct">
     <h3>지금 떠나기 좋은 여행</h3><br>
-    
+
     <input type="text" name="아이디" class="inputValues" id="id" v-model="test" />
     <button type="button" @click="sendData()">보내기</button><br>
     이메일
@@ -205,7 +205,7 @@
 
     <button type="button" @click="testSend()">보내기</button><br>
     <div class="">
-        {{prods}}
+        {{products}}
         <div class="container">
 
             <div class="row row-cols-4 row-cols-sm-2 row-cols-md-4 g-3">
@@ -398,7 +398,7 @@ export default {
     },
     props: ['cityOfChild'],
     data() {
-        return {        
+        return {
             toBtn: "",
             fromBtn: "",
             date: null,
@@ -420,7 +420,6 @@ export default {
             seat: "",
             fromArea: "",
             toArea: "",
-            prods: []
         }
     },
     methods: {
@@ -445,9 +444,6 @@ export default {
         toAreaPopUp() {
             this.toAreaView = (this.toAreaView) ? false : true
         },
-        closePopUp() {
-
-        },
         toggleRoundTrip() {
             this.show1 = true;
             this.show2 = false;
@@ -459,17 +455,16 @@ export default {
         getData() {
             axios.get('/prod/all')
                 .then((response) => {
-                    this.prods = response.data
+                    this.products = response.data
                 })
         },
 
         testSend() {
             axios
                 .post("/res/test", {
-                    email: this.email,                
+                    email: this.email,
                     fromArea: this.fromArea,
                     toArea: this.toArea,
-                    
                 })
                 .then(res => {
                     console.log(res)
@@ -480,8 +475,6 @@ export default {
                     console.log("안보내짐")
                 })
         },
-        
-
         updateCount(count) {
             this.count = count;
         },
@@ -490,9 +483,9 @@ export default {
 
     mounted() {
         this.getData()
+
     }
 
-        
 }
 </script>
 
@@ -551,7 +544,7 @@ body {
 .carousel-control-prev {
     /* 사이즈 */
     width: 40px;
-    height: 40px;    
+    height: 40px;
     border-top: 8px solid white;
     /* 선 두께 */
     border-right: 8px solid white;

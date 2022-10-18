@@ -486,7 +486,7 @@ export default {
                 })
                 .then(res => {
                     console.log(res)
-                    console.log("보내1짐")
+                    console.log("보내짐")
                 })
                 .catch(err => {
                     console.log(err)

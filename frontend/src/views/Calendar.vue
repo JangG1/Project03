@@ -1,34 +1,44 @@
 <template>
-
-<div>
-    <!--승객수 팝업-->
-
-    <div>
-        <h1>test</h1>
-       
+    <div class="carousel-wrapper">
+      <VueSlickCarousel v-bind="slickOptions">
+        <div v-for="i in 5" :key="i" class="img-warpper">
+          <img src="../assets/rec1.jpg" />
+        </div>
+      </VueSlickCarousel>
     </div>
-    
-</div>
-</template>
+  </template>
+  
+  <script>
 
-<script>
 
-export default {
-    name: "HelloWorld",
-    props: ['',],
-    computed:{
-    },
+  export default {
+    name:"HelloWorld",
     components: {
-        
-        
+
     },
     data() {
-        return {
-
-        };
-    },
-    methods: {
-
+      return {
+        slickOptions: {
+          slidesToShow: 3
+        }
+      }
     }
-}
-</script>
+  }
+  </script>
+  
+  <style>
+  .carousel-wrapper {
+    padding: 40px;
+    height: 150px;
+  }
+  .img-warpper img {
+    margin: auto;
+    width: 200px;
+    height: 100px;
+    background-image: linear-gradient(gray 100%, transparent 0);
+  }
+  .slick-next:before, .slick-prev:before {
+    color: black;
+  }
+  </style>
+  

@@ -1,54 +1,131 @@
 <template>
- <!--승객수 팝업-->
- <button type="button" class="btn-field" id="resPassenger" @click="popUp">승객 수</button>
- <button type="button" class="btn-field" id="resPassenger" @click="closePopup">종료</button>
-<div class="popup-view" :class="{ active : popupView }">
-    <PopUp @close-popup="popUp()"></PopUp>
-    <button @click="closePopup">X</button>
-</div>
-</template>
-
-<script>
-import PopUp from './PopUp.vue';
-
-export default {
-    name: 'App',
-    data() {
-        return {
-            products: "roomData",
-            popupView: false,
-        }
-    },
-
-    methods: {
-        popUp() {
-            this.popupView = (this.popupView) ? false : true
+    <div class="recommendProduct">
+        <h3>지금 떠나기 좋은 여행</h3><br>
+    
+        <input type="text" name="아이디" class="inputValues" id="id" v-model="test" />
+        <button type="button" @click="sendData()">보내기</button><br>
+        이메일
+        <input type="text" name="아이디" class="inputValues" id="id" v-model="email" /><br>
+        출발
+        <input type="text" name="아이디" class="inputValues" id="id" v-model="fromArea" /><br>
+        도착
+        <input type="text" name="아이디" class="inputValues" id="id" v-model="toArea" /><br>
+    
+        <button type="button" @click="testSend()">보내기</button><br>
+    
+    
+       <div class="">
+            
+            <div class="container">
+    
+                <div class="row row-cols-4 row-cols-sm-2 row-cols-md-4 g-3">
+                    <!--추천 여행지 1-->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="../assets/rec1.jpg" width="300" height="400" />
+                            <div class="card-body">
+                                <h5>서울/인천- 두바이</h5>
+                                <h6>일반석 왕복</h6>
+                                <h6>KRW 1,158,500 ~</h6>
+                                <br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--추천 여행지 2-->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="../assets/rec2.jpg" width="300" height="400" />
+                            <div class="card-body">
+                                <h5>서울/인천- 후쿠오카</h5>
+                                <h6>일반석 왕복</h6>
+                                <h6>KRW 704,200 ~</h6>
+                                <br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--추천 여행지 3-->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="../assets/rec3.jpg" width="300" height="400" />
+                            <div class="card-body">
+                                <h5>서울/인천- 싱가포르</h5>
+                                <h6>일반석 왕복</h6>
+                                <h6>KRW 591,800 ~</h6>
+                                <br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--추천 여행지 4-->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="../assets/rec4.jpg" width="300" height="400" />
+                            <div class="card-body">
+                                <h5>서울/인천- 바르셀로나</h5>
+                                <h6>일반석 왕복</h6>
+                                <h6>KRW 909,200 ~</h6>
+                                <br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--추천 여행지 5-->
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="../assets/rec5.jpg" width="300" height="400" />
+                            <div class="card-body">
+                                <h5>서울/인천- 치앙마이</h5>
+                                <h6>일반석 왕복</h6>
+                                <h6>KRW 1,546,800 ~</h6>
+                                <br>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    </template>
+    
+        
+    <script>
+    export default {
+        name: 'HelloWorld',
+        components: {},
+        props: [""],
+        data() {
+            return {
+    
+            }
         },
-        closePopup() {
-            this.popupView = false;
+        methods: {
+    
         },
-    },
-
-    components: {
-        PopUp,
-        //왼쪽에는 아무렇게나 이름을 지어도 된다. 이 화면에서 사용할 이름을 짓는 부분
+    
     }
-}
-</script>
-
-<style>
-.popup-view {
-    padding: 20px;
-    position: fixed;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    height: 40%;
-    text-align: center;
-    border-radius: 15px;
-    background-color: rgb(246, 246, 246);
-    box-shadow: 2px 2px 10px lightgrey;
-}
-</style>
+    </script>
+    

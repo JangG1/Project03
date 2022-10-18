@@ -1,5 +1,6 @@
 package com.FT.app.product.controller;
 
+import java.awt.print.Pageable;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
@@ -57,9 +61,5 @@ public class ProdController {
 		return resList;
 	}
 	
-	@PostMapping("/test")
-	public void prodListTest(@RequestBody ProdList prodList) {
-		
-	}
-	
+
 }

@@ -28,11 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.FT.app.Repo.ResRepository;
+import com.FT.app.domain.Seat;
+import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.ResList;
-import com.FT.app.myPage.domain.Seat;
-import com.FT.app.myPage.domain.Way;
 import com.FT.app.myPage.mapper.ResListMapper;
-import com.FT.app.myPage.repository.ResRepository;
 
 @RestController
 @RequestMapping("/res/*")
@@ -40,6 +40,11 @@ public class ResController {
 	@Autowired
 	private ResRepository resRepository;
 	private ResListMapper mapper;
+	
+	@GetMapping("/all")
+	public List<ResList> all(){
+		return resRepository.findAll();
+	}
 	
 	@GetMapping("/{id}")
 	public ResList detail(@PathVariable int id){
@@ -62,20 +67,6 @@ public class ResController {
 		System.out.println(resList);
 	}
 	
-
-	
-	//ResList 보관함에 저장
-	@PostMapping("/resList/upload")
-	public int upload(
-			@RequestParam("email") String email,
-			@RequestParam("res_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime res_date,
-			@RequestParam("seat") String seat,
-			@RequestParam("fromArea") String fromArea,
-			@RequestParam("toArea") String toArea,
-			HttpServletRequest request)throws IOException {
-		System.out.println("email : " + email + "res_date : " + res_date + " seat : " + seat + "fromArea : " + fromArea + "toArea : " + toArea);
-		return mapper.insertResListContent(email,res_date,seat,fromArea,toArea);
-	}
 	
 	//voice_trans 보관함 아이템 불러오기 email 기준 전부
 	@GetMapping("/resList/list/{email}")

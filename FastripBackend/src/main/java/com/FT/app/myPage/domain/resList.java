@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
+import com.FT.app.domain.Seat;
+import com.FT.app.domain.Way;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

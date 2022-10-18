@@ -1,4 +1,4 @@
-package com.FT.app.myPage.domain;
+package com.FT.app.domain;
 
 public enum Way {
 	왕복, 편도

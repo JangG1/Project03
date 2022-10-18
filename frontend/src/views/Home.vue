@@ -205,7 +205,7 @@
 
     <button type="button" @click="testSend()">보내기</button><br>
     <div class="">
-
+        {{prods}}
         <div class="container">
 
             <div class="row row-cols-4 row-cols-sm-2 row-cols-md-4 g-3">
@@ -420,7 +420,7 @@ export default {
             seat: "",
             fromArea: "",
             toArea: "",
-            
+            prods: []
         }
     },
     methods: {
@@ -457,11 +457,12 @@ export default {
             this.show2 = true;
         },
         getData() {
-            axios.get('api/product/all')
+            axios.get('/prod/all')
                 .then((response) => {
-                    this.products = response.data
+                    this.prods = response.data
                 })
         },
+
         testSend() {
             axios
                 .post("/res/test", {
@@ -469,20 +470,6 @@ export default {
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-        },
-        sendData() {
-            axios
-                .post("/res/add", {
-                    test: this.test,
                 })
                 .then(res => {
                     console.log(res)
@@ -501,9 +488,10 @@ export default {
 
     },
 
-    created() {
-            this.getData();
-        },
+    mounted() {
+        this.getData()
+    }
+
         
 }
 </script>

@@ -1,131 +1,148 @@
 <template>
-    <div class="recommendProduct">
-        <h3>지금 떠나기 좋은 여행</h3><br>
-    
-        <input type="text" name="아이디" class="inputValues" id="id" v-model="test" />
-        <button type="button" @click="sendData()">보내기</button><br>
-        이메일
-        <input type="text" name="아이디" class="inputValues" id="id" v-model="email" /><br>
-        출발
-        <input type="text" name="아이디" class="inputValues" id="id" v-model="fromArea" /><br>
-        도착
-        <input type="text" name="아이디" class="inputValues" id="id" v-model="toArea" /><br>
-    
-        <button type="button" @click="testSend()">보내기</button><br>
-    
-    
-       <div class="">
-            
-            <div class="container">
-    
-                <div class="row row-cols-4 row-cols-sm-2 row-cols-md-4 g-3">
-                    <!--추천 여행지 1-->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="../assets/rec1.jpg" width="300" height="400" />
-                            <div class="card-body">
-                                <h5>서울/인천- 두바이</h5>
-                                <h6>일반석 왕복</h6>
-                                <h6>KRW 1,158,500 ~</h6>
-                                <br>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--추천 여행지 2-->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="../assets/rec2.jpg" width="300" height="400" />
-                            <div class="card-body">
-                                <h5>서울/인천- 후쿠오카</h5>
-                                <h6>일반석 왕복</h6>
-                                <h6>KRW 704,200 ~</h6>
-                                <br>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--추천 여행지 3-->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="../assets/rec3.jpg" width="300" height="400" />
-                            <div class="card-body">
-                                <h5>서울/인천- 싱가포르</h5>
-                                <h6>일반석 왕복</h6>
-                                <h6>KRW 591,800 ~</h6>
-                                <br>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--추천 여행지 4-->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="../assets/rec4.jpg" width="300" height="400" />
-                            <div class="card-body">
-                                <h5>서울/인천- 바르셀로나</h5>
-                                <h6>일반석 왕복</h6>
-                                <h6>KRW 909,200 ~</h6>
-                                <br>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--추천 여행지 5-->
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="../assets/rec5.jpg" width="300" height="400" />
-                            <div class="card-body">
-                                <h5>서울/인천- 치앙마이</h5>
-                                <h6>일반석 왕복</h6>
-                                <h6>KRW 1,546,800 ~</h6>
-                                <br>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">자세히 보기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                </div>
-            </div>
-        </div>
+    <div class="image-album">
+      <div class="images">
+        <img
+          class="image"
+          v-for="imageUrl in imageUrls"
+          v-bind:key="imageUrl.index"
+          v-bind:src="imageUrl"
+        />
+      </div>
+      <div v-if="imageUrls.length > 1" class="image-circle-wrapper">
+        <div
+          class="image-circle"
+          v-for="(imageUrl, index) in imageUrls"
+          v-bind:key="imageUrl.index"
+          v-bind:class="{ activeImg: index === curPos }"
+        ></div>
+      </div>
     </div>
-    </template>
-    
-        
-    <script>
-    export default {
-        name: 'HelloWorld',
-        components: {},
-        props: [""],
-        data() {
-            return {
-    
-            }
-        },
-        methods: {
-    
-        },
-    
-    }
-    </script>
-    
+
+    <button class="carousel-control-prev" type="button" @click="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+    </button>
+    <button class="carousel-control-next" type="button" @click="next">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+    </button>
+  </template>
+  
+  <script>
+  export default {
+    name: "imageSlider",
+    data() {
+      return {
+        curPos: 0,
+        postion: 0,
+        start_x: 0,
+        end_x: 0,
+        IMAGE_WIDTH: 0,
+        images: null,
+        imageUrls: [
+          "../assets/rec1.jpg",
+          "https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/09/shutterstock_1151632343.jpg?w=2000",
+          "https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/09/shutterstock_1429964489.jpg?w=2000",
+          "https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/09/shutterstock_1429964489.jpg?w=2000",
+        ],
+      };
+    },
+    methods: {
+      prev() {
+        if (this.curPos > 0) {
+          this.postion += this.IMAGE_WIDTH;
+          this.images.style.transform = `translateX(${this.postion}px)`;
+          this.curPos = this.curPos - 1;
+        }
+      },
+      next() {
+        if (this.curPos < this.imageUrls.length - 1) {
+          this.postion -= this.IMAGE_WIDTH;
+          this.images.style.transform = `translateX(${this.postion}px)`;
+          this.curPos = this.curPos + 1;
+        }
+      },
+  
+    },
+    computed: {
+      getImageWidth: () => {
+        const imgWidth = document.querySelector(".images").offsetWidth;
+        return imgWidth;
+      },
+    },
+    mounted() {
+      this.IMAGE_WIDTH = this.getImageWidth;
+      this.images = document.querySelector(".images");
+      this.images.addEventListener("touchstart", this.touch_start);
+      this.images.addEventListener("touchend", this.touch_end);
+    },
+  };
+  </script>
+  
+  <style scopped>
+  .image-album {    
+    height: auto;
+    max-width: 500px;
+    max-height: 500px;
+    overflow: hidden;
+  }
+  .images {
+    position: relative;
+    display: flex;
+    height: auto;
+    transition: transform 0.5s;
+  }
+  .image {
+    width: 100%;
+    height: auto;
+    max-width: 2000px;
+    max-height: 2000px;
+  }
+  .image-circle-wrapper {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -18px);
+  }
+  .image-circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #d2d2d2;
+    margin-right: 12px;
+  }
+  .image-circle:last-child {
+    margin-right: 0;
+  }
+  .image-circle.activeImg {
+    background-color: #404040;
+  }
+
+  .carousel-control-prev {
+    /* 사이즈 */
+    width: 40px;
+    height: 40px;
+    border-top: 8px solid rgb(71, 71, 71);
+    /* 선 두께 */
+    border-right: 8px solid rgb(71, 71, 71);
+    /* 각도 */
+    transform: rotate(225deg);
+    top: 50%;
+    left: 50px;
+}
+
+.carousel-control-next {
+    /* 사이즈 */
+    width: 40px;
+    height: 40px;
+    /* 선 두께 */
+    border-top: 8px solid rgb(71, 71, 71);
+    border-right: 8px solid rgb(71, 71, 71);
+    /* 각도 */
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    right: 50px;
+}
+  </style>

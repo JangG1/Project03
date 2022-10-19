@@ -42,6 +42,11 @@ public class ResList {
 	
 	@Enumerated(EnumType.STRING)
 	private Way way; //Enum 사용 (왕복,편도)
+	@Column(nullable = false, length = 50)
+	private String departDate;
+	
+	@Column(nullable = false, length = 50)
+	private String returnDate;
 	
 	@Column(nullable = false, length = 50)
 	private String fromArea;

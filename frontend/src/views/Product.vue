@@ -2,17 +2,6 @@
 <div class="recommendProduct">
     <h3>지금 떠나기 좋은 여행</h3><br>
 
-    <input type="text" name="아이디" class="inputValues" id="id" v-model="test" />
-    <button type="button" @click="sendData()">보내기</button><br>
-    이메일
-    <input type="text" name="아이디" class="inputValues" id="id" v-model="email" /><br>
-    출발
-    <input type="text" name="아이디" class="inputValues" id="id" v-model="fromArea" /><br>
-    도착
-    <input type="text" name="아이디" class="inputValues" id="id" v-model="toArea" /><br>
-
-    <button type="button" @click="testSend()">보내기</button><br>
-
     <div class="">
 
         <div class="container">

@@ -313,10 +313,6 @@ export default {
             test: "",
             test1: "",
             test2: "",
-            res_date: "",
-            seat: "",
-            fromArea: "",
-            toArea: "",
         }
     },
     methods: {
@@ -353,23 +349,6 @@ export default {
             axios.get('/prod/all')
                 .then((response) => {
                     this.products = response.data
-                })
-        },
-
-        testSend() {
-            axios
-                .post("/res/test", {
-                    email: this.email,
-                    fromArea: this.fromArea,
-                    toArea: this.toArea,
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
                 })
         },
         updateCount(count) {
@@ -409,7 +388,7 @@ a:active {
 img{
     border: 4px solid rgb(225, 225, 225);
     border-radius: 20px;
-    box-shadow: 3px 3px 6px 0px rgb(39, 39, 39), 8px 8px 16px -10px rgba(0, 0, 0, .15);
+    /*box-shadow: 3px 3px 6px 0px rgb(39, 39, 39), 8px 8px 16px -10px rgba(0, 0, 0, .15);*/
 }
 
 .carousel-caption {

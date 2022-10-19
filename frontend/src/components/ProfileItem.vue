@@ -32,5 +32,6 @@ export default {
     margin-right: 30px;
     border-radius: 10px;
     border: none;
+    cursor: pointer;
   }
 </style>

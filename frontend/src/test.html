@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <style type="text/css">
+            #flower1{
+                
+                width: 300px; 
+                height: 300px; 
+                background: url('./assets/rec1.jpg');
+            }
+            #flower2{
+                
+                width: 300px; 
+                height: 300px; 
+                background: url('./assets/rec2.jpg');
+            }
+            .imgDiv{
+                display: flex;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="imgDiv">
+    <div id="flower1"></div>        
+    <div id="flower2"></div>       
+</div>
+
+    <button id="prev">이전</button>
+    <button id="next">다음</button>
+
+    <script type="text/javascript">
+
+        var currentFlower1 = 1;
+        var currentFlower2 = 2;
+
+        next.onclick = function(){
+            if(currentFlower1 == 6){next() == false}
+            currentFlower1++;
+            currentFlower2++;            
+            flower1.style.background = "url('./assets/rec" + currentFlower1 + ".jpg')";
+            flower1.style.backgroundSize = "cover";
+            flower2.style.background = "url('./assets/rec" + currentFlower2 + ".jpg')";
+            flower2.style.backgroundSize = "cover";
+            
+        }
+
+        prev.onclick = function(){
+            currentFlower1--;
+            currentFlower2--;
+            if(currentFlower1 == 0){ currentFlower1 = 5;}
+            
+            flower1.style.background = "url('./assets/rec" + currentFlower1 + ".jpg')";
+            flower1.style.backgroundSize = "cover";
+            flower2.style.background = "url('./assets/rec" + currentFlower2 + ".jpg')";
+            flower2.style.backgroundSize = "cover";
+        }
+    </script>
+    </body>
+</html>

@@ -27,10 +27,10 @@ export default {
 
 <style scoped>
   #profile > img {
-    display: inline-block;
     width: 48px;
     height: 48px;
-    margin-right: 1rem;
+    margin-right: 30px;
     border-radius: 10px;
+    border: none;
   }
 </style>

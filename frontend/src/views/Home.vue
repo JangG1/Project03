@@ -22,7 +22,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 300" width="1800" height="630">
+                <svg class="banner" viewBox="0 60 900 300">
                     <image href="../assets/banner1.jpg" />
                 </svg>
                 <div class="container">
@@ -52,7 +52,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 300" width="1800" height="630">
+                <svg class="banner" viewBox="0 60 900 300">
                     <image href="../assets/banner2.jpg" />
                 </svg>
                 <div class="container">
@@ -83,7 +83,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지-->
-                <svg class="banner" viewBox="0 60 900 300" width="1800" height="630">
+                <svg class="banner" viewBox="0 60 900 300">
                     <image href="../assets/banner3.jpg" />
                 </svg>
                 <div class="container">
@@ -408,11 +408,12 @@ a:active {
     color: rgb(77, 77, 77);
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+img{
+    border: 4px solid rgb(225, 225, 225);
+    border-radius: 20px;
+    color: #999;
+    box-shadow: 3px 3px 6px 0px rgb(39, 39, 39), 8px 8px 16px -10px rgba(0, 0, 0, .15);
+
 }
 
 .carousel-caption {
@@ -433,6 +434,8 @@ body {
 
 .banner {
     border-radius: 15px;
+    width: 100%;
+    height: 100%;
 }
 
 .carousel-control-prev {

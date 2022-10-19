@@ -1,19 +1,11 @@
 <template>
 <div>
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
-    <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
-    <meta name="theme-color" content="#7952b3">
-
     <!-- 네비게이션 바-->
-    <div class="d-flex">
+    <div class="navBar">
         <!-- 로고 -->
-        <router-link v-bind:to="'/'"> <img src="./assets/Logo.png" class="logo"></router-link>
+        <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo.png" class="logo"></router-link>        
         <!-- 예약버튼 -->
+     
         <ul class="nav">
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
         </ul>
@@ -24,11 +16,11 @@
         <ul class="nav">
             <router-link to="/Test" class="nav-link px-2 link-secondary">Test</router-link>
         </ul>
-        
+ 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <router-link to="/Modal" class="nav-link px-2 link-secondary">Test2</router-link>
         </ul>
-
+       
         <div class="profileBox">
             <!--로그인-->
             <div class="loginBtn" @click="loginModal = true">
@@ -105,16 +97,30 @@ export default {
   
 <style>
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: "NanumBarunGothicBold";
     text-align: center;
     margin-left: 2%;
     margin-right: 2%;    
 }
 
+@font-face {
+    font-family: "NanumBarunGothicBold";
+    src: url('assets/fonts/NanumBarunGothic.eot')format('eot');
+    src: url('assets/fonts/NanumBarunGothic.woff')format('woff');
+}
+
+.logoRouter{
+    margin: 0px;
+}
+
+.navBar{
+    display: flex;
+}
+
 .logo {
     width: 110px;
     height: 70px;
-    margin-top: 26px;
+    margin-top: 26px;    
 }
 
 .profileBox{

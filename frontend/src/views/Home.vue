@@ -1,8 +1,6 @@
 <template>
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-
     <div class="carousel-inner">
-
         <span class="">
             <!--배너1-->
             <div class="carousel-item active">
@@ -411,9 +409,7 @@ a:active {
 img{
     border: 4px solid rgb(225, 225, 225);
     border-radius: 20px;
-    color: #999;
     box-shadow: 3px 3px 6px 0px rgb(39, 39, 39), 8px 8px 16px -10px rgba(0, 0, 0, .15);
-
 }
 
 .carousel-caption {
@@ -489,13 +485,11 @@ span {
 }
 
 .tip {
-    margin-top: 30px;
-    margin-left: 100px;
-
+    margin-top: 30px;    
 }
 
 .side {
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 50px;
     text-align: center;
 }
@@ -582,11 +576,6 @@ span {
 #inputState {
     width: 565px;
     height: 70px;
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    color: #999;
-    background: linear-gradient(135deg, rgba(230, 230, 230, 1) 0%, rgba(246, 246, 246, 1) 100%);
     background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);
 }
 

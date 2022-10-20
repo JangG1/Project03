@@ -1,4 +1,5 @@
 <template>
+    
 <div>
     <!-- 네비게이션 바-->
     <div class="navBar">
@@ -98,18 +99,14 @@ export default {
 <style>
 #app {
     font-family: "NanumBarunGothicBold";
-    margin-left: 2%;
-    margin-right: 2%;    
+    /*margin-left: 2%;
+    margin-right: 2%;*/
 }
 
 @font-face {
     font-family: "NanumBarunGothicBold";
     src: url('assets/fonts/NanumBarunGothic.eot')format('eot');
     src: url('assets/fonts/NanumBarunGothic.woff')format('woff');
-}
-
-.logoRouter{
-    margin: 0px;
 }
 
 .navBar{
@@ -120,11 +117,13 @@ export default {
     width: 110px;
     height: 70px;
     margin-top: 26px;    
+    margin-left: 1%;
 }
 
 .profileBox{
     display: flex;
     margin-top: 46px;
+    margin-right: 1%;
 }
 
 .nav-link {
@@ -139,5 +138,6 @@ export default {
     cursor: pointer;
     padding: 10px 20px 10px 20px;
     border: 3px solid rgb(193, 188, 188);
+    
 }
 </style>

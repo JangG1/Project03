@@ -9,7 +9,7 @@
         <br>
         <div class="">
             <div class="">
-                <input type="text" class="SearchBar" placeholder="도시, 공항">
+                <input type="search" class="SearchBar" placeholder="도시, 공항">
             </div>
         </div>
 

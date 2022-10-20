@@ -1,14 +1,17 @@
 <template>
+    <div class="rec">
+        지금 떠나기 좋은 여행
+    </div>
 <!--슬라이드 좌우 버튼-->
 <button class="PB" type="button" @click="prev"></button>
 <button class="NB" type="button" @click="next"></button>
-<div class="image-album">
+<div class="image-album">    
     <div class="images">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl.index" :src="imageUrl.url">
             <img class="image" :src="imageUrl.url" /><br>
             <span id="prodCity">{{imageUrl.city}}</span><br>
             <span id="prodWay">{{imageUrl.way}}</span><br>
-            <span id="prodPrice">{{"KRW " + imageUrl.price}}</span><br>
+            <span id="prodPrice">{{"KRW " + AddComma(imageUrl.price)}}</span><br>
             <button type="button" class="detailBtn">자세히 보기</button>
         </span>
 
@@ -62,19 +65,19 @@ export default {
                     price: 913900
                 },
                 {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec1.jpg?raw=true",
+                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec6.jpg?raw=true",
                     city: '서울/인천 - 부다페스트',
                     way: '일반석/왕복',
                     price: 1364500
                 },
                 {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec2.jpg?raw=true",
+                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec7.jpg?raw=true",
                     city: '서울/인천 - 타이베이',
                     way: '일반석/왕복',
                     price: 548300
                 },
                 {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec3.jpg?raw=true",
+                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec8.jpg?raw=true",
                     city: '서울/인천 - 텔아비브',
                     way: '일반석/왕복',
                     price: 1435300
@@ -98,11 +101,15 @@ export default {
                 this.curPos = this.curPos + 1;
             }
         },
-        Test() {},
+        //가격부분 콤마 추가
+        AddComma(num) {
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            return num.toString().replace(regexp, ",");
+        },
     },
     computed: {
         getImageWidth() {
-            const imgWidth = document.querySelector(".images").offsetWidth - 955;
+            const imgWidth = document.querySelector(".images").offsetWidth - 973;
             return imgWidth;
         },
 
@@ -115,12 +122,19 @@ export default {
 </script>
 
 <style>
+.rec{
+    text-align: center;
+    font-size: 60px;
+    margin-top: 15%;  
+    margin-bottom: 7%;    
+}
+
 .prodBox{
-    border: 2px solid rgb(203, 203, 203);
     border-radius: 20px;
-    margin: 5px;
+    margin: 10px;
     height: 580px;
-    padding-right: 5px;
+    padding-right: 5px;    
+    background-color: rgba(255, 255, 255, 0.379);
 }
 
 #prodCity,
@@ -137,25 +151,27 @@ export default {
     border: 1px solid rgb(193, 188, 188);
     border-radius: 4px;
     font-size: 18px;
-    color: rgb(139, 139, 139);
+    color: rgba(139, 139, 139, 0.993);
     margin-left: 7%;
     margin-top: 20px;
     width: 115px;
+    background-color: rgba(244, 238, 238, 0.646);
 }
 
 .image-album {
-    width: 1275px;
+    width: 1300px;
     max-width: 1500px;
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 15%;
 }
 
 .image {
     width: 300px;
     height: 400px;
     margin-bottom: 10px;
-    border: 1.5px solid rgb(61, 61, 61);;
+    
     border-radius: 10px;
 }
 
@@ -168,20 +184,20 @@ export default {
     width: 50px;
     height: 50px;
     border: none;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     border-top: 10px solid rgb(197, 197, 197);
     border-right: 10px solid rgb(197, 197, 197);
     transform: rotate(225deg);
     margin-top: 14%;
     float: left;
-    margin-left: 11%;
+    margin-left: 11%;    
 }
 
 .NB {
     width: 50px;
     height: 50px;
     border: none;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     border-top: 10px solid rgb(197, 197, 197);
     border-right: 10px solid rgb(197, 197, 197);
     transform: rotate(45deg);

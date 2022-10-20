@@ -6,12 +6,8 @@
             <div class="carousel-item active">
                 <!--배너 좌우 이동 버튼-->
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
                 </button>
                 <!--슬라이드 페이지 표시-->
                 <div class="carousel-indicators">
@@ -34,14 +30,9 @@
             <!--배너2-->
             <div class="carousel-item">
                 <!--배너 좌우 이동 버튼-->
-
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
                 </button>
                 <!--슬라이드 페이지 표시-->
                 <div class="carousel-indicators">
@@ -65,14 +56,9 @@
             <!--배너3-->
             <div class="carousel-item">
                 <!--배너 좌우 이동 버튼-->
-
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
                 </button>
                 <!--슬라이드 페이지 표시-->
                 <div class="carousel-indicators">
@@ -106,15 +92,14 @@
                 <br>
                 <div class="FromTo">
                     <!--FromArea-->
-                    <img type="button" src="../assets/FromArea/seoul.jpg" @click="fromAreaPopUp" width="200">
+                    <img type="button" class="fromBtn" src="../assets/FromArea/seoul.jpg" @click="fromAreaPopUp" width="200">
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close-popup="fromAreaPopUp"></FromArea>
                     </div>
-
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
                     <!--ToArea-->
-                    <img type="button" src="../assets/ToArea/main.jpg" @click="toAreaPopUp" width="200">
+                    <img type="button" class="toBtn" src="../assets/ToArea/main.jpg" @click="toAreaPopUp" width="200">
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
                         <ToArea @close-popup="toAreaPopUp"></ToArea>
                     </div>
@@ -192,7 +177,7 @@
 <!----------------->
 
 <div class="recommendProduct">
-  
+
     <br>
     <hr>
 
@@ -287,12 +272,12 @@ import Product from './Product.vue';
 export default {
     name: 'HelloWorld',
     components: {
-    Datepicker,
-    PopUp,
-    FromArea,
-    ToArea,
-    Product
-},
+        Datepicker,
+        PopUp,
+        FromArea,
+        ToArea,
+        Product
+    },
     props: ['cityOfChild'],
     data() {
         return {
@@ -385,12 +370,6 @@ a:active {
     color: rgb(77, 77, 77);
 }
 
-img{
-    border: 4px solid rgb(225, 225, 225);
-    border-radius: 20px;
-    /*box-shadow: 3px 3px 6px 0px rgb(39, 39, 39), 8px 8px 16px -10px rgba(0, 0, 0, .15);*/
-}
-
 .carousel-caption {
     margin-left: 600px;
 }
@@ -435,7 +414,6 @@ img{
     border-right: 8px solid white;
     /* 각도 */
     transform: rotate(45deg);
-    position: absolute;
     top: 50%;
     right: 50px;
 }
@@ -464,7 +442,7 @@ span {
 }
 
 .tip {
-    margin-top: 30px;    
+    margin-top: 30px;
 }
 
 .side {
@@ -489,6 +467,7 @@ span {
     margin-left: 10px;
     position: absolute;
     padding: 15px;
+    text-align: center;
 }
 
 .datePicker,
@@ -509,14 +488,6 @@ span {
 
 }
 
-.FromTo input {
-    width: 200px;
-    height: 100px;
-    border: none;
-    background-color: none;
-    text-align: center;
-    cursor: pointer;
-}
 
 .submit-btn {
     width: 300px;
@@ -565,8 +536,8 @@ span {
 
 .fromBtn,
 .toBtn {
-    width: 150px;
-    height: 100px;
+    border: 4px solid rgb(225, 225, 225);
+    border-radius: 20px;
 }
 
 .datePicker {
@@ -613,8 +584,7 @@ span {
 .fromAreaView,
 .toAreaView {
     padding: 20px;
-    position: fixed;
-    z-index: 1;
+    position: fixed;    
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

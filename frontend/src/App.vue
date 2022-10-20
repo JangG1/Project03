@@ -18,7 +18,7 @@
         </ul>
  
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <router-link to="/Modal" class="nav-link px-2 link-secondary">Test2</router-link>
+            <router-link to="/Modal" class="nav-link px-2 link-secondary">test</router-link>
         </ul>
        
         <div class="profileBox">
@@ -98,7 +98,6 @@ export default {
 <style>
 #app {
     font-family: "NanumBarunGothicBold";
-    text-align: center;
     margin-left: 2%;
     margin-right: 2%;    
 }

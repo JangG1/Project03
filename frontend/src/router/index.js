@@ -24,9 +24,9 @@ const routes = [
   }
   ,
   {
-    path: '/Modal',
-    name: 'Modal',
-    component: () => import('../views/Modal.vue')
+    path: '/Test2',
+    name: 'Test2',
+    component: () => import('../views/Test2.vue')
   }
 ]
 

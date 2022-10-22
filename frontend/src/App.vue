@@ -1,12 +1,10 @@
 <template>
-    
 <div>
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- 로고 -->
-        <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo.png" class="logo"></router-link>        
+        <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo.png" class="logo"></router-link>
         <!-- 예약버튼 -->
-     
         <ul class="nav">
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
         </ul>
@@ -17,17 +15,17 @@
         <ul class="nav">
             <router-link to="/Test" class="nav-link px-2 link-secondary">Test</router-link>
         </ul>
- 
+
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <router-link to="/Modal" class="nav-link px-2 link-secondary">test</router-link>
+            <router-link to="/Test2" class="nav-link px-2 link-secondary">Test2</router-link>
         </ul>
-       
+
         <div class="profileBox">
             <!--로그인-->
             <div class="loginBtn" @click="loginModal = true">
                 <ProfileItem :profile="getProfile" :email="getEmail" />
             </div>
-            <!--로그아웃-->            
+            <!--로그아웃-->
             <div class="logoutBtn" @click="logout" v-show="isLogin">
                 로그아웃
             </div>
@@ -48,8 +46,6 @@
 </div>
 </template>
 
-  
-  
 <script>
 import ProfileItem from "@/components/ProfileItem.vue";
 import Modal from "@/components/Modal.vue";
@@ -94,8 +90,7 @@ export default {
     },
 };
 </script>
-  
-  
+
 <style>
 #app {
     font-family: "NanumBarunGothicBold";
@@ -109,18 +104,18 @@ export default {
     src: url('assets/fonts/NanumBarunGothic.woff')format('woff');
 }
 
-.navBar{
+.navBar {
     display: flex;
 }
 
 .logo {
     width: 110px;
     height: 70px;
-    margin-top: 26px;    
+    margin-top: 26px;
     margin-left: 1%;
 }
 
-.profileBox{
+.profileBox {
     display: flex;
     margin-top: 46px;
     margin-right: 1%;
@@ -131,13 +126,13 @@ export default {
     margin-left: 15px;
 }
 
-.logoutBtn{    
+.logoutBtn {
     color: #999;
     border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
     padding: 10px 20px 10px 20px;
     border: 3px solid rgb(193, 188, 188);
-    
+
 }
 </style>

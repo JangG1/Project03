@@ -92,7 +92,7 @@
                 <br>
                 <div class="FromTo">
                     <!--FromArea-->
-                    <img type="button" class="fromBtn" src="../assets/FromArea/seoul.jpg" @click="fromAreaPopUp" width="200">
+                    <img type="button" class="fromBtn" src="../assets/FromArea/SEL.jpg" @click="fromAreaPopUp" width="200">
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close-popup="fromAreaPopUp"></FromArea>
                     </div>
@@ -107,6 +107,7 @@
                 <br>
                 <br>
                 <hr>
+                
                 <Datepicker v-if="show1" class="datePicker" v-model="date" placeholder="                              가는날 ~ 오는날" modelAuto range />
                 <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
             </div>
@@ -611,6 +612,8 @@ footer{
 
 .fromBtn,
 .toBtn {
+    width: 40%;
+    height: 115px;
     border: 4px solid rgb(225, 225, 225);
     border-radius: 20px;
 }

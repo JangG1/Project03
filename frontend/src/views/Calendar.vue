@@ -1,68 +1,40 @@
 <template>
-  <div class="container">
-      <div class="row">
-          <div class="col-xs-12">
-              <h3>출발지 검색</h3>
-              <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
-          </div>
-      </div>
-      <br>
-      <div class="">
-          <div class="">
-              <input type="text" class="SearchBar" placeholder="도시, 공항">
-          </div>
-      </div>
-
-  </div>
+<div id="nav">
+    <div class="menu-nav">
+        <div class="search-form">
+            <input size="sm" class="mr-sm-2" type="text" placeholder="검색어를 입력해주세요" v-model="keyword" @keyup.enter="searchresultshow(keyword)">
+            <button size="sm" class="my-2 my-sm-0" type="submit" @click="searchresultshow(keyword)">
+                <icon icon="search">검색</icon>
+            </button>
+        </div>
+    </div>
+</div>
 </template>
-
-
 
 <script>
 export default {
-  name: 'HelloWorld',
-  components: {
-
-  },
-  data() {
-      return {
-
-      }
-  },
-  methods: {
-
-  }
-}
+    name: "HelloWorld",
+    data() {
+        return {
+            keyword: ''
+        }
+    },
+    methods: {
+        searchresultshow(keyword) {
+            if (keyword !== '') { //검색어를 입력한 경우
+                this.$router.push({
+                    name: "SearchPage",
+                    params: {
+                        keyword: this.keyword,
+                        isResultShow: true,
+                    },
+                });
+                this.keyword = ''
+                console.log('"', keyword, '"' + ' 검색')
+            } else {
+                alert('검색어를 입력해주세요!') //검색어를 입력하지 않은 경우
+            }
+        },
+    }
+};
 </script>
-
-
-<style scoped>
-h3 {
-  float: left;
-  margin-top: 30px;
-  margin-left: 30px;
-  color: #999;
-}
-
-.SearchBar {
-  width: 96%;
-  height: 50px;
-  font-size: 22px;
-  border-bottom: 1.5px solid;
-  background-color: rgb(246, 246, 246);
-  text-align: left;
-  padding-left: 20px;
-}
-
-#closeBtn {
-  width: 32px;
-  height: 40px;
-  float: right;
-  margin-top: 22px;
-  margin-right: 14px;
-  border: none;
-  font-size: 24px;
-  color: #999;
-  background-color: rgb(246, 246, 246);
-}
-</style>

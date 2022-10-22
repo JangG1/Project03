@@ -365,6 +365,7 @@ export default {
 
 .part4 {
     /*background-color: rgb(241, 233, 231);*/
+    
     background-image: url( "../assets/part4.jpg" );
 }
 

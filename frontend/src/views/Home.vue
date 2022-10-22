@@ -177,7 +177,7 @@
 
     <hr>
 </div>
-
+    
 <div class="recommendProduct">
     <div class="">
         <div class="">
@@ -360,7 +360,7 @@ export default {
 
 <style>
 .part2 {
-    background-color: rgb(236, 239, 244);
+    background-image: url( "../assets/part2.jpg" );
 }
 
 .part4 {
@@ -456,16 +456,15 @@ a:active {
 }
 
 .travelImg {
-    width: 1300px;
-    height: 650px;
-    border-radius: 8px;
-    margin-left: 16%;
-    margin-bottom: 12%;
+    width: 800px;
+    height: 600px;
+    margin-left: 29%;
+    margin-bottom: 10%;
 }
 
 .travelTip {
     text-align: center;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .side {
@@ -476,7 +475,7 @@ a:active {
 
 .sideTip {
     height: 170px;
-    border: 3px solid white;
+    
     border-radius: 8px;
     width: 30%;
     margin-top: 6%;

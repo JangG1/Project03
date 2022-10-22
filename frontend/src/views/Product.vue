@@ -123,10 +123,11 @@ export default {
 
 <style>
 .rec{
+    color: white;
     text-align: center;
     font-size: 60px;
-    margin-top: 15%;  
-    margin-bottom: 7%;    
+    margin-top: 10%;  
+    margin-bottom: 10%;    
 }
 
 .prodBox{
@@ -140,22 +141,22 @@ export default {
 #prodCity,
 #prodWay,
 #prodPrice {
-    font-size: 20px;
+    font-size: 21px;
     font-family: 'NanumBarunGothicBold';
-    color: rgb(116, 116, 116);
+    color: rgb(240, 239, 239);
     margin-left: 7%;
 
 }
 
 .detailBtn {
-    border: 1px solid rgb(193, 188, 188);
+    border: 1px solid rgba(193, 188, 188, 0.58);
     border-radius: 4px;
     font-size: 18px;
-    color: rgba(139, 139, 139, 0.993);
+    color: white;
     margin-left: 7%;
     margin-top: 20px;
     width: 115px;
-    background-color: rgba(244, 238, 238, 0.646);
+    background-color: rgba(255, 255, 255, 0.436);
 }
 
 .image-album {
@@ -164,14 +165,13 @@ export default {
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 15%;
+    margin-bottom: 20%;
 }
 
 .image {
     width: 300px;
     height: 400px;
-    margin-bottom: 10px;
-    
+    margin-bottom: 10px;    
     border-radius: 10px;
 }
 
@@ -185,8 +185,8 @@ export default {
     height: 50px;
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    border-top: 10px solid rgb(197, 197, 197);
-    border-right: 10px solid rgb(197, 197, 197);
+    border-top: 10px solid rgb(232, 232, 232);
+    border-right: 10px solid rgb(232, 232, 232);
     transform: rotate(225deg);
     margin-top: 14%;
     float: left;
@@ -198,8 +198,8 @@ export default {
     height: 50px;
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    border-top: 10px solid rgb(197, 197, 197);
-    border-right: 10px solid rgb(197, 197, 197);
+    border-top: 10px solid rgb(232, 232, 232);
+    border-right: 10px solid rgb(232, 232, 232);
     transform: rotate(45deg);
     margin-top: 14%;
     float: right;

@@ -12,7 +12,7 @@
             <span id="prodCity">{{imageUrl.city}}</span><br>
             <span id="prodWay">{{imageUrl.way}}</span><br>
             <span id="prodPrice">{{"KRW " + AddComma(imageUrl.price)}}</span><br>
-            <button type="button" class="detailBtn">자세히 보기</button>
+            <button type="button" class="detailBtn">자세히 보기</button>123
         </span>
 
     </div>

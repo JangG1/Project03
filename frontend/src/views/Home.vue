@@ -364,15 +364,13 @@ export default {
 }
 
 .part4 {
-    /*background-color: rgb(241, 233, 231);*/
-    
+    /*background-color: rgb(241, 233, 231);*/    
     background-image: url( "../assets/part4.jpg" );
 }
 
 h1,
-h2 {
-    font-size: 60px;
-    color: black;
+h2{
+    font-size: 60px;  
     margin-top: 40px;
 }
 
@@ -455,7 +453,6 @@ a:active {
 
 .recommendProduct {
     margin-top: 10%;
-    color: rgb(139, 139, 139);
 }
 
 .travelImg {
@@ -472,24 +469,29 @@ a:active {
 }
 
 .side {
-    text-align: center;
+    color: white;
+    margin-left: 5%;
     margin-top: 18%;
 }
 
 .sideTip {
-    height: 150px;
-    border: 2px solid #999;
+    height: 170px;
+    border: 3px solid white;
     border-radius: 8px;
-    width: 70%;
+    width: 30%;
     margin-top: 6%;
     margin-bottom: 18%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+    margin-left: 5%;    
+    text-align: center;    
 }
 
 .sideTip button {
     margin-top: 3.5%;    
+    color: white;
+}
+
+.sideTip a{
+    color: white;
 }
 
 footer{

@@ -470,7 +470,7 @@ a:active {
 
 .side {
     color: white;
-    margin-left: 5%;
+    margin-left: 4%;
     margin-top: 18%;
 }
 
@@ -481,16 +481,24 @@ a:active {
     width: 30%;
     margin-top: 6%;
     margin-bottom: 18%;
-    margin-left: 5%;    
+    margin-left: 4%;    
     text-align: center;    
 }
 
-.sideTip button {
+.sideTip button{
     margin-top: 3.5%;    
     color: white;
 }
 
-.sideTip a{
+.sideTip button:hover,
+.sideTip button:visited,
+.sideTip button:active {
+    color: white;
+}
+
+.sideTip a:hover,
+.sideTip a:visited,
+.sideTip a:active {
     color: white;
 }
 

@@ -1,35 +1,106 @@
 <template>
-    <div id="searchresult">
-      <div class="result-title">
-        총 {{$store.getters.getFilteredProduct(keyword).length}}개의 상품이 검색되었습니다.
-      </div>
-      
-      <div class="result-items">
-        <div
-        class="resultitem"
-        :key="index"
-        v-for="(product, index) in $store.getters.getFilteredProduct(keyword)"
-        @click="detailshow(index)"
-      >
-        <div class="product-img">
-          <img v-bind:src="product.productimg" />
-        </div>
-        <div class="product-info">
-          <li class="product-info-title">{{ product.title }}</li>
-          <li class="product-info-price">{{ product.price }}원</li>
-        </div>
-      </div>
-      </div>
+<div class="container">
+    <div>
+        <Logo />
+        <h1 class="title">
+            select data 테스트
+        </h1>
     </div>
-  </template>
-  <script>
-  export default {
+    <select v-for="n in selectCnt" :key="n" v-model="selectExcludes[n-1]" class="select">
+        <option value="undefined">
+            선택 안함
+        </option>
+        <option v-for="(item, index) in selectList" :key="index" :disabled="isVisible(item.id)" :value="item.id">
+            {{ item.name }}
+        </option>
+    </select>
+    <br><br>
+    <input type="button" value="현재 데이터 확인" @click="dataCheck">
+    <br><br>
+    <!--test-->
+    <i class="fas fa-search">
+        <input v-model="AreaInput" @input="submitAutoComplete" type="text" style="margin-bottom : 15px;" />
+    </i>
+    <div class="autocomplete disabled">
+        <div style="cursor: pointer" v-for="(res,i) in result" :key="i">
+            <span id="area">{{res}}</span>            
+            <input type="button" v-model="result" @click="test">            
+        </div>
+    </div>
+    <select v-model="selected">
+        <option v-for="(item, index) in toArea2" :key="index" :disabled="isVisible(item.id)" :value="item.area">
+            {{ item.area }}
+        </option>
+    </select>
+    selected : {{selected}}
+
+    <!--test2-->
+    ================================================
+    <div>
+  
+  <input type="text" list="list"/>
+  <datalist id ="list">
+    <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+  </datalist>
+</div>
+</div>
+</template>
+
+<script>
+import ToArea from "../ToArea.js";
+import ToArea2 from "../components/ToArea2.json";
+
+export default {
     name: "HelloWorld",
-    props: ['keyword'], //상위 컴포넌트인 SearchPage.vue로부터 데이터 받음
     data() {
-      return {
-      }
+        return {        
+            AreaInput: null,
+            result: [],
+            selected: "",                                                        
+            toArea2: ToArea2,
+            selectExcludes: []
+        }
     },
-    methods: {}
-  }
-  </script>
+    methods: {
+        isVisible(data) {
+            let returnFlag = false
+            for (const i in this.selectExcludes) {
+                if (this.selectExcludes[i] === data) {
+                    returnFlag = true
+                }
+            }
+            return returnFlag
+        },
+        dataCheck() {
+            console.log(this.selectExcludes)
+        },
+
+        submitAutoComplete() {
+            const autocomplete = document.querySelector(".autocomplete");
+            if (this.AreaInput) {
+                autocomplete.classList.remove("disabled");
+                this.result = ToArea.filter((area) => {
+                    return area.match(new RegExp("^" + this.AreaInput, "i"));
+                });
+                console.log("1" + this.result);
+                console.log("2" + this.AreaInput)
+            } else {
+                autocomplete.classList.add("disabled");
+            }
+        },
+        test() {
+            let temp = this.result;
+            this.result = this.temp;
+            this.AreaInput = temp;
+            console.log(this.result);
+        },
+    }
+}
+</script>
+
+<style>
+#area:hover {
+    color: black;
+    border: 1px solid;
+}
+</style>

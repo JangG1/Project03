@@ -1,14 +1,16 @@
 <template>
-<div id="nav">
-    <div class="menu-nav">
-        <div class="search-form">
-            <input size="sm" class="mr-sm-2" type="text" placeholder="검색어를 입력해주세요" v-model="keyword" @keyup.enter="searchresultshow(keyword)">
-            <button size="sm" class="my-2 my-sm-0" type="submit" @click="searchresultshow(keyword)">
-                <icon icon="search">검색</icon>
-            </button>
-        </div>
-    </div>
+<div>
+  <label for="numbers">number</label>
+  <select id="numbers">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+  </select>
 </div>
+
 </template>
 
 <script>

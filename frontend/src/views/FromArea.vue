@@ -1,24 +1,27 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h3>출발지 검색</h3>
-                <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>출발지 검색</h3>
+            <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
         </div>
-        <br>
-        <div class="">
-            <div class="">
-                <input type="search" class="SearchBar" placeholder="도시, 공항">              
-            </div>
-        </div>
+    </div>
+    <br>
+    <div>
+
+        <input type="text" list="list" />
+        <datalist id="list">
+            <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+        </datalist>
 
     </div>
+
+</div>
 </template>
 
-  
-  
 <script>
+import ToArea2 from "../components/ToArea2.json";
+
 export default {
     name: 'HelloWorld',
     components: {
@@ -26,7 +29,7 @@ export default {
     },
     data() {
         return {
-
+            toArea2: ToArea2,
         }
     },
     methods: {
@@ -34,8 +37,7 @@ export default {
     }
 }
 </script>
-  
-  
+
 <style scoped>
 h3 {
     float: left;

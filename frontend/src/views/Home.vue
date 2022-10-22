@@ -116,7 +116,7 @@
                 <span>승객 수</span>{{space}}<span>{{count}}명</span>
             </button>
             <div class="popup-view" :class="{ active : popupView }">
-                <PopUp @close-popup="popUp()" :count="count" @update-count="updateCount"></PopUp>
+                <HeadCount @close-popup="popUp()" :count="count" @update-count="updateCount"></HeadCount>
             </div>
             <div>
 
@@ -271,7 +271,7 @@
 
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
-import PopUp from './PopUp.vue';
+import HeadCount from './HeadCount.vue';
 import FromArea from './FromArea.vue';
 import ToArea from './ToArea.vue';
 import axios from 'axios';
@@ -281,7 +281,7 @@ export default {
     name: 'HelloWorld',
     components: {
         Datepicker,
-        PopUp,
+        HeadCount,
         FromArea,
         ToArea,
         Product
@@ -364,7 +364,8 @@ export default {
 }
 
 .part4 {
-    background-color: rgb(241, 233, 231);
+    /*background-color: rgb(241, 233, 231);*/
+    background-image: url( "../assets/part4.jpg" );
 }
 
 h1,
@@ -393,7 +394,7 @@ a:active {
 }
 
 .carousel-indicators {
-    margin-left: 855px;
+    margin-left: 880px;
 }
 
 .loginBtn {

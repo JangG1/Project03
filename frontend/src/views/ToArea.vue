@@ -9,15 +9,15 @@
         <br>
         <div class="">
             <div class="">
-                <input type="search" class="SearchBar" placeholder="도시, 공항">
+                <input type="search" class="SearchBar" placeholder="도시, 공항">              
             </div>
         </div>
 
     </div>
 </template>
 
-    
-    
+  
+  
 <script>
 export default {
     name: 'HelloWorld',
@@ -34,8 +34,8 @@ export default {
     }
 }
 </script>
-    
-    
+  
+  
 <style scoped>
 h3 {
     float: left;
@@ -48,7 +48,7 @@ h3 {
     width: 96%;
     height: 50px;
     font-size: 22px;
-    border-bottom: 1.5px solid;
+    border: 3px solid rgb(192, 192, 192);
     background-color: rgb(246, 246, 246);
     text-align: left;
     padding-left: 20px;

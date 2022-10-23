@@ -84,8 +84,8 @@ export default {
                 this.result = ToArea.filter((area) => {
                     return area.match(new RegExp("^" + this.AreaInput, "i"));
                 });
-                console.log("1" + this.result);
-                console.log("2" + this.AreaInput)
+                console.log("1" + this.result);                
+                
             } else {
                 autocomplete.classList.add("disabled");
             }

@@ -1,117 +1,134 @@
 <template>
-<i class="fas fa-search">
-    <input v-model="AreaInput" @input="submitAutoComplete" type="text" style="margin-bottom : 15px;" />
-</i>
-<div class="autocomplete disabled">
-    <div style="cursor: pointer" v-for="(res,i) in result" :key="i">
-        <span id="area">{{res}}</span>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>출발지 검색</h3>
+                <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
+            </div>
+        </div>
+        <br>
+        <div>
+            <input class="SearchBar" @input="test" @keyup="[toggleShow(), hide()]" v-model="area" list="browsers" placeholder="도시, 공항">
+            <datalist id="browsers" v-if="show">
+                <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+            </datalist>
+        </div>
+        <br>
+    
+        <!--test-->
+        <i class="fas fa-search">
+            <input class="SearchBar" v-model="AreaInput" @input="submitAutoComplete" type="text"  />
+        </i>
+        <br>
+    
+        <div class="autocomplete">
+            <div style="cursor: pointer" v-for="(res,i) in result" :key="i">
+                <span id="area" @click="test1">res : {{res}}</span>
+                <span id="area" @click="test2">result : {{result}}</span>
+                <input type="button" class="toArea" v-model="result" @click="test">
+            </div>
+        </div>
+    
     </div>
-</div>
-
-<!--test-->
-<i class="fas fa-search">
-    <input v-model="AreaInput2" @input="submitAutoComplete2" type="text" style="margin-bottom : 15px;" />
-</i>
-<div class="autocomplete disabled">
-    <div style="cursor: pointer" v-for="res in result" :key="res">
-        <div id="area">{{res}}</div>
-        <input type="button" class="toArea" v-model="result.res" @input="test">
-    </div>
-</div>
-
-<!--test2-->
-=================
-<i class="fas fa-search">
-    <input v-model="AreaInput2" @input="submitAutoComplete" type="text" style="margin-bottom : 15px;" />
-</i>
-<div class="autocomplete disabled">
-    <div class="test" v-for="(areas, idx) in toArea2" :key="idx">
-        {{areas.area}}
-        {{idx}}
-        <input type="button" class="toArea" v-model="toArea2" @input="test">
-    </div>
-</div>
-
-<!--test3-->
-<div v-for="(areas, idx) in toArea2" :key="idx">
-    <select id="inputState" class="form-select" v-for="(a, idx) in areas" :key="idx">
-        <option selected>{{a}}</option>
-    </select>
-</div>
-</template>
-
-<script>
-import ToArea2 from "../components/ToArea2.json";
-
-export default {
-    data() {
-        return {
-            AreaInput: null,
-            result: [],
-            ToArea2: ToArea2,
-            result2: [],
-            temp: [],
-            toArea2: ToArea2
-        };
-    },
-    methods: {
-        submitAutoComplete() {
-            const autocomplete = document.querySelector(".autocomplete");
-            if (this.AreaInput) {
-                autocomplete.classList.remove("disabled");
-                this.result = ToArea2.filter((area) => {
-                    return area.match(new RegExp("^" + this.AreaInput, "i"));
-                });
-                console.log("1" + this.result);
-                console.log("2" + this.AreaInput)
-            } else {
-                autocomplete.classList.add("disabled");
+    </template>
+    
+    <script>
+    import ToArea2 from "../components/ToArea2.json";
+    import ToArea from "../ToArea.js";
+    
+    export default {
+        name: 'HelloWorld',
+        components: {
+    
+        },
+        data() {
+            return {
+                show: false,
+                toArea2: ToArea2,
+                AreaInput: null,
+                result: [],
+                ToArea2: ToArea2,
+                result2: [],
+                temp: [],
             }
         },
-        submitAutoComplete2() {
-            const autocomplete2 = document.querySelector(".autocomplete");
-            if (this.AreaInput2) {
-                autocomplete2.classList.remove("disabled");
-                this.result2 = ToArea2.filter((area2) => {
-                    return area2.match(new RegExp(this.AreaInput2, "i"));
-                });
-                console.log("1" + this.result2);
-                console.log("2" + this.AreaInput2)
-            } else {
-                autocomplete2.classList.add("disabled");
-            }
-        },
-        test() {
-            let temp = this.result;
-            this.result = this.temp;
-            this.AreaInput = temp;
-            console.log(this.result);
-        },
-        test2() {
-            let temp = [];
-            temp.push([this.result[0]]);
-            console.log("result : " + this.result);
-            console.log("temp1 : " + temp);
-            return temp;
-        },
-        change() {
-            let test = document.getElementById('area2');
-            let convert = test.outerHTML;
-            console.log(convert);
+        methods: {
+            toggleShow() {
+                if (this.area != "") {
+                    this.show = true;
+    
+                }
+            },
+            hide() {
+                if (this.area == "") {
+                    this.show = false;
+    
+                }
+            },
+            test() {            
+                let temp = this.result;
+                this.result = this.temp;
+                this.AreaInput = temp;
+                console.log(this.result);
+            },
+            test1() {                        
+                console.log(this.res);
+            },
+            test2() {            
+                console.log(this.result);
+            },
+            submitAutoComplete() {
+                const autocomplete = document.querySelector(".autocomplete");
+                if (this.AreaInput) {
+                    autocomplete.classList.remove("disabled");
+                    this.result = ToArea.filter((area) => {
+                        return area.match(new RegExp("^" + this.AreaInput, "i"));
+                    });
+                    console.log("1" + this.result);                
+                    
+                } else {
+                    autocomplete.classList.add("disabled");
+                }
+            },
+    
         }
-    },
-    computed: {
-
-    },
-    mounted() {
-
     }
-}
-</script>
-
-<style>
-#area:hover {
-    color: black;
-    border: 1px solid;
-}
-</style>
+    </script>
+    
+    <style scoped>
+    h3 {
+        float: left;
+        margin-top: 30px;
+        margin-left: 30px;
+        color: #999;
+    }
+    
+    .SearchBar {
+        width: 96%;
+        height: 50px;
+        font-size: 22px;
+        border: 3px solid rgb(192, 192, 192);
+        background-color: rgb(246, 246, 246);
+        text-align: left;
+        padding-left: 20px;
+    }
+    
+    #closeBtn {
+        width: 32px;
+        height: 40px;
+        float: right;
+        margin-top: 22px;
+        margin-right: 14px;
+        border: none;
+        font-size: 24px;
+        color: #999;
+        background-color: rgb(246, 246, 246);
+    }
+    
+    .autocomplete {
+        color: blue;
+        border: 1px solid;
+    }
+    
+    </style>
+    

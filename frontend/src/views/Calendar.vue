@@ -30,7 +30,6 @@ export default {
     },
     methods: {
 
-
         toggleShow() {
             if (this.area != "") {
                 this.show = true;

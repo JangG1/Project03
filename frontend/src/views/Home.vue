@@ -84,7 +84,7 @@
         <!--항공 예약 박스-->
         <!--------------------------------------------------------------------------------->
 
-        <form class="resForm">
+        <div class="resForm">
             <div class="date-area-select">
                 <button type="button" @click="toggleRoundTrip" class="btn-field" id="resRoundTrip">왕복</button>
                 <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
@@ -99,24 +99,31 @@
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
                     <!--ToArea-->
-                    <img type="button" class="toBtn" src="../assets/ToArea/FUK.jpg" @click="toAreaPopUp" width="200">
+                    <img type="button" class="toBtn" src="../assets/ToArea/main.jpg" @click="toAreaPopUp" width="200">
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
                         <ToArea @close-popup="toAreaPopUp"></ToArea>
                     </div>
                 </div>
                 <br>
                 <br>
-                <hr>                
+                <hr>
                 <Datepicker v-if="show1" class="datePicker" v-model="date" placeholder="                              가는날 ~ 오는날" modelAuto range />
                 <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
             </div>
 
             <!--승객수 팝업-->
-            <button type="button" class="btn-field" id="resPassenger" @click="popUp">
-                <span>승객 수</span>{{space}}<span>{{count}}명</span>
+            <button type="button" class="btn-field" id="resPassenger" @click="popUp" value="123">
+                <span class="count">승객 수 </span>
+                <span>성인{{AdultCount}}명</span>
+                <span v-if="ChildCount > 0">, 소아{{ChildCount}}명</span>
+                <span v-if="InfantCount > 0">, 유아{{InfantCount}}명</span>&nbsp;
+                <svg class="countImg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
             </button>
+
             <div class="popup-view" :class="{ active : popupView }">
-                <HeadCount @close-popup="popUp()" :count="count" @update-count="updateCount"></HeadCount>
+                <HeadCount @close-popup="popUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
             </div>
             <div>
 
@@ -124,7 +131,7 @@
             <!--좌석 선택-->
 
             <select id="inputState" class="form-select">
-                <option selected >좌석 등급</option>
+                <option selected>좌석 등급</option>
                 <option>일반석</option>
                 <option>이코노미</option>
                 <option>비즈니스</option>
@@ -132,7 +139,7 @@
 
             <input type="submit" value="항공편 검색" class="submit-btn">
 
-        </form>
+        </div>
 
     </div>
 </div>
@@ -177,7 +184,7 @@
 
     <hr>
 </div>
-    
+
 <div class="recommendProduct">
     <div class="">
         <div class="">
@@ -214,7 +221,7 @@
             </svg>
             <a href="">예약 조회</a>
         </button>
-        
+
         <!--호텔-->
         <button type="button" class="btn btn-lg btn-default">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
@@ -303,9 +310,9 @@ export default {
             showModal: false, //true일 때 모달창 보여짐
             modalDatas: [], //모달에 보낼 데이터 배열
             products: [],
-            test: "",
-            test1: "",
-            test2: "",
+            AdultCount: 1,
+            ChildCount: 0,
+            InfantCount: 0,
         }
     },
     methods: {
@@ -344,8 +351,14 @@ export default {
                     this.products = response.data
                 })
         },
-        updateCount(count) {
-            this.count = count;
+        updateCount(AdultCount, ChildCount, InfantCount) {
+            this.AdultCount = AdultCount;
+            this.ChildCount = ChildCount;
+            this.InfantCount = InfantCount;
+            this.popupView = (this.popupView) ? false : true
+            console.log("Home : " + this.AdultCount)
+            console.log("Home : " + this.ChildCount)
+            console.log("Home : " + this.InfantCount)
         },
 
     },
@@ -360,17 +373,17 @@ export default {
 
 <style>
 .part2 {
-    background-image: url( "../assets/part2.jpg" );
+    background-image: url("../assets/part2.jpg");
 }
 
 .part4 {
-    /*background-color: rgb(241, 233, 231);*/    
-    background-image: url( "../assets/part4.jpg" );
+    /*background-color: rgb(241, 233, 231);*/
+    background-image: url("../assets/part4.jpg");
 }
 
 h1,
-h2{
-    font-size: 60px;  
+h2 {
+    font-size: 60px;
     margin-top: 40px;
 }
 
@@ -475,17 +488,17 @@ a:active {
 
 .sideTip {
     height: 170px;
-    
+
     border-radius: 8px;
     width: 30%;
     margin-top: 6%;
     margin-bottom: 18%;
-    margin-left: 4%;    
-    text-align: center;    
+    margin-left: 4%;
+    text-align: center;
 }
 
-.sideTip button{
-    margin-top: 3.5%;    
+.sideTip button {
+    margin-top: 3.5%;
     color: white;
 }
 
@@ -501,11 +514,11 @@ a:active {
     color: white;
 }
 
-footer{
-    display: flex;    
+footer {
+    display: flex;
 }
 
-.topBtn{
+.topBtn {
     margin-left: 70%;
 }
 
@@ -513,13 +526,13 @@ footer{
     height: 800px;
 }
 
-.footLogo{
+.footLogo {
     margin-left: 15%;
     width: 100px;
     height: 70px;
 }
 
-.footLogoName{    
+.footLogoName {
     font-size: 40px;
     font-family: "NanumBarunGothicBold";
 }
@@ -557,9 +570,10 @@ footer{
     cursor: pointer;
 }
 
-.btn-field span {
-    display: contents;
+.btn-field span {}
 
+.count {
+    margin-right: 57%;
 }
 
 .submit-btn {

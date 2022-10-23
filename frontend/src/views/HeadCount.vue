@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h3>승객 선택</h3>
-            <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
+            <!--<button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>-->
         </div>
     </div>
     <hr>
@@ -33,56 +33,38 @@
                 <button type="button" @click="InfantMinus">-</button>
             </div>
         </div>
-        
+
         <button type="button" class="submitBtn" @click="submit()">확인</button>
     </div>
 
 </div>
 <!--Test-->
-
-<div id="app">
-    <h1>popup.vue</h1>
-    <form @submit="updateCount">
-        <button type="button" @click="countPlus">+</button>
-        <input type="text" 
-        v-model="count"        
-        @input="updateCount"><br> <br>
-    <button type="submit">Submit</button>
-    </form>
-</div>
-
 </template>
 
 <script>
 export default {
     name: 'HelloWorld',
-    props: {},
-    components: {
+    props: [
 
-    },
+    ],
     data() {
         return {
             AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
-            count: 1
+            count: [],
         }
     },
     methods: {
-        countPlus() {
-            this.count++;
-        },
         AdultPlus() {
             this.AdultCount++;
-
         },
         AdultMinus() {
-            if (this.AdultCount != 0)
+            if (this.AdultCount != 1)
                 this.AdultCount--;
         },
         ChildPlus() {
             this.ChildCount++;
-
         },
         ChildMinus() {
             if (this.ChildCount != 0)
@@ -90,19 +72,15 @@ export default {
         },
         InfantPlus() {
             this.InfantCount++;
-
         },
         InfantMinus() {
             if (this.InfantCount != 0)
                 this.InfantCount--;
         },
-        updateCount() {            
-            this.$emit('update-count', this.count);
-            
+        submit() {
+            this.$emit('update-count', this.AdultCount, this.ChildCount, this.InfantCount);
         },
-        
-        
-        
+
 
     }
 }

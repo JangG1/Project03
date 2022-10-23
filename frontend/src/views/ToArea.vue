@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h3>도착지 검색</h3>
+                <h3>출발지 검색</h3>
                 <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
             </div>
         </div>
         <br>
         <div>
-            <input @keyup="[toggleShow(), hide()]" v-model="area" autocomplete="off" list="browsers" placeholder="Select your fav browser">
+            <input class="SearchBar" @input="test" @keyup="[toggleShow(), hide()]" v-model="area" list="browsers" placeholder="도시, 공항">
     
             <datalist id="browsers" v-if="show">
     
@@ -36,18 +36,23 @@
             }
         },
         methods: {
-    
-            toggleShow() {
+            toggleShow() {            
                 if (this.area != "") {
-                    this.show = true;
-                    
-                }
-            },hide(){
-              if (this.area == "") {
-                    this.show = false;
+                    this.show = true;  
                     
                 }
             },
+            hide() {
+                if (this.area == "") {
+                    this.show = false;
+    
+                }
+            },test(e){
+          console.log(e.target.value)
+          let message = e.target.value
+          let pattern = /([^가-힣\x20])/i
+          this.valid = (message.length > 1 && pattern.test(message) === false)
+        }
         }
     }
     </script>
@@ -81,7 +86,5 @@
         color: #999;
         background-color: rgb(246, 246, 246);
     }
-    
-    
     </style>
     

@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import ToArea from "../ToArea.js";
+
 import ToArea2 from "../components/ToArea2.json";
 
 export default {
@@ -75,19 +75,7 @@ export default {
             console.log(this.selectExcludes)
         },
 
-        submitAutoComplete() {
-            const autocomplete = document.querySelector(".autocomplete");
-            if (this.AreaInput) {
-                autocomplete.classList.remove("disabled");
-                this.result = ToArea.filter((area) => {
-                    return area.match(new RegExp("^" + this.AreaInput, "i"));
-                });
-                console.log("1" + this.result);
-                console.log("2" + this.AreaInput)
-            } else {
-                autocomplete.classList.add("disabled");
-            }
-        },
+       
         test() {
             let temp = this.result;
             this.result = this.temp;

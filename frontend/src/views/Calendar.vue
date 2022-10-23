@@ -1,42 +1,101 @@
 <template>
-<div>
-  <label for="numbers">number</label>
-  <select id="numbers">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-  </select>
-</div>
+<fieldset>
+    <legend>
+        Datalist Form
+    </legend>
+    <label>Select Browser</label>
+    <input  @keyup="[toggleShow(), hide()]" v-model="area" autocomplete="off" list="browsers" placeholder="Select your fav browser">
+    
 
+    <datalist id="browsers" v-if="show">
+
+        <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+
+    </datalist>
+
+</fieldset>
+{{toArea2}}
 </template>
 
 <script>
+import ToArea2 from "../components/ToArea2.json";
+
 export default {
     name: "HelloWorld",
     data() {
         return {
-            keyword: ''
+            show: false,
+            toArea2: ToArea2,
         }
     },
     methods: {
-        searchresultshow(keyword) {
-            if (keyword !== '') { //검색어를 입력한 경우
-                this.$router.push({
-                    name: "SearchPage",
-                    params: {
-                        keyword: this.keyword,
-                        isResultShow: true,
-                    },
-                });
-                this.keyword = ''
-                console.log('"', keyword, '"' + ' 검색')
-            } else {
-                alert('검색어를 입력해주세요!') //검색어를 입력하지 않은 경우
+
+
+        toggleShow() {
+            if (this.area != "") {
+                this.show = true;
+                
+            }
+        },hide(){
+          if (this.area == "") {
+                this.show = false;
+                
             }
         },
     }
 };
 </script>
+
+<style>
+fieldset {
+    border: 1px solid blue;
+    width: 360px;
+    border-radius: 5px;
+}
+
+legend,
+label {
+    color: blue;
+    font-size: 24px;
+    font-family: sans-serif;
+}
+
+input {
+    font-size: 18px;
+    padding: 5px;
+    height: 35px;
+    width: 350px;
+    border: 1px solid blue;
+    outline: none;
+    border-radius: 5px;
+    color: blue;
+    /*   border-bottom: none; */
+}
+
+datalist {
+    position: absolute;
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 0 0 5px 5px;
+    border-top: none;
+    font-family: sans-serif;
+    width: 350px;
+    padding: 5px;
+    max-height: 10rem;
+    overflow-y: auto
+}
+
+option {
+    background-color: white;
+    padding: 4px;
+    color: blue;
+    margin-bottom: 1px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+option:hover,
+.active {
+    background-color: lightblue;
+}
+</style>

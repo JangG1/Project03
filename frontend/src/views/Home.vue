@@ -99,15 +99,14 @@
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
                     <!--ToArea-->
-                    <img type="button" class="toBtn" src="../assets/ToArea/main.jpg" @click="toAreaPopUp" width="200">
+                    <img type="button" class="toBtn" src="../assets/ToArea/FUK.jpg" @click="toAreaPopUp" width="200">
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
                         <ToArea @close-popup="toAreaPopUp"></ToArea>
                     </div>
                 </div>
                 <br>
                 <br>
-                <hr>
-                
+                <hr>                
                 <Datepicker v-if="show1" class="datePicker" v-model="date" placeholder="                              가는날 ~ 오는날" modelAuto range />
                 <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
             </div>
@@ -125,7 +124,7 @@
             <!--좌석 선택-->
 
             <select id="inputState" class="form-select">
-                <option selected>좌석 등급</option>
+                <option selected >좌석 등급</option>
                 <option>일반석</option>
                 <option>이코노미</option>
                 <option>비즈니스</option>
@@ -555,7 +554,7 @@ footer{
     margin-right: auto;
     margin-top: 30px;
     margin-bottom: 30px;
-
+    cursor: pointer;
 }
 
 .btn-field span {

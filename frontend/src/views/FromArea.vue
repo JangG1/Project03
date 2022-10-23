@@ -8,10 +8,12 @@
     </div>
     <br>
     <div>
+        <input @keyup="[toggleShow(), hide()]" v-model="area" autocomplete="off" list="browsers" placeholder="Select your fav browser">
 
-        <input type="text" list="list" />
-        <datalist id="list">
+        <datalist id="browsers" v-if="show">
+
             <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+
         </datalist>
 
     </div>
@@ -29,11 +31,23 @@ export default {
     },
     data() {
         return {
+            show: false,
             toArea2: ToArea2,
         }
     },
     methods: {
 
+        toggleShow() {
+            if (this.area != "") {
+                this.show = true;
+                
+            }
+        },hide(){
+          if (this.area == "") {
+                this.show = false;
+                
+            }
+        },
     }
 }
 </script>
@@ -67,4 +81,6 @@ h3 {
     color: #999;
     background-color: rgb(246, 246, 246);
 }
+
+
 </style>

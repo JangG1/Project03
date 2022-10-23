@@ -7,62 +7,81 @@
             </div>
         </div>
         <br>
-        <div class="">
-            <div class="">
-                <input type="search" class="SearchBar" placeholder="도시, 공항">              
-            </div>
+        <div>
+            <input @keyup="[toggleShow(), hide()]" v-model="area" autocomplete="off" list="browsers" placeholder="Select your fav browser">
+    
+            <datalist id="browsers" v-if="show">
+    
+                <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+    
+            </datalist>
+    
         </div>
-
+    
     </div>
-</template>
-
-  
-  
-<script>
-export default {
-    name: 'HelloWorld',
-    components: {
-
-    },
-    data() {
-        return {
-
+    </template>
+    
+    <script>
+    import ToArea2 from "../components/ToArea2.json";
+    
+    export default {
+        name: 'HelloWorld',
+        components: {
+    
+        },
+        data() {
+            return {
+                show: false,
+                toArea2: ToArea2,
+            }
+        },
+        methods: {
+    
+            toggleShow() {
+                if (this.area != "") {
+                    this.show = true;
+                    
+                }
+            },hide(){
+              if (this.area == "") {
+                    this.show = false;
+                    
+                }
+            },
         }
-    },
-    methods: {
-
     }
-}
-</script>
-  
-  
-<style scoped>
-h3 {
-    float: left;
-    margin-top: 30px;
-    margin-left: 30px;
-    color: #999;
-}
-
-.SearchBar {
-    width: 96%;
-    height: 50px;
-    font-size: 22px;
-    border: 3px solid rgb(192, 192, 192);
-    background-color: rgb(246, 246, 246);
-    text-align: left;
-    padding-left: 20px;
-}
-
-#closeBtn {
-    width: 32px;
-    height: 40px;
-    float: right;
-    margin-top: 22px;
-    margin-right: 14px;
-    border: none;
-    font-size: 24px;
-    color: #999;
-    background-color: rgb(246, 246, 246);
-}
-</style>
+    </script>
+    
+    <style scoped>
+    h3 {
+        float: left;
+        margin-top: 30px;
+        margin-left: 30px;
+        color: #999;
+    }
+    
+    .SearchBar {
+        width: 96%;
+        height: 50px;
+        font-size: 22px;
+        border: 3px solid rgb(192, 192, 192);
+        background-color: rgb(246, 246, 246);
+        text-align: left;
+        padding-left: 20px;
+    }
+    
+    #closeBtn {
+        width: 32px;
+        height: 40px;
+        float: right;
+        margin-top: 22px;
+        margin-right: 14px;
+        border: none;
+        font-size: 24px;
+        color: #999;
+        background-color: rgb(246, 246, 246);
+    }
+    
+    
+    </style>
+    

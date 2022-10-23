@@ -113,13 +113,17 @@
 
             <!--승객수 팝업-->
             <button type="button" class="btn-field" id="resPassenger" @click="popUp" value="123">
-                <span class="count">승객 수 </span>
-                <span>성인{{AdultCount}}명</span>
-                <span v-if="ChildCount > 0">, 소아{{ChildCount}}명</span>
-                <span v-if="InfantCount > 0">, 유아{{InfantCount}}명</span>&nbsp;
-                <svg class="countImg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                </svg>
+                <div class="count1">승객 수 </div>
+                <div class="count2">
+                    <p class="adultCount">성인{{AdultCount}}명</p>
+                    <p v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</p>
+                    <p v-if="InfantCount > 0" class="infantCount">, 유아{{InfantCount}}명</p>
+                </div>
+                <div class="countImg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                </div>
             </button>
 
             <div class="popup-view" :class="{ active : popupView }">
@@ -316,12 +320,6 @@ export default {
         }
     },
     methods: {
-        plus() {
-            this.count++;
-        },
-        minus() {
-            this.count--;
-        },
         change() {
             let temp = this.toBtn;
             this.toBtn = this.fromBtn;
@@ -553,10 +551,8 @@ footer {
 }
 
 .datePicker,
-.btn-field,
 .form-select,
 .submit-btn {
-    border: none;
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
     font-size: 24px;
@@ -570,10 +566,60 @@ footer {
     cursor: pointer;
 }
 
-.btn-field span {}
+.btn-field{
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 20px;
+    font-size: 24px;
+    color: #999;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
+    margin-top: 30px;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+}
 
-.count {
-    margin-right: 57%;
+.adultCount {
+    display: inline-block;
+    white-space: nowrap;
+    margin-top: 3%;
+    
+}
+
+.childCount {
+    white-space: nowrap;
+    display: inline-block;
+
+}
+
+.infantCount {
+    white-space: nowrap;
+    display: inline-block;
+    
+}
+
+.countImg {
+    white-space: nowrap;
+    display: inline-block;
+    position: fixed;    
+    
+    margin-right: 3.5%;
+    margin-top: 0.6%;
+}
+
+.count1 {
+    white-space: nowrap;
+    display: inline-block;
+    float: left;
+    margin-left: 7%;
+    margin-top: 2.7%;
+}
+
+.count2 {
+    white-space: nowrap;
+    display: inline-block;
+    margin-top: 2%;
+    margin-left: 50%;
+    
 }
 
 .submit-btn {

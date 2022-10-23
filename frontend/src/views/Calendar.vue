@@ -1,6 +1,7 @@
 <template>
 <div>
-<h1>Test</h1>
+    <button type="button" @click="arrowFunction">Test</button>
+
 </div>
 </template>
 
@@ -9,14 +10,19 @@ export default {
     name: "HelloWorld",
     data() {
         return {
-
+            number: '',
         }
     },
     methods: {
+        arrowFunction() {
+            setTimeout(() => {
+                alert('arrow timeout')                
+            }, 1000)
+        }
 
-        
-    }
-};
+    },
+
+}
 </script>
 
 <style>

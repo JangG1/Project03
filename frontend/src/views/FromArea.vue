@@ -7,34 +7,28 @@
         </div>
     </div>
     <br>
-    <div>
-        <input class="SearchBar" @input="test" @keyup="[toggleShow(), hide()]" v-model="area" list="browsers" placeholder="도시, 공항">
-        <datalist id="browsers" v-if="show">
-            <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
-        </datalist>
+
+    <div class="">
+
+        <input class="SearchBar" type="text" v-model="AreaInput" @input="[searchGroup($event), hide()]" @keydown="[toggleShow()]"/>
+
+        <div v-if=show class="autocomplete">
+            <div v-for="group in groupList" :key="group" class="group-item">
+                <input class="areaList" type="button" v-model="group.area" @click="[test($event),close()]">
+            </div>
+        </div>
     </div>
     <br>
 
     <!--test-->
-    <i class="fas fa-search">
-        <input class="SearchBar" v-model="AreaInput" @input="submitAutoComplete" type="text"  />
-    </i>
-    <br>
-
-    <div class="autocomplete">
-        <div style="cursor: pointer" v-for="(res,i) in result" :key="i">
-            <span id="area" @click="test1">res : {{res}}</span>
-            <span id="area" @click="test2">result : {{result}}</span>
-            <input type="button" class="toArea" v-model="result" @click="test">
-        </div>
-    </div>
 
 </div>
 </template>
 
 <script>
-import ToArea2 from "../components/ToArea2.json";
-import ToArea from "../ToArea.js";
+import data from "../components/ToArea2.json";
+
+const groupList = data;
 
 export default {
     name: 'HelloWorld',
@@ -43,53 +37,46 @@ export default {
     },
     data() {
         return {
+            groupList,
             show: false,
-            toArea2: ToArea2,
             AreaInput: null,
             result: [],
-            ToArea2: ToArea2,
-            result2: [],
-            temp: [],
         }
     },
     methods: {
+        searchGroup(event) {
+            const len = this.groupList.length;            
+            for (let i = 0; i < len; i++) {
+                if (this.groupList[i].area.toLowerCase().indexOf(event.target.value.toLowerCase())) {
+                    document.querySelectorAll(".group-item")[i].style.display = "none";
+                } else {
+                    document.querySelectorAll(".group-item")[i].style.display = "flex";
+                }
+            }
+
+        },
+
+        test(event) {
+            let temp = event.target.value;
+            event.target.value = this.temp;
+            this.AreaInput = temp;
+        },
+        close() {
+            this.show = false;
+        },
+
         toggleShow() {
-            if (this.area != "") {
+            if (this.AreaInput != "") {
                 this.show = true;
 
             }
         },
         hide() {
-            if (this.area == "") {
+            if (this.AreaInput == "") {
                 this.show = false;
-
             }
         },
-        test() {            
-            let temp = this.result;
-            this.result = this.temp;
-            this.AreaInput = temp;
-            console.log(this.result);
-        },
-        test1() {                        
-            console.log(this.res);
-        },
-        test2() {            
-            console.log(this.result);
-        },
-        submitAutoComplete() {
-            const autocomplete = document.querySelector(".autocomplete");
-            if (this.AreaInput) {
-                autocomplete.classList.remove("disabled");
-                this.result = ToArea.filter((area) => {
-                    return area.match(new RegExp("^" + this.AreaInput, "i"));
-                });
-                console.log("1" + this.result);                
-                
-            } else {
-                autocomplete.classList.add("disabled");
-            }
-        },
+        
 
     }
 }
@@ -125,9 +112,13 @@ h3 {
     background-color: rgb(246, 246, 246);
 }
 
-.autocomplete {
-    color: blue;
+.areaList {
     border: 1px solid;
+    width: 96%;
+    text-align: left;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    margin-left: 2%;
 }
-
 </style>

@@ -17,7 +17,7 @@
     
         <!--test-->
         <i class="fas fa-search">
-            <input class="SearchBar" v-model="AreaInput" @input="submitAutoComplete" type="text"  />
+            test : <input class="SearchBar" v-model="AreaInput" @input="submitAutoComplete" type="text"  />
         </i>
         <br>
     

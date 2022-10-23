@@ -55,7 +55,32 @@ export default {
         };
     },
     methods: {
-
+        submitAutoComplete() {
+            const autocomplete = document.querySelector(".autocomplete");
+            if (this.AreaInput) {
+                autocomplete.classList.remove("disabled");
+                this.result = ToArea2.filter((area) => {
+                    return area.match(new RegExp("^" + this.AreaInput, "i"));
+                });
+                console.log("1" + this.result);
+                console.log("2" + this.AreaInput)
+            } else {
+                autocomplete.classList.add("disabled");
+            }
+        },
+        submitAutoComplete2() {
+            const autocomplete2 = document.querySelector(".autocomplete");
+            if (this.AreaInput2) {
+                autocomplete2.classList.remove("disabled");
+                this.result2 = ToArea2.filter((area2) => {
+                    return area2.match(new RegExp(this.AreaInput2, "i"));
+                });
+                console.log("1" + this.result2);
+                console.log("2" + this.AreaInput2)
+            } else {
+                autocomplete2.classList.add("disabled");
+            }
+        },
         test() {
             let temp = this.result;
             this.result = this.temp;

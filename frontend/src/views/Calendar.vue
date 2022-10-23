@@ -1,20 +1,19 @@
-<template>
-<fieldset>
-    <legend>
-        Datalist Form
-    </legend>
-    <label>Select Browser</label>
-    <input  @keyup="[toggleShow(), hide()]" v-model="area" autocomplete="off" list="browsers" placeholder="Select your fav browser">
-    
+<template lang="en">
 
-    <datalist id="browsers" v-if="show">
+   
 
-        <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+        <select id="browsers" role="listbox">
+            <option value="Internet Explorer">Internet Explorer</option>
+            <option value="Chrome">Chrome</option>
+            <option value="Safari">Safari</option>
+            <option value="Microsoft Edge">Microsoft Edge</option>
+            <option value="Firefox">Firefox</option>
+            <option value="Microsoft Edge">Microsoft Edge</option>
+            <option value="Firefox">Firefox</option>
+            <option value="Microsoft Edge">Microsoft Edge</option>
 
-    </datalist>
+        </select>
 
-</fieldset>
-{{toArea2}}
 </template>
 
 <script>
@@ -33,12 +32,13 @@ export default {
         toggleShow() {
             if (this.area != "") {
                 this.show = true;
-                
+
             }
-        },hide(){
-          if (this.area == "") {
+        },
+        hide() {
+            if (this.area == "") {
                 this.show = false;
-                
+
             }
         },
     }
@@ -46,55 +46,30 @@ export default {
 </script>
 
 <style>
-fieldset {
-    border: 1px solid blue;
-    width: 360px;
-    border-radius: 5px;
-}
-
-legend,
-label {
-    color: blue;
-    font-size: 24px;
-    font-family: sans-serif;
-}
-
-input {
-    font-size: 18px;
-    padding: 5px;
-    height: 35px;
-    width: 350px;
-    border: 1px solid blue;
-    outline: none;
-    border-radius: 5px;
-    color: blue;
-    /*   border-bottom: none; */
-}
-
-datalist {
+select {
     position: absolute;
     background-color: white;
-    border: 1px solid blue;
-    border-radius: 0 0 5px 5px;
-    border-top: none;
-    font-family: sans-serif;
-    width: 350px;
+    border: 3px solid blue;
+    border-radius: 8px;    
+    font-family: "NanumBarunGothicBold";
+    font-size: 24px;
+    width: 450px;
+    height: 50px;
     padding: 5px;
-    max-height: 10rem;
-    overflow-y: auto
+    
+    
 }
 
 option {
+  position: absolute;
     background-color: white;
-    padding: 4px;
-    color: blue;
-    margin-bottom: 1px;
-    font-size: 18px;
-    cursor: pointer;
+    border: 3px solid blue;
+    border-radius: 8px;    
+    font-family: "NanumBarunGothicBold";
+    font-size: 24px;
+    width: 450px;
+    height: 50px;
+    padding: 5px;
 }
 
-option:hover,
-.active {
-    background-color: lightblue;
-}
 </style>

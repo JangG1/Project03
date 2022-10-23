@@ -9,13 +9,24 @@
     <br>
     <div>
         <input class="SearchBar" @input="test" @keyup="[toggleShow(), hide()]" v-model="area" list="browsers" placeholder="도시, 공항">
-
         <datalist id="browsers" v-if="show">
-
             <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
-
         </datalist>
+    </div>
+    <br>
 
+    <!--test-->
+    <i class="fas fa-search">
+        <input class="SearchBar" v-model="AreaInput" @input="submitAutoComplete" type="text"  />
+    </i>
+    <br>
+
+    <div class="autocomplete">
+        <div style="cursor: pointer" v-for="(res,i) in result" :key="i">
+            <span id="area" @click="test1">res : {{res}}</span>
+            <span id="area" @click="test2">result : {{result}}</span>
+            <input type="button" class="toArea" v-model="result" @click="test">
+        </div>
     </div>
 
 </div>
@@ -23,6 +34,7 @@
 
 <script>
 import ToArea2 from "../components/ToArea2.json";
+import ToArea from "../ToArea.js";
 
 export default {
     name: 'HelloWorld',
@@ -33,13 +45,18 @@ export default {
         return {
             show: false,
             toArea2: ToArea2,
+            AreaInput: null,
+            result: [],
+            ToArea2: ToArea2,
+            result2: [],
+            temp: [],
         }
     },
     methods: {
-        toggleShow() {            
+        toggleShow() {
             if (this.area != "") {
-                this.show = true;  
-                
+                this.show = true;
+
             }
         },
         hide() {
@@ -47,12 +64,33 @@ export default {
                 this.show = false;
 
             }
-        },test(e){
-      console.log(e.target.value)
-      let message = e.target.value
-      let pattern = /([^가-힣\x20])/i
-      this.valid = (message.length > 1 && pattern.test(message) === false)
-    }
+        },
+        test() {            
+            let temp = this.result;
+            this.result = this.temp;
+            this.AreaInput = temp;
+            console.log(this.result);
+        },
+        test1() {                        
+            console.log(this.res);
+        },
+        test2() {            
+            console.log(this.result);
+        },
+        submitAutoComplete() {
+            const autocomplete = document.querySelector(".autocomplete");
+            if (this.AreaInput) {
+                autocomplete.classList.remove("disabled");
+                this.result = ToArea.filter((area) => {
+                    return area.match(new RegExp("^" + this.AreaInput, "i"));
+                });
+                console.log("1" + this.result);
+                console.log("2" + this.AreaInput)
+            } else {
+                autocomplete.classList.add("disabled");
+            }
+        },
+
     }
 }
 </script>
@@ -86,4 +124,10 @@ h3 {
     color: #999;
     background-color: rgb(246, 246, 246);
 }
+
+.autocomplete {
+    color: blue;
+    border: 1px solid;
+}
+
 </style>

@@ -573,17 +573,17 @@ footer {
     color: #999;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
     margin-top: 30px;
-    cursor: pointer;
+    cursor: pointer;    
     display: inline-block;
     white-space: nowrap;
+
 }
 
 .adultCount {
     display: inline-block;
     white-space: nowrap;
-    margin-top: 3%;
-    
 }
+
 
 .childCount {
     white-space: nowrap;
@@ -594,16 +594,15 @@ footer {
 .infantCount {
     white-space: nowrap;
     display: inline-block;
-    
+  
 }
 
 .countImg {
     white-space: nowrap;
-    display: inline-block;
-    position: fixed;    
-    
+    display: inline-block;        
+    float:right;
     margin-right: 3.5%;
-    margin-top: 0.6%;
+    margin-top: 2.2%;
 }
 
 .count1 {
@@ -617,8 +616,8 @@ footer {
 .count2 {
     white-space: nowrap;
     display: inline-block;
-    margin-top: 2%;
-    margin-left: 50%;
+    margin-top: 2.5%;
+    
     
 }
 

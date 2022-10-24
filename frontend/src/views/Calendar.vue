@@ -1,6 +1,10 @@
 <template>
 <div>
-    <button type="button" @click="arrowFunction">Test</button>
+    <div id="app">
+  <h1>{{ count }}</h1><br/>
+  <p>{{ text }}</p>
+  <button @click="count++">카운트 증가</button>
+</div>
 
 </div>
 </template>
@@ -10,7 +14,8 @@ export default {
     name: "HelloWorld",
     data() {
         return {
-            number: '',
+            count: 0,
+    text: '변경 전'
         }
     },
     methods: {
@@ -21,6 +26,11 @@ export default {
         }
 
     },
+    watch: {
+    count: function (n, o) {
+      this.text = o + '에서 ' + n + '로 변경!'
+    }
+  }
 
 }
 </script>

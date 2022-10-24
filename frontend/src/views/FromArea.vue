@@ -3,25 +3,25 @@
     <div class="row">
         <div class="col-xs-12">
             <h3>출발지 검색</h3>
-            <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
+            <button id="closeBtn" src="../assets/close.png" @click="this.$emit('close')">X</button>
         </div>
     </div>
     <br>
 
     <div class="">
 
-        <input class="SearchBar" type="text" v-model="AreaInput" @input="[searchGroup($event), hide()]" @keydown="[toggleShow()]"/>
+        <input class="SearchBar" type="text" v-model="AreaInput" @input="[searchGroup($event), hide()]" @keydown="[toggleShow()]" placeholder="도시, 공항"/>
 
-        <div v-if=show class="autocomplete">
+        <div v-if=show class="">
             <div v-for="group in groupList" :key="group" class="group-item">
-                <input class="areaList" type="button" v-model="group.area" @click="[test($event),close()]">
+                <input class="areaList" type="button" v-model="group.area" @click="[select($event),close()]">                
             </div>
         </div>
     </div>
     <br>
 
     <!--test-->
-
+<button type="button" @click="submit()">확인</button>
 </div>
 </template>
 
@@ -47,7 +47,8 @@ export default {
         searchGroup(event) {
             const len = this.groupList.length;            
             for (let i = 0; i < len; i++) {
-                if (this.groupList[i].area.toLowerCase().indexOf(event.target.value.toLowerCase())) {
+                if (this.groupList[i].area.toLowerCase().indexOf(event.target.value.toLowerCase())
+                ) {
                     document.querySelectorAll(".group-item")[i].style.display = "none";
                 } else {
                     document.querySelectorAll(".group-item")[i].style.display = "flex";
@@ -56,7 +57,7 @@ export default {
 
         },
 
-        test(event) {
+        select(event) {
             let temp = event.target.value;
             event.target.value = this.temp;
             this.AreaInput = temp;
@@ -87,9 +88,19 @@ export default {
                     document.querySelectorAll(".group-item").style.display = "flex";
                 }
             
+        },
+        submit(){
+            this.$emit('update-area', this.AreaInput);
         }
 
+    },
+    
+    watch:{
+        AreaInput: function (){
+        console.log(this.AreaInput);
+       }
     }
+    
 }
 </script>
 

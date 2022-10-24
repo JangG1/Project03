@@ -93,8 +93,9 @@
                 <div class="FromTo">
                     <!--FromArea-->
                     <img type="button" class="fromBtn" src="../assets/FromArea/SEL.jpg" @click="fromAreaPopUp" width="200">
+                    {{AreaInput}}
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
-                        <FromArea @close-popup="fromAreaPopUp"></FromArea>
+                        <FromArea @close-popup="fromAreaPopUp" :AreaInput="AreaInput" @update-area="updateArea"></FromArea>
                     </div>
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
@@ -317,6 +318,7 @@ export default {
             AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
+            AreaInput:"",
         }
     },
     methods: {
@@ -357,6 +359,10 @@ export default {
             console.log("Home : " + this.AdultCount)
             console.log("Home : " + this.ChildCount)
             console.log("Home : " + this.InfantCount)
+        },
+        updateArea(AreaInput) {
+            this.AreaInput = AreaInput;
+            this.fromAreaView = (this.fromAreaView) ? false : true
         },
 
     },

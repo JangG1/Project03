@@ -115,7 +115,7 @@
                 {{bothWay}}
                 <button type="button" @click="test()">Test</button>
                 <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
-                {{oneWay}}
+                
             </div>
 
             <!--승객수 팝업-->

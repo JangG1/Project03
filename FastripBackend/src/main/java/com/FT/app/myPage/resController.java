@@ -61,7 +61,6 @@ public class ResController {
 		System.out.println(resList.getToArea());
 		System.out.println(resList.getRes_date());
 		
-		resList.setWay(Way.왕복);
 		resList.setSeat(Seat.일반석);
 		resRepository.save(resList);
 		System.out.println(resList);

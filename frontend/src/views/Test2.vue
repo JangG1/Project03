@@ -48,8 +48,6 @@
 
 <script>
 
-import ToArea2 from "../components/ToArea2.json";
-
 export default {
     name: "HelloWorld",
     data() {
@@ -57,7 +55,6 @@ export default {
             AreaInput: null,
             result: [],
             selected: "",                                                        
-            toArea2: ToArea2,
             selectExcludes: []
         }
     },

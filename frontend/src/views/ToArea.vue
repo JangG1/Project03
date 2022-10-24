@@ -2,27 +2,34 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h3>출발지 검색</h3>
-                <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
+                <h3>도착지 검색</h3>
+                <button id="closeBtn" src="../assets/close.png" @click="this.$emit('close')">X</button>
             </div>
         </div>
         <br>
-        <div>
-            <input class="SearchBar" @input="test" @keyup="[toggleShow(), hide()]" v-model="area" list="browsers" placeholder="도시, 공항">
     
-            <datalist id="browsers" v-if="show">
+        <div class="">
     
-                <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
+            <input class="SearchBar" type="text" v-model="toAreaInput" @input="[searchGroup($event), hide()]" @keydown="[toggleShow()]" placeholder="도시, 공항"/>
     
-            </datalist>
-    
+            <div v-if=show class="">
+                <div v-for="group in groupList" :key="group" class="group-item">
+                    <input class="areaList" type="button" v-model="group.area" @click="[select($event),close()]">                
+                    
+                </div>
+            </div>
         </div>
+        <br>
     
+        <!--test-->
+    <button type="button" @click="submit()">확인</button>
     </div>
     </template>
     
     <script>
-    import ToArea2 from "../components/ToArea2.json";
+    import data from "../components/ToArea.json";
+    
+    const groupList = data;
     
     export default {
         name: 'HelloWorld',
@@ -31,29 +38,58 @@
         },
         data() {
             return {
+                groupList,
                 show: false,
-                toArea2: ToArea2,
+                toAreaInput: null,
+                result: [],
             }
         },
         methods: {
-            toggleShow() {            
-                if (this.area != "") {
-                    this.show = true;  
-                    
+            searchGroup(event) {
+                const len = this.groupList.length;
+                
+                for (let i = 0; i < len; i++) {
+                    if (this.groupList[i].area.toLowerCase().indexOf(event.target.value.toLowerCase())
+                    ) {                        
+                        document.querySelectorAll(".group-item")[i].style.display = "none";
+                    } else {
+                        document.querySelectorAll(".group-item")[i].style.display = "flex";
+                    }
+                }
+    
+            },
+    
+            select(event) {
+                let temp = event.target.value;
+                event.target.value = this.temp;
+                this.toAreaInput = temp;
+            },
+            close() {
+                this.show = false;
+            },
+    
+            toggleShow() {
+                if (this.toAreaInput != "") {
+                    this.show = true;
+    
                 }
             },
             hide() {
-                if (this.area == "") {
+                if (this.toAreaInput == "") {
                     this.show = false;
+                    setTimeout(() => {
+                        
+                }, 1000)
+                
+                }            
+            },
+            submit(){
+                this.$emit('update-toArea', this.toAreaInput);
+            }
     
-                }
-            },test(e){
-          console.log(e.target.value)
-          let message = e.target.value
-          let pattern = /([^가-힣\x20])/i
-          this.valid = (message.length > 1 && pattern.test(message) === false)
-        }
-        }
+        },
+
+        
     }
     </script>
     
@@ -85,6 +121,16 @@
         font-size: 24px;
         color: #999;
         background-color: rgb(246, 246, 246);
+    }
+    
+    .areaList {
+        border: 1px solid;
+        width: 96%;
+        text-align: left;
+        padding: 10px;
+        font-size: 20px;
+        background-color: white;
+        margin-left: 2%;
     }
     </style>
     

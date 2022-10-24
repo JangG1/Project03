@@ -10,11 +10,12 @@
 
     <div class="">
 
-        <input class="SearchBar" type="text" v-model="AreaInput" @input="[searchGroup($event), hide()]" @keydown="[toggleShow()]" placeholder="도시, 공항"/>
+        <input class="SearchBar" type="text" v-model="fromAreaInput" @input="[searchGroup($event), hide()]" @keydown="[toggleShow()]" placeholder="도시, 공항"/>
 
         <div v-if=show class="">
             <div v-for="group in groupList" :key="group" class="group-item">
                 <input class="areaList" type="button" v-model="group.area" @click="[select($event),close()]">                
+                
             </div>
         </div>
     </div>
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-import data from "../components/ToArea2.json";
+import data from "../components/FromArea.json";
 
 const groupList = data;
 
@@ -39,16 +40,17 @@ export default {
         return {
             groupList,
             show: false,
-            AreaInput: null,
+            fromAreaInput: null,
             result: [],
         }
     },
     methods: {
         searchGroup(event) {
-            const len = this.groupList.length;            
+            const len = this.groupList.length;
+            
             for (let i = 0; i < len; i++) {
                 if (this.groupList[i].area.toLowerCase().indexOf(event.target.value.toLowerCase())
-                ) {
+                ) {                        
                     document.querySelectorAll(".group-item")[i].style.display = "none";
                 } else {
                     document.querySelectorAll(".group-item")[i].style.display = "flex";
@@ -60,20 +62,20 @@ export default {
         select(event) {
             let temp = event.target.value;
             event.target.value = this.temp;
-            this.AreaInput = temp;
+            this.fromAreaInput = temp;
         },
         close() {
             this.show = false;
         },
 
         toggleShow() {
-            if (this.AreaInput != "") {
+            if (this.fromAreaInput != "") {
                 this.show = true;
 
             }
         },
         hide() {
-            if (this.AreaInput == "") {
+            if (this.fromAreaInput == "") {
                 this.show = false;
                 setTimeout(() => {
                     
@@ -81,25 +83,13 @@ export default {
             
             }            
         },
-        hid2e(){        
-                if (this.AreaInput == "") {                    
-                    document.querySelectorAll(".group-item").style.display = "none";
-                } else {
-                    document.querySelectorAll(".group-item").style.display = "flex";
-                }
-            
-        },
+
         submit(){
-            this.$emit('update-area', this.AreaInput);
+            this.$emit('update-area', this.fromAreaInput);
         }
 
     },
-    
-    watch:{
-        AreaInput: function (){
-        console.log(this.AreaInput);
-       }
-    }
+
     
 }
 </script>

@@ -91,25 +91,31 @@
                 <br>
                 <br>
                 <div class="FromTo">
-                    <!--FromArea-->
-                    <img type="button" class="fromBtn" src="../assets/FromArea/SEL.jpg" @click="fromAreaPopUp" width="200">
-                    {{AreaInput}}
+                    <!--FromArea-->                    
+                    <img v-show="fromBtn1" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
+                    <img v-show="toBtn2" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
-                        <FromArea @close-popup="fromAreaPopUp" :AreaInput="AreaInput" @update-area="updateArea"></FromArea>
+                        <FromArea @close="fromAreaPopUp" :AreaInput="AreaInput" @update-area="updateFromArea"></FromArea>
                     </div>
+
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
-                    <!--ToArea-->
-                    <img type="button" class="toBtn" src="../assets/ToArea/main.jpg" @click="toAreaPopUp" width="200">
+
+                    <!--ToArea-->                    
+                    <img v-show="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
+                    <img v-show="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
-                        <ToArea @close-popup="toAreaPopUp"></ToArea>
+                        <ToArea @close="toAreaPopUp" :toAreaInput="toAreaInput" @update-toArea="updateToArea"></ToArea>
                     </div>
                 </div>
                 <br>
                 <br>
                 <hr>
-                <Datepicker v-if="show1" class="datePicker" v-model="date" placeholder="                              가는날 ~ 오는날" modelAuto range />
+                <Datepicker v-if="show1" class="datePicker" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
+                {{bothWay}}
+                <button type="button" @click="test()">Test</button>
                 <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
+                {{oneWay}}
             </div>
 
             <!--승객수 팝업-->
@@ -303,7 +309,7 @@ export default {
         return {
             toBtn: "",
             fromBtn: "",
-            date: null,
+            bothWay: null,
             oneWay: null,
             popupView: false,
             show1: true,
@@ -318,14 +324,25 @@ export default {
             AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
-            AreaInput:"",
+            toAreaInput: "",
+            fromImgName: 'SEL',
+            toImgName: 'main',
+            image: "",
+            fromBtn1: true,
+            toBtn1: true,
+            fromBtn2: false,
+            toBtn2: false,                        
         }
     },
     methods: {
+        test(){
+            console.log(this.bothWay);
+        },
         change() {
-            let temp = this.toBtn;
-            this.toBtn = this.fromBtn;
-            this.fromBtn = temp;
+            this.fromBtn1 = (this.fromBtn1) ? false : true
+            this.toBtn1 = (this.toBtn1) ? false : true
+            this.fromBtn2 = (this.fromBtn2) ? false : true
+            this.toBtn2 = (this.toBtn2) ? false : true
         },
         popUp() {
             this.popupView = (this.popupView) ? false : true
@@ -351,6 +368,27 @@ export default {
                     this.products = response.data
                 })
         },
+        testSend() {
+            axios
+                .post("/res/test", {
+                    //email: this.email,
+                    seat: this.seat,
+                    way: this.way,
+                    fromArea: this.fromArea,
+                    toArea: this.toArea,
+                    departDate: this.departDate,
+                    returnDate: this.returnDate,
+                })
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
+        },
+        
         updateCount(AdultCount, ChildCount, InfantCount) {
             this.AdultCount = AdultCount;
             this.ChildCount = ChildCount;
@@ -360,9 +398,16 @@ export default {
             console.log("Home : " + this.ChildCount)
             console.log("Home : " + this.InfantCount)
         },
-        updateArea(AreaInput) {
-            this.AreaInput = AreaInput;
+        updateFromArea(image) {
+            this.fromImg = image;
+            this.fromImgName = image.substr(0, 3);
             this.fromAreaView = (this.fromAreaView) ? false : true
+        },
+
+        updateToArea(image) {
+            this.fromImg = image;
+            this.toImgName = image.substr(0, 3);
+            this.toAreaView = (this.toAreaView) ? false : true
         },
 
     },
@@ -572,14 +617,14 @@ footer {
     cursor: pointer;
 }
 
-.btn-field{
+.btn-field {
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
     font-size: 24px;
     color: #999;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
     margin-top: 30px;
-    cursor: pointer;    
+    cursor: pointer;
     display: inline-block;
     white-space: nowrap;
 
@@ -590,7 +635,6 @@ footer {
     white-space: nowrap;
 }
 
-
 .childCount {
     white-space: nowrap;
     display: inline-block;
@@ -600,13 +644,13 @@ footer {
 .infantCount {
     white-space: nowrap;
     display: inline-block;
-  
+
 }
 
 .countImg {
     white-space: nowrap;
-    display: inline-block;        
-    float:right;
+    display: inline-block;
+    float: right;
     margin-right: 3.5%;
     margin-top: 2.2%;
 }
@@ -623,8 +667,7 @@ footer {
     white-space: nowrap;
     display: inline-block;
     margin-top: 2.5%;
-    
-    
+
 }
 
 .submit-btn {

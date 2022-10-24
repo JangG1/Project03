@@ -6,6 +6,17 @@
     <input type="text" class="inputValues" id="id" v-model="fromArea" /><br>
     도착
     <input type="text" class="inputValues" id="id" v-model="toArea" /><br>
+    왕복/편도
+    <select v-model="way" id="">
+        <option value="왕복" selected>왕복</option>
+        <option value="편도">편도</option>
+    </select><br>
+    좌석
+    <select v-model="seat" id="">
+        <option value="일반석" selected>일반석</option>
+        <option value="이코노미">이코노미</option>
+        <option value="비즈니스">비즈니스</option>
+    </select><br>
     가는 편
     <input type="text" class="inputValues" id="id" v-model="departDate" /><br>
     오는 편
@@ -68,6 +79,8 @@ export default {
             axios
                 .post("/res/test", {
                     email: this.email,
+                    seat: this.seat,
+                    way: this.way,
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     departDate: this.departDate,

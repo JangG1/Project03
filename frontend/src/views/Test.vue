@@ -33,7 +33,6 @@
     </template>
     
     <script>
-    import ToArea2 from "../components/ToArea2.json";
     import ToArea from "../ToArea.js";
     
     export default {
@@ -44,10 +43,8 @@
         data() {
             return {
                 show: false,
-                toArea2: ToArea2,
                 AreaInput: null,
                 result: [],
-                ToArea2: ToArea2,
                 result2: [],
                 temp: [],
             }

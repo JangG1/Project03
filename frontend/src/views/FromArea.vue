@@ -74,9 +74,20 @@ export default {
         hide() {
             if (this.AreaInput == "") {
                 this.show = false;
-            }
+                setTimeout(() => {
+                    
+            }, 1000)
+            
+            }            
         },
-        
+        hid2e(){        
+                if (this.AreaInput == "") {                    
+                    document.querySelectorAll(".group-item").style.display = "none";
+                } else {
+                    document.querySelectorAll(".group-item").style.display = "flex";
+                }
+            
+        }
 
     }
 }

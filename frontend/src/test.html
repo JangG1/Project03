@@ -1,58 +1,32 @@
 <html>
     <head>
         <style type="text/css">
-            #flower1{
-                
-                width: 300px; 
-                height: 300px; 
-                background: url('./assets/rec1.jpg');
-            }
-            #flower2{
-                
-                width: 300px; 
-                height: 300px; 
-                background: url('./assets/rec2.jpg');
-            }
-            .imgDiv{
-                display: flex;
-            }
+
         </style>
     </head>
     <body>
-        <div class="imgDiv">
-    <div id="flower1"></div>        
-    <div id="flower2"></div>       
-</div>
+<v-date-picker v-model="value" :landscape="true" :reactive="true"></v-date-picker>
+<Datepicker class="datePicker" type="" v-model="bothWay" placeholder="가는날" />
 
-    <button id="prev">이전</button>
-    <button id="next">다음</button>
+Test
+    <script>
+        $.datepicker.setDefaults({
+          dateFormat: 'yymmdd',
+          prevText: '이전 달',
+          nextText: '다음 달',
+          monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+          dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+          dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+          showMonthAfterYear: true,
+          yearSuffix: '년'
+        });
+        
+        $("#calendar1").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+        </script>
 
-    <script type="text/javascript">
-
-        var currentFlower1 = 1;
-        var currentFlower2 = 2;
-
-        next.onclick = function(){
-            if(currentFlower1 == 6){next() == false}
-            currentFlower1++;
-            currentFlower2++;            
-            flower1.style.background = "url('./assets/rec" + currentFlower1 + ".jpg')";
-            flower1.style.backgroundSize = "cover";
-            flower2.style.background = "url('./assets/rec" + currentFlower2 + ".jpg')";
-            flower2.style.backgroundSize = "cover";
-            
-        }
-
-        prev.onclick = function(){
-            currentFlower1--;
-            currentFlower2--;
-            if(currentFlower1 == 0){ currentFlower1 = 5;}
-            
-            flower1.style.background = "url('./assets/rec" + currentFlower1 + ".jpg')";
-            flower1.style.backgroundSize = "cover";
-            flower2.style.background = "url('./assets/rec" + currentFlower2 + ".jpg')";
-            flower2.style.backgroundSize = "cover";
-        }
-    </script>
     </body>
 </html>

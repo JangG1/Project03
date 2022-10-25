@@ -1,62 +1,54 @@
 <template>
-<div class="">
+<div class="date-area-select">
     TEST
-    <div>
-        <div class="calculator">
-            <div class="result" style="grid-area: result">
 
-            </div>
+    <!-- Test Zone -->
+    <Datepicker class="datePicker" type="" v-model="bothWay" placeholder="가는날" />
+    {{Format(bothWay)}}
+    <input type="button" @click="test($event)" v-model="bothWay">
+    {{array}}
+    test : {{test}}
+    <!-- Test Zone -->
 
-            <button style="grid-area: number-1" @click="append(1)">1</button>
-            <button style="grid-area: number-2" @click="append(2)">2</button>
-            <button style="grid-area: number-3" @click="append(3)">3</button>
-            <button style="grid-area: number-4" @click="append(4)">4</button>
-            <button style="grid-area: number-5" @click="append(5)">5</button>
-            <button style="grid-area: number-6" @click="append(6)">6</button>
-            <button style="grid-area: number-7" @click="append(7)">7</button>
-            <button style="grid-area: number-8" @click="append(8)">8</button>
-            <button style="grid-area: number-9" @click="append(9)">9</button>
-            <button style="grid-area: number-10" @click="append(10)">10</button>
-            <button style="grid-area: number-11" @click="append(11)">11</button>
-            <button style="grid-area: number-12" @click="append(12)">12</button>
-            <button style="grid-area: number-13" @click="append(13)">13</button>
-
-            <button style="grid-area: dot" @click="append('.')">.</button>
-        </div>
-    </div>
 </div>
 </template>
 
 <script>
+import Datepicker from '@vuepic/vue-datepicker';
+import { reactive } from 'vue';
+
 export default ({
     name: "HelloWorld",
     data() {
         return {
-            equation: '0',
-            isDecimalAdded: false,
-            isOperatorAdded: false,
-            isStarted: false,
+            bothWay: [],
         }
     },
-
+    components: {
+        Datepicker
+    },
     methods: {
-        test(event) {
-            let temp = event.target.value;
-            console.log(this.bothWay)
-            console.log(event.target.value)
-            return temp.replace(/(\d{4}(\d{2})(\d))/, '$1-$2-$3')
-        }
-
-    },
-    filters: {
-        dateFormat(value) {
-            if (value === null) {
-                return 0
-            }
-
-            return value.replace(/(\d{4}(\d{2})(\d))/, '$1-$2-$3');
+      Format(value) {
+            /*var regexp = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;
+            return num.toString().replace(regexp, 1);*/
+            /*return num.toString().replace(/(\d{4}(\d{2})(\d))/, '$1-$2-$3')*/
+            var regexp = /(\d{3}(\d{3})(\d))$/g;
+            /*return value.toString().substr(0, 16).replace("Oct", '10월');*/
+            return value.toString().substr(0, 16).replace(regexp, '');
         },
-    }
+    },
+    setup() {
+
+        const array = reactive(['프뚜1', '프뚜2', '프뚜3']);
+
+        const test = reactive([]);
+
+        array.splice(0, 2);
+
+        return {
+          test
+        };
+    },
 
 })
 </script>

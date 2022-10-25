@@ -1,131 +1,97 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h3>출발지 검색</h3>
-                <button id="closeBtn" src="../assets/close.png" @click="$emit('closeModal')">X</button>
-            </div>
-        </div>
-        <br>
-        <div>
-            <input class="SearchBar" @input="test" @keyup="[toggleShow(), hide()]" v-model="area" list="browsers" placeholder="도시, 공항">
-            <datalist id="browsers" v-if="show">
-                <option v-for="(item, index) in toArea2" :key="index" :value="item.area" />
-            </datalist>
-        </div>
-        <br>
-    
-        <!--test-->
-        <i class="fas fa-search">
-            test : <input class="SearchBar" v-model="AreaInput" @input="submitAutoComplete" type="text"  />
-        </i>
-        <br>
-    
-        <div class="autocomplete">
-            <div style="cursor: pointer" v-for="(res,i) in result" :key="i">
-                <span id="area" @click="test1">res : {{res}}</span>
-                <span id="area" @click="test2">result : {{result}}</span>
-                <input type="button" class="toArea" v-model="result" @click="test">
-            </div>
-        </div>
-    
+      선택한 주 : {{ dateRange.start }} ~ {{ dateRange.end }}
+      <br />
+      <br />
+      <Datepicker
+        inline
+        :editable="false"
+        valueType="format"
+        format="YYYY-MM-DD"
+        :getClasses="getClasses"
+        :lang="datepickerLang"
+        :value="weekTime"
+        :disabled-date="dislabedDate"
+        @pick="calendarPick"
+      />
+      
     </div>
-    </template>
-    
-    <script>
-    import ToArea from "../ToArea.js";
-    
-    export default {
-        name: 'HelloWorld',
-        components: {
-    
+  </template>
+  
+<script>
+import Datepicker from '@vuepic/vue-datepicker';
+import moment from "moment";
+
+export default ({
+    name: "HelloWorld",
+    components: {
+        Datepicker
+    },
+    data() {
+      return {
+        date:"",
+        weekTime: null,
+        dateRange: {
+          start: null,
+          end: null,
         },
-        data() {
-            return {
-                show: false,
-                AreaInput: null,
-                result: [],
-                result2: [],
-                temp: [],
-            }
+        datepickerLang: {
+          yearFormat: "YYYY년",
+          monthFormat: "M월",
+          monthBeforeYear: false,
         },
-        methods: {
-            toggleShow() {
-                if (this.area != "") {
-                    this.show = true;
-    
-                }
-            },
-            hide() {
-                if (this.area == "") {
-                    this.show = false;
-    
-                }
-            },
-            test() {            
-                let temp = this.result;
-                this.result = this.temp;
-                this.AreaInput = temp;
-                console.log(this.result);
-            },
-            test1() {                        
-                console.log(this.res);
-            },
-            test2() {            
-                console.log(this.result);
-            },
-            submitAutoComplete() {
-                const autocomplete = document.querySelector(".autocomplete");
-                if (this.AreaInput) {
-                    autocomplete.classList.remove("disabled");
-                    this.result = ToArea.filter((area) => {
-                        return area.match(new RegExp("^" + this.AreaInput, "i"));
-                    });
-                    console.log("1" + this.result);                
-                    
-                } else {
-                    autocomplete.classList.add("disabled");
-                }
-            },
-    
+      };
+    },
+    methods: {
+      // 선택한 영역 class set
+      getClasses(cellDate, currentDates) {
+        if (currentDates.length === 0) return;
+        //기준 날짜
+        const cellDateVal = moment(cellDate).format("YYYYMMDD");
+        // 주 시작일 날짜
+        const startWeekDay = moment(currentDates[0])
+          .startOf("week")
+          .format("YYYYMMDD");
+        // 주 종료일 날짜
+        const endWeekDay = moment(currentDates[0])
+          .endOf("week")
+          .format("YYYYMMDD");
+        
+        // 주 시작점 & 종료점 class
+        if (cellDateVal === startWeekDay || cellDateVal === endWeekDay) {
+          return "active";
         }
-    }
-    </script>
-    
-    <style scoped>
-    h3 {
-        float: left;
-        margin-top: 30px;
-        margin-left: 30px;
-        color: #999;
-    }
-    
-    .SearchBar {
-        width: 96%;
-        height: 50px;
-        font-size: 22px;
-        border: 3px solid rgb(192, 192, 192);
-        background-color: rgb(246, 246, 246);
-        text-align: left;
-        padding-left: 20px;
-    }
-    
-    #closeBtn {
-        width: 32px;
-        height: 40px;
-        float: right;
-        margin-top: 22px;
-        margin-right: 14px;
-        border: none;
-        font-size: 24px;
-        color: #999;
-        background-color: rgb(246, 246, 246);
-    }
-    
-    .autocomplete {
-        color: blue;
-        border: 1px solid;
-    }
-    
-    </style>
-    
+        // 중간영역 class
+        if (
+          moment(cellDateVal).isAfter(startWeekDay) &&
+          moment(cellDateVal).isBefore(endWeekDay)
+        ) {
+          return "in-range";
+        }
+      },
+      // 캘린더 비활성화 영역 - 당일 주를 포함하여 선택 가능
+      dislabedDate(date) {
+        return (
+          moment(date).format("YYYYMMDD") >=
+          moment()
+            .add("7", "days")
+            .startOf("week")
+            .format("YYYYMMDD")
+        );
+      },
+      calendarPick(item) {
+        this.weekTime = moment(item).format("YYYYMMDD");
+        // 선택한 날짜의 주 첫째일과 마지막일 date set - 첫째일을 일요일로 설정
+        this.dateRange.start = moment(item)
+          .startOf("week")
+          .format("YYYYMMDD");
+        this.dateRange.end = moment(item)
+          .endOf("week")
+          .format("YYYYMMDD");
+      },
+
+    },
+});
+
+  </script>
+  

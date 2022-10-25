@@ -7,7 +7,7 @@
     {{Format(bothWay)}}
     <input type="button" @click="test($event)" v-model="bothWay">
     {{array}}
-    test : {{test}}
+    test : {{test}}123
     <!-- Test Zone -->
 
 </div>
@@ -30,7 +30,7 @@ export default ({
     methods: {
       Format(value) {
             /*var regexp = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;
-            return num.toString().replace(regexp, 1);*/
+            return num.toString().replace(regexp, ",");*/
             /*return num.toString().replace(/(\d{4}(\d{2})(\d))/, '$1-$2-$3')*/
             var regexp = /(\d{3}(\d{3})(\d))$/g;
             /*return value.toString().substr(0, 16).replace("Oct", '10월');*/

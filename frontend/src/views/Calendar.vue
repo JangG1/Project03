@@ -7,7 +7,7 @@
     {{Format(bothWay)}}
     <input type="button" @click="test($event)" v-model="bothWay">
     {{array}}
-    test : {{test}}123
+    test : {{test}}
     <!-- Test Zone -->
 
 </div>

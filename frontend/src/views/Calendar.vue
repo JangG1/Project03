@@ -8,7 +8,7 @@
     <input type="button" @click="test($event)" v-model="bothWay">
     {{array}}
     test : {{test}}
-    <!-- Test Zone -->
+    <!-- Test Zone -->123
 
 </div>
 </template>

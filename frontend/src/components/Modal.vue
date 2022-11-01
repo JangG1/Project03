@@ -5,12 +5,12 @@
         </div>
         <div class="loginBtns mt-4 mb-5">
             <div @click="kakaoLogin" class="kakaoBtn mb-3">
-                <img src="@/assets/kakaoLogo.png" alt="" />
+                <img src="@/assets/kakaoLogo.png"/>
                 <br />
                 <!-- 카카오 아이디로 로그인 -->
             </div>
             <div @click="googleLogin" class="googleBtn">
-                <img src="@/assets/googleLogo.png" alt="" />
+                <img src="@/assets/googleLogo.png"/>
                 <br />
                 <!-- 구글 아이디로 로그인 -->
             </div>
@@ -62,6 +62,7 @@
                                 .then((res) => {
                                     res;
                                     console.log("가입성공");
+                                    console.log("email" + userInfo.email);
                                 })
                                 .catch((err) => {
                                     err;

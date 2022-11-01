@@ -1,6 +1,6 @@
 <template>
 <div class="date-area-select">
-    TEST1
+    TEST
 
     <!-- Test Zone -->
     <Datepicker class="datePicker" type="" v-model="bothWay" placeholder="가는날" />

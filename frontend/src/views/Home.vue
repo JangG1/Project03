@@ -112,8 +112,8 @@
                 <br>
                 <hr>
                 <Datepicker v-if="show1" class="datePicker" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
-                {{bothWay}}
-                <button type="button" @click="test()">Test</button>
+                {{Format(bothWay)}}
+                
                 <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
                 
             </div>
@@ -149,7 +149,7 @@
             </select>
 
             <input type="submit" value="항공편 검색" class="submit-btn">
-
+            <button type="button" @click="test()">Test</button>
         </div>
 
     </div>
@@ -309,7 +309,7 @@ export default {
         return {
             toBtn: "",
             fromBtn: "",
-            bothWay: null,
+            bothWay: [],
             oneWay: null,
             popupView: false,
             show1: true,
@@ -335,8 +335,13 @@ export default {
         }
     },
     methods: {
-        test(){
-            console.log(this.bothWay);
+        test(){            
+            alert(this.bothWay)
+            
+        },
+        Format(value) {
+            var regexp = /(\d{3}(\d{3})(\d))$/g;
+            return value.toString().substr(0, 16).replace(regexp, '');
         },
         change() {
             this.fromBtn1 = (this.fromBtn1) ? false : true
@@ -369,10 +374,11 @@ export default {
                 })
         },
         testSend() {
+            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;            
             axios
                 .post("/res/test", {
-                    //email: this.email,
-                    seat: this.seat,
+                    email: this.$store.state.userInfo.email,
+                    seat: seat,
                     way: this.way,
                     fromArea: this.fromArea,
                     toArea: this.toArea,

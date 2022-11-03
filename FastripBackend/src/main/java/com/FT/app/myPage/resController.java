@@ -61,11 +61,26 @@ public class ResController {
 		System.out.println(resList.getToArea());
 		System.out.println(resList.getRes_date());
 		
-		resList.setSeat(Seat.일반석);
 		resRepository.save(resList);
 		System.out.println(resList);
 	}
 	
+	/*@PostMapping("/test")
+	public void resListTest(@RequestBody ResList resList) {
+		System.out.println(resList.getEmail());
+		System.out.println(resList.getSeat());
+		System.out.println(resList.getDate());
+		System.out.println(resList.getWay());		
+		System.out.println(resList.getFromArea());
+		System.out.println(resList.getToArea());
+		System.out.println(resList.getAdultCount());
+		System.out.println(resList.getChildCount());
+		System.out.println(resList.getInfantCount());
+		System.out.println(resList.getRes_date());
+				
+		resRepository.save(resList);
+		System.out.println(resList);
+	}*/
 	
 	//voice_trans 보관함 아이템 불러오기 email 기준 전부
 	@GetMapping("/resList/list/{email}")

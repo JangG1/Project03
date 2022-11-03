@@ -12,17 +12,42 @@
         <option value="편도">편도</option>
     </select><br>
     좌석
-    <select v-model="seat" id="">
-        <option value="일반석" selected>일반석</option>
+    <select v-model="seat" id="inputState">
+        <option value="일반석">일반석</option>
         <option value="이코노미">이코노미</option>
         <option value="비즈니스">비즈니스</option>
     </select><br>
-    가는 편
-    <input type="text" class="inputValues" id="id" v-model="departDate" /><br>
-    오는 편
-    <input type="text" class="inputValues" id="id" v-model="returnDate" /><br>
+    
+       <!--여행 날짜 선택-->
+       <Datepicker  class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
+
+<!--왕복 날짜 선택-->
+<div type="button" class="selectDate1" @click="resetDate1" v-show="selectDate1">
+    <div class="selectDate2" >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+        </svg>
+        <p id="testValue">{{bothWay}}</p>
+    </div>
+</div>
+
+<!--<input v-show="selectDate" type="text" v-model="bothWay">-->
+
+<!--편도 날짜 선택-->
+<Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" />
+
+<div type="button" class="selectDate1" @click="resetDate2" v-show="selectDate2">
+    <div class="selectDate2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+        </svg>
+        {{oneWay}}
+    </div>
+</div>
 
     <button type="button" @click="testSend()">보내기</button><br>
+
+    <button type="button" @click="test()">test</button>
 
     <label>예약 조회</label>
     <table class="table table-striped table-sm">
@@ -58,17 +83,44 @@
 
 <script>
 import axios from 'axios'
+import Datepicker from '@vuepic/vue-datepicker';
 
 export default {
     name: 'HelloWorld',
-    components: {},
+    components: {Datepicker},
     props: [""],
     data() {
         return {
             ress: [],
+            bothWay: [],
+            oneWay: [],
+            selectDate1: false,
+            selectDate2: false
         }
     },
     methods: {
+        test(){
+            let ttt = document.getElementById('testValue').value
+
+            if (this.selectDate1 == true) {
+                this.Date = this.bothWay;
+                this.way = "왕복"
+            } else if(this.selectDate2 == true){
+                this.Date = this.oneWay;
+                this.way = "편도"
+            }else{
+                alert("여행 일정을 선택해주세요")
+                return false;
+            }
+
+          alert(this.$store.state.userInfo.email)
+          alert(ttt)  
+          alert(this.way)
+        },
+        datepickerShow1() {
+            this.datePickerShow1 = false;
+            this.selectDate1 = true;
+        },
         getData() {
             axios.get('/res/all')
                 .then((response) => {
@@ -76,15 +128,31 @@ export default {
                 })
         },
         testSend() {
+            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
+
+            
+            if (this.selectDate1 == true) {
+                this.Date = this.bothWay;
+                this.way = "왕복"
+                alert(this.Date)
+                alert(this.bothWay)
+            } else if(this.selectDate2 == true){
+                this.Date = this.oneWay;
+                this.way = "편도"
+            }else{
+                alert("여행 일정을 선택해주세요")
+                return false;
+            }
+
             axios
                 .post("/res/test", {
-                    email: this.email,
-                    seat: this.seat,
-                    way: this.way,
+                    email: this.$store.state.userInfo.email,                    
+                    seat: seat,
+                    way: "왕복",
                     fromArea: this.fromArea,
                     toArea: this.toArea,
-                    departDate: this.departDate,
-                    returnDate: this.returnDate,
+                    departDate: this.Date,
+                    returnDate: "456",
                 })
                 .then(res => {
                     console.log(res)

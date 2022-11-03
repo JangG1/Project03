@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @DynamicInsert
-public class ResList {
+public class ResList2 {
 	
 	@Id // Primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 제작된 DB의 넘버링을 따라간다.
@@ -40,19 +40,26 @@ public class ResList {
 	@Enumerated(EnumType.STRING)
 	private Seat seat; //Enum 사용 (일반석, 이코노미, 비즈니스)
 	
+	@Column(nullable = false, length = 50)
+	private String Date;
+	
 	@Enumerated(EnumType.STRING)
 	private Way way; //Enum 사용 (왕복,편도)
-	@Column(nullable = false, length = 500)
-	private String departDate;
-	
-	@Column(nullable = false, length = 50)
-	private String returnDate;
 	
 	@Column(nullable = false, length = 50)
 	private String fromArea;
 	
 	@Column(nullable = false, length = 50)
 	private String toArea;
+	
+	@Column(nullable = false, length = 10)
+	private String AdultCount;
+	
+	@Column(nullable = false, length = 10)
+	private String ChildCount;
+	
+	@Column(nullable = false, length = 10)
+	private String InfantCount;
 	
 	@CreationTimestamp // 값을 비워두고 insert해도 시간이 자동으로 입력
 	private Timestamp res_date;

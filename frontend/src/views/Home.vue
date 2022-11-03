@@ -85,13 +85,13 @@
         <!--------------------------------------------------------------------------------->
 
         <div class="resForm">
-            <div class="date-area-select">
+            <div class="res-area-select">
                 <button type="button" @click="toggleRoundTrip" class="btn-field" id="resRoundTrip">왕복</button>
                 <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
                 <br>
                 <br>
                 <div class="FromTo">
-                    <!--FromArea-->                    
+                    <!--FromArea-->
                     <img v-show="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
                     <img v-show="toBtn2" type="button" id="fromValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
@@ -101,7 +101,7 @@
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
 
-                    <!--ToArea-->                    
+                    <!--ToArea-->
                     <img v-show="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
                     <img v-show="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
@@ -111,15 +111,38 @@
                 <br>
                 <br>
                 <hr>
-                <Datepicker v-if="show1" class="datePicker" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
-                {{Format(bothWay)}}
-                
-                <Datepicker v-if="show2" class="datePicker" v-model="oneWay" placeholder="                                  탑승일 선택" />
-                
+
+                <!--여행 날짜 선택-->
+                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
+
+                <!--왕복 날짜 선택-->
+                <div type="button" class="selectDate1" @click="resetDate1" v-show="selectDate1">
+                    <div class="selectDate2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                        </svg>
+                        {{Format1(bothWay)}}
+                    </div>
+                </div>
+
+                <!--<input v-show="selectDate" type="text" v-model="bothWay">-->
+
+                <!--편도 날짜 선택-->
+                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" />
+
+                <div type="button" class="selectDate1" @click="resetDate2" v-show="selectDate2">
+                    <div class="selectDate2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                        </svg>
+                        {{Format2(oneWay)}}
+                    </div>
+                </div>
+
             </div>
 
             <!--승객수 팝업-->
-            <button type="button" class="btn-field" id="resPassenger" @click="popUp" value="123">
+            <button type="button" class="btn-field" id="resPassenger" @click="popUp">
                 <div class="count1">승객 수 </div>
                 <div class="count2">
                     <p class="adultCount">성인{{AdultCount}}명</p>
@@ -148,8 +171,8 @@
                 <option>비즈니스</option>
             </select>
 
-            <input type="submit" value="항공편 검색" class="submit-btn">
-            <button type="button" @click="test()">Test</button>
+            <input type="submit" @click="resSend" value="항공편 검색" class="submit-btn">
+            <button type="button" @click="test">Test</button>
         </div>
 
     </div>
@@ -310,10 +333,12 @@ export default {
             toBtn: "",
             fromBtn: "",
             bothWay: [],
-            oneWay: null,
+            oneWay: [],
             popupView: false,
-            show1: true,
-            show2: false,
+            datePickerShow1: true,
+            datePickerShow2: false,
+            selectDate1: false,
+            selectDate2: false,
             product: [],
             count: 1,
             fromAreaView: false,
@@ -331,17 +356,76 @@ export default {
             fromBtn1: true,
             toBtn1: true,
             fromBtn2: false,
-            toBtn2: false,                        
+            toBtn2: false,
         }
     },
     methods: {
-        test(){            
-            alert(this.fromImgName)
+        datepickerShow1() {
+            this.datePickerShow1 = false;
+            this.selectDate1 = true;
+        },
+        datepickerShow2() {
+            this.datePickerShow2 = false;
+            this.selectDate2 = true;
+        },
+        resetDate1() {
+            this.datePickerShow1 = true;
+            this.selectDate1 = false;
+            this.bothWay = false;
+        },
+        resetDate2() {
+            this.datePickerShow2 = true;
+            this.selectDate2 = false;
+            this.oneWay = false;
+        },
+        toggleRoundTrip() {
+            this.datePickerShow1 = true;
+            this.datePickerShow2 = false;
+            this.selectDate1 = false;
+            this.selectDate2 = false;
+            this.bothWay = false;
+            this.oneWay = false;
+        },
+        toggleOneWay() {
+            this.datePickerShow1 = false;
+            this.datePickerShow2 = true;
+            this.selectDate1 = false;
+            this.selectDate2 = false;
+            this.bothWay = false;
+            this.oneWay = false;
+        },
+        test() {
+            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
             
+            alert(this.fromImgName)
+            alert(this.toImgName)
+
+            if (this.selectDate1 == true) {
+                alert(this.bothWay)
+                alert("왕복")
+            }  else if(this.selectDate2 == true){
+                alert(this.oneWay)
+                alert("편도")
+            } else {
+                alert("여행 일정을 선택해주세요.")
+                return false;
+            }
+
+            alert(this.AdultCount)
+            if (this.ChildCount > 0) {
+                alert(this.ChildCount)
+            }
+            if (this.InfantCount > 0) {
+                alert(this.InfantCount)
+            }
+            alert(seat)
         },
         Format(value) {
+
+            this.show1 = false;
             var regexp = /(\d{3}(\d{3})(\d))$/g;
             return value.toString().substr(0, 16).replace(regexp, '');
+
         },
         change() {
             this.fromBtn1 = (this.fromBtn1) ? false : true
@@ -359,31 +443,57 @@ export default {
         toAreaPopUp() {
             this.toAreaView = (this.toAreaView) ? false : true
         },
-        toggleRoundTrip() {
-            this.show1 = true;
-            this.show2 = false;
-        },
-        toggleOneWay() {
-            this.show1 = false;
-            this.show2 = true;
-        },
         getData() {
             axios.get('/prod/all')
                 .then((response) => {
                     this.products = response.data
                 })
         },
-        testSend() {
-            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;            
+        resSend() {
+            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
+            
+           
+
+            if (this.selectDate1 == true) {
+                this.Date = this.bothWay;
+                this.way = "왕복"
+            } else if(this.selectDate2 == true){
+                this.Date = this.oneWay;
+                this.way = "편도"
+            }else{
+                alert("여행 일정을 선택해주세요")
+                return false;
+            }
+
+            if (this.ChildCount == 0) {
+                this.ChildCount = null;
+            }
+
+            if (this.InfantCount == 0) {
+                this.InfantCount = null;
+            }
+
+            alert(this.$store.state.userInfo.email)
+            alert(seat)
+            alert(this.fromImgName)
+            alert(this.toImgName)
+            alert(this.Date)
+            alert(this.way)
+            alert(this.AdultCount)
+            alert(this.ChildCount)
+            alert(this.InfantCount)
+
             axios
                 .post("/res/test", {
                     email: this.$store.state.userInfo.email,
-                    seat: seat,
-                    way: this.way,
-                    fromArea: this.fromArea,
-                    toArea: this.toArea,
-                    departDate: this.departDate,
-                    returnDate: this.returnDate,
+                    seat: seat,              
+                    Date: this.Date,
+                    way: this.way,      
+                    fromArea: this.fromImgName,
+                    toArea: this.toImgName,
+                    AdultCount: this.AdultCount,
+                    ChildCount: this.ChildCount,
+                    InfantCount: this.InfantCount,                    
                 })
                 .then(res => {
                     console.log(res)
@@ -394,7 +504,7 @@ export default {
                     console.log("안보내짐")
                 })
         },
-        
+
         updateCount(AdultCount, ChildCount, InfantCount) {
             this.AdultCount = AdultCount;
             this.ChildCount = ChildCount;
@@ -415,12 +525,168 @@ export default {
             this.toImgName = image.substr(0, 3);
             this.toAreaView = (this.toAreaView) ? false : true
         },
+        Format1(value) {
+
+            var string = value.toString();
+            var strArray = string.substring(0, 58);
+            var from = strArray.substring(0, 16);
+            var to = strArray.substring(43, 58);
+
+            var year1 = from.substring(11, 15);
+            var day1 = from.substring(8, 10);
+            var week1 = from.substring(0, 3);
+            var month1 = from.substring(4, 7);
+
+            var year2 = to.substring(11, 15);
+            var day2 = to.substring(8, 10);
+            var week2 = to.substring(0, 3);
+            var month2 = to.substring(4, 7);
+
+            if (week1 == "Mon") {
+                week1 = "(월)";
+            } else if (week1 == "Tue") {
+                week1 = "(화)"
+            } else if (week1 == "Wed") {
+                week1 = "(수)"
+            } else if (week1 == "Thu") {
+                week1 = "(목)"
+            } else if (week1 == "Fri") {
+                week1 = "(금)"
+            } else if (week1 == "Sat") {
+                week1 = "(토)"
+            } else if (week1 == "Sun") {
+                week1 = "(일)"
+            }
+
+            if (month1 == "Jan") {
+                month1 = "1";
+            } else if (month1 == "Feb") {
+                month1 = "2"
+            } else if (month1 == "Mar") {
+                month1 = "3"
+            } else if (month1 == "Apr") {
+                month1 = "4"
+            } else if (month1 == "May") {
+                month1 = "5"
+            } else if (month1 == "Jun") {
+                month1 = "6"
+            } else if (month1 == "Jul") {
+                month1 = "7"
+            } else if (month1 == "Aug") {
+                month1 = "8"
+            } else if (month1 == "Sep") {
+                month1 = "9"
+            } else if (month1 == "Oct") {
+                month1 = "10"
+            } else if (month1 == "Nov") {
+                month1 = "11"
+            } else if (month1 == "Dec") {
+                month1 = "12"
+            }
+
+            if (week2 == "Mon") {
+                week2 = "(월)";
+            } else if (week2 == "Tue") {
+                week2 = "(화)"
+            } else if (week2 == "Wed") {
+                week2 = "(수)"
+            } else if (week2 == "Thu") {
+                week2 = "(목)"
+            } else if (week2 == "Fri") {
+                week2 = "(금)"
+            } else if (week2 == "Sat") {
+                week2 = "(토)"
+            } else if (week2 == "Sun") {
+                week2 = "(일)"
+            }
+
+            if (month2 == "Jan") {
+                month2 = "1";
+            } else if (month2 == "Feb") {
+                month2 = "2"
+            } else if (month2 == "Mar") {
+                month2 = "3"
+            } else if (month2 == "Apr") {
+                month2 = "4"
+            } else if (month2 == "May") {
+                month2 = "5"
+            } else if (month2 == "Jun") {
+                month2 = "6"
+            } else if (month2 == "Jul") {
+                month2 = "7"
+            } else if (month2 == "Aug") {
+                month2 = "8"
+            } else if (month2 == "Sep") {
+                month2 = "9"
+            } else if (month2 == "Oct") {
+                month2 = "10"
+            } else if (month2 == "Nov") {
+                month2 = "11"
+            } else if (month2 == "Dec") {
+                month2 = "12"
+            }
+
+            return year1 + "-" + month1 + "-" + day1 + week1 + " ~ " + year2 + "-" + month2 + "-" + day2 + week2;
+        },
+
+        Format2(value) {
+            var string = value.toString();
+            var total = string.substring(0, 16);
+
+            var year = total.substring(11, 15);
+            var day = total.substring(8, 10);
+            var week = total.substring(0, 3);
+            var month = total.substring(4, 7);
+
+            if (week == "Mon") {
+                week = "(월)";
+            } else if (week == "Tue") {
+                week = "(화)"
+            } else if (week == "Wed") {
+                week = "(수)"
+            } else if (week == "Thu") {
+                week = "(목)"
+            } else if (week == "Fri") {
+                week = "(금)"
+            } else if (week == "Sat") {
+                week = "(토)"
+            } else if (week == "Sun") {
+                week = "(일)"
+            }
+
+            if (month == "Jan") {
+                month = "1";
+            } else if (month == "Feb") {
+                month = "2"
+            } else if (month == "Mar") {
+                month = "3"
+            } else if (month == "Apr") {
+                month = "4"
+            } else if (month == "May") {
+                month = "5"
+            } else if (month == "Jun") {
+                month = "6"
+            } else if (month == "Jul") {
+                month = "7"
+            } else if (month == "Aug") {
+                month = "8"
+            } else if (month == "Sep") {
+                month = "9"
+            } else if (month == "Oct") {
+                month = "10"
+            } else if (month == "Nov") {
+                month = "11"
+            } else if (month == "Dec") {
+                month = "12"
+            }
+
+            return year + "-" + month + "-" + day + week;
+        },
 
     },
 
     mounted() {
         this.getData()
-
     }
 
 }
@@ -681,7 +947,7 @@ footer {
     height: 50px;
 }
 
-.date-area-select {
+.res-area-select {
     height: 430px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.612) 0%, rgb(237, 237, 237) 100%);
     border-radius: 50px;
@@ -731,6 +997,13 @@ footer {
     border-radius: 20px;
 }
 
+.bi {
+    width: 15.5px;
+    height: 15.5px;
+    float: left;
+    margin-left: 12px;
+}
+
 .datePicker {
     width: 450px;
     border-radius: 20px;
@@ -742,6 +1015,33 @@ footer {
     margin-top: 43px;
     padding: 9px;
 
+}
+
+.selectDate1 {
+    width: 450px;
+    height: 16.2%;
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 20px;
+    color: #999;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
+    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 43px;
+    padding: 9px;
+    font-size: 15px;
+}
+
+.selectDate2 {
+    height: 96%;
+    color: #999;
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 4px;
+    background-color: white;
+    margin-top: 2px;
+    text-align: center;
+    padding: 10px 0;
 }
 
 .popup-view {

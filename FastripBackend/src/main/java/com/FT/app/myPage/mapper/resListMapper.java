@@ -35,8 +35,10 @@ public interface ResListMapper {
 			@Param("email") String email,
 			@Param("res_date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime res_date,
 			@Param("seat") String kind,
-			@Param("fromArea") String input,
+			@Param("fromArea") String input,			
+			@Param("Date") String date,
 			@Param("toArea") String output);
+	
 //	
 //	@Delete("delete from res where email = #{email} and res_no = #{res_no}")
 //	int deleteResListContent(

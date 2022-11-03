@@ -24,16 +24,12 @@ const routes = [
   }
   ,
   {
-    path: '/Departure/:fromArea/:toArea',
+    path: '/Departure/:fromArea/:toArea/:seat/:bothWay',
     name: 'Departure',
     component: () => import('../views/Departure.vue'),
     props: true
   },
-  {
-    path: '/query',
-    component: () => import('../views/Query.vue'),
-    name: 'Query'
-},
+ 
 ]
 
 const router = createRouter({

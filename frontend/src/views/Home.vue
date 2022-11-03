@@ -112,7 +112,7 @@
                 <hr>
 
                 <!--여행 날짜 선택-->
-                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
+                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" format="yyyy-MM-dd" modelAuto range />
 
                 <!--왕복 날짜 선택-->
                 <div type="button" class="selectDate1" @click="resetDate1" v-show="selectDate1">
@@ -127,7 +127,7 @@
                 <!--<input v-show="selectDate" type="text" v-model="bothWay">-->
 
                 <!--편도 날짜 선택-->
-                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" />
+                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" format="yyyy-MM-dd"/>
 
                 <div type="button" class="selectDate1" @click="resetDate2" v-show="selectDate2">
                     <div class="selectDate2">
@@ -683,10 +683,19 @@ export default {
             return year + "-" + month + "-" + day + week;
         },
         submit(){
+            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
+            if(seat == "좌석 등급"){
+                alert("좌석을 선택해주세요")
+                return false;
+            }
             this.$router.push({name: 'Departure', 
             params: {
                 fromArea: this.fromImgName, 
-                toArea:this.toImgName}});            
+                toArea:this.toImgName,
+                seat: seat,
+                bothWay: JSON.stringify(this.bothWay),
+                
+            }});            
         }
     },
 

@@ -3,38 +3,66 @@
     TEST
 
     <!-- Test Zone -->
-    <Datepicker id="123" class="datePicker" type="" v-model="bothWay" placeholder="가는날 ~ 오는날" modelAuto range />
-    <Datepicker class="datePicker" type="" v-model="oneWay" placeholder="가는날" />
-    {{Format1(bothWay)}}
+    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날"   :dayNames="lang.days" range>
+    <template #month="{  value  }">
+        {{ value + 1 + "월"}}
+      </template>
+      <template #month-overlay="{ value }">
+        {{ value + 1 + "월"}}
+      </template>
+    </Datepicker>
+    <Datepicker class="datePicker" type="" v-model="oneWay" placeholder="가는날" />    
+    {{Format1(bothWay)}}<br>
+    {{bothWay}}
     <br>
 
     {{Format2(oneWay)}}
 
     <button type="button" @click="test">123</button>
+    <br>
     <!-- Test Zone -->
-
+    <input type="date" class="datePicker" v-model="date" placeholder="가는날">
+    {{date}}
+    <Datepicker v-model="date"  :dayNames="['1', '2', '3', '4', '5', '6', '7']" />
 </div>
 </template>
 
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
+import { ref } from 'vue';
 
 export default ({
     name: "HelloWorld",
     data() {
         return {
-            bothWay: [],
+            bothWay: "",
             oneWay: [],
             strArray: [],
             week: [],
+            date: [],
+            text: 1,
+            lang: {
+                days: ['월','화','수','목','금','토','일'],
+                months: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월',]
+            }
         }
     },
     components: {
         Datepicker
     },
+    setup() {
+
+        const ariaLabels = ref({ menu: 'Some custom menu label' })
+        
+        return {
+
+          ariaLabels,
+        }
+    },
     methods: {
-        test(){
-         alert(this.oneWay)   
+        test() {
+            alert(this.bothWay)
+  
         },
         Format1(value) {
 
@@ -94,7 +122,7 @@ export default ({
             } else if (month1 == "Dec") {
                 month1 = "12"
             }
-            
+
             if (week2 == "Mon") {
                 week2 = "(월)";
             } else if (week2 == "Tue") {

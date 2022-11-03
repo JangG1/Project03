@@ -92,8 +92,8 @@
                 <br>
                 <div class="FromTo">
                     <!--FromArea-->                    
-                    <img v-show="fromBtn1" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
-                    <img v-show="toBtn2" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
+                    <img v-show="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
+                    <img v-show="toBtn2" type="button" id="fromValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close="fromAreaPopUp" :AreaInput="AreaInput" @update-area="updateFromArea"></FromArea>
                     </div>
@@ -336,7 +336,7 @@ export default {
     },
     methods: {
         test(){            
-            alert(this.bothWay)
+            alert(this.fromImgName)
             
         },
         Format(value) {

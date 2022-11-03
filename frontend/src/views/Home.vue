@@ -95,9 +95,8 @@
                     <img v-show="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
                     <img v-show="toBtn2" type="button" id="fromValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
-                        <FromArea @close="fromAreaPopUp" :AreaInput="AreaInput" @update-area="updateFromArea"></FromArea>
+                        <FromArea @close="fromAreaPopUp"  @update-fromArea="updateFromArea"></FromArea>
                     </div>
-
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
 
@@ -105,7 +104,7 @@
                     <img v-show="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
                     <img v-show="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
-                        <ToArea @close="toAreaPopUp" :toAreaInput="toAreaInput" @update-toArea="updateToArea"></ToArea>
+                        <ToArea @close="toAreaPopUp" @update-toArea="updateToArea"></ToArea>
                     </div>
                 </div>
                 <br>
@@ -172,6 +171,7 @@
             </select>
 
             <input type="submit" @click="resSend" value="항공편 검색" class="submit-btn">
+            <button type="button" @click="submit()">검색</button>
             <button type="button" @click="test">Test</button>
         </div>
 
@@ -327,7 +327,7 @@ export default {
         ToArea,
         Product
     },
-    props: ['cityOfChild'],
+    props: [''],
     data() {
         return {
             toBtn: "",
@@ -349,7 +349,6 @@ export default {
             AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
-            toAreaInput: "",
             fromImgName: 'SEL',
             toImgName: 'main',
             image: "",
@@ -357,6 +356,7 @@ export default {
             toBtn1: true,
             fromBtn2: false,
             toBtn2: false,
+            
         }
     },
     methods: {
@@ -682,7 +682,12 @@ export default {
 
             return year + "-" + month + "-" + day + week;
         },
-
+        submit(){
+            this.$router.push({name: 'Departure', 
+            params: {
+                fromArea: this.fromImgName, 
+                toArea:this.toImgName}});            
+        }
     },
 
     mounted() {

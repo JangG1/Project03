@@ -27,7 +27,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
         </svg>
-        <p id="testValue">{{bothWay}}</p>
+        {{bothWay}}
     </div>
 </div>
 
@@ -128,31 +128,16 @@ export default {
                 })
         },
         testSend() {
-            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
-
-            
-            if (this.selectDate1 == true) {
-                this.Date = this.bothWay;
-                this.way = "왕복"
-                alert(this.Date)
-                alert(this.bothWay)
-            } else if(this.selectDate2 == true){
-                this.Date = this.oneWay;
-                this.way = "편도"
-            }else{
-                alert("여행 일정을 선택해주세요")
-                return false;
-            }
 
             axios
                 .post("/res/test", {
                     email: this.$store.state.userInfo.email,                    
-                    seat: seat,
-                    way: "왕복",
+                    seat: this.seat,
+                    way: this.way,
                     fromArea: this.fromArea,
                     toArea: this.toArea,
-                    departDate: this.Date,
-                    returnDate: "456",
+                    departDate: this.departDate,
+                    returnDate: this.returnDate,
                 })
                 .then(res => {
                     console.log(res)

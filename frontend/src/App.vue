@@ -17,7 +17,7 @@
         </ul>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <router-link to="/Test2" class="nav-link px-2 link-secondary">Test2</router-link>
+            <router-link to="/Departure" class="nav-link px-2 link-secondary">Departure</router-link>
         </ul>
 
         <div class="profileBox">

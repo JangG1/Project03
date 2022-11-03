@@ -2,32 +2,49 @@
 <div>
     <h1>가는 편 {{ fromArea }} -> {{ toArea }} </h1>
     <div class="day-select">
-        <button type="button">1</button>
-        <button type="button">2</button>
-        <button type="button">3</button>
-        <button type="button">4</button>
-        <button type="button">5</button>
+        <button type="button">
+            {{bothWay.toString().substring(11,12) - 2}}                        
+        </button>
+        <button type="button">
+            {{bothWay.toString().substring(11,12) - 1}}
+        </button>
+        <button type="button">
+            {{bothWay.toString().substring(11,12)}}
+        </button>
+        <button type="button">
+            {{bothWay.toString().substring(11,12)}}
+        </button>
+        <button type="button">
+            {{bothWay.toString().substring(11,12) + 2}}
+        </button>
     </div>
     <br>
-    <div class="day-seat-select">
-        <button type="button">
-            <h3>{{Math.floor(Math.random()*(9 - 1) + 1)}}:{{Math.floor(Math.random()*(59 - 10) + 10)}} {{ fromArea }}
-                ->
-                {{Math.floor(Math.random()*(23 - 12) + 12)}}:{{Math.floor(Math.random()*(59 - 10) + 10)}} {{ toArea }}</h3>
-        </button>
-        <button type="button">
+    <div class="day-seat-select" v-for="res in st" :key="res">
+
+            <button type="button" class="timeSelect" style="cursor: default">
+                <h3>{{res.start}} {{ fromArea }}
+                    ->
+                    {{res.arrive}} {{ toArea }}</h3>
+            </button>
+
+
+        <button type="button" class="seatSelect">
             <h3>{{seat}} 스탠다드</h3>
-            <h3>{{Math.floor(Math.random()*(400 - 200) + 200)}},000 원</h3>
+            <h3>{{priceFormat(price)}}</h3>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
-        <button type="button">
+        <button type="button" class="seatSelect">
             <h3>{{seat}} 플랙스</h3>
-            <h3>{{Math.floor(Math.random()*(700 - 350) + 350)}},000 원</h3>
+            <h3>{{priceFormat(price)}}</h3>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
+
     </div>
+
+
     <div>
         {{bothWay}}
+
     </div>
     <div>
         <input type="text">
@@ -36,11 +53,21 @@
 </template>
 
 <script>
+import startTime from '../components/startTime.json';
+
+const st = startTime;
+
 export default {
     name: 'HelloWorld',
+    components: {
+
+    },
     data() {
         return {
-            price: "",
+            st,
+            start: '',
+            arrive: '',
+            price: '',
         }
     },
     props: {
@@ -62,6 +89,9 @@ export default {
         }
     },
     methods: {
+        priceFormat() {
+            return this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
+        },
         Format1(value) {
 
             var string = value.toString();
@@ -175,7 +205,6 @@ export default {
     height: 100px;
     margin-left: auto;
     margin-right: auto;
-
     display: flex;
 }
 
@@ -186,22 +215,40 @@ export default {
     background-color: white;
 }
 
+.day-select button:hover{
+    border: 1.5px solid blue;
+}
+
 .day-seat-select {
     width: 1500px;
     margin-left: auto;
     margin-right: auto;
-    border: 0.5px solid #999;
+
     display: flex;
     padding: 40px;
 }
 
 .day-seat-select button {
-    width: 400px;
+    width: 40%;
     height: 150px;
     margin-left: auto;
     margin-right: auto;
-    color: #999;
-    border: 0.5px solid #999;
+    color: #999;    
     background-color: white;
+}
+
+.timeSelect{
+    border: 1px solid;
+}
+
+.seatSelect{
+    border: 1px solid;
+    border-top: 4px solid black;
+    
+}
+
+.seatSelect:hover{
+    border: 1.5px solid blue;
+    border-top: 4px solid black;
 }
 </style>

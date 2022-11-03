@@ -1100,4 +1100,16 @@ footer {
     box-shadow: 2px 2px 10px lightgrey;
     z-index: 5
 }
+
+.fromBtn:hover,
+.toBtn:hover,
+.ppg-refresh:hover,
+.datePicker:hover,
+.selectDate1:hover,
+.selectDate2:hover,
+.btn-field:hover,
+.form-select:hover,
+.submit-btn:hover{
+    border: 1.5px solid blue;
+}
 </style>

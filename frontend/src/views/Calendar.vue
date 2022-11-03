@@ -3,17 +3,18 @@
     TEST
 
     <!-- Test Zone -->
-    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날"   :dayNames="lang.days" range>
-    <template #month="{  value  }">
-        {{ value + 1 + "월"}}
-      </template>
-      <template #month-overlay="{ value }">
-        {{ value + 1 + "월"}}
-      </template>
+    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날" :dayNames="lang.days" range>
+        <template #month="{  value  }">
+            {{ value + 1 + "월"}}
+        </template>
+        <template #month-overlay="{ value }">
+            {{ value + 1 + "월"}}
+        </template>
     </Datepicker>
-    <Datepicker class="datePicker" type="" v-model="oneWay" placeholder="가는날" />    
+    <Datepicker class="datePicker" type="" v-model="oneWay" placeholder="가는날" />
     {{Format1(bothWay)}}<br>
     {{bothWay}}
+    <input type="button" v-model="bothWay">
     <br>
 
     {{Format2(oneWay)}}
@@ -23,13 +24,15 @@
     <!-- Test Zone -->
     <input type="date" class="datePicker" v-model="date" placeholder="가는날">
     {{date}}
-    <Datepicker v-model="date"  :dayNames="['1', '2', '3', '4', '5', '6', '7']" />
+    <Datepicker v-model="date" :dayNames="['1', '2', '3', '4', '5', '6', '7']" />
 </div>
 </template>
 
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
-import { ref } from 'vue';
+import {
+    ref
+} from 'vue';
 
 export default ({
     name: "HelloWorld",
@@ -42,8 +45,8 @@ export default ({
             date: [],
             text: 1,
             lang: {
-                days: ['월','화','수','목','금','토','일'],
-                months: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월',]
+                days: ['월', '화', '수', '목', '금', '토', '일'],
+                months: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월', ]
             }
         }
     },
@@ -52,17 +55,19 @@ export default ({
     },
     setup() {
 
-        const ariaLabels = ref({ menu: 'Some custom menu label' })
-        
+        const ariaLabels = ref({
+            menu: 'Some custom menu label'
+        })
+
         return {
 
-          ariaLabels,
+            ariaLabels,
         }
     },
     methods: {
         test() {
             alert(this.bothWay)
-  
+
         },
         Format1(value) {
 

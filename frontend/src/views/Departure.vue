@@ -1,32 +1,39 @@
 <template>
 <div>
-    <h1>가는 편 {{ fromArea }} -> {{ toArea }} </h1>
+    <div class="caption">
+        <p>가는 편 {{ fromArea }} </p>
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="arrow1">
+            <path id="arrowImg" fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+        </svg>
+
+        <p> {{ toArea }} </p>
+    </div>
     <div class="day-select">
         <button type="button">
-            {{bothWay.toString().substring(11,12) - 2}}                        
+            {{bothWay.toString().substring(10,12) - 2}}
         </button>
         <button type="button">
-            {{bothWay.toString().substring(11,12) - 1}}
+            {{bothWay.toString().substring(10,12) - 1}}
         </button>
         <button type="button">
-            {{bothWay.toString().substring(11,12)}}
+            {{bothWay.toString().substring(10,12)}}
         </button>
         <button type="button">
-            {{bothWay.toString().substring(11,12)}}
+            {{bothWay.toString().substring(10,12)}}
         </button>
         <button type="button">
-            {{bothWay.toString().substring(11,12) + 2}}
+            {{bothWay.toString().substring(10,12) + 2}}
         </button>
     </div>
     <br>
     <div class="day-seat-select" v-for="res in st" :key="res">
 
-            <button type="button" class="timeSelect" style="cursor: default">
-                <h3>{{res.start}} {{ fromArea }}
-                    ->
-                    {{res.arrive}} {{ toArea }}</h3>
-            </button>
-
+        <button type="button" class="timeSelect" style="cursor: default">
+            <p>{{res.start}} {{ fromArea }}</p>
+            <img type="image" class="arrow2" src="../assets/arrow.jpg">
+            <p>{{res.arrive}} {{ toArea }}</p>
+        </button>
 
         <button type="button" class="seatSelect">
             <h3>{{seat}} 스탠다드</h3>
@@ -40,7 +47,6 @@
         </button>
 
     </div>
-
 
     <div>
         {{bothWay}}
@@ -200,6 +206,19 @@ export default {
 </script>
 
 <style>
+.caption {
+    display: flex;
+    margin-left: 11%;
+}
+
+.arrow1{
+    width: 30px;
+    height: 50px;
+    margin-top: 9px;
+    margin-left: 14px;
+    
+}
+
 .day-select {
     width: 1500px;
     height: 100px;
@@ -215,7 +234,7 @@ export default {
     background-color: white;
 }
 
-.day-select button:hover{
+.day-select button:hover {
     border: 1.5px solid blue;
 }
 
@@ -231,23 +250,35 @@ export default {
 .day-seat-select button {
     width: 40%;
     height: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    color: #999;    
+    color: #999;
     background-color: white;
 }
 
-.timeSelect{
+.timeSelect {
     border: 1px solid;
+    display: flex;
 }
 
-.seatSelect{
-    border: 1px solid;
-    border-top: 4px solid black;
+.timeSelect p{
+    
+    display: flex;
+    padding: 35px;
+}
+
+.arrow2{
+    width: 200px;
+    height: 30px;
+    margin-top: 10%;
     
 }
 
-.seatSelect:hover{
+.seatSelect {
+    border: 1px solid;
+    border-top: 4px solid black;
+
+}
+
+.seatSelect:hover {
     border: 1.5px solid blue;
     border-top: 4px solid black;
 }

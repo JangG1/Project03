@@ -17,7 +17,7 @@
             {{startDate.toString().substring(10,12) - 1}}
         </button>
         <button type="button">
-            {{startDate.toString().substring(10,12)}} ({{this.day}})
+            {{startDate.toString().substring(10,12)}} {{Format(startDate)}}
         </button>
         <button type="button">
             {{startDate.toString().substring(10,12)}}
@@ -103,7 +103,7 @@ export default {
         var week2 = this.returnDate.substring(0, 3);
 
         if (week1 == "Mon") {
-            week1 = "(월1)";
+            week1 = "(월)";
         } else if (week1 == "Tue") {
             week1 = "(화)"
         } else if (week1 == "Wed") {
@@ -145,6 +145,27 @@ export default {
         priceFormat() {
             return this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
         },
+        Format(value) {
+            var string = value.toString();
+            var week = string.substring(0, 3);
+
+            if (week == "Mon") {
+                week = "(월)";
+            } else if (week == "Tue") {
+                week = "(화)"
+            } else if (week == "Wed") {
+                week = "(수)"
+            } else if (week == "Thu") {
+                week = "(목)"
+            } else if (week == "Fri") {
+                week = "(금)"
+            } else if (week == "Sat") {
+                week = "(토)"
+            } else if (week == "Sun") {
+                week = "(일)"
+            }
+            return week;
+        }
     },
 }
 </script>

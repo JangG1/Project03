@@ -95,7 +95,7 @@
                     <img v-show="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
                     <img v-show="toBtn2" type="button" id="fromValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
-                        <FromArea @close="fromAreaPopUp"  @update-fromArea="updateFromArea"></FromArea>
+                        <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea"></FromArea>
                     </div>
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
@@ -112,8 +112,14 @@
                 <hr>
 
                 <!--여행 날짜 선택-->
-                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" format="yyyy-MM-dd" modelAuto range />
-
+                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" format="yyyy-MM-dd" :dayNames="lang.days" modelAuto range>
+                    <template #month="{  value  }">
+                        {{ value + 1 + "월"}}
+                    </template>
+                    <template #month-overlay="{ value }">
+                        {{ value + 1 + "월"}}
+                    </template>
+                </Datepicker>
                 <!--왕복 날짜 선택-->
                 <div type="button" class="selectDate1" @click="resetDate1" v-show="selectDate1">
                     <div class="selectDate2">
@@ -127,8 +133,14 @@
                 <!--<input v-show="selectDate" type="text" v-model="bothWay">-->
 
                 <!--편도 날짜 선택-->
-                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" format="yyyy-MM-dd"/>
-
+                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" format="yyyy-MM-dd" :dayNames="lang.days">
+                    <template #month="{  value  }">
+                        {{ value + 1 + "월"}}
+                    </template>
+                    <template #month-overlay="{ value }">
+                        {{ value + 1 + "월"}}
+                    </template>
+                </Datepicker>
                 <div type="button" class="selectDate1" @click="resetDate2" v-show="selectDate2">
                     <div class="selectDate2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
@@ -330,6 +342,9 @@ export default {
     props: [''],
     data() {
         return {
+            lang: {
+                days: ['월', '화', '수', '목', '금', '토', '일']
+            },
             toBtn: "",
             fromBtn: "",
             bothWay: [],
@@ -356,7 +371,7 @@ export default {
             toBtn1: true,
             fromBtn2: false,
             toBtn2: false,
-            
+
         }
     },
     methods: {
@@ -396,14 +411,14 @@ export default {
         },
         test() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
-            
+
             alert(this.fromImgName)
             alert(this.toImgName)
 
             if (this.selectDate1 == true) {
                 alert(this.bothWay)
                 alert("왕복")
-            }  else if(this.selectDate2 == true){
+            } else if (this.selectDate2 == true) {
                 alert(this.oneWay)
                 alert("편도")
             } else {
@@ -421,11 +436,9 @@ export default {
             alert(seat)
         },
         Format(value) {
-
             this.show1 = false;
             var regexp = /(\d{3}(\d{3})(\d))$/g;
             return value.toString().substr(0, 16).replace(regexp, '');
-
         },
         change() {
             this.fromBtn1 = (this.fromBtn1) ? false : true
@@ -451,16 +464,14 @@ export default {
         },
         resSend() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
-            
-           
 
             if (this.selectDate1 == true) {
                 this.Date = this.bothWay;
                 this.way = "왕복"
-            } else if(this.selectDate2 == true){
+            } else if (this.selectDate2 == true) {
                 this.Date = this.oneWay;
                 this.way = "편도"
-            }else{
+            } else {
                 alert("여행 일정을 선택해주세요")
                 return false;
             }
@@ -486,14 +497,14 @@ export default {
             axios
                 .post("/res/test", {
                     email: this.$store.state.userInfo.email,
-                    seat: seat,              
+                    seat: seat,
                     Date: this.Date,
-                    way: this.way,      
+                    way: this.way,
                     fromArea: this.fromImgName,
                     toArea: this.toImgName,
                     AdultCount: this.AdultCount,
                     ChildCount: this.ChildCount,
-                    InfantCount: this.InfantCount,                    
+                    InfantCount: this.InfantCount,
                 })
                 .then(res => {
                     console.log(res)
@@ -526,7 +537,6 @@ export default {
             this.toAreaView = (this.toAreaView) ? false : true
         },
         Format1(value) {
-
             var string = value.toString();
             var strArray = string.substring(0, 58);
             var from = strArray.substring(0, 16);
@@ -682,20 +692,28 @@ export default {
 
             return year + "-" + month + "-" + day + week;
         },
-        submit(){
+        submit() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
-            if(seat == "좌석 등급"){
+
+            var string = this.bothWay.toString();
+            var startDate = string.substring(0, 16);
+            var returnDate = string.substring(43, 58);
+
+            if (seat == "좌석 등급") {
                 alert("좌석을 선택해주세요")
                 return false;
             }
-            this.$router.push({name: 'Departure', 
-            params: {
-                fromArea: this.fromImgName, 
-                toArea:this.toImgName,
-                seat: seat,
-                bothWay: JSON.stringify(this.bothWay),
-                
-            }});            
+            this.$router.push({
+                name: 'Departure',
+                params: {
+                    fromArea: this.fromImgName,
+                    toArea: this.toImgName,
+                    seat: seat,
+                    startDate: startDate,
+                    returnDate: returnDate
+                }
+            });
+
         }
     },
 
@@ -1109,7 +1127,7 @@ footer {
 .selectDate2:hover,
 .btn-field:hover,
 .form-select:hover,
-.submit-btn:hover{
+.submit-btn:hover {
     border: 1.5px solid blue;
 }
 </style>

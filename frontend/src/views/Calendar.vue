@@ -3,7 +3,7 @@
     TEST
 
     <!-- Test Zone -->
-    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날" :dayNames="lang.days" range>
+    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날" :dayNames="lang.days" range>   
         <template #month="{  value  }">
             {{ value + 1 + "월"}}
         </template>
@@ -13,7 +13,9 @@
     </Datepicker>
     <Datepicker class="datePicker" type="" v-model="oneWay" placeholder="가는날" />
     {{Format1(bothWay)}}<br>
-    {{bothWay}}
+    {{bothWay}}<br>
+    {{JSON.stringify(this.bothWay)}}
+    
     <input type="button" v-model="bothWay">
     <br>
 
@@ -23,6 +25,7 @@
     <br>
     <!-- Test Zone -->
     <input type="date" class="datePicker" v-model="date" placeholder="가는날">
+    {{JSON.stringify(date)}}<br>
     {{date}}
     <Datepicker v-model="date" :dayNames="['1', '2', '3', '4', '5', '6', '7']" />
 </div>
@@ -65,9 +68,10 @@ export default ({
         }
     },
     methods: {
-        test() {
-            alert(this.bothWay)
-
+        test() {            
+            console.log(JSON.stringify(this.date))
+            
+            console.log(this.date)
         },
         Format1(value) {
 

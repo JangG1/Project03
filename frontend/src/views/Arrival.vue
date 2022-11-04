@@ -62,9 +62,7 @@
         {{returnDate}}<br>
 
     </div>
-<div class="footNav">
-    123
-</div>
+
 </div>
 </template>
 
@@ -272,12 +270,5 @@ export default {
 .check {
     float: right;
     color: white;
-}
-
-.footNav{
-    width: 100%;
-    height: 200px;
-    border: 1px solid;
-    
 }
 </style>

@@ -103,7 +103,7 @@ export default {
         var week2 = this.returnDate.substring(0, 3);
 
         if (week1 == "Mon") {
-            week1 = "(월)";
+            week1 = "(월1)";
         } else if (week1 == "Tue") {
             week1 = "(화)"
         } else if (week1 == "Wed") {

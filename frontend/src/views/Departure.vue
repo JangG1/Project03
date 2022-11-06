@@ -5,16 +5,17 @@
     </div>
     <div class="info">
         <button type="button">
-            <div>
+            <div class="info1">
                 {{ fromArea }}
                 <img src="../assets/arrow2.jpg"> 
                 {{toArea}}
             </div>
-            <div>
-                
+            <div class="info2">
+                <img src="../assets/calendar.png" width="40" height="40"> 
                 {{Format(startDate)}} ~ {{Format(returnDate)}}
             </div>
-            <div>
+            <div class="info3">
+                <img src="../assets/person.png" width="30" height="30"> 
                 {{AdultCount}} {{ChildCount}} {{InfantCount}}
             </div>
         </button>

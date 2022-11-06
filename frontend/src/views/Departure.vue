@@ -7,15 +7,15 @@
         <button type="button">
             <div class="info1">
                 {{ fromArea }}
-                <img src="../assets/arrow2.jpg"> 
+                <img src="../assets/arrow2.jpg">
                 {{toArea}}
             </div>
             <div class="info2">
-                <img src="../assets/calendar.png" width="40" height="40"> 
+                <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
                 {{Format(startDate)}} ~ {{Format(returnDate)}}
             </div>
             <div class="info3">
-                <img src="../assets/person.png" width="30" height="30"> 
+                <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 {{AdultCount}} {{ChildCount}} {{InfantCount}}
             </div>
         </button>
@@ -220,7 +220,7 @@ export default {
 .arrow1 {
     width: 28px;
     height: 50px;
-    
+
     margin-left: 14px;
 
 }
@@ -238,11 +238,16 @@ export default {
     font-size: 24px;
     border: 0.5px solid #999;
     display: flex;
+    box-shadow: 4px 4px 4px rgb(68, 68, 68);
 }
 
-.info button div{
+.info button div {
     padding: 30px;
-    
+}
+
+.infoImg{
+    margin-left: 30px;
+    margin-bottom: 4px;
 }
 
 .info button:hover {
@@ -253,9 +258,9 @@ export default {
     width: 1500px;
     margin-left: auto;
     margin-right: auto;
-
     display: flex;
     padding: 40px;
+    
 }
 
 .day-seat-select button {
@@ -263,6 +268,7 @@ export default {
     height: 150px;
     color: #999;
     background-color: white;
+    box-shadow: 4px 4px 8px rgb(68, 68, 68);
 }
 
 .timeSelect {
@@ -271,7 +277,6 @@ export default {
 }
 
 .timeSelect p {
-
     display: flex;
     padding: 35px;
 }

@@ -29,7 +29,7 @@
         </button>
     </div>
     <br>
-    <div class="day-seat-select" v-for="res in st" :key="res">
+    <div class="day-seat-select" v-for="(res, index) in st" :key="res">
 
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
@@ -43,22 +43,22 @@
             </div>
         </div>
 
-        <button type="button" class="seatSelect" @click="selectStandard">
+        <button type="button" class="seatSelect" @click="selectStandard(index)">
             <h3>{{seat}} 스탠다드
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <input type="button" id="priceStandard" class="resPriceStandard" v-model="res.priceStandard">
+            <h4>{{res.priceStandard}}</h4>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
-        <button type="button" class="seatSelect" @click="selectFlex">
+        <button type="button" class="seatSelect" @click="selectFlex(index)">
             <h3>{{seat}} 플랙스
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <input type="button" id="priceFlex" class="resPriceFlex" v-model="res.priceFlex">
+            <h4>{{res.priceFlex}}</h4>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
 
@@ -126,34 +126,27 @@ export default {
             type: Number
         }
     },
-    created() {
-
-    },
-    computed: {
-
-    },
     methods: {
         test() {
-            const len = this.st.length;
-            for (var i = 0; i < len; i++) {
-                console.log("start " + st[i].start)
-                console.log("arrive " + st[i].arrive)
-                console.log("priceStandard " + st[i].priceStandard)
-                console.log("priceFlex " + st[i].priceFlex)
 
-            }
         },
         priceFormat() {
             let seatPrice = this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
             return seatPrice;
         },
-        selectStandard() {
-            console.log(this.st[0].priceStandard)
+        selectStandard(index) {            
+            let priceStandard = this.st[index].priceStandard;
+            
+            console.log(this.st[index].priceStandard)
+
+            this.selectPrice = priceStandard;
         },
-        selectFlex() {
-            let temp2 = document.getElementById('priceFlex').value;
-            console.log(temp2)
-            this.selectPrice = temp2;
+        selectFlex(index) {
+            let priceFlex = this.st[index].priceFlex;
+            
+            console.log(this.st[index].priceFlex)
+
+            this.selectPrice = priceFlex;
         },
         Format(value) {
             var string = value.toString();

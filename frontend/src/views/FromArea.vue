@@ -84,7 +84,7 @@ export default {
             }            
         },
 
-        submit(){
+        submit(){            
             this.$emit('update-fromArea', this.fromAreaInput);
         }
 

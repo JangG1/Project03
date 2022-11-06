@@ -6,8 +6,8 @@
     <div class="info">
         <button type="button">
             <div class="info1">
-                {{ fromArea }}
-                <img src="../assets/arrow2.jpg">
+                {{ fromArea }} &nbsp;
+                <img src="../assets/arrow2.jpg"> &nbsp;
                 {{toArea}}
             </div>
             <div class="info2">
@@ -23,11 +23,17 @@
     <br>
     <div class="day-seat-select" v-for="res in st" :key="res">
 
-        <button type="button" class="timeSelect" style="cursor: default">
-            <p>{{res.start}} {{ fromArea }}</p>
+        <div type="button" class="timeSelect" style="cursor: default">
+            <div class="startTime">
+                <p>{{res.start}} </p>
+                <span> {{ fromArea }}</span>
+            </div>
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
-            <p>{{res.arrive}} {{ toArea }}</p>
-        </button>
+            <div class="arriveTime">
+                <p>{{res.arrive}} </p>
+                <span>{{ toArea }}</span>
+            </div>
+        </div>
 
         <button type="button" class="seatSelect" @click="selectSeat">
             <h3>{{seat}} 스탠다드
@@ -53,6 +59,7 @@
     <div>
         {{Format(startDate)}}<br>
         {{returnDate}}<br>
+        {{priceFormat(seatPrice)}}
     </div>
     <div class="footNav">
         <span>예상 결제 금액</span>
@@ -78,7 +85,8 @@ export default {
             start: '',
             arrive: '',
             price: '',
-            selectPrice: '0 원'
+            selectPrice: '0 원',
+            seatPrice: 0,
         }
     },
     props: {
@@ -118,7 +126,8 @@ export default {
     },
     methods: {
         priceFormat() {
-            return this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
+            let seatPrice = this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
+            return seatPrice;
         },
         selectSeat() {
             console.log()
@@ -217,13 +226,7 @@ export default {
     margin-left: 11%;
 }
 
-.arrow1 {
-    width: 28px;
-    height: 50px;
-
-    margin-left: 14px;
-
-}
+.arrow1 {}
 
 .info {
     margin-left: auto;
@@ -245,7 +248,7 @@ export default {
     padding: 30px;
 }
 
-.infoImg{
+.infoImg {
     margin-left: 30px;
     margin-bottom: 4px;
 }
@@ -260,7 +263,7 @@ export default {
     margin-right: auto;
     display: flex;
     padding: 40px;
-    
+
 }
 
 .day-seat-select button {
@@ -272,20 +275,35 @@ export default {
 }
 
 .timeSelect {
+    width: 40%;
+    height: 150px;
     border: 1px solid;
-    display: flex;
 }
 
-.timeSelect p {
-    display: flex;
-    padding: 35px;
+.startTime {
+    width: 150px;
+    float: left;
+    margin-top: 5%;
+    margin-left: 5%;
+
+}
+
+.arriveTime {
+    width: 150px;
+    float: right;
+    margin-top: 5%;
+}
+
+.timeSelect span {
+    font-size: 20px;
+    color: #999;
 }
 
 .arrow2 {
-    width: 200px;
+    width: 120px;
     height: 30px;
     margin-top: 10%;
-
+    
 }
 
 .seatSelect {

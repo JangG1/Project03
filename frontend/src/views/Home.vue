@@ -413,18 +413,16 @@ export default {
             let fromArea = "";
             let toArea = "";
 
- 
-            let fromValue = document.getElementById("fromValue").src;            
-            let toValue = document.getElementById("toValue").src;            
 
             if (this.fromBtn1 == true) {
-                fromArea = fromValue
-                toArea = toValue 
+                fromArea = this.fromImgName
+                toArea = this.toImgName
+
                 console.log("1" + fromArea)
                 console.log("2" + toArea)
             } else {
-                fromArea = toValue
-                toArea = fromValue          
+                fromArea = this.toImgName
+                toArea = this.fromImgName          
                 console.log("3" + fromArea)
                 console.log("4" + toArea)                
             }
@@ -549,14 +547,12 @@ export default {
             console.log("Home : " + this.InfantCount)
         },
         updateFromArea(image) {
-            this.fromImg = image;
-            this.fromImgName = image.substr(0, 3);
+            this.fromImgName = image;
             this.fromAreaView = (this.fromAreaView) ? false : true
         },
 
         updateToArea(image) {
-            this.fromImg = image;
-            this.toImgName = image.substr(0, 3);
+            this.toImgName = image;
             this.toAreaView = (this.toAreaView) ? false : true
         },
         Format1(value) {
@@ -718,9 +714,7 @@ export default {
         submit() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
             let fromArea = "";
-            let toArea = "";
-            let fromValue = document.getElementById("fromValue").src;            
-            let toValue = document.getElementById("toValue").src;              
+            let toArea = "";            
 
             var string = this.bothWay.toString();
             var startDate = string.substring(0, 16);
@@ -732,15 +726,13 @@ export default {
             }
 
             if (this.fromBtn1 == true) {
-                fromArea = fromValue.substring(26,29)
-                toArea = toValue.substring(26,29)
-                console.log("1" + fromArea)
-                console.log("2" + toArea)
+                fromArea = this.fromImgName
+                toArea = this.toImgName
+
             } else {
-                fromArea = toValue.substring(26,29)
-                toArea = fromValue.substring(26,29)
-                console.log("3" + fromArea)
-                console.log("4" + toArea)                
+                fromArea = this.toImgName
+                toArea = this.fromImgName
+        
             }
             this.$router.push({
                 name: 'Departure',

@@ -195,27 +195,20 @@
 <div class="refer">
     <!--예약 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-        </svg>
+        <img src="../assets/magnifier.jpg" width="30" height="30">
         <a href="">예약 조회</a>
     </button>
     <!-- 버튼-->
     <span>I</span>
     <button type="button" class="btn btn-lg btn-default" id="checkIn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
-            <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z" />
-        </svg>
+        <img src="../assets/check.png" width="30" height="30">
         <a href="">체크인</a>
     </button>
     <span>I</span>
     <!--항공편 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default">&nbsp;
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
-            <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-        </svg>
-        <a href="">항공편 조회</a>
+        <img src="../assets/calendar.png" width="30" height="30">
+        <a href="">항공편 현황</a>
     </button>
 
 </div>
@@ -253,7 +246,7 @@
 </div>
 
 <!--여행 도우미-->
-<div class="part4">    
+<div class="part4">
     <div class="side">
         <h2>여행의 완성을 위한 경험</h2>
     </div>
@@ -316,8 +309,12 @@
 </div>
 
 <!-- FOOTER -->
-<img class="footLogo" src="../assets/Logo.png"><span class="footLogoName"> Fastrip</span>
-<footer class="container">
+
+<div class="footLogoName"> 
+<img class="footLogo" src="../assets/Logo.png">
+Fastrip
+</div>
+<footer class="footer">
     <p>&copy; 2022 Company, Fastrip</p>
     <a class="topBtn" href="">Top</a>
 </footer>
@@ -766,8 +763,8 @@ export default {
 .part4 {
     /*background-color: rgb(241, 233, 231);*/
     background-image: url("../assets/part4.jpg");
-    padding-top: 5%;
-    padding-bottom: 25%;
+    padding-top: 6%;
+    padding-bottom: 26%;
 }
 
 h1,
@@ -872,17 +869,20 @@ a:active {
 .side {
     color: white;
     margin-left: 3%;
-    margin-top: 10%;
+    margin-top: 10%;    
 }
 
+.side svg{
+    height: 200px;
+}
 
-.sideTip {
-    width: 34%;    
+.sideTip {    
+    width: 610px;
     height: 210px;
     margin-left: 3%;
     margin-top: 3%;
     border: 4px solid white;
-    border-radius: 10px;
+    border-radius: 10px;    
 }
 
 .sideTip1 {
@@ -890,7 +890,7 @@ a:active {
     border-radius: 8px;
     width: 30%;
     margin-left: 2%;
-    margin-top: 5%;    
+    margin-top: 5%;
     text-align: center;
 }
 
@@ -931,12 +931,15 @@ a:active {
     color: white;
 }
 
-footer {
+.footer {
     display: flex;
+    margin-left: 280px;
+    margin-bottom: 30px;
 }
 
 .topBtn {
-    margin-left: 70%;
+    margin-left: 900px;
+    margin-bottom: 30px;
 }
 
 .carousel-inner {
@@ -944,12 +947,13 @@ footer {
 }
 
 .footLogo {
-    margin-left: 15%;
+    margin-left: 270px;
     width: 100px;
     height: 70px;
 }
 
 .footLogoName {
+    margin-top: 20px;
     font-size: 40px;
     font-family: "NanumBarunGothicBold";
 }

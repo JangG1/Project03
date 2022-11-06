@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="caption">
-        <p>가는 편</p>
+        <p>여행 일정</p>
     </div>
     <div class="info">
         <button type="button">
@@ -10,10 +10,12 @@
                 <img src="../assets/arrow2.jpg"> &nbsp;
                 {{toArea}}
             </div>
+            <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
                 {{Format(startDate)}} ~ {{Format(returnDate)}}
             </div>
+            <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 {{AdultCount}}
@@ -31,7 +33,7 @@
 
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
-                <h3>{{res.start}} </h3>
+                <h3>{{res.start}}</h3>
                 <span> {{ fromArea }}</span>
             </div>
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
@@ -41,32 +43,30 @@
             </div>
         </div>
 
-        <button type="button" class="seatSelect" @click="selectSeat">
+        <button type="button" class="seatSelect" @click="selectStandard">
             <h3>{{seat}} 스탠다드
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h3>{{this.price}}</h3>
+            <input type="button" id="priceStandard" class="resPriceStandard" v-model="res.priceStandard">
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
-        <button type="button" class="seatSelect" @click="selectSeat">
+        <button type="button" class="seatSelect" @click="selectFlex">
             <h3>{{seat}} 플랙스
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h3>{{this.price}}</h3>
+            <input type="button" id="priceFlex" class="resPriceFlex" v-model="res.priceFlex">
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
 
     </div>
 
     <div>
-        {{Format(startDate)}}<br>
-        {{returnDate}}<br>
         {{priceFormat(seatPrice)}}
-        
+        <button type="button" @click="test()">test</button>
     </div>
     <div class="footNav">
         <span>예상 결제 금액</span>
@@ -133,15 +133,27 @@ export default {
 
     },
     methods: {
+        test() {
+            const len = this.st.length;
+            for (var i = 0; i < len; i++) {
+                console.log("start " + st[i].start)
+                console.log("arrive " + st[i].arrive)
+                console.log("priceStandard " + st[i].priceStandard)
+                console.log("priceFlex " + st[i].priceFlex)
+
+            }
+        },
         priceFormat() {
             let seatPrice = this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
             return seatPrice;
         },
-        selectSeat() {
-            console.log()
-            console.log()
-            this.selectPrice = this.price;
-
+        selectStandard() {
+            console.log(this.st[0].priceStandard)
+        },
+        selectFlex() {
+            let temp2 = document.getElementById('priceFlex').value;
+            console.log(temp2)
+            this.selectPrice = temp2;
         },
         Format(value) {
             var string = value.toString();
@@ -199,6 +211,8 @@ export default {
 
         submit() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
+            let fromArea = "";
+            let toArea = "";
 
             var string = this.bothWay.toString();
             var startDate = string.substring(0, 16);
@@ -208,14 +222,30 @@ export default {
                 alert("좌석을 선택해주세요")
                 return false;
             }
+
+            if (this.fromBtn1 == true) {
+                fromArea = this.fromImgName
+                toArea = this.toImgName
+
+            } else {
+                fromArea = this.toImgName
+                toArea = this.fromImgName
+            }
+
             this.$router.push({
-                name: 'Arrival',
+                name: 'Departure',
                 params: {
-                    fromArea: this.fromImgName,
-                    toArea: this.toImgName,
+                    fromArea: fromArea,
+                    toArea: toArea,
                     seat: seat,
                     startDate: startDate,
-                    returnDate: returnDate
+                    returnDate: returnDate,
+                    AdultCount: "성인 " + this.AdultCount + "명",
+                    ChildCount: ", 소아 " + this.ChildCount + "명",
+                    InfantCount: ", 유아 " + this.InfantCount + "명",
+                    startTime: this.res.start,
+                    arriveTime: this.res.arrive,
+                    startPrice: this.selectPrice,
                 }
             });
 
@@ -234,12 +264,15 @@ export default {
     margin-left: 11%;
 }
 
-.arrow1 {}
+.ver {
+    margin-top: 25px;
+    margin-left: 14px;
+}
 
 .info {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 1380px;
     display: flex;
 }
 
@@ -251,15 +284,15 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-    white-space: nowrap;
+
 }
 
 .info button div {
-    padding: 30px;    
+    padding: 30px;
 }
 
 .infoImg {
-    margin-left: 30px;
+    margin-left: 14px;
     margin-bottom: 4px;
 }
 
@@ -279,7 +312,6 @@ export default {
 .day-seat-select button {
     width: 40%;
     height: 150px;
-    color: #999;
     background-color: white;
     box-shadow: 4px 4px 8px rgb(68, 68, 68);
 }
@@ -295,12 +327,12 @@ export default {
     float: left;
     margin-top: 8%;
     margin-left: 8%;
-    
+
 }
 
 .arriveTime {
     float: right;
-    margin-top: 8%;    
+    margin-top: 8%;
     margin-right: 5%;
 }
 
@@ -331,11 +363,15 @@ export default {
     width: 600px;
     height: 150px;
     transform: translate(-0.5%, -10%);
-    text-align: center;
     border-radius: 15px;
     background-color: teal;
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
+
+}
+
+.resPriceStandard {
+    border: none;
 }
 
 .check {
@@ -358,7 +394,6 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-    white-space:nowrap;
 }
 
 .submitBtn {

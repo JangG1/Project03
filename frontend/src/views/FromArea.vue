@@ -61,7 +61,6 @@ export default {
 
         select(event) {
             let temp = event.target.value;
-            event.target.value = this.temp;
             this.fromAreaInput = temp;
         },
         close() {

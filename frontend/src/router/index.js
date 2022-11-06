@@ -24,7 +24,7 @@ const routes = [
   }
   ,
   {
-    path: '/Departure/:fromArea/:toArea/:seat/:startDate/:returnDate',
+    path: '/Departure/:fromArea/:toArea/:seat/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount',
     name: 'Departure',
     component: () => import('../views/Departure.vue'),
     props: true

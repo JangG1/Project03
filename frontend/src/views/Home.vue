@@ -93,7 +93,7 @@
                 <div class="FromTo">
                     <!--FromArea-->
                     <img v-show="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
-                    <img v-show="toBtn2" type="button" id="fromValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
+                    <img v-show="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea"></FromArea>
                     </div>
@@ -410,10 +410,33 @@ export default {
             this.oneWay = false;
         },
         test() {
+            let fromArea = "";
+            let toArea = "";
+
+ 
+            let fromValue = document.getElementById("fromValue").src;            
+            let toValue = document.getElementById("toValue").src;            
+
+            if (this.fromBtn1 == true) {
+                fromArea = fromValue
+                toArea = toValue 
+                console.log("1" + fromArea)
+                console.log("2" + toArea)
+            } else {
+                fromArea = toValue
+                toArea = fromValue          
+                console.log("3" + fromArea)
+                console.log("4" + toArea)                
+            }
+
+        },
+        test1() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
 
-            alert(this.fromImgName)
-            alert(this.toImgName)
+            alert(document.getElementById("fromValue1").value)
+            alert(document.getElementById("toValue1").value)
+            alert(document.getElementById("fromValue2").value)
+            alert(document.getElementById("toValue2").value)
 
             if (this.selectDate1 == true) {
                 alert(this.bothWay)
@@ -694,6 +717,10 @@ export default {
         },
         submit() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
+            let fromArea = "";
+            let toArea = "";
+            let fromValue = document.getElementById("fromValue").src;            
+            let toValue = document.getElementById("toValue").src;              
 
             var string = this.bothWay.toString();
             var startDate = string.substring(0, 16);
@@ -703,14 +730,29 @@ export default {
                 alert("좌석을 선택해주세요")
                 return false;
             }
+
+            if (this.fromBtn1 == true) {
+                fromArea = fromValue.substring(26,29)
+                toArea = toValue.substring(26,29)
+                console.log("1" + fromArea)
+                console.log("2" + toArea)
+            } else {
+                fromArea = toValue.substring(26,29)
+                toArea = fromValue.substring(26,29)
+                console.log("3" + fromArea)
+                console.log("4" + toArea)                
+            }
             this.$router.push({
                 name: 'Departure',
                 params: {
-                    fromArea: this.fromImgName,
-                    toArea: this.toImgName,
+                    fromArea: fromArea,
+                    toArea: toArea,
                     seat: seat,
                     startDate: startDate,
-                    returnDate: returnDate
+                    returnDate: returnDate,
+                    AdultCount: "성인 " + this.AdultCount + "명",
+                    ChildCount: ", 소아 " + this.ChildCount + "명",
+                    InfantCount: ", 유아 " + this.InfantCount + "명",
                 }
             });
 
@@ -1128,6 +1170,6 @@ footer {
 .btn-field:hover,
 .form-select:hover,
 .submit-btn:hover {
-    border: 1.5px solid blue;
+    border: 1.5px solid teal;
 }
 </style>

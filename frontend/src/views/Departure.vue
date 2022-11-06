@@ -1,30 +1,22 @@
 <template>
 <div>
     <div class="caption">
-        <p>가는 편 {{ fromArea }} </p>
-
-        <svg xmlns="http://www.w3.org/2000/svg" class="arrow1">
-            <path id="arrowImg" fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-        </svg>
-
-        <p> {{ toArea }} </p>
+        <p>가는 편</p>
     </div>
-    <div class="day-select">
+    <div class="info">
         <button type="button">
-            {{startDate.toString().substring(10,12) - 2}}
-        </button>
-        <button type="button">
-            {{startDate.toString().substring(10,12) - 1}}
-        </button>
-        <button type="button">
-            {{startDate.toString().substring(10,12)}}{{Format(startDate)}}<br>
-            <h6>{{priceFormat(price)}}</h6>
-        </button>
-        <button type="button">
-            {{startDate.toString().substring(10,12)}}
-        </button>
-        <button type="button">
-            {{startDate.toString().substring(10,12) + 2}}
+            <div>
+                {{ fromArea }}
+                <img src="../assets/arrow2.jpg"> 
+                {{toArea}}
+            </div>
+            <div>
+                
+                {{Format(startDate)}} ~ {{Format(returnDate)}}
+            </div>
+            <div>
+                {{AdultCount}} {{ChildCount}} {{InfantCount}}
+            </div>
         </button>
     </div>
     <br>
@@ -36,35 +28,36 @@
             <p>{{res.arrive}} {{ toArea }}</p>
         </button>
 
-        <button type="button" class="seatSelect">
+        <button type="button" class="seatSelect" @click="selectSeat">
             <h3>{{seat}} 스탠다드
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h3>{{priceFormat(price)}}</h3>
+            <h3>{{this.price}}</h3>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
-        <button type="button" class="seatSelect">
+        <button type="button" class="seatSelect" @click="selectSeat">
             <h3>{{seat}} 플랙스
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h3>{{priceFormat(price)}}</h3>
+            <h3>{{this.price}}</h3>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
 
     </div>
 
     <div>
-        {{startDate}}<br>
+        {{Format(startDate)}}<br>
         {{returnDate}}<br>
-
     </div>
-<div class="footNav">
-    123
-</div>
+    <div class="footNav">
+        <span>예상 결제 금액</span>
+        <span class="startPrice">{{selectPrice}}</span>
+        <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
+    </div>
 </div>
 </template>
 
@@ -84,6 +77,7 @@ export default {
             start: '',
             arrive: '',
             price: '',
+            selectPrice: '0 원'
         }
     },
     props: {
@@ -105,58 +99,40 @@ export default {
         returnDate: {
             type: String
         },
+        AdultCount: {
+            type: Number
+        },
+        ChildCount: {
+            type: Number
+        },
+        InfantCount: {
+            type: Number
+        }
     },
     created() {
-        var week1 = this.startDate.substring(0, 3);
-
-        var week2 = this.returnDate.substring(0, 3);
-
-        if (week1 == "Mon") {
-            week1 = "(월)";
-        } else if (week1 == "Tue") {
-            week1 = "(화)"
-        } else if (week1 == "Wed") {
-            week1 = "(수)"
-        } else if (week1 == "Thu") {
-            week1 = "(목)"
-        } else if (week1 == "Fri") {
-            week1 = "(금)"
-        } else if (week1 == "Sat") {
-            week1 = "(토)"
-        } else if (week1 == "Sun") {
-            week1 = "(일)"
-        }
-
-        if (week2 == "Mon") {
-            week2 = "(월)";
-        } else if (week2 == "Tue") {
-            week2 = "(화)"
-        } else if (week2 == "Wed") {
-            week2 = "(수)"
-        } else if (week2 == "Thu") {
-            week2 = "(목)"
-        } else if (week2 == "Fri") {
-            week2 = "(금)"
-        } else if (week2 == "Sat") {
-            week2 = "(토)"
-        } else if (week2 == "Sun") {
-            week2 = "(일)"
-        }
 
     },
     computed: {
-        newDay() {
-            return this.week1;
-        },
 
     },
     methods: {
         priceFormat() {
             return this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
         },
+        selectSeat() {
+            console.log()
+            console.log()
+            this.selectPrice = this.price;
+
+        },
         Format(value) {
             var string = value.toString();
-            var week = string.substring(0, 3);
+            var total = string.substring(0, 16);
+
+            var year = total.substring(11, 15);
+            var day = total.substring(8, 10);
+            var week = total.substring(0, 3);
+            var month = total.substring(4, 7);
 
             if (week == "Mon") {
                 week = "(월)";
@@ -173,9 +149,64 @@ export default {
             } else if (week == "Sun") {
                 week = "(일)"
             }
-            return week;
+
+            if (month == "Jan") {
+                month = "1";
+            } else if (month == "Feb") {
+                month = "2"
+            } else if (month == "Mar") {
+                month = "3"
+            } else if (month == "Apr") {
+                month = "4"
+            } else if (month == "May") {
+                month = "5"
+            } else if (month == "Jun") {
+                month = "6"
+            } else if (month == "Jul") {
+                month = "7"
+            } else if (month == "Aug") {
+                month = "8"
+            } else if (month == "Sep") {
+                month = "9"
+            } else if (month == "Oct") {
+                month = "10"
+            } else if (month == "Nov") {
+                month = "11"
+            } else if (month == "Dec") {
+                month = "12"
+            }
+
+            return year + "-" + month + "-" + day + week;
+        },
+
+        submit() {
+            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
+
+            var string = this.bothWay.toString();
+            var startDate = string.substring(0, 16);
+            var returnDate = string.substring(43, 58);
+
+            if (seat == "좌석 등급") {
+                alert("좌석을 선택해주세요")
+                return false;
+            }
+            this.$router.push({
+                name: 'Arrival',
+                params: {
+                    fromArea: this.fromImgName,
+                    toArea: this.toImgName,
+                    seat: seat,
+                    startDate: startDate,
+                    returnDate: returnDate
+                }
+            });
+
         }
+
     },
+    mounted() {
+
+    }
 }
 </script>
 
@@ -186,30 +217,35 @@ export default {
 }
 
 .arrow1 {
-    width: 30px;
+    width: 28px;
     height: 50px;
-    margin-top: 9px;
+    
     margin-left: 14px;
 
 }
 
-.day-select {
-    width: 1500px;
-    height: 100px;
+.info {
     margin-left: auto;
     margin-right: auto;
+    width: 80%;
+}
+
+.info button {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    font-size: 24px;
+    border: 0.5px solid #999;
     display: flex;
 }
 
-.day-select button {    
-    width: 400px;
-    height: 100px;
-    border: 0.5px solid #999;
-    background-color: white;
+.info button div{
+    padding: 30px;
+    
 }
 
-.day-select button:hover {
-    border: 1.5px solid blue;
+.info button:hover {
+    border: 1.5px solid teal;
 }
 
 .day-seat-select {
@@ -253,7 +289,7 @@ export default {
 }
 
 .seatSelect:hover {
-    border: 1.5px solid blue;
+    border: 1.5px solid teal;
     border-top: 4px solid black;
 }
 
@@ -263,10 +299,9 @@ export default {
     transform: translate(-0.5%, -10%);
     text-align: center;
     border-radius: 15px;
-    background-color: rgb(246, 246, 246);
+    background-color: teal;
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
-    background-color: rgb(26, 26, 95);
 }
 
 .check {
@@ -274,10 +309,35 @@ export default {
     color: white;
 }
 
-.footNav{
-    width: 100%;
-    height: 200px;
-    border: 1px solid;
-    
+.footNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 75px;
+    padding: 1rem;
+    color: white;
+    background: teal;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.submitBtn {
+    width: 15%;
+    height: 130%;
+    font-size: 25px;
+    border-radius: 4px;
+    color: white;
+    background: teal;
+    border: 1px solid white;
+}
+
+.startPrice {
+    font-size: 20px;
+    margin-left: 70%;
 }
 </style>

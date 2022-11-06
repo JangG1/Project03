@@ -16,7 +16,13 @@
             </div>
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                {{AdultCount}} {{ChildCount}} {{InfantCount}}
+                {{AdultCount}}
+                <span v-show="ChildCount.substr(4,2) > 0">
+                    {{ChildCount}}
+                </span>
+                <span v-show="InfantCount.substr(4,2) > 0">
+                    {{InfantCount}}
+                </span>
             </div>
         </button>
     </div>
@@ -25,12 +31,12 @@
 
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
-                <p>{{res.start}} </p>
+                <h3>{{res.start}} </h3>
                 <span> {{ fromArea }}</span>
             </div>
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
             <div class="arriveTime">
-                <p>{{res.arrive}} </p>
+                <h3>{{res.arrive}} </h3>
                 <span>{{ toArea }}</span>
             </div>
         </div>
@@ -60,6 +66,7 @@
         {{Format(startDate)}}<br>
         {{returnDate}}<br>
         {{priceFormat(seatPrice)}}
+        
     </div>
     <div class="footNav">
         <span>예상 결제 금액</span>
@@ -87,6 +94,7 @@ export default {
             price: '',
             selectPrice: '0 원',
             seatPrice: 0,
+
         }
     },
     props: {
@@ -232,6 +240,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    display: flex;
 }
 
 .info button {
@@ -242,10 +251,11 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
+    white-space: nowrap;
 }
 
 .info button div {
-    padding: 30px;
+    padding: 30px;    
 }
 
 .infoImg {
@@ -254,7 +264,7 @@ export default {
 }
 
 .info button:hover {
-    border: 1.5px solid teal;
+    border: 2px solid teal;
 }
 
 .day-seat-select {
@@ -281,17 +291,17 @@ export default {
 }
 
 .startTime {
-    width: 150px;
+    width: 100px;
     float: left;
-    margin-top: 5%;
-    margin-left: 5%;
-
+    margin-top: 8%;
+    margin-left: 8%;
+    
 }
 
 .arriveTime {
-    width: 150px;
     float: right;
-    margin-top: 5%;
+    margin-top: 8%;    
+    margin-right: 5%;
 }
 
 .timeSelect span {
@@ -300,10 +310,10 @@ export default {
 }
 
 .arrow2 {
-    width: 120px;
+    width: 140px;
     height: 30px;
     margin-top: 10%;
-    
+
 }
 
 .seatSelect {
@@ -313,7 +323,7 @@ export default {
 }
 
 .seatSelect:hover {
-    border: 1.5px solid teal;
+    border: 2px solid teal;
     border-top: 4px solid black;
 }
 
@@ -348,6 +358,7 @@ export default {
     justify-content: space-between;
     align-items: center;
 
+    white-space:nowrap;
 }
 
 .submitBtn {

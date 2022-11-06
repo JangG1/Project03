@@ -129,21 +129,29 @@ export default {
     methods: {
         test() {
 
+            console.log(this.selectPrice)
+            console.log(this.startTime)
+            console.log(this.arriveTime)
+
         },
         priceFormat() {
             let seatPrice = this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
             return seatPrice;
         },
-        selectStandard(index) {            
+        selectStandard(index) {
             let priceStandard = this.st[index].priceStandard;
-            
+            let startTime = this.st[index].start;
+            let arriveTime = this.st[index].arrive;
+
             console.log(this.st[index].priceStandard)
 
             this.selectPrice = priceStandard;
+            this.startTime = startTime;
+            this.arriveTime = arriveTime;
         },
         selectFlex(index) {
             let priceFlex = this.st[index].priceFlex;
-            
+
             console.log(this.st[index].priceFlex)
 
             this.selectPrice = priceFlex;
@@ -236,8 +244,8 @@ export default {
                     AdultCount: "성인 " + this.AdultCount + "명",
                     ChildCount: ", 소아 " + this.ChildCount + "명",
                     InfantCount: ", 유아 " + this.InfantCount + "명",
-                    startTime: this.res.start,
-                    arriveTime: this.res.arrive,
+                    startTime: this.startTime,
+                    arriveTime: this.arriveTime,
                     startPrice: this.selectPrice,
                 }
             });
@@ -344,12 +352,14 @@ export default {
 .seatSelect {
     border: 1px solid;
     border-top: 4px solid black;
-
+    opacity: 0.6;
+    transition: 0.3s;
 }
 
 .seatSelect:hover {
     border: 2px solid teal;
     border-top: 4px solid black;
+
 }
 
 .seatSelect:focus {
@@ -360,7 +370,7 @@ export default {
     background-color: teal;
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
-
+    opacity: 1;
 }
 
 .resPriceStandard {

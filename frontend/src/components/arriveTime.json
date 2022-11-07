@@ -1,0 +1,14 @@
+[
+    {
+        "start": "12:40",
+        "arrive": "16:50",
+        "priceStandard": "400,000 원",
+        "priceFlex": "480,000 원"
+    }, 
+    {
+        "start": "14:50",
+        "arrive": "19:00",
+        "priceStandard": "550,000 원",
+        "priceFlex": "630,000 원"
+    }
+]

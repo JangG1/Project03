@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="caption">
-        <p>여행 일정</p>
+        <p>여행 일정1</p>
     </div>
     <div class="info">
         <button type="button">
@@ -65,7 +65,6 @@
     </div>
 
     <div>
-        {{priceFormat(seatPrice)}}
         <button type="button" @click="test()">test</button>
     </div>
     <div class="footNav">
@@ -134,10 +133,6 @@ export default {
             console.log(this.arriveTime)
 
         },
-        priceFormat() {
-            let seatPrice = this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
-            return seatPrice;
-        },
         selectStandard(index) {
             let priceStandard = this.st[index].priceStandard;
             let startTime = this.st[index].start;
@@ -151,10 +146,14 @@ export default {
         },
         selectFlex(index) {
             let priceFlex = this.st[index].priceFlex;
+            let startTime = this.st[index].start;
+            let arriveTime = this.st[index].arrive;
 
             console.log(this.st[index].priceFlex)
 
             this.selectPrice = priceFlex;
+            this.startTime = startTime;
+            this.arriveTime = arriveTime;
         },
         Format(value) {
             var string = value.toString();
@@ -371,7 +370,9 @@ export default {
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
     opacity: 1;
+
 }
+
 
 .resPriceStandard {
     border: none;
@@ -387,7 +388,6 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-
     height: 75px;
     padding: 1rem;
     color: white;

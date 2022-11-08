@@ -199,12 +199,12 @@
         <a href="">예약 조회</a>
     </button>
     <!-- 버튼-->
-    <span>I</span>
+    <img src="../assets/vertical.jpg" width="20" height="40">
     <button type="button" class="btn btn-lg btn-default" id="checkIn">
         <img src="../assets/check.png" width="30" height="30">
         <a href="">체크인</a>
     </button>
-    <span>I</span>
+    <img src="../assets/vertical.jpg" width="20" height="40">
     <!--항공편 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default">&nbsp;
         <img src="../assets/calendar.png" width="30" height="30">

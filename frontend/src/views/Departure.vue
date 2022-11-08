@@ -1,12 +1,12 @@
 <template>
 <div>
     <div class="caption">
-        <p>여행 일정1</p>
+        <p>여행 일정</p>
     </div>
     <div class="info">
         <button type="button">
             <div class="info1">
-                {{ fromArea }} &nbsp;
+                {{fromArea}} &nbsp;
                 <img src="../assets/arrow2.jpg"> &nbsp;
                 {{toArea}}
             </div>
@@ -44,21 +44,21 @@
         </div>
 
         <button type="button" class="seatSelect" @click="selectStandard(index)">
-            <h3>{{seat}} 스탠다드
+            <h3>{{seat}} {{res.standard}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h4>{{res.priceStandard}}</h4>
+            <h4>{{AddComma(res.priceStandard)}}</h4>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
         <button type="button" class="seatSelect" @click="selectFlex(index)">
-            <h3>{{seat}} 플랙스
+            <h3>{{seat}} {{res.flex}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h4>{{res.priceFlex}}</h4>
+            <h4>{{AddComma(res.priceFlex)}}</h4>
             <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
 
@@ -69,7 +69,7 @@
     </div>
     <div class="footNav">
         <span>예상 결제 금액</span>
-        <span class="startPrice">{{selectPrice}}</span>
+        <span class="startPrice">{{AddComma(selectPrice)}}</span>
         <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
     </div>
 </div>
@@ -126,34 +126,35 @@ export default {
         }
     },
     methods: {
-        test() {
-
-            console.log(this.selectPrice)
-            console.log(this.startTime)
-            console.log(this.arriveTime)
-
+        AddComma(num) {
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            return num.toString().replace(regexp, ",");
         },
         selectStandard(index) {
             let priceStandard = this.st[index].priceStandard;
             let startTime = this.st[index].start;
             let arriveTime = this.st[index].arrive;
+            let seatClass = this.st[index].standard;
 
-            console.log(this.st[index].priceStandard)
+            console.log(this.st[index].standard)
 
             this.selectPrice = priceStandard;
             this.startTime = startTime;
             this.arriveTime = arriveTime;
+            this.seatClass = seatClass;
         },
         selectFlex(index) {
             let priceFlex = this.st[index].priceFlex;
             let startTime = this.st[index].start;
             let arriveTime = this.st[index].arrive;
+            let seatClass = this.st[index].flex;
 
-            console.log(this.st[index].priceFlex)
+            console.log(this.st[index].flex)
 
             this.selectPrice = priceFlex;
             this.startTime = startTime;
             this.arriveTime = arriveTime;
+            this.seatClass = seatClass;
         },
         Format(value) {
             var string = value.toString();
@@ -210,39 +211,19 @@ export default {
         },
 
         submit() {
-            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
-            let fromArea = "";
-            let toArea = "";
-
-            var string = this.bothWay.toString();
-            var startDate = string.substring(0, 16);
-            var returnDate = string.substring(43, 58);
-
-            if (seat == "좌석 등급") {
-                alert("좌석을 선택해주세요")
-                return false;
-            }
-
-            if (this.fromBtn1 == true) {
-                fromArea = this.fromImgName
-                toArea = this.toImgName
-
-            } else {
-                fromArea = this.toImgName
-                toArea = this.fromImgName
-            }
 
             this.$router.push({
-                name: 'Departure',
+                name: 'Arrival',
                 params: {
-                    fromArea: fromArea,
-                    toArea: toArea,
-                    seat: seat,
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    AdultCount: "성인 " + this.AdultCount + "명",
-                    ChildCount: ", 소아 " + this.ChildCount + "명",
-                    InfantCount: ", 유아 " + this.InfantCount + "명",
+                    fromArea: this.fromArea,
+                    toArea: this.toArea,
+                    seat: this.seat,
+                    seatClass: this.seatClass,
+                    startDate: this.startDate,
+                    returnDate: this.returnDate,
+                    AdultCount: this.AdultCount,
+                    ChildCount:  this.ChildCount,
+                    InfantCount: this.InfantCount,
                     startTime: this.startTime,
                     arriveTime: this.arriveTime,
                     startPrice: this.selectPrice,
@@ -356,7 +337,7 @@ export default {
 }
 
 .seatSelect:hover {
-    border: 2px solid teal;
+    border: 4px solid teal;
     border-top: 4px solid black;
 
 }

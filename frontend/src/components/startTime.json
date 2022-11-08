@@ -2,13 +2,17 @@
     {
         "start": "07:40",
         "arrive": "11:50",
-        "priceStandard": "250,000 원",
-        "priceFlex": "330,000 원"
+        "standard": "스탠다드",
+        "flex": "플랙스",
+        "priceStandard": "350000 원",
+        "priceFlex": "430000 원"
     }, 
     {
         "start": "10:50",
         "arrive": "15:00",
-        "priceStandard": "350,000 원",
-        "priceFlex": "430,000 원"
+        "standard": "스탠다드",
+        "flex": "플랙스",
+        "priceStandard": "450000 원",
+        "priceFlex": "530000 원"
     }
 ]

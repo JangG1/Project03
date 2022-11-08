@@ -6,7 +6,7 @@
         <div class="info">
             <button type="button">
                 <div class="info1">
-                    {{ fromArea }} &nbsp;
+                    {{fromArea}} &nbsp;
                     <img src="../assets/arrow2.jpg"> &nbsp;
                     {{toArea}}
                 </div>
@@ -19,21 +19,39 @@
                 <div class="info3">
                     <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                     {{AdultCount}}
-                    <span v-show="ChildCount.substr(4,2) > 0">
+                    <span>
                         {{ChildCount}}
                     </span>
-                    <span v-show="InfantCount.substr(4,2) > 0">
+                    <span>
                         {{InfantCount}}
                     </span>
                 </div>
             </button>
         </div>
         <br>
-        <div class="day-seat-select" v-for="res in st" :key="res">
+        <div class="startInfo">
+            <button type="button">
+                <div>
+                    가는 편
+                </div>
+                
+                <div class="startInfo1">
+                    {{fromArea}} &nbsp;
+                    →&nbsp;
+                    {{toArea}}
+                </div>
+                
+                <div class="startInfo2">                   
+                    {{Format(startDate)}} {{startTime}} ~ {{arriveTime}} &nbsp; {{seat}}
+                </div>
+              
+            </button>
+        </div>
+        <div class="day-seat-select" v-for="(res, index) in at" :key="res">
     
             <div type="button" class="timeSelect" style="cursor: default">
                 <div class="startTime">
-                    <h3>{{res.start}} </h3>
+                    <h3>{{res.start}}</h3>
                     <span> {{ fromArea }}</span>
                 </div>
                 <img type="image" class="arrow2" src="../assets/arrow.jpg">
@@ -43,45 +61,44 @@
                 </div>
             </div>
     
-            <button type="button" class="seatSelect" @click="selectSeat">
-                <h3>{{seat}} 스탠다드
+            <button type="button" class="seatSelect" @click="selectStandard(index)">
+                <h3>{{seat}} {{res.standard}}
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                         <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                     </svg>
                 </h3>
-                <h4>{{this.price}}</h4>
+                <h4>{{AddComma(res.priceStandard)}}</h4>
                 <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
             </button>
-            <button type="button" class="seatSelect" @click="selectSeat">
-                <h3>{{seat}} 플랙스
+            <button type="button" class="seatSelect" @click="selectFlex(index)">
+                <h3>{{seat}} {{res.flex}}
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                         <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                     </svg>
                 </h3>
-                <h4>{{this.price}}</h4>
+                <h4>{{AddComma(res.priceFlex)}}</h4>
                 <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
             </button>
     
         </div>
     
         <div>
-            {{Format(startDate)}}<br>
-            {{returnDate}}<br>
-            {{priceFormat(seatPrice)}}
-            
+            <button type="button" @click="test()">test</button>
         </div>
+        {{ChildCount}}
+        {{InfantCount}}
         <div class="footNav">
             <span>예상 결제 금액</span>
-            <span class="startPrice">{{selectPrice}}</span>
+            <span class="startPrice">{{AddComma(selectPrice)}}</span>
             <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
         </div>
     </div>
     </template>
     
     <script>
-    import startTime from '../components/startTime.json';
+    import arrivalTime from '../components/arrivalTime.json';
     
-    const st = startTime;
+    const at = arrivalTime;
     
     export default {
         name: 'HelloWorld',
@@ -90,11 +107,11 @@
         },
         data() {
             return {
-                st,
+                at,
                 start: '',
                 arrive: '',
                 price: '',
-                selectPrice: '0 원',
+                selectPrice: this.startPrice,
                 seatPrice: 0,
     
             }
@@ -126,24 +143,31 @@
             },
             InfantCount: {
                 type: Number
-            }
-        },
-        created() {
-    
-        },
-        computed: {
-    
+            },
+            startTime: {
+                type: String
+            },
+            arriveTime: {
+                type: String
+            },
+            startPrice: {
+                type: Number
+            },
         },
         methods: {
-            priceFormat() {
-                let seatPrice = this.price = Math.floor(Math.random(6000, 1000) * 1000) + ",000원";
-                return seatPrice;
+            AddComma(num) {
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            return num.toString().replace(regexp, ",");
+        },
+            selectStandard(index) {
+                let priceStandard = this.at[index].priceStandard;
+                
+                
+                
+                this.selectPrice = parseInt(this.selectPrice.substr(0,3))+parseInt(priceStandard.substr(0,3))+ ",000 원";
             },
-            selectSeat() {
-                console.log()
-                console.log()
-                this.selectPrice = this.price;
-    
+            selectFlex() {
+ 
             },
             Format(value) {
                 var string = value.toString();
@@ -200,24 +224,22 @@
             },
     
             submit() {
-                let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
     
-                var string = this.bothWay.toString();
-                var startDate = string.substring(0, 16);
-                var returnDate = string.substring(43, 58);
-    
-                if (seat == "좌석 등급") {
-                    alert("좌석을 선택해주세요")
-                    return false;
-                }
                 this.$router.push({
                     name: 'Arrival',
                     params: {
-                        fromArea: this.fromImgName,
-                        toArea: this.toImgName,
-                        seat: seat,
-                        startDate: startDate,
-                        returnDate: returnDate
+                        fromArea: this.fromArea,
+                        toArea: this.toArea,
+                        seat: this.seat,
+                        seatClass: this.seatClass,
+                        startDate: this.startDate,
+                        returnDate: this.returnDate,
+                        AdultCount: "성인 " + this.AdultCount + "명",
+                        ChildCount: ", 소아 " + this.ChildCount + "명",
+                        InfantCount: ", 유아 " + this.InfantCount + "명",
+                        startTime: this.startTime,
+                        arriveTime: this.arriveTime,
+                        startPrice: this.selectPrice,
                     }
                 });
     
@@ -236,7 +258,7 @@
         margin-left: 11%;
     }
     
-    .ver{
+    .ver {
         margin-top: 25px;
         margin-left: 14px;
     }
@@ -244,7 +266,7 @@
     .info {
         margin-left: auto;
         margin-right: auto;
-        width: 80%;
+        width: 1380px;
         display: flex;
     }
     
@@ -256,11 +278,11 @@
         border: 0.5px solid #999;
         display: flex;
         box-shadow: 4px 4px 4px rgb(68, 68, 68);
-     
+    
     }
     
     .info button div {
-        padding: 30px;    
+        padding: 30px;
     }
     
     .infoImg {
@@ -272,18 +294,45 @@
         border: 2px solid teal;
     }
     
+    .startInfo {
+        margin-left: auto;
+        margin-right: auto;
+        width: 1250px;
+        display: flex;
+    }
+    
+    .startInfo button {
+        color: white;
+        width: 100%;
+        height: 90px;
+        background-color: rgb(35, 147, 147);
+        font-size: 20px;
+        border: 0.5px solid #999;
+        display: flex;
+        box-shadow: 4px 4px 4px rgb(68, 68, 68);
+
+    }
+    
+    .startInfo button div {
+        padding: 30px;
+    }
+    
+    .startInfoImg {
+        margin-left: 14px;
+    }
+
+
     .day-seat-select {
         width: 1500px;
         margin-left: auto;
         margin-right: auto;
         display: flex;
         padding: 40px;
-    
     }
     
     .day-seat-select button {
         width: 40%;
-        height: 150px;    
+        height: 150px;
         background-color: white;
         box-shadow: 4px 4px 8px rgb(68, 68, 68);
     }
@@ -299,12 +348,12 @@
         float: left;
         margin-top: 8%;
         margin-left: 8%;
-        
+    
     }
     
     .arriveTime {
         float: right;
-        margin-top: 8%;    
+        margin-top: 8%;
         margin-right: 5%;
     }
     
@@ -323,23 +372,31 @@
     .seatSelect {
         border: 1px solid;
         border-top: 4px solid black;
-        
+        opacity: 0.6;
+        transition: 0.3s;
     }
     
     .seatSelect:hover {
-        border: 2px solid teal;
+        border: 4px solid teal;
         border-top: 4px solid black;
+    
     }
     
     .seatSelect:focus {
         width: 600px;
         height: 150px;
-        transform: translate(-0.5%, -10%);    
+        transform: translate(-0.5%, -10%);
         border-radius: 15px;
         background-color: teal;
         box-shadow: 4px 4px 10px rgb(68, 68, 68);
         color: white;
+        opacity: 1;
     
+    }
+    
+    
+    .resPriceStandard {
+        border: none;
     }
     
     .check {
@@ -352,7 +409,6 @@
         bottom: 0;
         left: 0;
         right: 0;
-    
         height: 75px;
         padding: 1rem;
         color: white;

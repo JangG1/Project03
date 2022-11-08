@@ -29,7 +29,7 @@ const routes = [
     props: true
   },  
   {
-    path: '/Arrival/:fromArea/:toArea/:seat/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime/:arriveTime/:startPrice',
+    path: '/Arrival/:fromArea/:toArea/:seat/:seatClass/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime/:arriveTime/:startPrice',
     name: 'Arrival',
     component: () => import('../views/Arrival.vue'),
     props: true

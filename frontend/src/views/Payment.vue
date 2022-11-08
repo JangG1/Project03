@@ -38,7 +38,7 @@
         </button>
     </div>
 
-    <br>
+    <br><br>
     <p class="startInfoTitle">여정 정보</p>
     <div class="startInfo">
         <button type="button">
@@ -79,35 +79,37 @@
 
         </button>
     </div>
-    <br>
+    <br><br>
     <!--승객 정보-->
-
-    <h4>승객 정보</h4>
-    [<span>*</span>는 필수 입력 사항입니다.]<br>
     <button class="passengerInfo" @click="showPassInfo">
-        <p>{{AdultCount}}</p>
+        <h4>승객 정보</h4><br><br>
+        <h5>[<span>*</span>는 필수 입력 사항입니다.]</h5><br><br>
+        <div class="passengerTitle">
+
+        </div>
+        <p>{{AdultCount}} {{arrow}}</p>
 
         <div v-show="passInfo">
             <div class="passInfo1">
                 <div class="passInfo1-1">
-                    승객 성 <span>*</span><br>
-                    <input type="text" placeholder="예) HONG">
+                    <h5>승객 성<span>*</span></h5><br>
+                    <input type="text" placeholder="예) HONG" class="passText">
                 </div>
                 <div class="passInfo1-2">
-                    승객 이름 <span>*</span><br>
-                    <input type="text" placeholder="예) GIL DONG">
+                    <h5>승객 이름<span>*</span></h5><br>
+                    <input type="text" placeholder="예) GIL DONG" class="passText">
                 </div>
             </div>
 
             <div class="passInfo2">
                 <div class="passInfo2-1">
-                    성별 <span>*</span><br>
-                    <button type="button" value="남자">남자</button>
-                    <button type="button" value="여자">여자</button>
+                    <h5>성별<span>*</span></h5><br>
+                    <input type="button" value="남자" class="genderBtn">
+                    <input type="button" value="여자" class="genderBtn">
                 </div>
                 <div class="passInfo2-2">
-                    생년 월일 (YYYY.MM.DD) <span>*</span><br>
-                    <input type="text">
+                    <h5>생년 월일 (YYYY.MM.DD) <span>*</span></h5><br>
+                    <input type="text" class="passText">
                 </div>
             </div>
 
@@ -117,7 +119,7 @@
 </div>
 
 <button class="note" @click="showNoteInfo">
-    <p>유의사항</p>
+    <p>유의사항 {{arrow}}</p>
     <div class="note1" v-show="noteInfo">
         <li>
             예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
@@ -147,7 +149,8 @@ export default {
             selectPrice: this.startPrice,
             seatPrice: 0,
             passInfo: true,
-            noteInfo: true
+            noteInfo: true,
+            arrow: "▲",
         }
     },
     props: {
@@ -277,9 +280,11 @@ export default {
         },
         showPassInfo() {
             this.passInfo = (this.passInfo) ? false : true
+            this.arrow = "▼"
         },
         showNoteInfo() {
             this.noteInfo = (this.noteInfo) ? false : true
+            this.arrow = "▼"
         },
         submit() {
 
@@ -463,6 +468,14 @@ h4 {
     float: right;
 }
 
+.passengerInfo h4 {
+    float: left;
+}
+
+.passengerInfo h5 {
+    float: left;
+}
+
 .passengerInfo span {
     color: red;
 
@@ -478,47 +491,57 @@ h4 {
 
 }
 
+.passengerTitle {
+    float: left;
+
+}
+
 .passengerInfo {
     width: 1200px;
     border: none;
-    margin-left: 7%;
+    margin-left: 5%;
     background: white;
     margin-bottom: 40px;
+
 }
 
-.passengerInfo input {
+.passText{
     width: 400px;
+    float: left;
+    padding: 20px;
 }
 
 .passInfo1,
 .passInfo2 {
     width: 100%;
     border: 1px solid;
-    padding: 60px;
+    padding: 80px;
     padding-bottom: 100px;
+    display: flex;
 }
 
-.passInfo1-1,
-.passInfo2-1 {
-    float: left;
-
-}
-
-.passInfo1-2,
-.passInfo2-2 {
-    float: right;
-
-}
-
-.passInfo2-1 button {
+.genderBtn{    
     width: 200px;
+    height: 70px;
     background: white;
+}
+
+.passInfo1-2{    
+    margin-left: 200px;
+}
+
+.passInfo2-1 {    
+    border: 1px solid;
+}
+
+.passInfo2-2 {    
+    margin-left: 200px;
 }
 
 .note {
     width: 1200px;
     border: none;
-    margin-left: 7%;
+    margin-left: 5%;
     background: white;
     height: 100%;
 }
@@ -526,7 +549,7 @@ h4 {
 .note p {
     color: white;
     background: teal;
-    width: 100%;    
+    width: 100%;
     padding: 17px;
     padding-left: 40px;
     text-align: left;
@@ -538,5 +561,6 @@ h4 {
     text-align: left;
     padding: 20px;
     margin-bottom: 150px;
+    font-size: 19px;
 }
 </style>

@@ -63,7 +63,8 @@
         </button>
 
     </div>
-
+{{startDate}}
+{{returnDate}}
     <div>
         <button type="button" @click="test()">test</button>
     </div>
@@ -110,10 +111,12 @@ export default {
             default: ''
         },
         startDate: {
-            type: String
+            type: String,
+            default: ''
         },
         returnDate: {
-            type: String
+            type: String || null,
+            default: ''
         },
         AdultCount: {
             type: Number

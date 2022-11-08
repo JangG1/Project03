@@ -42,7 +42,7 @@
             </div>
 
             <div class="startInfo2">
-                {{Format(startDate)}} {{startTime}} ~ {{arriveTime}} &nbsp; {{seat}}
+                {{Format(startDate)}} {{startTime}} ~ {{arriveTime}} &nbsp; {{seat}} {{seatClass}}
             </div>
 
         </button>
@@ -85,8 +85,9 @@
     <div>
         <button type="button" @click="test()">test</button>
     </div>
-    {{ChildCount}}
-    {{InfantCount}}
+    {{seatClass}}
+    {{startTime}}
+    {{arriveTime}}
     <div class="footNav">
         <span>예상 결제 금액</span>
         <span class="startPrice">{{AddComma(selectPrice)}}</span>
@@ -129,6 +130,10 @@ export default {
             type: String,
             default: ''
         },
+        seatClass: {
+            type: String,
+            default: ''
+        },
         startDate: {
             type: String
         },
@@ -155,21 +160,51 @@ export default {
         },
     },
     methods: {
+        test(){
+            console.log("=================")
+            console.log(this.fromArea)
+            console.log(this.toArea)
+            console.log(this.seat)
+            console.log(this.seatClass)
+            console.log(this.seatClass2)
+            console.log(this.startDate)
+            console.log(this.returnDate)
+            console.log(this.AdultCount)
+            console.log(this.ChildCount)
+            console.log(this.InfantCount)
+            console.log(this.startTime)
+            console.log(this.arriveTime)
+            console.log(this.startTime2)
+            console.log(this.arriveTime2)
+            console.log(this.selectPrice) 
+        },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
         },
         selectStandard(index) {
             let priceStandard = this.at[index].priceStandard;
+            let startTime = this.at[index].start;
+            let arriveTime = this.at[index].arrive;
+            let seatClass = this.at[index].standard;
 
             this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + ",000 원";
+            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + "000 원";
+            this.startTime2 = startTime;
+            this.arriveTime2 = arriveTime;
+            this.seatClass2 = seatClass;
         },
         selectFlex(index) {
             let priceStandard = this.at[index].priceFlex;
-
+            let startTime = this.at[index].start;
+            let arriveTime = this.at[index].arrive;
+            let seatClass = this.at[index].flex;
+            
             this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + ",000 원";
+            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + "000 원";
+            this.startTime2 = startTime;
+            this.arriveTime2 = arriveTime;
+            this.seatClass2 = seatClass;
         },
         Format(value) {
             var string = value.toString();
@@ -226,21 +261,23 @@ export default {
         },
 
         submit() {
-
             this.$router.push({
-                name: 'Arrival',
+                name: 'Payment',
                 params: {
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     seat: this.seat,
-                    seatClass: this.seatClass,
+                    seatClass1: this.seatClass,                    
+                    seatClass2: this.seatClass2,
                     startDate: this.startDate,
                     returnDate: this.returnDate,
-                    AdultCount: "성인 " + this.AdultCount + "명",
-                    ChildCount: ", 소아 " + this.ChildCount + "명",
-                    InfantCount: ", 유아 " + this.InfantCount + "명",
-                    startTime: this.startTime,
-                    arriveTime: this.arriveTime,
+                    AdultCount: this.AdultCount,
+                    ChildCount: this.ChildCount,
+                    InfantCount: this.InfantCount,
+                    startTime1: this.startTime,
+                    arriveTime1: this.arriveTime,
+                    startTime2: this.startTime2,
+                    arriveTime2: this.arriveTime2,
                     startPrice: this.selectPrice,
                 }
             });

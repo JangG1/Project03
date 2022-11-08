@@ -1,7 +1,16 @@
 <template>
 <div>
-    <div class="caption">
-        <p>여행 일정</p>
+    <div class="right">
+        <div class="payInfo">
+            <h4>항공 운송료 </h4>
+            <span>운임</span><span class="price">{{Fare(startPrice)}}</span><br>
+            <span>유류할증료</span><span class="price">{{Fuel(startPrice)}}</span><br>
+            <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(startPrice)}}</span>
+        </div>
+        <div class="totalPrice">
+            <span class="total">총액</span><span class="price">{{AddComma(startPrice)}}</span>
+        </div>
+
     </div>
     <div class="info">
         <button type="button">
@@ -29,85 +38,64 @@
         </button>
     </div>
     <br>
+    <p class="startInfoTitle">여정 정보</p>
     <div class="startInfo">
         <button type="button">
             <div>
                 가는 편
             </div>
-
+            <span>│</span>
             <div class="startInfo1">
                 {{fromArea}} &nbsp;
                 →&nbsp;
                 {{toArea}}
             </div>
-
+            <span>│</span>
             <div class="startInfo2">
-                {{Format(startDate)}} {{startTime}} ~ {{arriveTime}} &nbsp; {{seat}}
+                {{Format(startDate)}} {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
             </div>
 
         </button>
     </div>
-    <div class="day-seat-select" v-for="(res, index) in at" :key="res">
 
-        <div type="button" class="timeSelect" style="cursor: default">
-            <div class="startTime">
-                <h3>{{res.start}}</h3>
-                <span> {{ fromArea }}</span>
+    <br>
+
+    <div class="arriveInfo">
+        <button type="button">
+            <div>
+                오는 편
             </div>
-            <img type="image" class="arrow2" src="../assets/arrow.jpg">
-            <div class="arriveTime">
-                <h3>{{res.arrive}} </h3>
-                <span>{{ toArea }}</span>
+            <span>│</span>
+            <div class="startInfo1">
+                {{fromArea}} &nbsp;
+                →&nbsp;
+                {{toArea}}
             </div>
-        </div>
+            <span>│</span>
+            <div class="startInfo2">
+                {{Format(returnDate)}} {{startTime2}} ~ {{arriveTime2}} &nbsp; {{seat}} {{seatClass2}}
+            </div>
 
-        <button type="button" class="seatSelect" @click="selectStandard(index)">
-            <h3>{{seat}} {{res.standard}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
-                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-                </svg>
-            </h3>
-            <h4>{{AddComma(res.priceStandard)}}</h4>
-            <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
         </button>
-        <button type="button" class="seatSelect" @click="selectFlex(index)">
-            <h3>{{seat}} {{res.flex}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
-                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-                </svg>
-            </h3>
-            <h4>{{AddComma(res.priceFlex)}}</h4>
-            <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
-        </button>
+    </div>
+    <!--PayList-->
 
-    </div>
+</div>
 
-    <div>
-        <button type="button" @click="test()">test</button>
-    </div>
-    {{ChildCount}}
-    {{InfantCount}}
-    <div class="footNav">
-        <span>예상 결제 금액</span>
-        <span class="startPrice">{{AddComma(selectPrice)}}</span>
-        <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
-    </div>
+<!--footer-->
+<div class="footNav">
+    <span>예상 결제 금액</span>
+    <span class="startPrice">{{AddComma(startPrice)}}</span>
+    <button type="button" class="submitBtn" @click="submit()">결제하기</button>
 </div>
 </template>
 
 <script>
-import arrivalTime from '../components/arrivalTime.json';
-
-const at = arrivalTime;
-
 export default {
     name: 'HelloWorld',
-    components: {
-
-    },
+    components: {},
     data() {
         return {
-            at,
             start: '',
             arrive: '',
             price: '',
@@ -129,6 +117,14 @@ export default {
             type: String,
             default: ''
         },
+        seatClass1: {
+            type: String,
+            default: ''
+        },
+        seatClass2: {
+            type: String,
+            default: ''
+        },
         startDate: {
             type: String
         },
@@ -144,10 +140,16 @@ export default {
         InfantCount: {
             type: Number
         },
-        startTime: {
+        startTime1: {
             type: String
         },
-        arriveTime: {
+        arriveTime1: {
+            type: String
+        },
+        startTime2: {
+            type: String
+        },
+        arriveTime2: {
             type: String
         },
         startPrice: {
@@ -159,17 +161,20 @@ export default {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
         },
-        selectStandard(index) {
-            let priceStandard = this.at[index].priceStandard;
-
-            this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + ",000 원";
+        Fare(value){
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let Fare = Math.floor(parseInt(value) * 0.7) + " 원";
+            return Fare.toString().replace(regexp, ",");
         },
-        selectFlex(index) {
-            let priceStandard = this.at[index].priceFlex;
-
-            this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + ",000 원";
+        Fuel(value){
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let Fuel = Math.floor(parseInt(value) * 0.2) + " 원";
+            return Fuel.toString().replace(regexp, ",");
+        },
+        Tax(value){
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let Tax = Math.floor(parseInt(value) * 0.1) + " 원";
+            return Tax.toString().replace(regexp, ",");
         },
         Format(value) {
             var string = value.toString();
@@ -228,19 +233,22 @@ export default {
         submit() {
 
             this.$router.push({
-                name: 'Arrival',
+                name: 'Payment',
                 params: {
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     seat: this.seat,
-                    seatClass: this.seatClass,
+                    seatClass1: this.seatClass,
+                    seatClass2: this.seatClass2,
                     startDate: this.startDate,
                     returnDate: this.returnDate,
-                    AdultCount: "성인 " + this.AdultCount + "명",
-                    ChildCount: ", 소아 " + this.ChildCount + "명",
-                    InfantCount: ", 유아 " + this.InfantCount + "명",
-                    startTime: this.startTime,
-                    arriveTime: this.arriveTime,
+                    AdultCount: this.AdultCount,
+                    ChildCount: this.ChildCount,
+                    InfantCount: this.InfantCount,
+                    startTime1: this.startTime,
+                    arriveTime1: this.arriveTime,
+                    startTime2: this.startTime2,
+                    arriveTime2: this.arriveTime2,
                     startPrice: this.selectPrice,
                 }
             });
@@ -255,6 +263,10 @@ export default {
 </script>
 
 <style>
+h4{
+    color: black;
+    padding-bottom: 10px;
+}
 .caption {
     display: flex;
     margin-left: 11%;
@@ -296,14 +308,21 @@ export default {
     border: 2px solid teal;
 }
 
-.startInfo {
+.startInfoTitle{
+    margin-left: 5%;
+    color: black;
+    font-size: 30px;
+}
+
+.startInfo,.arriveInfo {
     margin-left: auto;
     margin-right: auto;
-    width: 1250px;
+    width: 1200px;
     display: flex;
 }
 
-.startInfo button {
+.startInfo button,
+.arriveInfo button {
     color: white;
     width: 100%;
     height: 90px;
@@ -315,12 +334,15 @@ export default {
 
 }
 
-.startInfo button div {
+.startInfo button div
+,.arriveInfo button div {
     padding: 30px;
 }
 
-.startInfoImg {
-    margin-left: 14px;
+.startInfo span,
+.arriveInfo span{
+    padding-top: 22px;
+    font-size: 30px;
 }
 
 .day-seat-select {
@@ -433,5 +455,38 @@ export default {
 .startPrice {
     font-size: 20px;
     margin-left: 70%;
+}
+
+.right{
+    float: right;    
+    padding-left: 25px;
+    width: 450px;
+    height: 1000px;
+}
+
+.payInfo{
+    border: 0.1px solid rgb(217, 217, 217);
+    border-left: none;
+    border-right: none;
+    width: 380px;
+    height: 200px;
+    padding: 30px;
+    font-size: 18px;
+    color: rgb(87, 86, 86);
+}
+
+.totalPrice{
+    border: 0.1px solid rgb(217, 217, 217);
+    border-left: none;
+    border-right: none;
+    width: 380px;
+    height: 110px;
+    padding: 30px;
+    padding-top: 40px;
+    font-size: 24px;    
+}
+
+.price{
+    float: right;
 }
 </style>

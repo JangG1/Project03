@@ -408,22 +408,16 @@ export default {
             this.oneWay = false;
         },
         test() {
-            let fromArea = "";
-            let toArea = "";
-
-            if (this.fromBtn1 == true) {
-                fromArea = this.fromImgName
-                toArea = this.toImgName
-
-                console.log("1" + fromArea)
-                console.log("2" + toArea)
-            } else {
-                fromArea = this.toImgName
-                toArea = this.fromImgName
-                console.log("3" + fromArea)
-                console.log("4" + toArea)
+          
+            var string = this.bothWay.toString();
+            var returnDate = " ";
+            if(returnDate != " "){
+                returnDate = string.substring(43, 58);
+            }else if(returnDate == " "){
+                returnDate = "123";
             }
 
+            console.log(returnDate)
         },
         test1() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
@@ -715,7 +709,14 @@ export default {
 
             var string = this.bothWay.toString();
             var startDate = string.substring(0, 16);
-            var returnDate = string.substring(43, 58);
+            
+            var returnDate = " ";
+            if(returnDate != " "){
+                returnDate = string.substring(43, 58);
+            }else if(returnDate == " "){
+                returnDate = " ";
+            }
+            
 
             if (seat == "좌석 등급") {
                 alert("좌석을 선택해주세요")
@@ -730,6 +731,8 @@ export default {
                 fromArea = this.toImgName
                 toArea = this.fromImgName
             }
+
+        
 
             this.$router.push({
                 name: 'Departure',

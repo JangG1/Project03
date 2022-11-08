@@ -81,54 +81,52 @@
     </div>
     <br>
     <!--승객 정보-->
-    <div class="passengerInfo">
-        <h4>승객 정보</h4>
-        [<span>*</span>는 필수 입력 사항입니다.]
-        <div>
-            {{AdultCount}}
-        </div>
-        <div class="passInfo1">
-            <div>
-                승객 성 <span>*</span>
-                <input type="text" placeholder="예) HONG">
+
+    <h4>승객 정보</h4>
+    [<span>*</span>는 필수 입력 사항입니다.]<br>
+    <button class="passengerInfo" @click="showPassInfo">
+        <p>{{AdultCount}}</p>
+
+        <div v-show="passInfo">
+            <div class="passInfo1">
+                <div class="passInfo1-1">
+                    승객 성 <span>*</span><br>
+                    <input type="text" placeholder="예) HONG">
+                </div>
+                <div class="passInfo1-2">
+                    승객 이름 <span>*</span><br>
+                    <input type="text" placeholder="예) GIL DONG">
+                </div>
             </div>
-            <div>
-                승객 이름 <span>*</span>
-                <input type="text" placeholder="예) GIL DONG">
+
+            <div class="passInfo2">
+                <div class="passInfo2-1">
+                    성별 <span>*</span><br>
+                    <button type="button" value="남자">남자</button>
+                    <button type="button" value="여자">여자</button>
+                </div>
+                <div class="passInfo2-2">
+                    생년 월일 (YYYY.MM.DD) <span>*</span><br>
+                    <input type="text">
+                </div>
             </div>
+
         </div>
 
-        <div class="passInfo2">
-            <div>
-                성별 <span>*</span>
-                <input type="button" value="남자">
-                <input type="button" value="여자">
-            </div>
-            <div>
-                생년 월일 (YYYY.MM.DD) <span>*</span>
-                <input type="text">
-            </div>
-        </div>
-    </div>
-    <div class="passInfo3">
-        <div>
-            적립 항공사
-        </div>
-        <div>
-            회원번호
-        </div>
-    </div>
+    </button>
 </div>
 
-<div>
-    <h4>유의사항</h4>
-    <li>
-        예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
-    </li>
-    <li>
-        입력하신 회원번호로 탑승 마일리지가 적립되며, 마일리지 적립율은 항공사에 따라 다를 수 있습니다.
-    </li>
-</div>
+<button class="note" @click="showNoteInfo">
+    <p>유의사항</p>
+    <div class="note1" v-show="noteInfo">
+        <li>
+            예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
+        </li>
+        <li>
+            입력하신 회원번호로 탑승 마일리지가 적립되며, 마일리지 적립율은 항공사에 따라 다를 수 있습니다.
+        </li>
+    </div>
+</button>
 <!--footer-->
 <div class="footNav">
     <span>예상 결제 금액</span>
@@ -148,7 +146,8 @@ export default {
             price: '',
             selectPrice: this.startPrice,
             seatPrice: 0,
-
+            passInfo: true,
+            noteInfo: true
         }
     },
     props: {
@@ -276,7 +275,12 @@ export default {
 
             return year + "-" + month + "-" + day + week;
         },
-
+        showPassInfo() {
+            this.passInfo = (this.passInfo) ? false : true
+        },
+        showNoteInfo() {
+            this.noteInfo = (this.noteInfo) ? false : true
+        },
         submit() {
 
             this.$router.push({
@@ -461,17 +465,78 @@ h4 {
 
 .passengerInfo span {
     color: red;
-    
+
 }
 
-.passengerInfo{
-    border: 1px solid;
+.passengerInfo p {
+    color: white;
+    background: teal;
+    width: 100%;
+    padding: 10px;
+    padding-left: 40px;
+    text-align: left;
+
+}
+
+.passengerInfo {
+    width: 1200px;
+    border: none;
+    margin-left: 7%;
+    background: white;
+    margin-bottom: 40px;
+}
+
+.passengerInfo input {
+    width: 400px;
 }
 
 .passInfo1,
-.passInfo2,
-.passInfo3{
+.passInfo2 {
+    width: 100%;
     border: 1px solid;
-    display: flex;
+    padding: 60px;
+    padding-bottom: 100px;
+}
+
+.passInfo1-1,
+.passInfo2-1 {
+    float: left;
+
+}
+
+.passInfo1-2,
+.passInfo2-2 {
+    float: right;
+
+}
+
+.passInfo2-1 button {
+    width: 200px;
+    background: white;
+}
+
+.note {
+    width: 1200px;
+    border: none;
+    margin-left: 7%;
+    background: white;
+    height: 100%;
+}
+
+.note p {
+    color: white;
+    background: teal;
+    width: 100%;    
+    padding: 17px;
+    padding-left: 40px;
+    text-align: left;
+}
+
+.note1 {
+    border: 1px solid;
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+    margin-bottom: 150px;
 }
 </style>

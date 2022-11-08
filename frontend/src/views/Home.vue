@@ -121,7 +121,7 @@
                     </template>
                 </Datepicker>
                 <!--왕복 날짜 선택-->
-                <div type="button" class="selectDate1" @click="resetDate1" v-show="selectDate1">
+                <div type="button" class="selectDate1"  v-show="selectDate1">
                     <div class="selectDate2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
@@ -141,7 +141,7 @@
                         {{ value + 1 + "월"}}
                     </template>
                 </Datepicker>
-                <div type="button" class="selectDate1" @click="resetDate2" v-show="selectDate2">
+                <div type="button" class="selectDate1" v-show="selectDate2">
                     <div class="selectDate2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
@@ -310,9 +310,9 @@
 
 <!-- FOOTER -->
 
-<div class="footLogoName"> 
-<img class="footLogo" src="../assets/Logo.png">
-Fastrip
+<div class="footLogoName">
+    <img class="footLogo" src="../assets/Logo.png">
+    Fastrip
 </div>
 <footer class="footer">
     <p>&copy; 2022 Company, Fastrip</p>
@@ -369,7 +369,7 @@ export default {
             toBtn1: true,
             fromBtn2: false,
             toBtn2: false,
-
+            returnDate: "",
         }
     },
     methods: {
@@ -381,42 +381,37 @@ export default {
             this.datePickerShow2 = false;
             this.selectDate2 = true;
         },
-        resetDate1() {
-            this.datePickerShow1 = true;
-            this.selectDate1 = false;
-            this.bothWay = false;
-        },
-        resetDate2() {
-            this.datePickerShow2 = true;
-            this.selectDate2 = false;
-            this.oneWay = false;
-        },
         toggleRoundTrip() {
             this.datePickerShow1 = true;
             this.datePickerShow2 = false;
             this.selectDate1 = false;
             this.selectDate2 = false;
-            this.bothWay = false;
-            this.oneWay = false;
+            this.bothWay = "";
+            this.oneWay = "";
         },
         toggleOneWay() {
             this.datePickerShow1 = false;
             this.datePickerShow2 = true;
             this.selectDate1 = false;
             this.selectDate2 = false;
-            this.bothWay = false;
-            this.oneWay = false;
+            this.bothWay = "";
+            this.oneWay = "";
         },
         test() {
-          
-            var string = this.bothWay.toString();
-            var returnDate = " ";
-            if(returnDate != " "){
-                returnDate = string.substring(43, 58);
-            }else if(returnDate == " "){
-                returnDate = "123";
+            let startDate = "";
+            let returnDate = "";
+            
+            if (this.oneWay.toString() != false) {
+                var string1 = this.oneWay.toString();
+                startDate = string1.substring(0, 16);
+                returnDate = null;
+            }else if(this.bothWay.toString() != false){
+                var string2 = this.bothWay.toString();
+                startDate = string2.substring(0, 16);                
+                returnDate = string2.substring(43, 58);
             }
 
+            console.log(startDate)
             console.log(returnDate)
         },
         test1() {
@@ -706,20 +701,27 @@ export default {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
             let fromArea = "";
             let toArea = "";
-
-            var string = this.bothWay.toString();
-            var startDate = string.substring(0, 16);
+            let startDate = "";
+            let returnDate = "";
             
-            var returnDate = " ";
-            if(returnDate != " "){
-                returnDate = string.substring(43, 58);
-            }else if(returnDate == " "){
-                returnDate = " ";
+            if(this.selectDate1 == false && this.selectDate2 == false){
+                alert("날짜를 선택해주세요.")
             }
             
+    
+
+            if (this.oneWay.toString() != false) {
+                var string1 = this.oneWay.toString();
+                startDate = string1.substring(0, 16);
+                returnDate = " ";
+            }else if(this.bothWay.toString() != false){
+                var string2 = this.bothWay.toString();
+                startDate = string2.substring(0, 16);                
+                returnDate = string2.substring(43, 58);
+            }
 
             if (seat == "좌석 등급") {
-                alert("좌석을 선택해주세요")
+                alert("좌석을 선택해주세요.")
                 return false;
             }
 
@@ -731,8 +733,6 @@ export default {
                 fromArea = this.toImgName
                 toArea = this.fromImgName
             }
-
-        
 
             this.$router.push({
                 name: 'Departure',
@@ -872,20 +872,20 @@ a:active {
 .side {
     color: white;
     margin-left: 3%;
-    margin-top: 10%;    
+    margin-top: 10%;
 }
 
-.side svg{
+.side svg {
     height: 200px;
 }
 
-.sideTip {    
+.sideTip {
     width: 610px;
     height: 210px;
     margin-left: 3%;
     margin-top: 3%;
     border: 4px solid white;
-    border-radius: 10px;    
+    border-radius: 10px;
 }
 
 .sideTip1 {

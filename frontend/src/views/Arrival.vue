@@ -13,16 +13,16 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                {{Format(startDate)}} ~ {{Format(returnDate)}}
+                <span>{{Format(startDate)}}</span> <span v-show="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 {{AdultCount}}
-                <span>
+                <span v-show="ChildCount.substr(4,2) > 0">
                     {{ChildCount}}
                 </span>
-                <span>
+                <span v-show="InfantCount.substr(4,2) > 0">
                     {{InfantCount}}
                 </span>
             </div>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="startInfo2">
-                {{Format(startDate)}} {{startTime}} ~ {{arriveTime}} &nbsp; {{seat}} {{seatClass}}
+                {{Format(startDate)}} {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
             </div>
 
         </button>
@@ -67,8 +67,8 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h4>{{AddComma(res.priceStandard)}}</h4>
-            <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
+            <span>{{AddComma(res.priceStandard)}}</span><br>
+            <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
         <button type="button" class="seatSelect" @click="selectFlex(index)">
             <h3>{{seat}} {{res.flex}}
@@ -76,8 +76,8 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h4>{{AddComma(res.priceFlex)}}</h4>
-            <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
+            <span>{{AddComma(res.priceFlex)}}</span><br>
+            <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 
     </div>
@@ -85,9 +85,7 @@
     <div>
         <button type="button" @click="test()">test</button>
     </div>
-    {{seatClass}}
-    {{startTime}}
-    {{arriveTime}}
+
     <div class="footNav">
         <span>예상 결제 금액</span>
         <span class="startPrice">{{AddComma(selectPrice)}}</span>
@@ -130,7 +128,11 @@ export default {
             type: String,
             default: ''
         },
-        seatClass: {
+        seatClass1: {
+            type: String,
+            default: ''
+        },
+        seatClass2: {
             type: String,
             default: ''
         },
@@ -149,10 +151,16 @@ export default {
         InfantCount: {
             type: Number
         },
-        startTime: {
+        startTime1: {
             type: String
         },
-        arriveTime: {
+        arriveTime1: {
+            type: String
+        },
+        startTime2: {
+            type: String
+        },
+        arriveTime2: {
             type: String
         },
         startPrice: {
@@ -190,9 +198,9 @@ export default {
 
             this.selectPrice = this.startPrice;
             this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + "000 원";
-            this.startTime2 = startTime;
-            this.arriveTime2 = arriveTime;
-            this.seatClass2 = seatClass;
+            this.stTime2 = startTime;
+            this.arrTime2 = arriveTime;
+            this.Class2 = seatClass;
         },
         selectFlex(index) {
             let priceStandard = this.at[index].priceFlex;
@@ -202,9 +210,9 @@ export default {
             
             this.selectPrice = this.startPrice;
             this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + "000 원";
-            this.startTime2 = startTime;
-            this.arriveTime2 = arriveTime;
-            this.seatClass2 = seatClass;
+            this.stTime2 = startTime;
+            this.arTime2 = arriveTime;
+            this.Class2 = seatClass;
         },
         Format(value) {
             var string = value.toString();
@@ -267,17 +275,17 @@ export default {
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     seat: this.seat,
-                    seatClass1: this.seatClass,                    
-                    seatClass2: this.seatClass2,
+                    seatClass1: this.seatClass1,                    
+                    seatClass2: this.Class2,
                     startDate: this.startDate,
                     returnDate: this.returnDate,
                     AdultCount: this.AdultCount,
                     ChildCount: this.ChildCount,
                     InfantCount: this.InfantCount,
-                    startTime1: this.startTime,
-                    arriveTime1: this.arriveTime,
-                    startTime2: this.startTime2,
-                    arriveTime2: this.arriveTime2,
+                    startTime1: this.startTime1,
+                    arriveTime1: this.arriveTime1,
+                    startTime2:  this.stTime2,
+                    arriveTime2: this.arrTime2,
                     startPrice: this.selectPrice,
                 }
             });
@@ -412,6 +420,7 @@ export default {
     border-top: 4px solid black;
     opacity: 0.6;
     transition: 0.3s;
+    font-size: 22px;
 }
 
 .seatSelect:hover {
@@ -429,7 +438,7 @@ export default {
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
     opacity: 1;
-
+    font-size: 22px;
 }
 
 .resPriceStandard {

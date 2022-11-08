@@ -13,7 +13,7 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                {{Format(startDate)}} ~ {{Format(returnDate)}}
+                <span>{{Format(startDate)}}</span> <span v-show="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
@@ -49,8 +49,8 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h4>{{AddComma(res.priceStandard)}}</h4>
-            <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
+            <span>{{AddComma(res.priceStandard)}}</span><br>
+            <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
         <button type="button" class="seatSelect" @click="selectFlex(index)">
             <h3>{{seat}} {{res.flex}}
@@ -58,13 +58,13 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <h4>{{AddComma(res.priceFlex)}}</h4>
-            <h4>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</h4>
+            <span>{{AddComma(res.priceFlex)}}</span><br>
+            <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 
     </div>
-{{startDate}}
-{{returnDate}}
+    {{startDate}}
+    {{returnDate}}
     <div>
         <button type="button" @click="test()">test</button>
     </div>
@@ -129,6 +129,9 @@ export default {
         }
     },
     methods: {
+        test(){
+            console.log(this.seatClass)
+        },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
@@ -214,21 +217,34 @@ export default {
         },
 
         submit() {
+            let path = "";
+            let seatClass2 = " ";
+            let startTime2 = " ";
+            let arriveTime2 = " ";
+
+            if (this.returnDate.length > 1) {
+                path = "Arrival";
+            } else if (this.returnDate.length > 0) {
+                path = "Payment";
+            }
 
             this.$router.push({
-                name: 'Arrival',
+                name: path,
                 params: {
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     seat: this.seat,
-                    seatClass: this.seatClass,
+                    seatClass1: this.seatClass,                    
+                    seatClass2: seatClass2,
                     startDate: this.startDate,
                     returnDate: this.returnDate,
                     AdultCount: this.AdultCount,
-                    ChildCount:  this.ChildCount,
+                    ChildCount: this.ChildCount,
                     InfantCount: this.InfantCount,
-                    startTime: this.startTime,
-                    arriveTime: this.arriveTime,
+                    startTime1: this.startTime,
+                    arriveTime1: this.arriveTime,
+                    startTime2: startTime2,
+                    arriveTime2: arriveTime2,
                     startPrice: this.selectPrice,
                 }
             });
@@ -337,6 +353,7 @@ export default {
     border-top: 4px solid black;
     opacity: 0.6;
     transition: 0.3s;
+    font-size: 22px;
 }
 
 .seatSelect:hover {
@@ -353,10 +370,9 @@ export default {
     background-color: teal;
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
-    opacity: 1;
-
+    opacity: 1;    
+    font-size: 22px;
 }
-
 
 .resPriceStandard {
     border: none;

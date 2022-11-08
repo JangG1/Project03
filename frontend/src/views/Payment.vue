@@ -22,21 +22,22 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                {{Format(startDate)}} ~ {{Format(returnDate)}}
+                <span>{{Format(startDate)}}</span> <span v-show="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 {{AdultCount}}
-                <span>
+                <span v-show="InfantCount.substr(4,2) > 0">
                     {{ChildCount}}
                 </span>
-                <span>
+                <span v-show="InfantCount.substr(4,2) > 0">
                     {{InfantCount}}
                 </span>
             </div>
         </button>
     </div>
+
     <br>
     <p class="startInfoTitle">여정 정보</p>
     <div class="startInfo">
@@ -60,7 +61,7 @@
 
     <br>
 
-    <div class="arriveInfo">
+    <div class="arriveInfo" v-show="returnDate.length > 1">
         <button type="button">
             <div>
                 오는 편
@@ -78,10 +79,56 @@
 
         </button>
     </div>
-    <!--PayList-->
+    <br>
+    <!--승객 정보-->
+    <div class="passengerInfo">
+        <h4>승객 정보</h4>
+        [<span>*</span>는 필수 입력 사항입니다.]
+        <div>
+            {{AdultCount}}
+        </div>
+        <div class="passInfo1">
+            <div>
+                승객 성 <span>*</span>
+                <input type="text" placeholder="예) HONG">
+            </div>
+            <div>
+                승객 이름 <span>*</span>
+                <input type="text" placeholder="예) GIL DONG">
+            </div>
+        </div>
 
+        <div class="passInfo2">
+            <div>
+                성별 <span>*</span>
+                <input type="button" value="남자">
+                <input type="button" value="여자">
+            </div>
+            <div>
+                생년 월일 (YYYY.MM.DD) <span>*</span>
+                <input type="text">
+            </div>
+        </div>
+    </div>
+    <div class="passInfo3">
+        <div>
+            적립 항공사
+        </div>
+        <div>
+            회원번호
+        </div>
+    </div>
 </div>
 
+<div>
+    <h4>유의사항</h4>
+    <li>
+        예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
+    </li>
+    <li>
+        입력하신 회원번호로 탑승 마일리지가 적립되며, 마일리지 적립율은 항공사에 따라 다를 수 있습니다.
+    </li>
+</div>
 <!--footer-->
 <div class="footNav">
     <span>예상 결제 금액</span>
@@ -161,17 +208,17 @@ export default {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
         },
-        Fare(value){
+        Fare(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             let Fare = Math.floor(parseInt(value) * 0.7) + " 원";
             return Fare.toString().replace(regexp, ",");
         },
-        Fuel(value){
+        Fuel(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             let Fuel = Math.floor(parseInt(value) * 0.2) + " 원";
             return Fuel.toString().replace(regexp, ",");
         },
-        Tax(value){
+        Tax(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             let Tax = Math.floor(parseInt(value) * 0.1) + " 원";
             return Tax.toString().replace(regexp, ",");
@@ -263,13 +310,9 @@ export default {
 </script>
 
 <style>
-h4{
+h4 {
     color: black;
     padding-bottom: 10px;
-}
-.caption {
-    display: flex;
-    margin-left: 11%;
 }
 
 .ver {
@@ -280,7 +323,7 @@ h4{
 .info {
     margin-left: auto;
     margin-right: auto;
-    width: 1380px;
+    width: 1300px;
     display: flex;
 }
 
@@ -308,13 +351,20 @@ h4{
     border: 2px solid teal;
 }
 
-.startInfoTitle{
+.startInfoTitle {
     margin-left: 5%;
     color: black;
     font-size: 30px;
 }
 
-.startInfo,.arriveInfo {
+.startInfo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+    display: flex;
+}
+
+.arriveInfo {
     margin-left: auto;
     margin-right: auto;
     width: 1200px;
@@ -334,96 +384,15 @@ h4{
 
 }
 
-.startInfo button div
-,.arriveInfo button div {
+.startInfo button div,
+.arriveInfo button div {
     padding: 30px;
 }
 
 .startInfo span,
-.arriveInfo span{
+.arriveInfo span {
     padding-top: 22px;
     font-size: 30px;
-}
-
-.day-seat-select {
-    width: 1500px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    padding: 40px;
-}
-
-.day-seat-select button {
-    width: 40%;
-    height: 150px;
-    background-color: white;
-    box-shadow: 4px 4px 8px rgb(68, 68, 68);
-}
-
-.timeSelect {
-    width: 40%;
-    height: 150px;
-    border: 1px solid;
-}
-
-.startTime {
-    width: 100px;
-    float: left;
-    margin-top: 8%;
-    margin-left: 8%;
-
-}
-
-.arriveTime {
-    float: right;
-    margin-top: 8%;
-    margin-right: 5%;
-}
-
-.timeSelect span {
-    font-size: 20px;
-    color: #999;
-}
-
-.arrow2 {
-    width: 140px;
-    height: 30px;
-    margin-top: 10%;
-
-}
-
-.seatSelect {
-    border: 1px solid;
-    border-top: 4px solid black;
-    opacity: 0.6;
-    transition: 0.3s;
-}
-
-.seatSelect:hover {
-    border: 4px solid teal;
-    border-top: 4px solid black;
-
-}
-
-.seatSelect:focus {
-    width: 600px;
-    height: 150px;
-    transform: translate(-0.5%, -10%);
-    border-radius: 15px;
-    background-color: teal;
-    box-shadow: 4px 4px 10px rgb(68, 68, 68);
-    color: white;
-    opacity: 1;
-
-}
-
-.resPriceStandard {
-    border: none;
-}
-
-.check {
-    float: right;
-    color: white;
 }
 
 .footNav {
@@ -457,14 +426,14 @@ h4{
     margin-left: 70%;
 }
 
-.right{
-    float: right;    
+.right {
+    float: right;
     padding-left: 25px;
     width: 450px;
     height: 1000px;
 }
 
-.payInfo{
+.payInfo {
     border: 0.1px solid rgb(217, 217, 217);
     border-left: none;
     border-right: none;
@@ -475,7 +444,7 @@ h4{
     color: rgb(87, 86, 86);
 }
 
-.totalPrice{
+.totalPrice {
     border: 0.1px solid rgb(217, 217, 217);
     border-left: none;
     border-right: none;
@@ -483,10 +452,26 @@ h4{
     height: 110px;
     padding: 30px;
     padding-top: 40px;
-    font-size: 24px;    
+    font-size: 24px;
 }
 
-.price{
+.price {
     float: right;
+}
+
+.passengerInfo span {
+    color: red;
+    
+}
+
+.passengerInfo{
+    border: 1px solid;
+}
+
+.passInfo1,
+.passInfo2,
+.passInfo3{
+    border: 1px solid;
+    display: flex;
 }
 </style>

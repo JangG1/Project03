@@ -186,7 +186,7 @@ export default {
             console.log(this.startTime)
             console.log(this.arriveTime)
             console.log(this.startTime2)
-            console.log(this.arriveTime2)
+            console.log(this.arrTime2)
             console.log(this.selectPrice) 
         },
         AddComma(num) {
@@ -206,15 +206,15 @@ export default {
             this.Class2 = seatClass;
         },
         selectFlex(index) {
-            let priceStandard = this.at[index].priceFlex;
+            let priceFlex = this.at[index].priceFlex;
             let startTime = this.at[index].start;
             let arriveTime = this.at[index].arrive;
             let seatClass = this.at[index].flex;
             
             this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + "000 원";
+            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceFlex.substr(0, 3)) + "000 원";
             this.stTime2 = startTime;
-            this.arTime2 = arriveTime;
+            this.arrTime2 = arriveTime;
             this.Class2 = seatClass;
         },
         Format(value) {

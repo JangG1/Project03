@@ -1,5 +1,8 @@
 <template>
 <div>
+    <div class="step">
+        <div>① 검색</div> &nbsp; <div class="step2">❷ 항공편</div> &nbsp; <div>③ 결제</div>
+    </div>
     <div class="caption">
         <p>여행 일정</p>
     </div>
@@ -300,6 +303,17 @@ export default {
 </script>
 
 <style>
+.step{
+    float: right;
+    margin-right: 250px;
+    font-size: 30px;
+    display: flex;
+}
+
+.step2{
+    color: teal;
+}
+
 .caption {
     display: flex;
     margin-left: 11%;
@@ -463,7 +477,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    font-size: 20px;
 }
 
 .submitBtn {

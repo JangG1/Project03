@@ -99,8 +99,6 @@ export default {
 #app {
     font-family: "NanumBarunGothicBold";
     white-space:nowrap;
-    /*margin-left: 2%;
-    margin-right: 2%;*/
 }
 
 @font-face {

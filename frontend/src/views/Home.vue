@@ -182,9 +182,8 @@
                 <option>비즈니스</option>
             </select>
 
-            <input type="submit" @click="resSend" value="항공편 검색" class="submit-btn">
-            <button type="button" @click="submit()">검색</button>
-            <button type="button" @click="test">Test</button>
+            <input type="submit" @click="submit()" value="항공편 검색" class="submit-btn">
+            
         </div>
 
     </div>
@@ -469,60 +468,6 @@ export default {
                     this.products = response.data
                 })
         },
-        resSend() {
-            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
-
-            if (this.selectDate1 == true) {
-                this.Date = this.bothWay;
-                this.way = "왕복"
-            } else if (this.selectDate2 == true) {
-                this.Date = this.oneWay;
-                this.way = "편도"
-            } else {
-                alert("여행 일정을 선택해주세요")
-                return false;
-            }
-
-            if (this.ChildCount == 0) {
-                this.ChildCount = null;
-            }
-
-            if (this.InfantCount == 0) {
-                this.InfantCount = null;
-            }
-
-            alert(this.$store.state.userInfo.email)
-            alert(seat)
-            alert(this.fromImgName)
-            alert(this.toImgName)
-            alert(this.Date)
-            alert(this.way)
-            alert(this.AdultCount)
-            alert(this.ChildCount)
-            alert(this.InfantCount)
-
-            axios
-                .post("/res/test", {
-                    email: this.$store.state.userInfo.email,
-                    seat: seat,
-                    Date: this.Date,
-                    way: this.way,
-                    fromArea: this.fromImgName,
-                    toArea: this.toImgName,
-                    AdultCount: this.AdultCount,
-                    ChildCount: this.ChildCount,
-                    InfantCount: this.InfantCount,
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-        },
-
         updateCount(AdultCount, ChildCount, InfantCount) {
             this.AdultCount = AdultCount;
             this.ChildCount = ChildCount;

@@ -1,5 +1,10 @@
 <template>
 <div>
+    <div class="step">
+        <div>① 검색</div> &nbsp; <div>② 항공편</div> &nbsp; <div class="step3">❸ 결제</div>
+    </div>
+    <br>
+    <hr class="hr">
     <div class="right">
         <div class="payInfo">
             <h4>항공 운송료 </h4>
@@ -39,7 +44,9 @@
     </div>
 
     <br><br>
-    <p class="startInfoTitle">여정 정보</p>
+    <div class="startInfoTitle">
+        여정 정보
+    </div>
     <div class="startInfo">
         <button type="button">
             <div>
@@ -81,45 +88,47 @@
     </div>
     <br><br>
     <!--승객 정보-->
-    <button class="passengerInfo" @click="showPassInfo">
-        <h4>승객 정보</h4><br><br>
-        <h5>[<span>*</span>는 필수 입력 사항입니다.]</h5><br><br>
-        <div class="passengerTitle">
+    <input type="button" class="passengerInfo" @click="showPassInfo">
 
-        </div>
-        <p>{{AdultCount}} {{arrow}}</p>
-
-        <div v-show="passInfo">
-            <div class="passInfo1">
-                <div class="passInfo1-1">
-                    <h5>승객 성<span>*</span></h5><br>
-                    <input type="text" placeholder="예) HONG" class="passText">
-                </div>
-                <div class="passInfo1-2">
-                    <h5>승객 이름<span>*</span></h5><br>
-                    <input type="text" placeholder="예) GIL DONG" class="passText">
-                </div>
+    <div class="passengerInfoTitle">
+        승객 정보
+        <br>
+        <h5>[<span class="asterisk"> * </span>는 필수 입력 사항입니다.]</h5>
+    </div>
+    <div class="passengerTitle">
+        {{AdultCount}} <span class="arrow">{{arrow}}</span>
+    </div>
+    <div v-show="passInfo" class="passInfo">
+        <div class="passInfo1">
+            <div class="passInfo1-1">
+                <h5>승객 성<span class="asterisk"> *</span></h5><br>
+                <input type="text" placeholder="예) HONG" class="passText">
             </div>
-
-            <div class="passInfo2">
-                <div class="passInfo2-1">
-                    <h5>성별<span>*</span></h5><br>
-                    <input type="button" value="남자" class="genderBtn">
-                    <input type="button" value="여자" class="genderBtn">
-                </div>
-                <div class="passInfo2-2">
-                    <h5>생년 월일 (YYYY.MM.DD) <span>*</span></h5><br>
-                    <input type="text" class="passText">
-                </div>
+            <div class="passInfo1-2">
+                <h5>승객 이름<span class="asterisk"> *</span></h5><br>
+                <input type="text" placeholder="예) GIL DONG" class="passText">
             </div>
-
         </div>
 
-    </button>
+        <div class="passInfo2">
+            <div class="passInfo2-1">
+                <h5>성별<span class="asterisk"> *</span></h5><br>
+                <input type="button" value="남자" class="genderBtn">
+                <input type="button" value="여자" class="genderBtn">
+            </div>
+            <div class="passInfo2-2">
+                <h5>생년 월일 (YYYY.MM.DD) <span class="asterisk"> *</span></h5><br>
+                <input type="text" class="passText">
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <button class="note" @click="showNoteInfo">
-    <p>유의사항 {{arrow}}</p>
+    <div class="noteTitle">
+        유의사항 <span class="arrow">{{arrow}}</span>
+    </div>
     <div class="note1" v-show="noteInfo">
         <li>
             예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
@@ -280,7 +289,7 @@ export default {
         },
         showPassInfo() {
             this.passInfo = (this.passInfo) ? false : true
-            this.arrow = "▼"
+            this.arrow = "▼";
         },
         showNoteInfo() {
             this.noteInfo = (this.noteInfo) ? false : true
@@ -319,6 +328,21 @@ export default {
 </script>
 
 <style>
+.step {
+    float: right;
+    margin-right: 250px;
+    font-size: 30px;
+    display: flex;
+}
+
+.step3{
+    color: teal;
+}
+
+.hr{
+color:white;
+}
+
 h4 {
     color: black;
     padding-bottom: 10px;
@@ -329,7 +353,14 @@ h4 {
     margin-left: 14px;
 }
 
+.arrow {
+    color: white;
+    float: right;
+    margin-right: 30px;
+}
+
 .info {
+    margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
     width: 1300px;
@@ -361,9 +392,12 @@ h4 {
 }
 
 .startInfoTitle {
-    margin-left: 5%;
     color: black;
-    font-size: 30px;
+    color: teal;
+    font-size: 25px;
+    font-weight: 900;
+    padding: 10px;
+    margin-left: 9%;
 }
 
 .startInfo {
@@ -386,7 +420,7 @@ h4 {
     width: 100%;
     height: 90px;
     background-color: rgba(34, 168, 168, 0.689);
-    font-size: 20px;
+    font-size: 21px;
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
@@ -417,7 +451,7 @@ h4 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    font-size: 20px;
 }
 
 .submitBtn {
@@ -437,16 +471,16 @@ h4 {
 
 .right {
     float: right;
-    padding-left: 25px;
-    width: 450px;
+    width: 550px;
     height: 1000px;
+    margin-top: 1.5%;
 }
 
 .payInfo {
     border: 0.1px solid rgb(217, 217, 217);
     border-left: none;
     border-right: none;
-    width: 380px;
+    width: 400px;
     height: 200px;
     padding: 30px;
     font-size: 18px;
@@ -457,7 +491,7 @@ h4 {
     border: 0.1px solid rgb(217, 217, 217);
     border-left: none;
     border-right: none;
-    width: 380px;
+    width: 400px;
     height: 110px;
     padding: 30px;
     padding-top: 40px;
@@ -476,39 +510,65 @@ h4 {
     float: left;
 }
 
-.passengerInfo span {
+.asterisk {
     color: red;
 
 }
 
-.passengerInfo p {
-    color: white;
-    background: teal;
-    width: 100%;
-    padding: 10px;
-    padding-left: 40px;
-    text-align: left;
+.passengerInfo {
+    width: 1225px;
+    border: none;
+    
+    background: white;
+}
 
+.passengerInfoTitle {
+    color: teal;
+    font-size: 25px;
+    font-weight: 900;
+    float: left;
+    text-align: left;
+    padding: 10px;
+    margin-left: 9%;
+}
+
+.passengerInfoTitle h5 {
+    color: rgb(78, 78, 78);
+    padding-top: 10px;
 }
 
 .passengerTitle {
     float: left;
-
+    font-size: 24px;
+    color: white;
+    background: teal;
+    width: 1210px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    padding-left: 40px;
+    text-align: left;
+    margin-left: 8.5%;
 }
 
-.passengerInfo {
-    width: 1200px;
-    border: none;
-    margin-left: 5%;
-    background: white;
-    margin-bottom: 40px;
-
-}
-
-.passText{
+.passText {
     width: 400px;
     float: left;
     padding: 20px;
+}
+
+.passText:hover {
+    border: 3px solid teal;
+}
+
+.passText:focus {
+    border: 3px solid teal;
+}
+
+.passInfo {
+    width: 1210px;
+    border: none;
+    margin-left: 8.5%;
+    margin-bottom: 40px;
 }
 
 .passInfo1,
@@ -520,37 +580,49 @@ h4 {
     display: flex;
 }
 
-.genderBtn{    
+.genderBtn {
     width: 200px;
     height: 70px;
     background: white;
+    opacity: 0.6;
+    transition: 0.3s;
+    font-size: 20px;
 }
 
-.passInfo1-2{    
+.passInfo1-2 {
     margin-left: 200px;
 }
 
-.passInfo2-1 {    
-    border: 1px solid;
+.genderBtn:hover {
+    border: 3px solid teal;
 }
 
-.passInfo2-2 {    
+.genderBtn:focus {
+    color: white;
+    background: teal;
+    transform: translate(-0%, -5%);
+    opacity: 1;
+}
+
+.passInfo2-2 {
     margin-left: 200px;
 }
 
 .note {
-    width: 1200px;
+    width: 1222px;
     border: none;
-    margin-left: 5%;
+    margin-left: 8.2%;
+    margin-bottom: 10%;
     background: white;
-    height: 100%;
 }
 
-.note p {
+.noteTitle {
+    font-size: 24px;
     color: white;
     background: teal;
-    width: 100%;
-    padding: 17px;
+    width: 1210px;
+    padding-bottom: 25px;
+    padding-top: 25px;
     padding-left: 40px;
     text-align: left;
 }

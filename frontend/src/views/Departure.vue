@@ -72,7 +72,7 @@
         <button type="button" @click="test()">test</button>
     </div>
     <div class="footNav">
-        <span>예상 결제 금액</span>
+        <span class="footNav1">예상 결제 금액</span>
         <span class="startPrice">{{AddComma(selectPrice)}}</span>
         <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
     </div>
@@ -264,6 +264,7 @@ export default {
 <style>
 .step{
     float: right;
+    margin-top: 10px;
     margin-right: 250px;
     font-size: 30px;
     display: flex;
@@ -411,6 +412,11 @@ export default {
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
+    box-shadow: 2px 2px 20px rgb(1, 83, 83);
+}
+
+.footNav1{
+    margin-left: 30px;
 }
 
 .submitBtn {

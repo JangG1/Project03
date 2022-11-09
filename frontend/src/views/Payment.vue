@@ -88,14 +88,14 @@
     </div>
     <br><br>
     <!--승객 정보-->
-    <input type="button" class="passengerInfo" @click="showPassInfo">
+    <input type="button" class="passengerInfo" >
 
     <div class="passengerInfoTitle">
         승객 정보
         <br>
         <h5>[<span class="asterisk"> * </span>는 필수 입력 사항입니다.]</h5>
     </div>
-    <div class="passengerTitle">
+    <div class="passengerTitle" @click="showPassInfo">
         {{AdultCount}} <span class="arrow">{{arrow}}</span>
     </div>
     <div v-show="passInfo" class="passInfo">
@@ -140,7 +140,7 @@
 </button>
 <!--footer-->
 <div class="footNav">
-    <span>예상 결제 금액</span>
+    <span class="footNav1">예상 결제 금액</span>
     <span class="startPrice">{{AddComma(startPrice)}}</span>
     <button type="button" class="submitBtn" @click="submit()">결제하기</button>
 </div>
@@ -330,6 +330,7 @@ export default {
 <style>
 .step {
     float: right;
+    margin-top: 10px;
     margin-right: 250px;
     font-size: 30px;
     display: flex;
@@ -452,6 +453,11 @@ h4 {
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
+    box-shadow: 2px 2px 20px rgb(1, 83, 83);
+}
+
+.footNav1{
+    margin-left: 30px;
 }
 
 .submitBtn {
@@ -548,6 +554,7 @@ h4 {
     padding-left: 40px;
     text-align: left;
     margin-left: 8.5%;
+    cursor: pointer;
 }
 
 .passText {
@@ -614,6 +621,7 @@ h4 {
     margin-left: 8.2%;
     margin-bottom: 10%;
     background: white;
+    display: block;
 }
 
 .noteTitle {

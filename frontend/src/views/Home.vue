@@ -173,7 +173,7 @@
             <div>
 
             </div>
-            <!--좌석 선택-->123
+            <!--좌석 선택-->
 
             <select id="inputState" class="form-select">
                 <option selected>좌석 등급</option>

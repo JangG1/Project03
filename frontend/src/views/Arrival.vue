@@ -3,8 +3,8 @@
     <div class="step">
         <div>① 검색</div> &nbsp; <div class="step2">❷ 항공편</div> &nbsp; <div>③ 결제</div>
     </div>
-    <div class="caption">
-        <p>여행 일정</p>
+    <div class="schedule">
+        여행 일정
     </div>
     <div class="info">
         <button type="button">
@@ -83,10 +83,6 @@
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 
-    </div>
-
-    <div>
-        <button type="button" @click="test()">test</button>
     </div>
 
     <div class="footNav">
@@ -305,8 +301,8 @@ export default {
 <style>
 .step{
     float: right;
-    margin-top: 10px;
-    margin-right: 250px;
+    margin-right: 200px;
+    margin-bottom: 30px;
     font-size: 30px;
     display: flex;
 }
@@ -314,22 +310,25 @@ export default {
 .step2{
     color: teal;
 }
-
-.caption {
-    display: flex;
-    margin-left: 11%;
-}
-
 .ver {
     margin-top: 25px;
     margin-left: 14px;
+}
+
+.schedule{
+    color: black;
+    color: teal;
+    font-size: 28px;
+    font-weight: 900;
+    margin-left: 15%;
+    margin-top: 2%;
 }
 
 .info {
     margin-left: auto;
     margin-right: auto;
     width: 1380px;
-    display: flex;
+    margin-top: 20px;
 }
 
 .info button {
@@ -340,7 +339,7 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-
+    float: left;
 }
 
 .info button div {
@@ -372,7 +371,6 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-
 }
 
 .startInfo button div {
@@ -388,14 +386,14 @@ export default {
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    padding: 40px;
+    margin-top: 40px;
 }
 
 .day-seat-select button {
     width: 40%;
     height: 150px;
     background-color: white;
-    box-shadow: 4px 4px 8px rgb(68, 68, 68);
+
 }
 
 .timeSelect {

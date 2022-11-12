@@ -62,7 +62,7 @@
                                 .then((res) => {
                                     res;
                                     console.log("가입성공");
-                                    console.log("email" + userInfo.email);
+                                    console.log("email : " + userInfo.email);
                                 })
                                 .catch((err) => {
                                     err;

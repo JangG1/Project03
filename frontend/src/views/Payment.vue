@@ -1,9 +1,11 @@
 <template>
 <div>
-    <div class="step">
+    <div class="pStep">
         <div>① 검색</div> &nbsp; <div>② 항공편</div> &nbsp; <div class="step3">❸ 결제</div>
     </div>
-    <br>
+    <div class="schedule">
+        여행 일정
+    </div>
     <hr class="hr">
     <div class="right">
         <div class="payInfo">
@@ -17,21 +19,22 @@
         </div>
 
     </div>
-    <div class="info">
+
+    <div class="pInfo">
         <button type="button">
-            <div class="info1">
+            <div class="pInfo1">
                 {{fromArea}} &nbsp;
                 <img src="../assets/arrow2.jpg"> &nbsp;
                 {{toArea}}
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
-            <div class="info2">
+            <div class="pInfo2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
                 <span>{{Format(startDate)}}</span> <span v-show="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
-            <div class="info3">
-                <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
+            <div class="pInfo3">
+                <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 {{AdultCount}}
                 <span v-show="InfantCount.substr(4,2) > 0">
                     {{ChildCount}}
@@ -88,7 +91,7 @@
     </div>
     <br><br>
     <!--승객 정보-->
-    <input type="button" class="passengerInfo" >
+    <input type="button" class="passengerInfo">
 
     <div class="passengerInfoTitle">
         승객 정보
@@ -328,20 +331,19 @@ export default {
 </script>
 
 <style>
-.step {
+.pStep {
     float: right;
-    margin-top: 10px;
-    margin-right: 250px;
+    margin-right: 200px;
     font-size: 30px;
     display: flex;
 }
 
-.step3{
+.step3 {
     color: teal;
 }
 
-.hr{
-color:white;
+.hr {
+    color: white;
 }
 
 h4 {
@@ -360,35 +362,43 @@ h4 {
     margin-right: 30px;
 }
 
-.info {
-    margin-top: 2%;
+.schedule{
+    color: black;
+    color: teal;
+    font-size: 25px;
+    font-weight: 900;
+    margin-left: 9.5%;
+}
+
+.pInfo {
+    margin-top: 1%;
     margin-left: auto;
     margin-right: auto;
-    width: 1300px;
+    width: 1330px;
     display: flex;
 }
 
-.info button {
-    width: 100%;
+.pInfo button {
+    width: 1400px;
     height: 100px;
     background-color: white;
     font-size: 24px;
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-
+    
 }
 
-.info button div {
+.pInfo button div {
     padding: 30px;
 }
 
-.infoImg {
+.pInfoImg {
     margin-left: 14px;
     margin-bottom: 4px;
 }
 
-.info button:hover {
+.pInfo button:hover {
     border: 2px solid teal;
 }
 
@@ -456,7 +466,7 @@ h4 {
     box-shadow: 2px 2px 20px rgb(1, 83, 83);
 }
 
-.footNav1{
+.footNav1 {
     margin-left: 30px;
 }
 
@@ -524,7 +534,7 @@ h4 {
 .passengerInfo {
     width: 1225px;
     border: none;
-    
+
     background: white;
 }
 

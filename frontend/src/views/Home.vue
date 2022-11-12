@@ -154,7 +154,7 @@
 
             <!--승객수 팝업-->
             <button type="button" class="btn-field" id="resPassenger" @click="popUp">
-                <div class="count1">승객 수 </div>
+                <div class="count1">승객 수 </div>123
                 <div class="count2">
                     <p class="adultCount">성인{{AdultCount}}명</p>
                     <p v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</p>

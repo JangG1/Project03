@@ -316,7 +316,6 @@ export default {
 }
 
 .schedule{
-    color: black;
     color: teal;
     font-size: 28px;
     font-weight: 900;
@@ -422,7 +421,7 @@ export default {
 }
 
 .arrow2 {
-    width: 140px;
+    width: 190px;
     height: 30px;
     margin-top: 10%;
 

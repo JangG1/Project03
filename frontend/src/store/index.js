@@ -12,15 +12,7 @@ export default createStore({
     isLoginError: false,
     isLoad: false,
 },
-getters: {
-    getFilteredProduct:(state) => (keyword) => {
-        const filtered = state.products.filter((object) => 
-          object.title.toLowerCase().includes(keyword.toLowerCase()) || 
-          object.description.toLowerCase().includes(keyword.toLowerCase()
-        ));
-        if (filtered) return filtered;
-    },
-},
+
   mutations: {
     onLoad(state) {
         state.isLoad = true;

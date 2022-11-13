@@ -6,7 +6,7 @@
     <div class="schedule">
         여행 일정
     </div>
-    <hr class="hr">
+    
     <div class="right">
         <div class="payInfo">
             <h4>항공 운송료 </h4>
@@ -50,19 +50,19 @@
     <div class="startInfoTitle">
         여정 정보
     </div>
-    <div class="startInfo">
+    <div class="pStartInfo">
         <button type="button">
             <div>
                 가는 편
             </div>
             <span>│</span>
-            <div class="startInfo1">
+            <div class="pStartInfo1">
                 {{fromArea}} &nbsp;
                 →&nbsp;
                 {{toArea}}
             </div>
             <span>│</span>
-            <div class="startInfo2">
+            <div class="pStartInfo2">
                 {{Format(startDate)}} {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
             </div>
 
@@ -71,19 +71,19 @@
 
     <br>
 
-    <div class="arriveInfo" v-show="returnDate.length > 1">
+    <div class="pArriveInfo" v-show="returnDate.length > 1">
         <button type="button">
             <div>
                 오는 편
             </div>
             <span>│</span>
-            <div class="startInfo1">
+            <div class="pArriveInfo1">
                 {{fromArea}} &nbsp;
                 →&nbsp;
                 {{toArea}}
             </div>
             <span>│</span>
-            <div class="startInfo2">
+            <div class="pArriveInfo2">
                 {{Format(returnDate)}} {{startTime2}} ~ {{arriveTime2}} &nbsp; {{seat}} {{seatClass2}}
             </div>
 
@@ -363,15 +363,15 @@ h4 {
 }
 
 .schedule{
-    color: black;
     color: teal;
     font-size: 25px;
     font-weight: 900;
     margin-left: 9.5%;
+    padding-top: 10px;
 }
 
 .pInfo {
-    margin-top: 1%;
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     width: 1330px;
@@ -411,22 +411,22 @@ h4 {
     margin-left: 9%;
 }
 
-.startInfo {
+.pStartInfo {
     margin-left: auto;
     margin-right: auto;
     width: 1200px;
     display: flex;
 }
 
-.arriveInfo {
+.pArriveInfo {
     margin-left: auto;
     margin-right: auto;
     width: 1200px;
     display: flex;
 }
 
-.startInfo button,
-.arriveInfo button {
+.pStartInfo button,
+.pArriveInfo button {
     color: white;
     width: 100%;
     height: 90px;
@@ -438,13 +438,13 @@ h4 {
 
 }
 
-.startInfo button div,
-.arriveInfo button div {
+.pStartInfo button div,
+.pArriveInfo button div {
     padding: 30px;
 }
 
-.startInfo span,
-.arriveInfo span {
+.pStartInfo span,
+.pArriveInfo span {
     padding-top: 22px;
     font-size: 30px;
 }

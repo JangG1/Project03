@@ -16,7 +16,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지1-->
-                <svg class="banner" viewBox="0 60 890 300" width="1870" height="630">
+                <svg class="banner" viewBox="0 60 890 310"  >
                     <image href="../assets/banner1.jpg" />
                 </svg>
                 <div class="container">
@@ -41,7 +41,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지2-->
-                <svg class="banner" viewBox="0 60 890 300" width="1870" height="630">
+                <svg class="banner" viewBox="0 60 890 310"  >
                     <image href="../assets/banner2.jpg" />
                 </svg>
                 <div class="container">
@@ -67,7 +67,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" class="active" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지3-->
-                <svg class="banner" viewBox="0 60 890 300" width="1870" height="630">
+                <svg class="banner" viewBox="0 60 890 310"  >
                     <image href="../assets/banner3.jpg" />
                 </svg>
                 <div class="container">
@@ -711,8 +711,9 @@ export default {
 .part4 {
     /*background-color: rgb(241, 233, 231);*/
     background-image: url("../assets/part4.jpg");
-    padding-top: 6%;
-    padding-bottom: 26%;
+    padding-top: 10%;
+    padding-bottom: 33%;
+    
 }
 
 h1,
@@ -736,11 +737,11 @@ a:active {
 
 .carousel-caption {
     margin-left: 600px;
-
+    color: white;
 }
 
 .carousel-indicators {
-    margin-left: 880px;
+    margin-left: 915px;
 }
 
 .loginBtn {
@@ -753,7 +754,7 @@ a:active {
 
 .banner {
     border-radius: 15px;
-
+    width: 98%;
     margin-left: 1%;
     margin-right: 1%;
 }
@@ -825,7 +826,7 @@ a:active {
 }
 
 .sideTip {
-    width: 610px;
+    width: 650px;
     height: 210px;
     margin-left: 3%;
     margin-top: 3%;
@@ -883,10 +884,11 @@ a:active {
     display: flex;
     margin-left: 280px;
     margin-bottom: 30px;
+    margin-top: 20px;
 }
 
 .topBtn {
-    margin-left: 900px;
+    margin-left: 1250px;
     margin-bottom: 30px;
 }
 

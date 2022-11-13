@@ -362,7 +362,7 @@ export default {
 }
 
 .arrow2 {
-    width: 140px;
+    width: 190px;
     height: 30px;
     margin-top: 10%;
 

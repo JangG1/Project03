@@ -8,6 +8,16 @@ const routes = [
     component: Home
   },
   {
+    path: "/Modal",
+    name: "Modal",
+    component: () => import("@/components/Modal.vue"),
+  },
+  {
+    path: "/Callback",
+    name: "Callback",
+    component: () => import("@/views/Callback.vue"),
+  },
+  {
     path: '/Reservation',
     name: 'Reservation',
     component: () => import('../views/Reservation.vue')

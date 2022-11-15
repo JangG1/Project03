@@ -1,7 +1,7 @@
 <template>
 <div class="login-modal px-5 py-5" v-if="loginModal">
     <div class="login-text">
-        <p>로그인</p>
+        <p>로그인</p>123
     </div>
     <div class="loginBtns mt-4 mb-5">
         <div @click="kakaoLogin" class="kakaoBtn mb-3">
@@ -16,6 +16,11 @@
         </div>
         <div id="my-signin2" style="display: none"></div>
     </div>
+    Test
+    <div>
+        <div id="naver_id_login"></div>
+    </div>
+
     <div class="closeBtn">
         <button @click="$emit('closeModal')">닫기</button>
     </div>
@@ -109,6 +114,14 @@ export default {
 
         },
     },
+    mounted(){
+    const naver_id_login = new window.naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081");
+    const state = naver_id_login.getUniqState();
+    naver_id_login.setButton("white", 2,40); // 버튼 설정
+    naver_id_login.setState(state);
+    // naver_id_login.setPopup(); // popup 설정을 위한 코드
+    naver_id_login.init_naver_id_login();
+  }
 };
 </script>
 
@@ -159,7 +172,7 @@ p {
 }
 
 .kakaoBtn>img {
-    width: 52%;
+    width: 53%;
     cursor: pointer;
 }
 

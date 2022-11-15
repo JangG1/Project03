@@ -16,7 +16,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지1-->
-                <svg class="banner" viewBox="0 60 890 310"  >
+                <svg class="banner" viewBox="0 60 890 310">
                     <image href="../assets/banner1.jpg" />
                 </svg>
                 <div class="container">
@@ -41,7 +41,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지2-->
-                <svg class="banner" viewBox="0 60 890 310"  >
+                <svg class="banner" viewBox="0 60 890 310">
                     <image href="../assets/banner2.jpg" />
                 </svg>
                 <div class="container">
@@ -67,7 +67,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" class="active" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지3-->
-                <svg class="banner" viewBox="0 60 890 310"  >
+                <svg class="banner" viewBox="0 60 890 310">
                     <image href="../assets/banner3.jpg" />
                 </svg>
                 <div class="container">
@@ -121,7 +121,7 @@
                     </template>
                 </Datepicker>
                 <!--왕복 날짜 선택-->
-                <div type="button" class="selectDate1"  v-show="selectDate1">
+                <div type="button" class="selectDate1" v-show="selectDate1">
                     <div class="selectDate2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
@@ -183,7 +183,7 @@
             </select>
 
             <input type="submit" @click="submit()" value="항공편 검색" class="submit-btn">
-            
+
         </div>
 
     </div>
@@ -399,14 +399,14 @@ export default {
         test() {
             let startDate = "";
             let returnDate = "";
-            
+
             if (this.oneWay.toString() != false) {
                 var string1 = this.oneWay.toString();
                 startDate = string1.substring(0, 16);
                 returnDate = null;
-            }else if(this.bothWay.toString() != false){
+            } else if (this.bothWay.toString() != false) {
                 var string2 = this.bothWay.toString();
-                startDate = string2.substring(0, 16);                
+                startDate = string2.substring(0, 16);
                 returnDate = string2.substring(43, 58);
             }
 
@@ -648,20 +648,18 @@ export default {
             let toArea = "";
             let startDate = "";
             let returnDate = "";
-            
-            if(this.selectDate1 == false && this.selectDate2 == false){
+
+            if (this.selectDate1 == false && this.selectDate2 == false) {
                 alert("날짜를 선택해주세요.")
             }
-            
-    
 
             if (this.oneWay.toString() != false) {
                 var string1 = this.oneWay.toString();
                 startDate = string1.substring(0, 16);
                 returnDate = " ";
-            }else if(this.bothWay.toString() != false){
+            } else if (this.bothWay.toString() != false) {
                 var string2 = this.bothWay.toString();
-                startDate = string2.substring(0, 16);                
+                startDate = string2.substring(0, 16);
                 returnDate = string2.substring(43, 58);
             }
 
@@ -713,7 +711,7 @@ export default {
     background-image: url("../assets/part4.jpg");
     padding-top: 10%;
     padding-bottom: 33%;
-    
+
 }
 
 h1,

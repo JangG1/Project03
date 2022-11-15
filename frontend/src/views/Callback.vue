@@ -1,12 +1,20 @@
 <template>
-    <div>
-      <h1>Test</h1>
-  
-    </div>
-  </template>
-  
-  <script>
-      export default {
-          name: 'HelloWorld',
-      }
-  </script>
+  <div>
+    <p>Naver Login Access Pages</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name:"HelloWorld",
+  methods:{
+    naverTest(){
+    }
+  },
+  mounted() {
+    
+
+
+  },
+};
+</script>

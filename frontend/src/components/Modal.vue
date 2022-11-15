@@ -6,19 +6,15 @@
     <div class="loginBtns mt-4 mb-5">
         <div @click="kakaoLogin" class="kakaoBtn mb-3">
             <img src="@/assets/kakaoLogo.png" />
-            <br />
+            <br>
             <!-- 카카오 아이디로 로그인 -->
         </div>
-        <div @click="googleLogin" class="naverBtn">
+        <div @click="naverLogin" class="naverBtn" id="naver_id_login">
             <img src="@/assets/naverLogo.jpg" />
-            <br />
+            <br>
             <!-- 네이버 아이디로 로그인 -->
         </div>
         <div id="my-signin2" style="display: none"></div>
-    </div>
-    Test
-    <div>
-        <div id="naver_id_login"></div>
     </div>
 
     <div class="closeBtn">
@@ -28,7 +24,6 @@
 <!--login-modal-end-->
 </template>
 
-    
 <script>
 import axios from "axios";
 export default {
@@ -104,7 +99,13 @@ export default {
 
         //네이버 로그인
         naverLogin() {
-
+            var naver_id_login = new naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081/Test");
+            var state = naver_id_login.getUniqState();
+            naver_id_login.setButton("green", 2, 40);
+            naver_id_login.setDomain("http://localhost:8081");
+            naver_id_login.setState(state);
+            //naver_id_login.setPopup();
+            naver_id_login.init_naver_id_login();
         },
         //구글 로그인 이후 실행되는 콜백함수(성공)
         async naverInfo() {
@@ -114,25 +115,17 @@ export default {
 
         },
     },
-    mounted(){
-    const naver_id_login = new window.naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081");
-    const state = naver_id_login.getUniqState();
-    naver_id_login.setButton("white", 2,40); // 버튼 설정
-    naver_id_login.setState(state);
-    // naver_id_login.setPopup(); // popup 설정을 위한 코드
-    naver_id_login.init_naver_id_login();
-  }
+
 };
 </script>
 
-    
 <style>
 p {
     color: #999;
     font-size: 24px;
 }
 
-.login-text p{
+.login-text p {
     color: teal;
     font-size: 25px;
     font-weight: 900;

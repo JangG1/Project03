@@ -1,7 +1,7 @@
 <template>
 <div class="login-modal px-5 py-5" v-if="loginModal">
     <div class="login-text">
-        <p>로그인</p>123
+        <p>로그인</p>
     </div>
     <div class="loginBtns mt-4 mb-5">
         <div @click="kakaoLogin" class="kakaoBtn mb-3">

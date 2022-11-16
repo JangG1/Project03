@@ -9,13 +9,16 @@
             <br>
             <!-- 카카오 아이디로 로그인 -->
         </div>
-        <div @click="naverLogin" class="naverBtn" id="naver_id_login">
+        <div @click="naverLogin" class="naverBtn">
             <img src="@/assets/naverLogo.jpg" />
             <br>
             <!-- 네이버 아이디로 로그인 -->
         </div>
         <div id="my-signin2" style="display: none"></div>
     </div>
+
+    <!-- 네이버 로그인 버튼 노출 영역 -->
+    <div id="naver_id_login"></div>
 
     <div class="closeBtn">
         <button @click="$emit('closeModal')">닫기</button>
@@ -32,7 +35,7 @@ export default {
         loginModal: Boolean,
     },
     methods: {
-        //카카오 로그인
+        //카카오 로그인123
         kakaoLogin() {
             // console.log(window.Kakao);
             window.Kakao.Auth.login({
@@ -99,13 +102,7 @@ export default {
 
         //네이버 로그인
         naverLogin() {
-            var naver_id_login = new naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081/Test");
-            var state = naver_id_login.getUniqState();
-            naver_id_login.setButton("green", 2, 40);
-            naver_id_login.setDomain("http://localhost:8081");
-            naver_id_login.setState(state);
-            //naver_id_login.setPopup();
-            naver_id_login.init_naver_id_login();
+
         },
         //구글 로그인 이후 실행되는 콜백함수(성공)
         async naverInfo() {
@@ -115,7 +112,15 @@ export default {
 
         },
     },
-
+    mounted() {
+        var naver_id_login = new naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081/Test");
+        var state = naver_id_login.getUniqState();
+        naver_id_login.setButton("green", 2, 60);
+        naver_id_login.setDomain("http://localhost:8081");
+        naver_id_login.setState(state);
+        //naver_id_login.setPopup();
+        naver_id_login.init_naver_id_login();
+    }
 };
 </script>
 

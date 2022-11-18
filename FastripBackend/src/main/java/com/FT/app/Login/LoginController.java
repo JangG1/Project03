@@ -19,7 +19,7 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView();
 		// 1번 인증코드 요청 전달
 		String accessToken = kakaoApi.getAccessToken(code);
-		// 2번 인증코드로 토큰 전달321
+		// 2번 인증코드로 토큰 전달3210
 		
 		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
 		

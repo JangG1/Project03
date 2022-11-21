@@ -2,34 +2,54 @@
 <div>
     <h1>Test</h1>
     Test
-    <div>
-        <div id="naver_id_login"></div>
-    </div>
+    <button @click="naverLoginBtn">Naver</button>
 </div>
 </template>
 
 <script>
 export default {
     name: 'HelloWorld',
+    data() {
+    },
+    methods: {
+        naverLoginBtn() {
+
+            var client_id = 'z_xevkfqoAuqghG2b8CF';
+            var callbackUrl = 'http://localhost:8081/Test'; //서버 주소
+            var url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + client_id + '&redirect_uri=' + callbackUrl + '&state=1234';
+            window.location.replace(url);
+
+        }
+    },
     mounted() {
+    var self = this;
+    try{
+      //네이버로 로그인할때만 실행
+      if(this.$route.query.code.length !== undefined){
+        var callbackFuc = async () => {
 
-      var naver_id_login = new naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081/Test");
-      // 접근 토큰 값 출력
-      console.log(naver_id_login.oauthParams.access_token);
-      // 네이버 사용자 프로필 조회
-      naver_id_login.get_naver_userprofile(naverSignInCallback());
-      // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-      function naverSignInCallback() {
-        console.log(naver_id_login.getProfileData('email'));
-        console.log(naver_id_login.getProfileData('name'));
-        console.log(naver_id_login.getProfileData('profileImg'));
-        console.log(naver_id_login.getProfileData('gender'));
-        console.log(naver_id_login.getProfileData('bityhday'));
+          const res = await fetch('https://locolhost/api/sns_login_naver', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              code: `${self.$route.query.code}`,
+              state: `${self.$route.query.state}`,
+
+            }),
+          })
+          const data = await res.json();
+          console.log(`네이버 로그인 : ${data.email}`)
+          
+          //네이버 로그인 인증 코드 (nodejs api)
+
+        }
+        callbackFuc();
       }
-
-      new window.naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081/Test");
-    console.log("access token", naver_id_login.getAccessToken()); // 정상적 로그인이 된 경우 access token값 출력
-
+    }catch (e){
+      console.log(e)
     }
+ }
 }
 </script>

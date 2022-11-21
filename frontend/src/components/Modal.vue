@@ -35,7 +35,7 @@ export default {
         loginModal: Boolean,
     },
     methods: {
-        //카카오 로그인123
+        //카카오 로그인
         kakaoLogin() {
             // console.log(window.Kakao);
             window.Kakao.Auth.login({

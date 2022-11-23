@@ -30,7 +30,7 @@ export default {
     mounted() {
         var self = this;
         try {
-            //네이버로 로그인할때만 실행1
+            //네이버로 로그인할때만 실행
             if (this.$route.query.code.length !== undefined) {
                 var callbackFuc = async () => {
 

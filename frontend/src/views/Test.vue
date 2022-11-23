@@ -2,7 +2,7 @@
 <div>
     <h1>Test</h1>
     Test
-    <button @click="naverLoginBtn">Naver</button>
+    <button @click="methodA">Naver</button>
 </div>
 </template>
 
@@ -18,18 +18,11 @@ export default {
             window.location.replace(url);
         },
         methodA() {
-
+          console.log(1)
+          return this.methodB();
         },
         methodB() {
-            var self = this;
-
-            callBack({
-                success: async function (response) {
-                    self.methodA(response)
-
-                }
-
-            })
+          console.log(2)
 
         },
 
@@ -37,7 +30,7 @@ export default {
     mounted() {
         var self = this;
         try {
-            //네이버로 로그인할때만 실행
+            //네이버로 로그인할때만 실행1
             if (this.$route.query.code.length !== undefined) {
                 var callbackFuc = async () => {
 

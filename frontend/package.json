@@ -20,7 +20,8 @@
     "vue-router": "^4.1.5",
     "vue-slick": "^1.2.0",
     "vue-slick-carousel": "^1.0.6",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

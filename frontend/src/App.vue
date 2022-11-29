@@ -40,9 +40,6 @@
     <div v-show="!isLogin">
         <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
-    <div class="layerPopup" v-show="isLoading">
-        <div class="spinner"></div>
-    </div>
 
     <hr>
 

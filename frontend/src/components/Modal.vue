@@ -17,9 +17,6 @@
         <div id="my-signin2" style="display: none"></div>
     </div>
 
-    <!-- 네이버 로그인 버튼 노출 영역 -->
-    <div id="naver_id_login"></div>
-
     <div class="closeBtn">
         <button @click="$emit('closeModal')">닫기</button>
     </div>
@@ -59,7 +56,8 @@ export default {
 
                     if (userInfo.email != null || userInfo.email != "") {
                         axios
-                            .post("/api/user/save/normal", JSON.stringify(userInfo), {
+                            .post("/api/user/save/normal", 
+                            JSON.stringify(userInfo), {
                                 headers: {
                                     "Content-Type": `application/json`
                                 },
@@ -82,7 +80,7 @@ export default {
             });
             let form = new FormData();
             form.append("email", userInfo.email);
-            form.append("password", "DMTT");
+            form.append("password", "Fastrip");
 
             this.$store.dispatch("getToken", form);
             this.$store.dispatch("setUserInfo", userInfo);
@@ -113,13 +111,7 @@ export default {
         },
     },
     mounted() {
-        var naver_id_login = new naver_id_login("z_xevkfqoAuqghG2b8CF", "http://localhost:8081/Test");
-        var state = naver_id_login.getUniqState();
-        naver_id_login.setButton("green", 2, 60);
-        naver_id_login.setDomain("http://localhost:8081");
-        naver_id_login.setState(state);
-        //naver_id_login.setPopup();
-        naver_id_login.init_naver_id_login();
+
     }
 };
 </script>

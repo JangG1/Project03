@@ -53,20 +53,22 @@ public class UserResource {
 			HttpServletRequest request) throws IOException{
     	
     	User user = userService.getUser((String)map.get("email"));
-    	//System.out.println(user.getEmail());
+    	System.out.println(user.getEmail());
     	if(user != null)
     		return ResponseEntity.ok().build();
     	user = new User();
     	user.setEmail((String)map.get("email"));
-    	user.setPassword("DMTT");
+    	user.setPassword("Fastrip");
     	user.setProfile((String)map.get("profile"));
  
     	log.info("test : {}",user);
     	
         saveUser(user);
+    	
         userService.addRoleToUser(user.getEmail(),"ROLE_USER");
         return ResponseEntity.ok().build();
     }
+    
     @PostMapping("/user/save")
     public ResponseEntity<User>saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
@@ -77,11 +79,7 @@ public class UserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
-    @PostMapping("/role/addtouser")
-    public ResponseEntity<?>addRoleToUser(@RequestBody RoleToUserForm form){
-        userService.addRoleToUser(form.getUsername(),form.getRoleName());
-        return ResponseEntity.ok().build();
-    }
+
     @PostMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);

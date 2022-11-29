@@ -1,25 +1,36 @@
 import { createStore } from 'vuex'
 import axios from 'axios';
-
 import router from "../router"
+import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
-  state: {
-    access_token: '',
-    refresh_token: '',
-    userInfo: null,
-    isLogin: false,
-    isLoginError: false,
-    isLoad: false,
-},
+    plugins: [
+        createPersistedState({
+            paths: [
+                'userInfo', 
+                'access_token', 
+                'refresh_token', 
+                'isLogin', 
+                'isLoginError',
+                'email',
+                'gender',
+                'birthday',]
+        })
+    ],
+    // counter라는 state 속성을 추가
 
+    state: {
+        access_token: '',
+        refresh_token: '',
+        userInfo: null,
+        email: null,
+        gender: null,
+        birthday: null,
+        isLogin: false,
+        isLoginError: false,
+        isLoad: false,
+    },
   mutations: {
-    onLoad(state) {
-        state.isLoad = true;
-    },
-    offLoad(state) {
-        state.isLoad = false;
-    },
     setToken(state, payload) {
         localStorage.setItem("access_token", payload.data.access_token);
         localStorage.setItem("refresh_token", payload.data.refresh_token);
@@ -35,6 +46,9 @@ export default createStore({
         state.isLogin = true
         state.isLoginError = false
         state.userInfo = payload
+        state.email = payload.email        
+        state.gender = payload.gender
+        state.birthday = payload.birthday
     },
     loginError(state) {
         state.isLogin = false
@@ -49,22 +63,18 @@ export default createStore({
     },
 },
   actions: {
-        setLoading({ commit }, payload) {
-            if (payload)
-                commit("onLoad");
-            else
-                commit("offLoad");
-        },
         async setUserInfo({ commit }, payload) {
             let userInfo = {
                 email: payload.email,
-                profile: payload.profile
-            }
+                profile: payload.profile,
+                gender: payload.gender,
+                birthday: payload.birthday,
+            }            
             commit("loginSuccess", userInfo)
         },
         async getToken({ commit }, loginObj) {
             await axios
-                .post("/api/login", loginObj)
+                .post("/api/test", loginObj)
                 .then((res) => {
                     console.log(res);
                     commit('setToken', res)

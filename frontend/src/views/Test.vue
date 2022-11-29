@@ -1,61 +1,102 @@
 <template>
-<div>
-    <h1>Test</h1>
-    Test
-    <button @click="methodA">Naver</button>
+<div class="main">
+    <img src="@/assets/kakaoLogo.png" @click="kakaoLoginBtn()" style="width: 200px;" alt="카카오 로그인" />
 </div>
+<button type="button" @click="kakaoLogin">로그인</button>
+<button type="button" @click="kakaoLogout">로그아웃</button>
+<ProfileItem :profile="getProfile" />
+
+email : {{$store.state.email}} <br>
+gender : {{$store.state.gender}} <br>
+birth : {{$store.state.birthday}} <br>
+Test : {{$store.state.userInfo}} <br>
+
 </template>
 
 <script>
+//import axios from 'axios';
+import ProfileItem from "@/components/ProfileItem.vue";
+
 export default {
-    name: 'HelloWorld',
-    data() {},
-    methods: {
-        naverLoginBtn() {
-            var client_id = 'z_xevkfqoAuqghG2b8CF';
-            var callbackUrl = 'http://localhost:8081/Test'; //서버 주소
-            var url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + client_id + '&redirect_uri=' + callbackUrl + '&state=1234';
-            window.location.replace(url);
-        },
-        methodA() {
-          console.log(1)
-          return this.methodB();
-        },
-        methodB() {
-          console.log(2)
+    name: "HelloWorld",
+    data() {
+        return {
+            email: '',
+            gender: '',
+            birthday: '',
 
-        },
-
-    },
-    mounted() {
-        var self = this;
-        try {
-            //네이버로 로그인할때만 실행
-            if (this.$route.query.code.length !== undefined) {
-                var callbackFuc = async () => {
-
-                    const res = await fetch('https://locolhost/api/sns_login_naver', {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            code: `${self.$route.query.code}`,
-                            state: `${self.$route.query.state}`,
-
-                        }),
-                    })
-                    const data = await res.json();
-                    console.log(`네이버 로그인 : ${data.email}`)
-
-                    //네이버 로그인 인증 코드 (nodejs api)
-
-                }
-                callbackFuc();
-            }
-        } catch (e) {
-            console.log(e)
         }
+    },
+    components: {
+        ProfileItem
+    },
+    computed: {
+        getProfile() {
+            if (this.$store.state.userInfo == null)
+                return require("@/assets/weblogin1.png");
+            return this.$store.state.userInfo.profile;
+        },
+    },
+    created() {},
+    methods: {
+        kakaoLogin() {
+            // console.log(window.Kakao);
+            window.Kakao.Auth.login({
+                scope: "profile_image, account_email, gender, birthday",
+                success: this.kakaoInfo,
+            });            
+        },
+        async kakaoInfo(authObj) {
+            console.log(authObj);
+            const userInfo = {
+                email: null,
+                profile: null,
+                gender: null,
+                birthday: null
+            };
+            await window.Kakao.API.request({
+                url: "/v2/user/me",
+                success: (res) => {
+                    const kakao_account = res.kakao_account;
+                    userInfo.email = kakao_account.email;
+                    userInfo.profile = kakao_account.profile.thumbnail_image_url;
+                    userInfo.gender = kakao_account.gender;
+                    userInfo.birthday = kakao_account.birthday;
+
+                    console.log(userInfo.profile)
+                    console.log(authObj.access_token)
+                },
+                fail: (error) => {
+                    this.$router.push("/errorPage");
+                    console.log(error);                    
+                },
+
+                
+            });
+            this.$store.dispatch('setUserInfo',userInfo)          
+            
+            this.email = this.$store.state.userInfo.email;
+            this.gender = this.$store.state.userInfo.gender;
+            this.birthday = this.$store.state.userInfo.birthday;
+        },
+        kakaoLogout() {
+            // eslint-disable-next-line
+            if (!window.Kakao.Auth.getAccessToken()) {
+                console.log("Not logged in.");
+                return;
+            }
+            window.Kakao.Auth.logout(function () {
+                alert("로그아웃 되었습니다.");
+                window.location.href = "/Test";
+            });
+            localStorage.clear(); // 전체삭제
+        },
     }
 }
 </script>
+
+<style scoped>
+.main {
+    padding: 0 25%;
+}
+</style>

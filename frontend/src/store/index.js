@@ -12,6 +12,7 @@ export default createStore({
                 'refresh_token', 
                 'isLogin', 
                 'isLoginError',
+                'name',
                 'email',
                 'gender',
                 'birthday',]
@@ -23,6 +24,7 @@ export default createStore({
         access_token: '',
         refresh_token: '',
         userInfo: null,
+        name: null,
         email: null,
         gender: null,
         birthday: null,
@@ -46,6 +48,7 @@ export default createStore({
         state.isLogin = true
         state.isLoginError = false
         state.userInfo = payload
+        state.name = payload.name        
         state.email = payload.email        
         state.gender = payload.gender
         state.birthday = payload.birthday
@@ -65,6 +68,7 @@ export default createStore({
   actions: {
         async setUserInfo({ commit }, payload) {
             let userInfo = {
+                name: payload.name,
                 email: payload.email,
                 profile: payload.profile,
                 gender: payload.gender,

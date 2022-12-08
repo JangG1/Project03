@@ -3,9 +3,10 @@
     <img src="@/assets/kakaoLogo.png" @click="kakaoLoginBtn()" style="width: 200px;" alt="카카오 로그인" />
 </div>
 <button type="button" @click="kakaoLogin">로그인</button>
-<button type="button" @click="kakaoLogout">로그아웃</button>1
+<button type="button" @click="kakaoLogout">로그아웃</button>
 <ProfileItem :profile="getProfile" />
 
+name : {{$store.state.name}} <br>
 email : {{$store.state.email}} <br>
 gender : {{$store.state.gender}} <br>
 birth : {{$store.state.birthday}} <br>
@@ -21,6 +22,7 @@ export default {
     name: "HelloWorld",
     data() {
         return {
+            name: '',
             email: '',
             gender: '',
             birthday: '',
@@ -42,13 +44,14 @@ export default {
         kakaoLogin() {
             // console.log(window.Kakao);
             window.Kakao.Auth.login({
-                scope: "profile_image, account_email, gender, birthday",
+                scope: "profile_nickname, profile_image, account_email, gender, birthday",
                 success: this.kakaoInfo,
             });            
         },
         async kakaoInfo(authObj) {
             console.log(authObj);
             const userInfo = {
+                name: null,
                 email: null,
                 profile: null,
                 gender: null,
@@ -58,11 +61,13 @@ export default {
                 url: "/v2/user/me",
                 success: (res) => {
                     const kakao_account = res.kakao_account;
+                    userInfo.name = kakao_account.profile.nickname;
                     userInfo.email = kakao_account.email;
                     userInfo.profile = kakao_account.profile.thumbnail_image_url;
                     userInfo.gender = kakao_account.gender;
                     userInfo.birthday = kakao_account.birthday;
 
+                    console.log(userInfo.name)
                     console.log(userInfo.profile)
                     console.log(authObj.access_token)
                 },
@@ -75,6 +80,7 @@ export default {
             });
             this.$store.dispatch('setUserInfo',userInfo)          
             
+            this.name = this.$store.state.userInfo.name;
             this.email = this.$store.state.userInfo.email;
             this.gender = this.$store.state.userInfo.gender;
             this.birthday = this.$store.state.userInfo.birthday;

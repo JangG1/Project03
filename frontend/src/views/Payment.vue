@@ -105,11 +105,11 @@
         <div class="passInfo1">
             <div class="passInfo1-1">
                 <h5>승객 성<span class="asterisk"> *</span></h5><br>
-                <input type="text" placeholder="예) HONG" class="passText">
+                <input type="text" placeholder="예) HONG" v-model="lastName" class="passText">
             </div>
             <div class="passInfo1-2">
                 <h5>승객 이름<span class="asterisk"> *</span></h5><br>
-                <input type="text" placeholder="예) GIL DONG" class="passText">
+                <input type="text" placeholder="예) GIL DONG" v-model="firstName" class="passText">
             </div>
         </div>
 
@@ -121,7 +121,7 @@
             </div>
             <div class="passInfo2-2">
                 <h5>생년 월일 (YYYY.MM.DD) <span class="asterisk"> *</span></h5><br>
-                <input type="text" class="passText">
+                <input type="text" class="passText" v-model="birthday">
             </div>
         </div>
 
@@ -163,6 +163,10 @@ export default {
             passInfo: true,
             noteInfo: true,
             arrow: "▲",
+            lastName: this.$store.state.name,
+            firstName: this.$store.state.name,
+            gender: this.$store.state.gender,
+            birthday: this.$store.state.birthday,
         }
     },
     props: {

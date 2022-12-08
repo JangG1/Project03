@@ -3,7 +3,7 @@
     <img src="@/assets/kakaoLogo.png" @click="kakaoLoginBtn()" style="width: 200px;" alt="카카오 로그인" />
 </div>
 <button type="button" @click="kakaoLogin">로그인</button>
-<button type="button" @click="kakaoLogout">로그아웃</button>
+<button type="button" @click="kakaoLogout">로그아웃</button>1
 <ProfileItem :profile="getProfile" />
 
 email : {{$store.state.email}} <br>

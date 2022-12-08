@@ -105,7 +105,7 @@
         <div class="passInfo1">
             <div class="passInfo1-1">
                 <h5>승객 성<span class="asterisk"> *</span></h5><br>
-                <input type="text" placeholder="예) 홍" v-model="korLastName" class="passText" disabled='disabled'>
+                <input type="text" placeholder="예) 홍" v-model="korLastName" class="passText" disabled='disabled' >
             </div>
             <div class="passInfo1-2">
                 <h5>승객 이름<span class="asterisk"> *</span></h5><br>
@@ -117,7 +117,7 @@
             <div class="passInfo1-1">
                 <h5>영문 성<span class="asterisk"> *</span></h5><br>
                 <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                <input type="text" placeholder="예) HONG" v-model="engLastName" class="passText">
+                <input type="text" placeholder="예) HONG" v-model="engLastName" class="passText" >
             </div>
             <div class="passInfo1-2">
                 <h5>영문 이름<span class="asterisk"> *</span></h5><br>
@@ -159,23 +159,14 @@
     <span class="footNav1">예상 결제 금액</span>
     <span class="startPrice">{{AddComma(startPrice)}}</span>
     <button type="button" class="submitBtn" @click="test()">Test</button>
-    <button type="button" class="submitBtn" @click="PayModalPopUp">123</button>
     <button type="button" class="submitBtn" @click="submit()">결제하기</button>
-</div>
-
-<div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal @close="PayModalPopUp"></PayModal>
 </div>
 </template>
 
 <script>
-import PayModal from "@/components/PayModal.vue";
-
 export default {
     name: 'HelloWorld',
-    components: {
-        PayModal
-    },
+    components: {},
     data() {
         return {
             start: '',
@@ -191,7 +182,6 @@ export default {
             gender: this.$store.state.gender,
             autofocus: true,
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
-            PayModalView: true,
         }
     },
     props: {
@@ -247,9 +237,6 @@ export default {
         },
     },
     methods: {
-        PayModalPopUp() {
-            this.PayModalView = (this.PayModalView) ? false : true
-        },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
@@ -261,42 +248,27 @@ export default {
             console.log(this.engFirstName)
             console.log(this.gender)
             console.log(this.birthday)
-            console.log(this.fromArea)
-            console.log(this.toArea)
-            console.log(this.seat)
-            console.log(this.seatClass1)
-            console.log(this.seatClass2)
-            console.log(this.startDate)
-            console.log(this.returnDate)
-            console.log(this.AdultCount)
-            console.log(this.ChildCount)
-            console.log(this.InfantCount)
-            console.log(this.startTime1)
-            console.log(this.arriveTime1)
-            console.log(this.startTime2)
-            console.log(this.arriveTime2)
-            console.log(this.startPrice)
 
-            if (this.engFirstName == null) {
+            if(this.engFirstName == null){
                 alert("영문 이름을 입력해주세요")
             }
 
-            if (this.engLastName == null) {
+            if(this.engLastName == null){
                 alert("영문 성을 입력해주세요")
             }
         },
         Gender() {
             if (this.gender == "male") {
                 const target = document.getElementById('maleBtn');
-                target.disabled = false;
-                target.style.color = "teal"
-                target.style.border = "3px solid teal"
+                target.disabled = false;            
+                target.style.color="teal"
+                target.style.border="3px solid teal"                
                 return target.value = "남자" + "  ✔"
             } else {
                 const target = document.getElementById('femaleBtn');
                 target.disabled = false;
-                target.style.color = "teal"
-                target.style.border = "3px solid teal"
+                target.style.color="teal"
+                target.style.border="3px solid teal"
                 return target.value = "여자" + "  ✔"
             }
 
@@ -410,40 +382,7 @@ export default {
 </script>
 
 <style>
-.PayModalView {
-    padding: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40%;
-    height: 60%;
-    text-align: center;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 2px 2px 10px lightgrey;
-    overflow: auto;
-}
-
-.PayModalView::-webkit-scrollbar {    
-    width: 20px;    
-    /*스크롤바의 너비*/
-}
-
-.PayModalView::-webkit-scrollbar-thumb {    
-    background-color: teal;
-    border-radius: 10px;
-    /*스크롤바의 색상*/
-}
-
-.PayModalView::-webkit-scrollbar-track {
-    margin-top: 10px;
-    -webkit-margin-bottom-collapse: 10px;
-    background-color: white;
-    /*스크롤바 트랙 색상*/
-}
-
-#hint {
+#hint{
     font-size: 18px;
     color: teal;
 }
@@ -696,6 +635,7 @@ h4 {
     border: 3px solid teal;
 }
 
+
 .passInfo {
     width: 1210px;
     border: none;
@@ -720,7 +660,7 @@ h4 {
 .femaleBtn {
     width: 200px;
     height: 70px;
-    background: white;
+    background: white;    
     opacity: 0.6;
     transition: 0.3s;
     font-size: 20px;
@@ -730,6 +670,7 @@ h4 {
 .femaleBtn:hover {
     border: 3px solid teal;
 }
+
 
 .passInfo2-2 {
     margin-left: 200px;

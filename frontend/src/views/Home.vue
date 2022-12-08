@@ -733,6 +733,9 @@ a:active {
     color: rgb(77, 77, 77);
 }
 
+.container h4{
+    color: white;
+}
 .carousel-caption {
     margin-left: 600px;
     color: white;

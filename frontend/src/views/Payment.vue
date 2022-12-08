@@ -6,7 +6,7 @@
     <div class="schedule">
         여행 일정
     </div>
-    
+
     <div class="right">
         <div class="payInfo">
             <h4>항공 운송료 </h4>
@@ -105,22 +105,33 @@
         <div class="passInfo1">
             <div class="passInfo1-1">
                 <h5>승객 성<span class="asterisk"> *</span></h5><br>
-                <input type="text" placeholder="예) HONG" v-model="lastName" class="passText">
+                <input type="text" placeholder="예) 홍" v-model="lastName" class="passText">
             </div>
             <div class="passInfo1-2">
                 <h5>승객 이름<span class="asterisk"> *</span></h5><br>
-                <input type="text" placeholder="예) GIL DONG" v-model="firstName" class="passText">
+                <input type="text" placeholder="예) 길동" v-model="firstName" class="passText">
+            </div>
+        </div>
+
+        <div class="passInfo1">
+            <div class="passInfo1-1">
+                <h5>영문 성<span class="asterisk"> *</span></h5><br>
+                <input type="text" placeholder="예) HONG" class="passText">
+            </div>
+            <div class="passInfo1-2">
+                <h5>영문 이름<span class="asterisk"> *</span></h5><br>
+                <input type="text" placeholder="예) GIL DONG" class="passText">
             </div>
         </div>
 
         <div class="passInfo2">
-            <div class="passInfo2-1">
+            <div class="passInfo2-1">{{this.$store.state.gender}}
                 <h5>성별<span class="asterisk"> *</span></h5><br>
-                <input type="button" value="남자" class="genderBtn">
-                <input type="button" value="여자" class="genderBtn">
+                <input type="button" value="남자" class="maleBtn" id="maleBtn" disabled='disabled' autofocus>
+                <input type="button" value="여자" class="femaleBtn" id="femaleBtn" disabled='disabled' autofocus>
             </div>
             <div class="passInfo2-2">
-                <h5>생년 월일 (YYYY.MM.DD) <span class="asterisk"> *</span></h5><br>
+                <h5>생년 월일 (MM.DD) <span class="asterisk"> *</span></h5><br>
                 <input type="text" class="passText" v-model="birthday">
             </div>
         </div>
@@ -163,10 +174,11 @@ export default {
             passInfo: true,
             noteInfo: true,
             arrow: "▲",
-            lastName: this.$store.state.name,
-            firstName: this.$store.state.name,
+            lastName: this.$store.state.name.substring(0, 1),
+            firstName: this.$store.state.name.substring(1, 3),
             gender: this.$store.state.gender,
-            birthday: this.$store.state.birthday,
+            autofocus: true,
+            birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
         }
     },
     props: {
@@ -225,6 +237,22 @@ export default {
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
+        },
+        test() {
+
+        },
+        Gender() {
+            if (this.gender == "male") {
+                const target = document.getElementById('maleBtn');
+                target.disabled = false;            
+                target.style.color="teal"
+                return target + "이거"
+            } else {
+                const target = document.getElementById('femaleBtn');
+                target.disabled = false;
+                target.style.color="teal"
+            }
+
         },
         Fare(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -329,7 +357,7 @@ export default {
 
     },
     mounted() {
-
+        this.Gender()
     }
 }
 </script>
@@ -366,7 +394,7 @@ h4 {
     margin-right: 30px;
 }
 
-.schedule{
+.schedule {
     color: teal;
     font-size: 25px;
     font-weight: 900;
@@ -390,7 +418,7 @@ h4 {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-    
+
 }
 
 .pInfo button div {
@@ -601,7 +629,12 @@ h4 {
     display: flex;
 }
 
-.genderBtn {
+.passInfo1-2 {
+    margin-left: 200px;
+}
+
+.maleBtn,
+.femaleBtn {
     width: 200px;
     height: 70px;
     background: white;
@@ -610,20 +643,20 @@ h4 {
     font-size: 20px;
 }
 
-.passInfo1-2 {
-    margin-left: 200px;
-}
-
-.genderBtn:hover {
+.maleBtn:hover,
+.femaleBtn:hover {
     border: 3px solid teal;
 }
 
-.genderBtn:focus {
+/*
+.maleBtn:focus,
+.femaleBtn:focus {
     color: white;
     background: teal;
     transform: translate(-0%, -5%);
-    opacity: 1;
-}
+    opacity: 1;    
+    pointer-events: none; 
+}*/
 
 .passInfo2-2 {
     margin-left: 200px;

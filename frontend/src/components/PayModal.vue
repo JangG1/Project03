@@ -2,7 +2,7 @@
 <div class="container">
     <div class="info">
         <h3>여행 예약 정보
-            <button class="closeBtn" @click="this.$emit('close')">X</button>
+            <button class="payModalCloseBtn" @click="this.$emit('close')">X</button>
         </h3>
     </div>
     <br>
@@ -72,7 +72,7 @@ export default {
     font-weight: 900;
 }
 
-.closeBtn {
+.payModalCloseBtn {
     float: right;
     border: none;
     font-size: 24px;

@@ -380,7 +380,7 @@ export default {
         submit() {
 
             this.$router.push({
-                name: 'Payment',
+                name: 'PayModal',
                 params: {
                     fromArea: this.fromArea,
                     toArea: this.toArea,

@@ -2,7 +2,7 @@
 <div class="">
     <div class="infoTitle">
         <span class="title">여행 예약 정보</span>
-        <button class="closeBtn" @click="closeModal">X</button>
+        <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
 
@@ -180,7 +180,7 @@ export default {
     position: relative;
 }
 
-.closeBtn{
+.payCloseBtn{
     color: teal;
     font-weight: 900;        
     font-size: 22px;

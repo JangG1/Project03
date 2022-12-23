@@ -70,7 +70,7 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <span>{{AddComma(res.priceStandard)}}</span><br>
+            <span>{{AddComma(res.priceStandard)+ " 원"}}</span><br>
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
         <button type="button" class="seatSelect" @click="selectFlex(index)">
@@ -79,7 +79,7 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <span>{{AddComma(res.priceFlex)}}</span><br>
+            <span>{{AddComma(res.priceFlex)+ " 원"}}</span><br>
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 
@@ -87,7 +87,7 @@
 
     <div class="footNav">
         <span class="footNav1">예상 결제 금액</span>
-        <span class="startPrice">{{AddComma(selectPrice)}}</span>
+        <span class="startPrice">{{AddComma(selectPrice)+ " 원"}}</span>        
         <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
     </div>
 </div>
@@ -167,24 +167,6 @@ export default {
         },
     },
     methods: {
-        test(){
-            console.log("=================")
-            console.log(this.fromArea)
-            console.log(this.toArea)
-            console.log(this.seat)
-            console.log(this.seatClass)
-            console.log(this.seatClass2)
-            console.log(this.startDate)
-            console.log(this.returnDate)
-            console.log(this.AdultCount)
-            console.log(this.ChildCount)
-            console.log(this.InfantCount)
-            console.log(this.startTime)
-            console.log(this.arriveTime)
-            console.log(this.startTime2)
-            console.log(this.arrTime2)
-            console.log(this.selectPrice) 
-        },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
@@ -196,10 +178,11 @@ export default {
             let seatClass = this.at[index].standard;
 
             this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceStandard.substr(0, 3)) + "000 원";
+            this.selectPrice = parseInt(this.selectPrice) + parseInt(priceStandard)
             this.stTime2 = startTime;
             this.arrTime2 = arriveTime;
             this.Class2 = seatClass;
+
         },
         selectFlex(index) {
             let priceFlex = this.at[index].priceFlex;
@@ -208,7 +191,7 @@ export default {
             let seatClass = this.at[index].flex;
             
             this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice.substr(0, 3)) + parseInt(priceFlex.substr(0, 3)) + "000 원";
+            this.selectPrice = parseInt(this.selectPrice) + parseInt(priceFlex)            
             this.stTime2 = startTime;
             this.arrTime2 = arriveTime;
             this.Class2 = seatClass;

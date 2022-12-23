@@ -117,12 +117,12 @@
             <div class="passInfo1-1">
                 <h5>영문 성<span class="asterisk"> *</span></h5><br>
                 <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                <input type="text" placeholder="예) HONG" v-model="engLastName" class="passText">
+                <input type="text" @keyup="engName" placeholder="예) HONG" v-model="engLastName" class="passText">
             </div>
             <div class="passInfo1-2">
                 <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                 <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                <input type="text" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
+                <input type="text" @keyup="engName" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
             </div>
         </div>
 
@@ -202,36 +202,41 @@
 <div class="paymentInfoTitle">
     결제
 </div>
-
 <div class="payment">
     <div class="pay1">
-        <div class="pay">
+        <div class="pay" @click="payment">
             신용/체크카드
         </div>
-        <div class="pay">
+        <div class="pay" @click="payment">
             네이버페이
         </div>
-        <div class="pay">
+        <div class="pay" @click="payment">
             삼성페이
         </div>
     </div>
     <div class="pay2">
-        <div class="pay">
+        <div class="pay" @click="payment">
             카카오페이
         </div>
-        <div class="pay">
+        <div class="pay" @click="payment">
             PAYCO
         </div>
-        <div class="pay">
-            실시간 계좌이체
+        <div class="pointPay" @click="PointPayment">
+            포인트 결제
         </div>
+    </div>
+    <div class="holdPoint" v-show="PointPaymentInfo = true">
+        보유하신 포인트 : {{ AddComma(holdPoint) + "p"}}
+        <button type="button" class="addPoint" @click="addPoint">
+            포인트 충전하기
+        </button>
     </div>
 </div>
 
 <!--footer-->
 <div class="footNav">
     <span class="footNav1">예상 결제 금액</span>
-    <span class="startPrice">{{AddComma(startPrice)}}</span>
+    <span class="startPrice">{{AddComma(startPrice) + " 원"}}</span>
 
     <button type="button" class="submitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
@@ -261,6 +266,7 @@ export default {
             start: '',
             arrive: '',
             price: '',
+            holdPoint: 0,
             selectPrice: this.startPrice,
             seatPrice: 0,
             passInfo: true,
@@ -277,6 +283,7 @@ export default {
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
             PayModalView: false,
             IATAModalView: false,
+            PointPaymentInfo: false,
             user: {
                 fromArea: this.fromArea,
                 toArea: this.toArea,
@@ -356,6 +363,18 @@ export default {
         },
     },
     methods: {
+        engName() {
+
+        },
+        payment() {
+            alert("준비중입니다.")
+        },
+        PointPayment() {
+            this.PointPaymentInfo = (this.PointPaymentInfo) ? false : true
+        },
+        addPoint() {
+            this.holdPoint += 300000
+        },
         closeModal() {
             this.PayModalView = (this.PayModalView) ? false : true
         },
@@ -366,14 +385,28 @@ export default {
 
             if (this.engLastName == null) {
                 alert("영문 성을 확인해주세요")
+            } else if (/^[A-Z]*$/.test(this.engLastName)) {
+                this.engLastName == true
+            } else {
+                alert("영어 대문자로 입력해 주세요.")
+                this.engLastName = ""
             }
 
             if (this.engFirstName == null) {
                 alert("영문 이름을 확인해주세요")
+            } else if (/^[A-Z]*$/.test(this.engFisrtName)) {
+                this.engFirstName == true
+            } else {
+                alert("영어 대문자로 입력해 주세요.")
+                this.engFirstName = ""
             }
 
-            if (this.engLastName != null && this.engFirstName != null) {
-                this.PayModalView = (this.PayModalView) ? false : true
+            if (this.holdPoint < this.startPrice) {
+                alert("포인트가 모자랍니다.")
+            } else if (this.holdPoint >= this.startPrice) {
+                if (this.engLastName != null && this.engFirstName != null) {
+                    this.PayModalView = (this.PayModalView) ? false : true
+                }
             }
 
         },
@@ -719,7 +752,7 @@ h4 {
 
 .startPrice {
     font-size: 20px;
-    margin-left: 70%;
+    margin-right: 1%;
 }
 
 .right {
@@ -934,26 +967,53 @@ h4 {
 }
 
 .payment {
-    width: 1222px;
-    height: 500px;
+    width: 1210px;
+    height: 400px;
     border: 1px solid black;
     background: white;
-    display: block;
-    margin-bottom: 40%;
+    margin-bottom: 10%;
     margin-left: 8.5%;
-    margin-top: 5%;
+    margin-top: 5.5%;
 }
 
-.pay{
+.pay,
+.pointPay {
     border: 1px solid black;
-    width: 20%;    
+    width: 30%;
     text-align: center;
-    padding: 35px 0;
+    padding: 25px 0;
+    margin: 1%;
+    color: #999;
+    cursor: pointer;
+    margin-top: 2%;
 }
 
-.pay1,.pay2{
+.pointPay {
+    color: black;
+}
+
+.pay1,
+.pay2 {
     display: flex;
     margin: 1%;
-    
+    margin-left: 4.5%;
+}
+
+.holdPoint {
+    font-size: 25px;
+    font-weight: 900;
+    margin-left: 8%;
+    margin-top: 4%;
+}
+
+.addPoint {
+    width: 200px;
+    height: 50px;
+    float: right;
+    margin-right: 80px;
+    color: white;
+    background-color: teal;
+    border: none;
+    border-radius: 4px;
 }
 </style>

@@ -52,7 +52,7 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <span>{{AddComma(res.priceStandard)}}</span><br>
+            <span>{{AddComma(res.priceStandard)+ " 원"}}</span><br>
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
         <button type="button" class="seatSelect" @click="selectFlex(index)">
@@ -61,14 +61,14 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <span>{{AddComma(res.priceFlex)}}</span><br>
+            <span>{{AddComma(res.priceFlex)+ " 원"}}</span><br>
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 
     </div>
     <div class="footNav">
         <span class="footNav1">예상 결제 금액</span>
-        <span class="startPrice">{{AddComma(selectPrice)}}</span>
+        <span class="startPrice">{{AddComma(selectPrice) + " 원"}}</span>
         <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
     </div>
 </div>
@@ -90,9 +90,8 @@ export default {
             start: '',
             arrive: '',
             price: '',
-            selectPrice: '0 원',
+            selectPrice: 0,
             seatPrice: 0,
-
         }
     },
     props: {

@@ -165,7 +165,7 @@
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal :user="user" :engFirstName="engFirstName" :engLastName="engLastName" @close="PayModalPopUp"></PayModal>
+    <PayModal :PayModalView="PayModalView" :user="user" :engFirstName="engFirstName" :engLastName="engLastName" @close="PayModalPopUp"></PayModal>
 </div>
 <!--test-->
 
@@ -277,7 +277,11 @@ export default {
         },
     },
     methods: {
-        PayModalPopUp() {            
+        closeModal(){
+            this.PayModalView = (this.PayModalView) ? false : true
+        },
+        PayModalPopUp() {
+            
             if(this.engLastName == null){
                 alert("영문 성을 확인해주세요")
             }
@@ -287,9 +291,9 @@ export default {
             }
 
             if(this.engLastName != null && this.engFirstName != null){
-                this.PayModalView = true 
+                this.PayModalView = (this.PayModalView) ? false : true
             }
-            
+    
         },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;

@@ -3,7 +3,7 @@
     <div class="infoTitle">
         <h3>여행 예약 정보</h3>
         <!-- <button class="payModalCloseBtn" @click="this.$emit('close')">X</button> -->
-        <button @click="$emit('closeModal')">닫기</button>
+        <button @click="closeModal">닫기</button>
     </div>
     <br>
 
@@ -74,7 +74,9 @@ export default {
 
     },
     data() {
-        return {}
+        return {
+            test: "close"
+        }
     },
     props: {
         user: {
@@ -145,6 +147,9 @@ export default {
 
             return year + "-" + month + "-" + day + week;
         },
+        closeModal(){
+            this.$emit('close')
+        },
         Gender(value) {
             let gender = value
             if (gender == "male") {
@@ -177,10 +182,15 @@ export default {
     background-color: white;
 }
 
+.closeBtn{
+    display: none;
+}
+
 .infoList {
     border: 1px solid teal;
     border-radius: 4px;
     height: 300px;
+    margin-bottom: 20px;
 }
 
 .infoLeft {
@@ -210,6 +220,13 @@ export default {
 .To,
 .From {
     width: 100.1%;
+    color: white;
+    background-color: teal;
+    font-weight: 900;
+    font-size: 24px;
+    text-align : center;
+    padding : 10px 0;
+    margin-bottom: 20px;
 }
 
 .reserBtn {

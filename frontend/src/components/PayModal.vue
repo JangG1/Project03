@@ -1,9 +1,8 @@
 <template>
 <div class="">
     <div class="infoTitle">
-        <h3>여행 예약 정보</h3>
-        <!-- <button class="payModalCloseBtn" @click="this.$emit('close')">X</button> -->
-        <button @click="closeModal">닫기</button>
+        <span class="title">여행 예약 정보</span>
+        <button class="closeBtn" @click="closeModal">X</button>
     </div>
     <br>
 
@@ -63,7 +62,7 @@
     <br>
 
     <!--test-->
-    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
+    <button type="button" class="reserBtn" @click="submit()">결제 하기</button>
 </div>
 </template>
 
@@ -167,12 +166,29 @@ export default {
 </script>
 
 <style>
-.infoTitle h3 {
+.infoTitle{
     margin-top: 2%;
     margin-left: 4%;
     color: teal;
-    font-weight: 900;
+    font-weight: 900;        
 }
+
+.title{
+    color: teal;
+    font-size: 26px;
+    font-weight: 900;        
+    position: relative;
+}
+
+.closeBtn{
+    color: teal;
+    font-weight: 900;        
+    font-size: 22px;
+    float: right;
+    border: 1px solid white;
+    background-color: white;
+}
+
 
 .payModalCloseBtn {
     float: right;
@@ -180,10 +196,6 @@ export default {
     font-size: 24px;
     color: #999;
     background-color: white;
-}
-
-.closeBtn{
-    display: none;
 }
 
 .infoList {

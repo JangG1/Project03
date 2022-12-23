@@ -160,8 +160,7 @@
     <span class="footNav1">예상 결제 금액</span>
     <span class="startPrice">{{AddComma(startPrice)}}</span>
 
-    <button type="button" class="submitBtn" @click="PayModalPopUp()">Test</button>
-    <button type="button" class="submitBtn" @click="submit()">결제하기</button>
+    <button type="button" class="submitBtn" @click="PayModalPopUp()">예약 하기</button>    
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">

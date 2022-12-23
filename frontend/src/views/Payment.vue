@@ -160,8 +160,8 @@
 </div>
 <div class="consent" v-show="consentInfo">
     <h4>
-       <button type="button" class="consentBtn" >✔ 동의</button>  &nbsp;
-        [필수] 운송약관, 운임 규정, 수하물 규정을 확인하였으며 이에 동의합니다.        
+        <button type="button" @click="consent1" id="consentBtn1" class="consentBtn">✔ 동의</button> &nbsp;
+        [필수] 운송약관, 운임 규정, 수하물 규정을 확인하였으며 이에 동의합니다.
     </h4>
     <span>
         Fastrip 항공권을 구매하시는 것은 본 항공사와 운송계약 체결에 동의하는 것으로 운임규정은 항공권 변경, 취소 등에 따른 수수료와 사전좌석배정, <br>
@@ -170,8 +170,9 @@
     </span>
     <br><br>
     <h4>
-        <button type="button" class="consentBtn">✔ 동의</button> &nbsp;
+        <button type="button" @click="consent2" id="consentBtn2" class="consentBtn">✔ 동의</button> &nbsp;
         [필수] 위험품 안내를 확인하였습니다.
+        <button type="button" class="IATAList" @click="IATAModalPopUp()">보기</button>
     </h4>
     <span>
         고객 안전을 위하여 항공기 내부로 반입이 금지된 폭발성, 인화성, 유독성 물질 및 무기로 사용될 수 있는 품목에 대한 안내 사항 입니다.
@@ -182,7 +183,6 @@
         예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
     </span>
 </div>
-
 
 <button class="document" @click="showDocumentInfo">
     <div class="documentTitle">
@@ -198,6 +198,36 @@
         </span>
     </div>
 </button>
+
+<div class="paymentInfoTitle">
+    결제
+</div>
+
+<div class="payment">
+    <div class="pay1">
+        <div class="pay">
+            신용/체크카드
+        </div>
+        <div class="pay">
+            네이버페이
+        </div>
+        <div class="pay">
+            삼성페이
+        </div>
+    </div>
+    <div class="pay2">
+        <div class="pay">
+            카카오페이
+        </div>
+        <div class="pay">
+            PAYCO
+        </div>
+        <div class="pay">
+            실시간 계좌이체
+        </div>
+    </div>
+</div>
+
 <!--footer-->
 <div class="footNav">
     <span class="footNav1">예상 결제 금액</span>
@@ -209,16 +239,22 @@
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
     <PayModal :PayModalView="PayModalView" :user="user" :engFirstName="engFirstName" :engLastName="engLastName" @close="PayModalPopUp"></PayModal>
 </div>
+
+<div v-if="IATAModalView == true" class="IATAModalView" :class="{ active : IATAModalView }">
+    <IATAModal @close="IATAModalPopUp"></IATAModal>
+</div>
 <!--test-->
 </template>
 
 <script>
 import PayModal from "@/components/PayModal.vue";
+import IATAModal from "@/components/IATAModal.vue";
 
 export default {
     name: 'HelloWorld',
     components: {
-        PayModal
+        PayModal,
+        IATAModal
     },
     data() {
         return {
@@ -240,7 +276,7 @@ export default {
             autofocus: true,
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
             PayModalView: false,
-            testModalView: false,
+            IATAModalView: false,
             user: {
                 fromArea: this.fromArea,
                 toArea: this.toArea,
@@ -323,6 +359,9 @@ export default {
         closeModal() {
             this.PayModalView = (this.PayModalView) ? false : true
         },
+        IATAModalPopUp() {
+            this.IATAModalView = (this.IATAModalView) ? false : true
+        },
         PayModalPopUp() {
 
             if (this.engLastName == null) {
@@ -341,6 +380,18 @@ export default {
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
+        },
+        consent1() {
+            const target = document.getElementById('consentBtn1');
+            target.style.color = "white"
+            target.style.background = "teal"
+            target.style.border = "3px solid teal"
+        },
+        consent2() {
+            const target = document.getElementById('consentBtn2');
+            target.style.color = "white"
+            target.style.background = "teal"
+            target.style.border = "3px solid teal"
         },
         Gender() {
 
@@ -430,15 +481,27 @@ export default {
         },
         showPassInfo() {
             this.passInfo = (this.passInfo) ? false : true
-            this.arrow = "▼";
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
         },
         showNoteInfo() {
             this.noteInfo = (this.noteInfo) ? false : true
-            this.arrow = "▼"
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
         },
-        showDocumentInfo(){
+        showDocumentInfo() {
             this.documentInfo = (this.documentInfo) ? false : true
-            this.arrow = "▼"
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
         },
 
     },
@@ -449,8 +512,7 @@ export default {
 </script>
 
 <style>
-.PayModalView,
-.testModalView {
+.PayModalView {
     padding: 20px;
     position: fixed;
     top: 50%;
@@ -483,22 +545,21 @@ export default {
     /*스크롤바 트랙 색상*/
 }
 
-.testModalView::-webkit-scrollbar {
-    width: 20px;
-    /*스크롤바의 너비*/
-}
-
-.testModalView::-webkit-scrollbar-thumb {
-    background-color: teal;
-    border-radius: 10px;
-    /*스크롤바의 색상*/
-}
-
-.testModalView::-webkit-scrollbar-track {
-    margin-top: 10px;
-    -webkit-margin-bottom-collapse: 10px;
+.IATAModalView {
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 75%;
+    border-radius: 15px;
     background-color: white;
-    /*스크롤바 트랙 색상*/
+    box-shadow: 2px 2px 10px lightgrey;
+}
+
+.IATAModalView::-webkit-scrollbar {
+    width: 0px;
 }
 
 #hint {
@@ -794,7 +855,7 @@ h4 {
     margin-left: 200px;
 }
 
-.note{
+.note {
     width: 1222px;
     border: none;
     margin-left: 8.2%;
@@ -807,9 +868,9 @@ h4 {
     width: 1222px;
     border: none;
     margin-left: 8.2%;
-    margin-bottom: 100%;
+    margin-bottom: 2%;
     background: white;
-    display: block;    
+    display: block;
 }
 
 .noteTitle,
@@ -845,7 +906,7 @@ h4 {
     margin-bottom: 2%;
 }
 
-.consentBtn{
+.consentBtn {
     color: teal;
     background-color: white;
     border: 2.5px solid teal;
@@ -853,20 +914,46 @@ h4 {
     width: 120px;
 }
 
-.consentBtn:focus{
+.IATAList {
+    float: right;
+    margin-right: 40px;
     color: white;
     background-color: teal;
-    border: 2.5px solid white;
-    padding: 8px;
-    width: 120px;
+    border: none;
+    padding: 10px;
 }
 
-.consentBtn{
+.paymentInfoTitle {
     color: teal;
-    background-color: white;
-    border: 2.5px solid teal;
-    padding: 8px;
-    width: 120px;
+    font-size: 25px;
+    font-weight: 900;
+    float: left;
+    text-align: left;
+    padding: 10px;
+    margin-left: 9%;
 }
 
+.payment {
+    width: 1222px;
+    height: 500px;
+    border: 1px solid black;
+    background: white;
+    display: block;
+    margin-bottom: 40%;
+    margin-left: 8.5%;
+    margin-top: 5%;
+}
+
+.pay{
+    border: 1px solid black;
+    width: 20%;    
+    text-align: center;
+    padding: 35px 0;
+}
+
+.pay1,.pay2{
+    display: flex;
+    margin: 1%;
+    
+}
 </style>

@@ -155,19 +155,61 @@
     </div>
 </button>
 
+<div class="consentInfoTitle">
+    확인 및 동의
+</div>
+<div class="consent" v-show="consentInfo">
+    <h4>
+       <button type="button" class="consentBtn" >✔ 동의</button>  &nbsp;
+        [필수] 운송약관, 운임 규정, 수하물 규정을 확인하였으며 이에 동의합니다.        
+    </h4>
+    <span>
+        Fastrip 항공권을 구매하시는 것은 본 항공사와 운송계약 체결에 동의하는 것으로 운임규정은 항공권 변경, 취소 등에 따른 수수료와 사전좌석배정, <br>
+        좌석승급 등 구매하는 항공권 운임에 적용되는 세부 조건을 기재하고 있으며, 운송 약관은 운송 계약 체결에 따른 계약조건을 명시합니다.<br>
+        Fastrip은 '항공교통이용자 보호기준'에 따라 항공교통이용자 서비스 계획을 게시합니다.
+    </span>
+    <br><br>
+    <h4>
+        <button type="button" class="consentBtn">✔ 동의</button> &nbsp;
+        [필수] 위험품 안내를 확인하였습니다.
+    </h4>
+    <span>
+        고객 안전을 위하여 항공기 내부로 반입이 금지된 폭발성, 인화성, 유독성 물질 및 무기로 사용될 수 있는 품목에 대한 안내 사항 입니다.
+    </span>
+</div>
+<div class="consent" v-show="consentInfo">
+    <span>
+        예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
+    </span>
+</div>
+
+
+<button class="document" @click="showDocumentInfo">
+    <div class="documentTitle">
+        구비 서류 안내 <span class="arrow">{{arrow}}</span>
+    </div>
+    <div class="document1" v-show="documentInfo">
+        <h4>
+            항공보안법 관련 안내사항
+        </h4>
+        <span>
+            항공보안법 규정에 따라 성인, 소아, 유아 전 승객의 신원확인을 위해 신분증명서와 탑승권 확인이 필요하오니 소지 여부를 반드시 재확인하여 주시기 바랍니다.<br>
+            모든 신분증 및 여행서류는 탑승자의 책임 하에 준비되어야 합니다.
+        </span>
+    </div>
+</button>
 <!--footer-->
 <div class="footNav">
     <span class="footNav1">예상 결제 금액</span>
     <span class="startPrice">{{AddComma(startPrice)}}</span>
 
-    <button type="button" class="submitBtn" @click="PayModalPopUp()">예약 하기</button>    
+    <button type="button" class="submitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
     <PayModal :PayModalView="PayModalView" :user="user" :engFirstName="engFirstName" :engLastName="engLastName" @close="PayModalPopUp"></PayModal>
 </div>
 <!--test-->
-
 </template>
 
 <script>
@@ -186,6 +228,8 @@ export default {
             selectPrice: this.startPrice,
             seatPrice: 0,
             passInfo: true,
+            consentInfo: true,
+            documentInfo: true,
             noteInfo: true,
             arrow: "▲",
             korLastName: this.$store.state.name.substring(0, 1),
@@ -276,23 +320,23 @@ export default {
         },
     },
     methods: {
-        closeModal(){
+        closeModal() {
             this.PayModalView = (this.PayModalView) ? false : true
         },
         PayModalPopUp() {
-            
-            if(this.engLastName == null){
+
+            if (this.engLastName == null) {
                 alert("영문 성을 확인해주세요")
             }
-            
-            if(this.engFirstName == null){
+
+            if (this.engFirstName == null) {
                 alert("영문 이름을 확인해주세요")
             }
 
-            if(this.engLastName != null && this.engFirstName != null){
+            if (this.engLastName != null && this.engFirstName != null) {
                 this.PayModalView = (this.PayModalView) ? false : true
             }
-    
+
         },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -390,6 +434,10 @@ export default {
         },
         showNoteInfo() {
             this.noteInfo = (this.noteInfo) ? false : true
+            this.arrow = "▼"
+        },
+        showDocumentInfo(){
+            this.documentInfo = (this.documentInfo) ? false : true
             this.arrow = "▼"
         },
 
@@ -529,7 +577,8 @@ h4 {
     border: 2px solid teal;
 }
 
-.startInfoTitle {
+.startInfoTitle,
+.consentInfoTitle {
     color: black;
     color: teal;
     font-size: 25px;
@@ -745,16 +794,26 @@ h4 {
     margin-left: 200px;
 }
 
-.note {
+.note{
     width: 1222px;
     border: none;
     margin-left: 8.2%;
-    margin-bottom: 10%;
+    margin-bottom: 2%;
     background: white;
     display: block;
 }
 
-.noteTitle {
+.document {
+    width: 1222px;
+    border: none;
+    margin-left: 8.2%;
+    margin-bottom: 100%;
+    background: white;
+    display: block;    
+}
+
+.noteTitle,
+.documentTitle {
     font-size: 24px;
     color: white;
     background: teal;
@@ -765,12 +824,49 @@ h4 {
     text-align: left;
 }
 
-.note1 {
+.note1,
+.document1 {
     border: 1px solid;
     width: 100%;
     text-align: left;
     padding: 20px;
-    margin-bottom: 150px;
     font-size: 19px;
 }
+
+.consent {
+    width: 1210px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    padding-left: 40px;
+    text-align: left;
+    border: 1px solid;
+    margin-left: 8.5%;
+    font-size: 19px;
+    margin-bottom: 2%;
+}
+
+.consentBtn{
+    color: teal;
+    background-color: white;
+    border: 2.5px solid teal;
+    padding: 8px;
+    width: 120px;
+}
+
+.consentBtn:focus{
+    color: white;
+    background-color: teal;
+    border: 2.5px solid white;
+    padding: 8px;
+    width: 120px;
+}
+
+.consentBtn{
+    color: teal;
+    background-color: white;
+    border: 2.5px solid teal;
+    padding: 8px;
+    width: 120px;
+}
+
 </style>

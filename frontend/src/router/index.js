@@ -50,6 +50,12 @@ const routes = [
     component: () => import('../views/Payment.vue'),
     props: true
   },
+  {
+    path: '/PayModal/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korLastName/:korFirstName/:engLastName/:engFirstName/:gender/:birthday',
+    name: 'PayModal',
+    component: () => import('@/components/PayModal.vue'),
+    props: true
+  },
  
 ]
 

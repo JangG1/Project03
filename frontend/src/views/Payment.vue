@@ -154,18 +154,21 @@
         </li>
     </div>
 </button>
+
 <!--footer-->
 <div class="footNav">
     <span class="footNav1">예상 결제 금액</span>
     <span class="startPrice">{{AddComma(startPrice)}}</span>
-    <button type="button" class="submitBtn" @click="test()">Test</button>
-    <button type="button" class="submitBtn" @click="PayModalPopUp">123</button>
+
+    <button type="button" class="submitBtn" @click="PayModalPopUp()">Test</button>
     <button type="button" class="submitBtn" @click="submit()">결제하기</button>
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal @close="PayModalPopUp"></PayModal>
+    <PayModal :user="user" :engFirstName="engFirstName" :engLastName="engLastName" @close="PayModalPopUp"></PayModal>
 </div>
+<!--test-->
+
 </template>
 
 <script>
@@ -188,10 +191,37 @@ export default {
             arrow: "▲",
             korLastName: this.$store.state.name.substring(0, 1),
             korFirstName: this.$store.state.name.substring(1, 3),
+            engLastName: this.engLastName,
+            engFirstName: this.engFirstName,
             gender: this.$store.state.gender,
             autofocus: true,
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
-            PayModalView: true,
+            PayModalView: false,
+            testModalView: false,
+            user: {
+                fromArea: this.fromArea,
+                toArea: this.toArea,
+                seat: this.seat,
+                seatClass1: this.seatClass1,
+                seatClass2: this.seatClass2,
+                startDate: this.startDate,
+                returnDate: this.returnDate,
+                AdultCount: this.AdultCount,
+                ChildCount: this.ChildCount,
+                InfantCount: this.InfantCount,
+                startTime1: this.startTime1,
+                arriveTime1: this.arriveTime1,
+                startTime2: this.startTime2,
+                arriveTime2: this.arriveTime2,
+                startPrice: this.startPrice,
+
+                korLastName: this.$store.state.name.substring(0, 1),
+                korFirstName: this.$store.state.name.substring(1, 3),
+                engLastName: this.engLastName,
+                engFirstName: this.engFirstName,
+                gender: this.$store.state.gender,
+                birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
+            },
         }
     },
     props: {
@@ -247,46 +277,28 @@ export default {
         },
     },
     methods: {
-        PayModalPopUp() {
-            this.PayModalView = (this.PayModalView) ? false : true
+        PayModalPopUp() {            
+            if(this.engLastName == null){
+                alert("영문 성을 확인해주세요")
+            }
+            
+            if(this.engFirstName == null){
+                alert("영문 이름을 확인해주세요")
+            }
+
+            if(this.engLastName != null && this.engFirstName != null){
+                this.PayModalView = true 
+            }
+            
         },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
         },
-        test() {
-            console.log(this.korLastName)
-            console.log(this.korFirstName)
-            console.log(this.engLastName)
-            console.log(this.engFirstName)
-            console.log(this.gender)
-            console.log(this.birthday)
-            console.log(this.fromArea)
-            console.log(this.toArea)
-            console.log(this.seat)
-            console.log(this.seatClass1)
-            console.log(this.seatClass2)
-            console.log(this.startDate)
-            console.log(this.returnDate)
-            console.log(this.AdultCount)
-            console.log(this.ChildCount)
-            console.log(this.InfantCount)
-            console.log(this.startTime1)
-            console.log(this.arriveTime1)
-            console.log(this.startTime2)
-            console.log(this.arriveTime2)
-            console.log(this.startPrice)
-
-            if (this.engFirstName == null) {
-                alert("영문 이름을 입력해주세요")
-            }
-
-            if (this.engLastName == null) {
-                alert("영문 성을 입력해주세요")
-            }
-        },
         Gender() {
+
             if (this.gender == "male") {
+
                 const target = document.getElementById('maleBtn');
                 target.disabled = false;
                 target.style.color = "teal"
@@ -377,30 +389,6 @@ export default {
             this.noteInfo = (this.noteInfo) ? false : true
             this.arrow = "▼"
         },
-        submit() {
-
-            this.$router.push({
-                name: 'PayModal',
-                params: {
-                    fromArea: this.fromArea,
-                    toArea: this.toArea,
-                    seat: this.seat,
-                    seatClass1: this.seatClass,
-                    seatClass2: this.seatClass2,
-                    startDate: this.startDate,
-                    returnDate: this.returnDate,
-                    AdultCount: this.AdultCount,
-                    ChildCount: this.ChildCount,
-                    InfantCount: this.InfantCount,
-                    startTime1: this.startTime,
-                    arriveTime1: this.arriveTime,
-                    startTime2: this.startTime2,
-                    arriveTime2: this.arriveTime2,
-                    startPrice: this.selectPrice,
-                }
-            });
-
-        }
 
     },
     mounted() {
@@ -410,7 +398,8 @@ export default {
 </script>
 
 <style>
-.PayModalView {
+.PayModalView,
+.testModalView {
     padding: 20px;
     position: fixed;
     top: 50%;
@@ -425,18 +414,36 @@ export default {
     overflow: auto;
 }
 
-.PayModalView::-webkit-scrollbar {    
-    width: 20px;    
+.PayModalView::-webkit-scrollbar {
+    width: 20px;
     /*스크롤바의 너비*/
 }
 
-.PayModalView::-webkit-scrollbar-thumb {    
+.PayModalView::-webkit-scrollbar-thumb {
     background-color: teal;
     border-radius: 10px;
     /*스크롤바의 색상*/
 }
 
 .PayModalView::-webkit-scrollbar-track {
+    margin-top: 10px;
+    -webkit-margin-bottom-collapse: 10px;
+    background-color: white;
+    /*스크롤바 트랙 색상*/
+}
+
+.testModalView::-webkit-scrollbar {
+    width: 20px;
+    /*스크롤바의 너비*/
+}
+
+.testModalView::-webkit-scrollbar-thumb {
+    background-color: teal;
+    border-radius: 10px;
+    /*스크롤바의 색상*/
+}
+
+.testModalView::-webkit-scrollbar-track {
     margin-top: 10px;
     -webkit-margin-bottom-collapse: 10px;
     background-color: white;

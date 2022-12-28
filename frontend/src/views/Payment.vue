@@ -156,7 +156,7 @@
 </button>
 
 <div class="consentInfoTitle">
-    확인 및 동의1
+    확인 및 동의
 </div>
 <div class="consent" v-show="consentInfo">
     <h4>

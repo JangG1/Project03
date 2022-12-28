@@ -653,6 +653,16 @@ export default {
                 alert("날짜를 선택해주세요.")
             }
 
+            if(this.fromImgName == "SEL"){
+                alert("출발지를 선택해주세요.")
+                return false;
+            }
+
+            if(this.toImgName == "main"){
+                alert("도착지를 선택해주세요.")
+                return false;
+            }   
+
             if (this.oneWay.toString() != false) {
                 var string1 = this.oneWay.toString();
                 startDate = string1.substring(0, 16);

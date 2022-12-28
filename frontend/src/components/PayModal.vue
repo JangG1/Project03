@@ -37,7 +37,10 @@
         <div class="infoRight">
             <span class="listRight">{{user.fromArea}} &nbsp;→&nbsp; {{user.toArea}}</span><br><br>
             <span class="listRight">{{Format(user.startDate)}} {{user.startTime1}} ~ {{user.arriveTime1}}</span><br><br>
-            <span class="listRight">{{user.AdultCount}} {{user.ChildCount}}{{user.InfantCount}}</span><br><br>
+             <span class="listRight" v-show="infantCountView">{{InfantCount(user.InfantCount)}}</span>             
+             <span class="listRight" v-show="childCountView">{{ChildCount(user.ChildCount)}}</span>
+             <span class="listRight">{{user.AdultCount}}</span>             
+             <br><br>
             <span class="listRight">{{user.seat}} {{user.seatClass1}}</span>
         </div>
     </div>
@@ -55,14 +58,17 @@
         <div class="infoRight">
             <span class="listRight">{{user.toArea}} &nbsp;→&nbsp; {{user.fromArea}}</span><br><br>
             <span class="listRight">{{Format(user.returnDate)}} {{user.startTime2}} ~ {{user.startTime2}}</span><br><br>
-            <span class="listRight">{{user.AdultCount}} {{user.ChildCount}}{{user.InfantCount}}</span><br><br>
+             <span class="listRight" v-show="infantCountView">{{InfantCount(user.InfantCount)}}</span>             
+             <span class="listRight" v-show="childCountView">{{ChildCount(user.ChildCount)}}</span>
+             <span class="listRight">{{user.AdultCount}}</span>             
+             <br><br>
             <span class="listRight">{{user.seat}} {{user.seatClass2}}</span>
         </div>        
     </div>
     <br>
 
     <!--test-->
-    <button type="button" class="reserBtn" @click="submit()">결제 하기</button>
+    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
 </div>
 </template>
 
@@ -74,7 +80,8 @@ export default {
     },
     data() {
         return {
-            test: "close"
+            childCountView: false,
+            infantCountView: false,
         }
     },
     props: {
@@ -93,6 +100,22 @@ export default {
 
     },
     methods: {
+        ChildCount(value){
+            console.log(value.substr(4,2))
+            if(value.substr(4,2) > 0){
+                return this.childCountView = ", 소아 " + value.substr(4,2) + "명"
+            }else if(value.substr(4,2) == 0){
+                return this.user.ChildCount == ""
+            }
+        },
+        InfantCount(value){
+            console.log(value.substr(4,2))
+            if(value.substr(4,2) > 0){
+                return this.infantCountView = ", 유아 " + value.substr(4,2) + "명"
+            }else if(value.substr(4,2) == 0){
+                return this.infantCountView = ""
+            }
+        },
         Format(value) {
             var string = value.toString();
             var total = string.substring(0, 16);
@@ -227,6 +250,7 @@ export default {
 .listRight{
     float: right;
 }
+
 
 .mInfo,
 .To,

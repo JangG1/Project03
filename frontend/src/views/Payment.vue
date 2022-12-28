@@ -117,12 +117,12 @@
             <div class="passInfo1-1">
                 <h5>영문 성<span class="asterisk"> *</span></h5><br>
                 <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                <input type="text" @keyup="engName" placeholder="예) HONG" v-model="engLastName" class="passText">
+                <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName" class="passText">
             </div>
             <div class="passInfo1-2">
                 <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                 <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                <input type="text" @keyup="engName" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
+                <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
             </div>
         </div>
 
@@ -170,7 +170,7 @@
     </span>
     <br><br>
     <h4>
-        <button type="button" @click="consent2" id="consentBtn2" class="consentBtn">✔ 동의</button> &nbsp;
+        <button type="button" @click="consent2" id="consentBtn2" class="consentBtn" disabled='disabled' autofocus>✔ 동의</button> &nbsp;
         [필수] 위험품 안내를 확인하였습니다.
         <button type="button" class="IATAList" @click="IATAModalPopUp()">보기</button>
     </h4>
@@ -363,8 +363,25 @@ export default {
         },
     },
     methods: {
-        engName() {
-
+        engLastNameTest() {
+            if (this.engLastName == null) {
+                alert("영문 성을 확인해주세요")
+            } else if (/^[A-Z]*$/.test(this.engLastName)) {
+                return true
+            } else {
+                alert("영어 대문자로 입력해 주세요.")
+                this.engLastName = ""
+            }
+        },
+        engFirstNameTest(){
+            if (this.engFirstName == null) {
+                alert("영문 이름을 확인해주세요")
+            } else if (/^[A-Z\s]*$/.test(this.engFirstName)) {
+                return true
+            } else {
+                alert("영어 대문자로 입력해 주세요.")
+                this.engFirstName = ""
+            }
         },
         payment() {
             alert("준비중입니다.")
@@ -382,24 +399,19 @@ export default {
             this.IATAModalView = (this.IATAModalView) ? false : true
         },
         PayModalPopUp() {
+            const target = document.getElementById('consentBtn1');
 
             if (this.engLastName == null) {
                 alert("영문 성을 확인해주세요")
-            } else if (/^[A-Z]*$/.test(this.engLastName)) {
-                this.engLastName == true
-            } else {
-                alert("영어 대문자로 입력해 주세요.")
-                this.engLastName = ""
-            }
+            } 
 
             if (this.engFirstName == null) {
                 alert("영문 이름을 확인해주세요")
-            } else if (/^[A-Z]*$/.test(this.engFisrtName)) {
-                this.engFirstName == true
-            } else {
-                alert("영어 대문자로 입력해 주세요.")
-                this.engFirstName = ""
-            }
+            } 
+
+            if (target.style.background == "teal") {
+                alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")
+            } 
 
             if (this.holdPoint < this.startPrice) {
                 alert("포인트가 모자랍니다.")
@@ -419,6 +431,7 @@ export default {
             target.style.color = "white"
             target.style.background = "teal"
             target.style.border = "3px solid teal"
+            target.disabled = false;
         },
         consent2() {
             const target = document.getElementById('consentBtn2');
@@ -804,7 +817,6 @@ h4 {
 .passengerInfo {
     width: 1225px;
     border: none;
-
     background: white;
 }
 
@@ -853,7 +865,7 @@ h4 {
     width: 1210px;
     border: none;
     margin-left: 8.5%;
-    margin-bottom: 40px;
+    
 }
 
 .passInfo1,
@@ -915,6 +927,7 @@ h4 {
     padding-bottom: 25px;
     padding-top: 25px;
     padding-left: 40px;
+    margin-top: 40px;
     text-align: left;
 }
 

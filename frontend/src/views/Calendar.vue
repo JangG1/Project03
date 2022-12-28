@@ -1,9 +1,9 @@
 <template>
 <div class="date-area-select">
     TEST
-
+    <button type="button" @click="test">Test</button>
     <!-- Test Zone -->
-    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날" :dayNames="lang.days" fixed-start  range>   
+    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날" :dayNames="lang.days" fixed-start range>
         <template #month="{  value  }">
             {{ value + 1 + "월"}}
         </template>
@@ -15,7 +15,7 @@
     {{Format1(bothWay)}}<br>
     {{bothWay}}<br>
     {{JSON.stringify(this.bothWay)}}
-    
+
     <input type="button" v-model="bothWay">
     <br>
 
@@ -68,10 +68,10 @@ export default ({
         }
     },
     methods: {
-        test() {            
-            console.log(JSON.stringify(this.date))
-            
-            console.log(this.date)
+        test() {
+            setTimeout(function () {
+                alert("Test중")
+            }, 3000);
         },
         Format1(value) {
 

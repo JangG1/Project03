@@ -95,7 +95,7 @@
 </div>
 <footer class="footer">
     <p>&copy; 2022 Company, Fastrip</p>
-    <a class="topBtn" href="">Top</a>
+    <a class="topBtn" href="">🎈 Top</a>
 </footer>
 
 

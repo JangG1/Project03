@@ -17,9 +17,7 @@ export default createStore({
                 'gender',
                 'birthday',]
         })
-    ],
-    // counter라는 state 속성을 추가
-
+    ],    
     state: {
         access_token: '',
         refresh_token: '',
@@ -31,6 +29,8 @@ export default createStore({
         isLogin: false,
         isLoginError: false,
         isLoad: false,
+        consentBtn1: '',
+        consentBtn2: '',
     },
   mutations: {
     setToken(state, payload) {
@@ -38,6 +38,14 @@ export default createStore({
         localStorage.setItem("refresh_token", payload.data.refresh_token);
         state.access_token = payload.data.access_token
         state.refresh_token = payload.data.refresh_token
+    },
+    setConsent1(state) {
+        console.log(state.consentBtn1)
+        state.consentBtn1 = "선택1"
+    },
+    setConsent2(state) {
+        console.log(state.consentBtn2)
+        state.consentBtn2 = "선택2"
     },
     setAccessToken(state, payload) {
         localStorage.setItem("access_token", payload.data.access_token);
@@ -89,6 +97,14 @@ export default createStore({
                     alert("이메일과 비밀번호를 확인하세요.")
                 });
         },
+        async consentBtn1({ commit }, payload) {
+                console.log(payload)
+                commit('setConsent1', payload)
+        },
+        async consentBtn2({ commit }, payload) {
+            console.log(payload)
+            commit('setConsent2', payload)
+    },
         async getRefreshToken({ commit }) {
             console.log("getRefreshToken call");
             if (!Object.prototype.hasOwnProperty.call(localStorage, "access_token"))

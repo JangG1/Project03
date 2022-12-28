@@ -160,8 +160,8 @@
 </div>
 <div class="consent" v-show="consentInfo">
     <h4>
-        <button type="button" @click="consent1" id="consentBtn1" class="consentBtn">✔ 동의</button> &nbsp;
-        [필수] 운송약관, 운임 규정, 수하물 규정을 확인하였으며 이에 동의합니다.
+        <button type="button" @click="consent1" id="consentBtn1" class="consentBtn" v-if="consentBtn1 = true">✔ 동의</button> &nbsp;
+       {{ this.$store.state.consentBtn1 }} [필수] 운송약관, 운임 규정, 수하물 규정을 확인하였으며 이에 동의합니다.
     </h4>
     <span>
         Fastrip 항공권을 구매하시는 것은 본 항공사와 운송계약 체결에 동의하는 것으로 운임규정은 항공권 변경, 취소 등에 따른 수수료와 사전좌석배정, <br>
@@ -170,8 +170,8 @@
     </span>
     <br><br>
     <h4>
-        <button type="button" @click="consent2" id="consentBtn2" class="consentBtn" disabled='disabled' autofocus>✔ 동의</button> &nbsp;
-        [필수] 위험품 안내를 확인하였습니다.
+        <button type="button" @click="consent2" id="consentBtn2" class="consentBtn" v-if="consentBtn2 = true">✔ 동의</button> &nbsp;
+        {{ this.$store.state.consentBtn2 }}[필수] 위험품 안내를 확인하였습니다.
         <button type="button" class="IATAList" @click="IATAModalPopUp()">보기</button>
     </h4>
     <span>
@@ -283,7 +283,7 @@ export default {
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
             PayModalView: false,
             IATAModalView: false,
-            PointPaymentInfo: false,
+            PointPaymentInfo: false,            
             user: {
                 fromArea: this.fromArea,
                 toArea: this.toArea,
@@ -373,7 +373,7 @@ export default {
                 this.engLastName = ""
             }
         },
-        engFirstNameTest(){
+        engFirstNameTest() {
             if (this.engFirstName == null) {
                 alert("영문 이름을 확인해주세요")
             } else if (/^[A-Z\s]*$/.test(this.engFirstName)) {
@@ -399,19 +399,20 @@ export default {
             this.IATAModalView = (this.IATAModalView) ? false : true
         },
         PayModalPopUp() {
-            const target = document.getElementById('consentBtn1');
 
             if (this.engLastName == null) {
                 alert("영문 성을 확인해주세요")
-            } 
+            }
 
             if (this.engFirstName == null) {
                 alert("영문 이름을 확인해주세요")
-            } 
+            }
 
-            if (target.style.background == "teal") {
+            if(this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
+                console.log("필수 체크 완료")
+            }else{
                 alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")
-            } 
+            }
 
             if (this.holdPoint < this.startPrice) {
                 alert("포인트가 모자랍니다.")
@@ -426,18 +427,25 @@ export default {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
         },
-        consent1() {
+        consent1() {                        
+            if(this.consentBtn1 == true){
             const target = document.getElementById('consentBtn1');
             target.style.color = "white"
             target.style.background = "teal"
             target.style.border = "3px solid teal"
-            target.disabled = false;
+            this.consentBtn1 = false
+            this.$store.dispatch("consentBtn1", true);  
+            }
         },
         consent2() {
+            if(this.consentBtn2 == true){
             const target = document.getElementById('consentBtn2');
             target.style.color = "white"
             target.style.background = "teal"
             target.style.border = "3px solid teal"
+            this.consentBtn2 = false
+            this.$store.dispatch("consentBtn2", true);  
+            }
         },
         Gender() {
 
@@ -865,7 +873,7 @@ h4 {
     width: 1210px;
     border: none;
     margin-left: 8.5%;
-    
+
 }
 
 .passInfo1,

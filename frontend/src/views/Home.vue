@@ -16,14 +16,13 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지1-->
-                <svg class="banner" viewBox="0 60 890 310">
-                    <image href="../assets/banner1.jpg" />
+                <svg class="banner" viewBox="0 80 890 315">
+                    <image href="../assets/bannerImage/1.jpg" />
                 </svg>
-                <div class="container">
+                <div class="container1">
                     <div class="carousel-caption">
-                        <h3>지금 갈 수 있는 여행지는 어디?</h3>
-                        <br>
-                        <h4>자세히 보기</h4>
+                        <h2>Fastrip</h2>
+                        <h3>Airline Ticketing</h3>
                     </div>
                 </div>
             </div>
@@ -41,15 +40,15 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지2-->
-                <svg class="banner" viewBox="0 60 890 310">
-                    <image href="../assets/banner2.jpg" />
+                <svg class="banner" viewBox="0 60 890 315">
+                    <image href="../assets/bannerImage/2.jpg" />
                 </svg>
-                <div class="container">
+                <div class="container2">
                     <div class="carousel-caption">
-                        <h3>아름다운 야경과 낭만의 도시</h3>
-                        <h4>10월 3일 헝가리 부다페스트 취항합니다</h4>
+                        <h2>Budapest</h2>
+                        <h3>Capital of Hungary</h3>
                         <br>
-                        <h4>자세히 보기</h4>
+                        <a>자세히 보기</a>
                     </div>
                 </div>
             </div>
@@ -67,15 +66,15 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" class="active" aria-label="Slide 3"></button>
                 </div>
                 <!--배너 이미지3-->
-                <svg class="banner" viewBox="0 60 890 310">
-                    <image href="../assets/banner3.jpg" />
+                <svg class="banner" viewBox="0 40 890 315">
+                    <image href="../assets/bannerImage/3.jpg" />
                 </svg>
-                <div class="container">
+                <div class="container3">
                     <div class="carousel-caption">
-                        <h3>실시간 항공권 비교하고</h3>
-                        <h4>특가 항공권 예약하세요!</h4>
+                        <h2>Fastrip</h2>
+                        <h3>The lowest-priced airline ticket!</h3>
                         <br>
-                        <h4>자세히 보기</h4>
+                        <a>자세히 보기</a>
                     </div>
                 </div>
             </div>
@@ -229,13 +228,8 @@
             <br>
             <div class="travelTip">
                 <h1>복잡한 여행을 Easy하게!</h1><br>
-                <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
-                <button type="button" class="btn btn-lg btn-default" id="checkIn">
-                    <a href="">자세히 보기 </a>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                    </svg>
-                </button>
+                <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>               
+                    <a @click="ing">자세히 보기</a>              
             </div>
         </div>
         <div>
@@ -257,7 +251,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                 </svg>
-                <a href="">예약 조회</a>
+                <a @click="ing">예약 조회</a>
             </button>
 
             <!--호텔-->
@@ -266,7 +260,7 @@
                     <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z" />
                     <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z" />
                 </svg>
-                <a href="">호텔</a>
+                <a @click="ing">호텔</a>
             </button>
             <!--렌터카-->
             <button type="button" class="btn btn-lg btn-default">
@@ -274,7 +268,7 @@
                     <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17 1.247 0 2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276Z" />
                     <path fill-rule="evenodd" d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.807.807 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155 1.806 0 4.037-.084 5.592-.155A1.479 1.479 0 0 0 15 9.611v-.413c0-.099-.01-.197-.03-.294l-.335-1.68a.807.807 0 0 0-.43-.563 1.807 1.807 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3H4.82Z" />
                 </svg>
-                <a href="">렌터카</a>
+                <a @click="ing">렌터카</a>
             </button>
         </div>
         <div class="sideTip2">
@@ -283,7 +277,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z" />
                 </svg>
-                <a href="">기내 면세점</a>
+                <a @click="ing">기내 면세점</a>
             </button>
             <!--여행자 보험-->
             <button type="button" class="btn btn-lg btn-default">
@@ -291,7 +285,7 @@
                     <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" />
                     <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                 </svg>
-                <a href="">여행자 보험</a>
+                <a @click="ing">여행자 보험</a>
             </button>
             <!--여행 상품-->
             <button type="button" class="btn btn-lg btn-default">
@@ -300,7 +294,7 @@
                     <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
                     <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
                 </svg>
-                <a href="">여행 상품</a>
+                <a @click="ing">여행 상품</a>
             </button>
         </div>
     </div>
@@ -745,17 +739,58 @@ a:visited,
 a:active {
     color: rgb(77, 77, 77);
 }
-
-.container h4{
-    color: white;
+.container1 h2{
+    color: rgba(213, 181, 22, 0.959);
+    font-size: 220px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.container1 h3{
+    color: rgba(213, 181, 22, 0.959);
+    margin-bottom: 160px;
+    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container2 h2{
+    color: rgba(213, 181, 22, 0.959);
+    font-size: 220px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container2 h3{
+    color: rgba(213, 181, 22, 0.959);
+    margin-bottom: 110px;
+    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.container3 h2{
+    color: rgb(234, 246, 255);
+    font-size: 150px;
+    font-weight: 900;
+    margin-left: 450px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container3 h3{
+    color: rgb(234, 246, 255);
+    font-size: 25px;
+    font-weight: 900;
+    margin-bottom: 180px;
+    margin-left: 520px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 .carousel-caption {
     margin-left: 600px;
     color: white;
 }
 
 .carousel-indicators {
-    margin-left: 915px;
+    margin-left: 935px;
+    color: rgba(213, 181, 22, 0.959);
 }
 
 .loginBtn {
@@ -925,7 +960,7 @@ a:active {
 .resForm {
     width: 650px;
     height: 750px;
-    box-shadow: 7px 7px 15px 0px rgb(123, 123, 123), 8px 8px 16px -10px rgba(0, 0, 0, .15);
+    box-shadow: 7px 7px 15px 0px rgb(107, 138, 138), 8px 8px 16px -10px rgb(82, 96, 96);
     border: 2px solid rgb(193, 188, 188);
     border-radius: 20px;
     background-color: rgba(252, 252, 252, 0.952);
@@ -1162,4 +1197,5 @@ a:active {
 .submit-btn:hover {
     border: 1.5px solid teal;
 }
+
 </style>

@@ -200,7 +200,7 @@ export default {
             return gender
         },
         submit() {
-
+            alert("예약하시겠습니까?")
             this.$router.push({                
                 name: 'Complete',
                 params: {

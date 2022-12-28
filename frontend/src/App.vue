@@ -12,17 +12,9 @@
         <ul class="nav">
             <router-link to="/Calendar" class="nav-link px-2 link-secondary">달력</router-link>
         </ul>
-        <ul class="nav">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <router-link to="/Test" class="nav-link px-2 link-secondary">Test</router-link>
-        </ul>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <router-link to="/Departure" class="nav-link px-2 link-secondary">Departure</router-link>
-        </ul>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <router-link to="/Payment" class="nav-link px-2 link-secondary">결제</router-link>
-        </ul>
+        </ul>        
 
         <div class="profileBox">
             <!--로그인-->

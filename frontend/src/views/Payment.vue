@@ -36,7 +36,7 @@
             <div class="pInfo3">
                 <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 {{AdultCount}}
-                <span v-show="InfantCount.substr(4,2) > 0">
+                <span v-show="ChildCount.substr(4,2) > 0">
                     {{ChildCount}}
                 </span>
                 <span v-show="InfantCount.substr(4,2) > 0">

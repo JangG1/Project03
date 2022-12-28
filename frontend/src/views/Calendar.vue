@@ -3,7 +3,7 @@
     TEST
 
     <!-- Test Zone -->
-    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날" :dayNames="lang.days" range>   
+    <Datepicker id="123" class="datePicker" type="date" v-model="bothWay" format="yyyy-MM-dd" placeholder="가는날 ~ 오는날" :dayNames="lang.days" fixed-start  range>   
         <template #month="{  value  }">
             {{ value + 1 + "월"}}
         </template>

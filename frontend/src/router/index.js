@@ -39,21 +39,27 @@ const routes = [
     props: true
   },  
   {
-    path: '/Arrival/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2',
+    path: '/Arrival/:flight1/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2',
     name: 'Arrival',
     component: () => import('../views/Arrival.vue'),
     props: true
   },
   {
-    path: '/Payment/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2',
+    path: '/Payment/:flight1/:flight2/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2',
     name: 'Payment',
     component: () => import('../views/Payment.vue'),
     props: true
   },
   {
-    path: '/PayModal/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korLastName/:korFirstName/:engLastName/:engFirstName/:gender/:birthday',
+    path: '/PayModal/:flight1/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korLastName/:korFirstName/:engLastName/:engFirstName/:gender/:birthday',
     name: 'PayModal',
     component: () => import('@/components/PayModal.vue'),
+    props: true
+  },
+  {
+    path: '/Complete/:flight1/:flight2/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startDate/:returnDate/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korLastName/:korFirstName/:engLastName/:engFirstName/:gender/:birthday',
+    name: 'Complete',
+    component: () => import('@/views/Complete.vue'),
     props: true
   },
  

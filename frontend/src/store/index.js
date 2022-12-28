@@ -15,7 +15,8 @@ export default createStore({
                 'name',
                 'email',
                 'gender',
-                'birthday',]
+                'birthday',
+                'holdPoint']
         })
     ],    
     state: {
@@ -31,6 +32,7 @@ export default createStore({
         isLoad: false,
         consentBtn1: '',
         consentBtn2: '',
+        holdPoint: '',
     },
   mutations: {
     setToken(state, payload) {
@@ -46,6 +48,9 @@ export default createStore({
     setConsent2(state) {
         console.log(state.consentBtn2)
         state.consentBtn2 = "선택2"
+    },
+    setHoldPoint(state, payload) {
+        state.holdPoint = payload
     },
     setAccessToken(state, payload) {
         localStorage.setItem("access_token", payload.data.access_token);
@@ -104,7 +109,10 @@ export default createStore({
         async consentBtn2({ commit }, payload) {
             console.log(payload)
             commit('setConsent2', payload)
-    },
+        },
+        async holdPoint({ commit }, payload) {
+            commit('setHoldPoint', payload)
+        },
         async getRefreshToken({ commit }) {
             console.log("getRefreshToken call");
             if (!Object.prototype.hasOwnProperty.call(localStorage, "access_token"))

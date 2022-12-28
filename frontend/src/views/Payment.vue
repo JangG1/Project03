@@ -60,7 +60,8 @@
                 {{fromArea}} &nbsp;
                 →&nbsp;
                 {{toArea}}
-            </div>
+                &nbsp;&nbsp;{{ flight1 }}
+            </div>            
             <span>│</span>
             <div class="pStartInfo2">
                 {{Format(startDate)}} {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
@@ -81,6 +82,7 @@
                 {{fromArea}} &nbsp;
                 →&nbsp;
                 {{toArea}}
+                &nbsp;&nbsp; {{ flight2 }}
             </div>
             <span>│</span>
             <div class="pArriveInfo2">
@@ -266,7 +268,6 @@ export default {
             start: '',
             arrive: '',
             price: '',
-            holdPoint: 0,
             selectPrice: this.startPrice,
             seatPrice: 0,
             passInfo: true,
@@ -278,13 +279,16 @@ export default {
             korFirstName: this.$store.state.name.substring(1, 3),
             engLastName: this.engLastName,
             engFirstName: this.engFirstName,
-            gender: this.$store.state.gender,
-            autofocus: true,
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
+            gender: this.$store.state.gender,
+            autofocus: true,            
             PayModalView: false,
             IATAModalView: false,
             PointPaymentInfo: false,            
+            holdPoint: this.$store.state.holdPoint,
             user: {
+                flight1: this.flight1,
+                flight2: this.flight2,
                 fromArea: this.fromArea,
                 toArea: this.toArea,
                 seat: this.seat,
@@ -311,6 +315,14 @@ export default {
         }
     },
     props: {
+        flight1: {
+            type: String,
+            default: ''
+        },
+        flight2: {
+            type: String,
+            default: ''
+        },
         fromArea: {
             type: String,
             default: ''
@@ -391,6 +403,7 @@ export default {
         },
         addPoint() {
             this.holdPoint += 300000
+            this.$store.dispatch("holdPoint", this.holdPoint);  
         },
         closeModal() {
             this.PayModalView = (this.PayModalView) ? false : true
@@ -411,15 +424,15 @@ export default {
             if(this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                 console.log("필수 체크 완료")
             }else{
-                alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")
+                alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")                
             }
 
             if (this.holdPoint < this.startPrice) {
                 alert("포인트가 모자랍니다.")
             } else if (this.holdPoint >= this.startPrice) {
-                if (this.engLastName != null && this.engFirstName != null) {
+                if (this.engLastName != null && this.engFirstName != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                     this.PayModalView = (this.PayModalView) ? false : true
-                }
+               }
             }
 
         },

@@ -193,19 +193,19 @@
 <!-- 조회버튼 -->
 <div class="refer">
     <!--예약 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default">
+    <button type="button" class="btn btn-lg btn-default" @click="ing">
         <img src="../assets/magnifier.jpg" width="30" height="30">
         <a href="">예약 조회</a>
     </button>
     <!-- 버튼-->
     <img src="../assets/vertical.jpg" width="20" height="40">
-    <button type="button" class="btn btn-lg btn-default" id="checkIn">
+    <button type="button" class="btn btn-lg btn-default" id="checkIn" @click="ing">
         <img src="../assets/check.png" width="30" height="30">
         <a href="">체크인</a>
     </button>
     <img src="../assets/vertical.jpg" width="20" height="40">
     <!--항공편 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default">&nbsp;
+    <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;
         <img src="../assets/calendar.png" width="30" height="30">
         <a href="">항공편 현황</a>
     </button>
@@ -372,6 +372,9 @@ export default {
         }
     },
     methods: {
+        ing(){
+            alert('준비중입니다.')
+        },
         datepickerShow1() {
             this.datePickerShow1 = false;
             this.selectDate1 = true;
@@ -895,16 +898,12 @@ a:active {
     display: flex;
     margin-left: 280px;
     margin-bottom: 30px;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .topBtn {
-    margin-left: 1250px;
-    margin-bottom: 30px;
-}
-
-.carousel-inner {
-    height: 800px;
+    margin-left: 65%;
+    margin-bottom: 2%;
 }
 
 .footLogo {
@@ -914,9 +913,13 @@ a:active {
 }
 
 .footLogoName {
-    margin-top: 20px;
+    margin-top: 50px;
     font-size: 40px;
     font-family: "NanumBarunGothicBold";
+}
+
+.carousel-inner {
+    height: 800px;
 }
 
 .resForm {

@@ -1,0 +1,121 @@
+korLastName
+korFirstName
+engLastName
+engFirstName
+birthday
+gender
+fromArea
+toArea
+seat
+seatClass1
+seatClass2
+startDate
+returnDate
+InfantCount
+ChildCount
+AdultCount
+startTime1
+arriveTime1                
+startTime2
+arriveTime2
+startPrice
+
+
+korLastName: this.user.korLastName,
+korFirstName: this.user.korFirstName,
+engLastName: this.engLastName,
+engFirstName: this.engFirstName,
+birthday: this.user.birthday,
+gender: this.user.gender,
+fromArea: this.user.fromArea,
+toArea: this.user.toArea,
+seat: this.user.seat,
+seatClass1: this.user.seatClass1,
+seatClass2: this.user.seatClass2,
+startDate: this.user.startDate,
+returnDate: this.user.returnDate,
+InfantCount: this.user.InfantCount,
+ChildCount: this.user.ChildCount,
+AdultCount: this.user.AdultCount, 
+startTime1: this.user.startTime1,
+arriveTime1:this.user.arriveTime1,                   
+startTime2: this.user.startTime2,
+arriveTime2: this.user.arriveTime2,
+startPrice: this.user.startPrice,   
+
+
+korLastName: {
+            type: String,
+            default: ''
+        },
+        korFirstName: {
+            type: String,
+            default: ''
+        },
+        engLastName: {
+            type: String,
+            default: ''
+        },
+        engFirstName: {
+            type: String,
+            default: ''
+        },
+        birthday: {
+            type: Number            
+        },
+        gender: {
+            type: String,
+            default: ''
+        },
+        fromArea: {
+            type: String,
+            default: ''
+        },
+        toArea: {
+            type: String,
+            default: ''
+        },
+        seat: {
+            type: String,
+            default: ''
+        },
+        seatClass1: {
+            type: String,
+            default: ''
+        },
+        seatClass2: {
+            type: String,
+            default: ''
+        },
+        startDate: {
+            type: String,
+            default: ''
+        },
+        returnDate: {
+            type: String,
+            default: ''
+        },
+        InfantCount: {
+            type: Number
+        },
+        ChildCount: {
+            type: Number
+        },
+        AdultCount: {
+            type: Number
+        },
+        startTime1: {
+            type: String
+        },
+        arriveTime1: {
+            type: String
+        },
+        startTime2: {
+            type: String
+        },
+        arriveTime2: {
+            type: String
+        },
+        startPrice: {
+            type: Number
+        },

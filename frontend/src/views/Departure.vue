@@ -37,16 +37,20 @@
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
                 <h3>{{res.start}}</h3>
-                <span> {{ fromArea }}</span>
+                <span> {{ fromArea }}</span><br>
+                <div class="flight">
+                <img src="@/assets/Logo.png" class="flightLogo">
+                    {{ res.flight }}
+                </div>
             </div>
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
             <div class="arriveTime">
                 <h3>{{res.arrive}} </h3>
                 <span>{{ toArea }}</span>
-            </div>
+            </div><br>            
         </div>
 
-        <button type="button" class="seatSelect" @click="selectStandard(index)">
+        <button type="button" class="seatSelect" @click="[selectStandard(index),selectFlight(index)]">
             <h3>{{seat}} {{res.standard}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
@@ -55,7 +59,7 @@
             <span>{{AddComma(res.priceStandard)+ " 원"}}</span><br>
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
-        <button type="button" class="seatSelect" @click="selectFlex(index)">
+        <button type="button" class="seatSelect" @click="[selectFlex(index),selectFlight(index)]">
             <h3>{{seat}} {{res.flex}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
@@ -139,8 +143,6 @@ export default {
             let arriveTime = this.st[index].arrive;
             let seatClass = this.st[index].standard;
 
-            console.log(this.st[index].standard)
-
             this.selectPrice = priceStandard;
             this.startTime = startTime;
             this.arriveTime = arriveTime;
@@ -152,12 +154,17 @@ export default {
             let arriveTime = this.st[index].arrive;
             let seatClass = this.st[index].flex;
 
-            console.log(this.st[index].flex)
-
             this.selectPrice = priceFlex;
             this.startTime = startTime;
             this.arriveTime = arriveTime;
             this.seatClass = seatClass;
+        },
+        selectFlight(index){
+            console.log(this.st[index].flight)
+
+            let flight = this.st[index].flight;
+
+            this.flight1 = flight;
         },
         Format(value) {
             var string = value.toString();
@@ -228,6 +235,7 @@ export default {
             this.$router.push({
                 name: path,
                 params: {
+                    flight1: this.flight1,
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     seat: this.seat,
@@ -256,6 +264,16 @@ export default {
 </script>
 
 <style>
+.flight{
+    margin-top: 15px;
+    color: #999;
+}
+
+.flightLogo{
+    width: 30px;
+    height: 30px;    
+}
+
 .step{
     float: right;
     margin-right: 200px;
@@ -331,13 +349,13 @@ export default {
 
 .day-seat-select button {
     width: 40%;
-    height: 150px;
+    height: 180px;
     background-color: white;
 }
 
 .timeSelect {
     width: 40%;
-    height: 150px;
+    height: 180px;
     border: 1px solid;
 }
 
@@ -382,8 +400,7 @@ export default {
 }
 
 .seatSelect:focus {
-    width: 600px;
-    height: 150px;
+    width: 600px;    
     transform: translate(-0.5%, -10%);
     border-radius: 15px;
     background-color: teal;

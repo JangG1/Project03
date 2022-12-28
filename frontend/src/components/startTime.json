@@ -1,5 +1,6 @@
 [
     {
+        "flight": "FT-0001",
         "start": "07:40",
         "arrive": "11:50",
         "standard": "스탠다드",
@@ -8,6 +9,7 @@
         "priceFlex": "430000"
     }, 
     {
+        "flight": "FT-0002",
         "start": "10:50",
         "arrive": "15:00",
         "standard": "스탠다드",

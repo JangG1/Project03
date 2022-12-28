@@ -12,7 +12,7 @@
             <span id="prodCity">{{imageUrl.city}}</span><br>
             <span id="prodWay">{{imageUrl.way}}</span><br>
             <span id="prodPrice">{{"KRW " + AddComma(imageUrl.price)}}</span><br>
-            <button type="button" class="detailBtn">자세히 보기</button>
+            <button type="button" class="detailBtn" @click="ing">자세히 보기</button>
         </span>
 
     </div>
@@ -87,6 +87,9 @@ export default {
         };
     },
     methods: {
+        ing(){
+            alert("준비중입니다.")
+        },
         prev() {
             if (this.curPos > 0) {
                 this.postion += this.IMAGE_WIDTH;

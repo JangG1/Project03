@@ -7,7 +7,7 @@
     <br>
 
     <div class="infoList">
-        <div class="mInfo">
+        <div class="title2">
             승객 정보
         </div>
         <div class="infoLeft">
@@ -24,17 +24,19 @@
         </div>
     </div>
 
-    <div class="infoList">
-        <div class="To">
+    <div class="areaList">
+        <div class="title2">
             가는편
         </div>
         <div class="infoLeft">
             <span class="listLeft">항공편</span><br><br>
+            <span class="listLeft">여행 경로</span><br><br>
             <span class="listLeft">여행 일정</span><br><br>
             <span class="listLeft">승객 수</span><br><br>
             <span class="listLeft">좌석</span>
         </div>
         <div class="infoRight">
+            <span class="listRight">{{user.flight1}}</span><br><br>
             <span class="listRight">{{user.fromArea}} &nbsp;→&nbsp; {{user.toArea}}</span><br><br>
             <span class="listRight">{{Format(user.startDate)}} {{user.startTime1}} ~ {{user.arriveTime1}}</span><br><br>
              <span class="listRight" v-show="infantCountView">{{InfantCount(user.InfantCount)}}</span>             
@@ -45,19 +47,21 @@
         </div>
     </div>
 
-    <div class="infoList">
-        <div class="From">
+    <div class="areaList">
+        <div class="title2">
             오는편
         </div>
         <div class="infoLeft">
             <span class="listLeft">항공편</span><br><br>
+            <span class="listLeft">여행 경로</span><br><br>
             <span class="listLeft">여행 일정</span><br><br>
             <span class="listLeft">승객 수</span><br><br>
             <span class="listLeft">좌석</span>
         </div>
         <div class="infoRight">
+            <span class="listRight">{{user.flight2}}</span><br><br>
             <span class="listRight">{{user.toArea}} &nbsp;→&nbsp; {{user.fromArea}}</span><br><br>
-            <span class="listRight">{{Format(user.returnDate)}} {{user.startTime2}} ~ {{user.startTime2}}</span><br><br>
+            <span class="listRight">{{Format(user.returnDate)}} {{user.startTime2}} ~ {{user.arriveTime2}}</span><br><br>
              <span class="listRight" v-show="infantCountView">{{InfantCount(user.InfantCount)}}</span>             
              <span class="listRight" v-show="childCountView">{{ChildCount(user.ChildCount)}}</span>
              <span class="listRight">{{user.AdultCount}}</span>             
@@ -67,7 +71,21 @@
     </div>
     <br>
 
-    <!--test-->
+    <div class="payList">
+        <div class="title2">
+            결제
+        </div>
+        <div class="infoLeft">
+            <span class="listLeft">결제 수단</span><br><br>
+            <span class="listLeft">결제 후 포인트</span><br><br>            
+        </div>
+        <div class="infoRight">
+            <span class="listRight">포인트 결제</span><br><br>
+            <span class="listRight">{{this.$store.state.holdPoint - user.startPrice}}</span><br><br>             
+        </div>        
+    </div>
+
+    <!--submit-->    
     <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
 </div>
 </template>
@@ -182,7 +200,36 @@ export default {
             return gender
         },
         submit() {
-            alert("예약하시겠습니까?")
+
+            this.$router.push({                
+                name: 'Complete',
+                params: {
+                    flight1: this.user.flight1,
+                    flight2: this.user.flight2,
+                    korLastName: this.user.korLastName,
+                    korFirstName: this.user.korFirstName,
+                    engLastName: this.engLastName,
+                    engFirstName: this.engFirstName,
+                    birthday: this.user.birthday,
+                    gender: this.user.gender,
+                    fromArea: this.user.fromArea,
+                    toArea: this.user.toArea,
+                    seat: this.user.seat,
+                    seatClass1: this.user.seatClass1,
+                    seatClass2: this.user.seatClass2,
+                    startDate: this.user.startDate,
+                    returnDate: this.user.returnDate,
+                    InfantCount: this.user.InfantCount,
+                    ChildCount: this.user.ChildCount,
+                    AdultCount: this.user.AdultCount, 
+                    startTime1: this.user.startTime1,
+                    arriveTime1:this.user.arriveTime1,                   
+                    startTime2: this.user.startTime2,
+                    arriveTime2: this.user.arriveTime2,
+                    startPrice: this.user.startPrice,                    
+                }
+            });
+
         }
     },
 }
@@ -194,13 +241,6 @@ export default {
     margin-left: 4%;
     color: teal;
     font-weight: 900;        
-}
-
-.title{
-    color: teal;
-    font-size: 26px;
-    font-weight: 900;        
-    position: relative;
 }
 
 .payCloseBtn{
@@ -221,11 +261,29 @@ export default {
     background-color: white;
 }
 
+.payList{
+    border: 1px solid teal;
+    border-radius: 4px;
+    height: 200px;        
+    margin-bottom: 40px;
+}
+
 .infoList {
     border: 1px solid teal;
     border-radius: 4px;
-    height: 300px;
+    height: 320px;
+    margin-top: 30px;
     margin-bottom: 20px;
+    
+}
+
+.areaList {
+    border: 1px solid teal;
+    border-radius: 4px;
+    height: 380px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    
 }
 
 .infoLeft {
@@ -252,9 +310,7 @@ export default {
 }
 
 
-.mInfo,
-.To,
-.From {
+.title2{
     width: 100.1%;
     color: white;
     background-color: teal;
@@ -269,6 +325,7 @@ export default {
     width: 180px;
     height: 50px;
     font-size: 24px;
+    font-weight: 900;
     color: white;
     border: 1px solid white;
     border-radius: 4px;

@@ -58,6 +58,7 @@ export default {
             console.log("오늘은 1일")
             }
 
+            //쿠키등록일과 오늘 비교
             if(tomorrow == nowDay){
             VueCookies.remove('test')
             console.log('삭제됨')

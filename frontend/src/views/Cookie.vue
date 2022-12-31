@@ -45,14 +45,20 @@ export default {
         resetTest: () => {
             var Now = new Date(); // 현재 날짜 및 시간
 
+
             var nowDay = Now.getDate(); // 일
-            var setDay = parseInt(VueCookies.get('test')) + 1;
+            var tomorrow = parseInt(VueCookies.get('test')) + 1;
 
             console.log("설정날짜 " + VueCookies.get('test'))
-            console.log("다음날 " + setDay)
+            console.log("다음날 " + tomorrow)
             console.log("오늘 " + nowDay)
 
-            if(setDay == nowDay){
+            //오늘이 1일인 경우
+            if(nowDay == 1){
+            console.log("오늘은 1일")
+            }
+
+            if(tomorrow == nowDay){
             VueCookies.remove('test')
             console.log('삭제됨')
             }

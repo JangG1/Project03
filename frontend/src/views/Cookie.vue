@@ -57,7 +57,7 @@ export default {
             console.log("다음날 " + tomorrow)
             console.log("오늘 " + nowDay)
 
-            //오늘이 1일인 경우 
+            //오늘이 1일인 경우  
             if (nowDay == 1) {
                 console.log("오늘은 1일")
             }

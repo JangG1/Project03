@@ -1,5 +1,10 @@
 <template>
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!--공지 모달-->
+    <div v-if="NoticeModalView == true" class="NoticeModalView" :class="{ active : NoticeModalView }">
+        <NoticeModal @close="NoticeModalPopUp"></NoticeModal>
+    </div>
+
     <div class="carousel-inner">
         <span class="">
             <!--배너1-->
@@ -228,8 +233,8 @@
             <br>
             <div class="travelTip">
                 <h1>복잡한 여행을 Easy하게!</h1><br>
-                <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>               
-                    <a @click="ing">자세히 보기</a>              
+                <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
+                <a @click="ing">자세히 보기</a>
             </div>
         </div>
         <div>
@@ -245,14 +250,14 @@
     </div>
     <div class="sideTip">
         <div class="sideTip1">
-                <a @click="ing">🔍&nbsp; 예약 조회</a>
-                <a @click="ing">🏦&nbsp; 호텔</a>       
-                <a @click="ing">🚗&nbsp; 렌터카</a>    
+            <a @click="ing">🔍&nbsp; 예약 조회</a>
+            <a @click="ing">🏦&nbsp; 호텔</a>
+            <a @click="ing">🚗&nbsp; 렌터카</a>
         </div>
         <div class="sideTip2">
-                <a @click="ing">📖&nbsp; 기내 면세점</a>
-                <a @click="ing">📝&nbsp; 여행자 보험</a>
-                <a @click="ing">📋&nbsp; 여행 상품</a>
+            <a @click="ing">📖&nbsp; 기내 면세점</a>
+            <a @click="ing">📝&nbsp; 여행자 보험</a>
+            <a @click="ing">📋&nbsp; 여행 상품</a>
         </div>
     </div>
 
@@ -277,6 +282,7 @@ import FromArea from './FromArea.vue';
 import ToArea from './ToArea.vue';
 import axios from 'axios';
 import Product from './Product.vue';
+import NoticeModal from "@/components/NoticeModal.vue";
 
 export default {
     name: 'HelloWorld',
@@ -285,7 +291,8 @@ export default {
         HeadCount,
         FromArea,
         ToArea,
-        Product
+        Product,
+        NoticeModal
     },
     props: [''],
     data() {
@@ -320,11 +327,15 @@ export default {
             fromBtn2: false,
             toBtn2: false,
             returnDate: "",
+            NoticeModalView: true,
         }
     },
     methods: {
-        ing(){
+        ing() {
             alert('준비중입니다.')
+        },
+        NoticeModalPopUp() {
+            this.NoticeModalView = (this.NoticeModalView) ? false : true
         },
         datepickerShow1() {
             this.datePickerShow1 = false;
@@ -607,15 +618,15 @@ export default {
                 alert("날짜를 선택해주세요.")
             }
 
-            if(this.fromImgName == "SEL"){
+            if (this.fromImgName == "SEL") {
                 alert("출발지를 선택해주세요.")
                 return false;
             }
 
-            if(this.toImgName == "main"){
+            if (this.toImgName == "main") {
                 alert("도착지를 선택해주세요.")
                 return false;
-            }   
+            }
 
             if (this.oneWay.toString() != false) {
                 var string1 = this.oneWay.toString();
@@ -666,8 +677,32 @@ export default {
 </script>
 
 <style>
+.NoticeModalView {
+    padding: 20px;
+    position: fixed;
+    top: 40%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    height: 70%;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 1px 1px 6px teal;
+    z-index: 10;
+}
+
+.NoticeModalView::before {
+    display: block;
+}
+
+.NoticeodalView::-webkit-scrollbar {
+    width: 0px;
+}
+
 .part2 {
     background-image: url("../assets/part2.jpg");
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 
 .part4 {
@@ -696,34 +731,34 @@ a:visited,
 a:active {
     color: rgb(77, 77, 77);
 }
-.container1 h2{
+
+.container1 h2 {
     color: rgba(213, 181, 22, 0.959);
     font-size: 220px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.container1 h3{
+.container1 h3 {
     color: rgba(213, 181, 22, 0.959);
     margin-bottom: 160px;
     font-size: 40px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.container2 h2{
+.container2 h2 {
     color: rgba(213, 181, 22, 0.959);
     font-size: 220px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.container2 h3{
+.container2 h3 {
     color: rgba(213, 181, 22, 0.959);
     margin-bottom: 110px;
     font-size: 40px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-
-.container3 h2{
+.container3 h2 {
     color: rgb(234, 246, 255);
     font-size: 150px;
     font-weight: 900;
@@ -731,7 +766,7 @@ a:active {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.container3 h3{
+.container3 h3 {
     color: rgb(234, 246, 255);
     font-size: 25px;
     font-weight: 900;
@@ -825,7 +860,7 @@ a:active {
     color: white;
     margin-left: 5%;
     margin-top: 10%;
-    
+
 }
 
 .sideTip {
@@ -838,8 +873,8 @@ a:active {
     color: white;
 }
 
-.sideTip1 {    
-    border-radius: 8px;    
+.sideTip1 {
+    border-radius: 8px;
     padding: 40px 100px;
 }
 
@@ -1115,5 +1150,4 @@ a:active {
 .submit-btn:hover {
     border: 1.5px solid teal;
 }
-
 </style>

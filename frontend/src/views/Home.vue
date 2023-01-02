@@ -5,7 +5,7 @@
         <NoticeModal @move="move" @close="NoticeModalPopUp"></NoticeModal>
     </div>
 
-    <div class="carousel-inner">
+    <div class="carousel-inner" id="top">
         <span class="">
             <!--배너1-->
             <div class="carousel-item active">
@@ -53,7 +53,7 @@
                         <h2>Budapest</h2>
                         <h3>Capital of Hungary</h3>
                         <br>
-                        <a>자세히 보기</a>
+                        <a @click="ing">자세히 보기</a>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                         <h2>Fastrip</h2>
                         <h3>The lowest-priced airline ticket!</h3>
                         <br>
-                        <a>자세히 보기</a>
+                        <a @click="ing">자세히 보기</a>
                     </div>
                 </div>
             </div>
@@ -270,7 +270,7 @@
 </div>
 <footer class="footer">
     <p>&copy; 2022 Company, Fastrip</p>
-    <a class="topBtn" href="">🎈 Top</a>
+    <a class="topBtn" href="#top">🎈 Top</a>
 </footer>
 </template>
 

@@ -12,6 +12,9 @@ gender : {{$store.state.gender}} <br>
 birth : {{$store.state.birthday}} <br>
 Test : {{$store.state.userInfo}} <br>
 
+=======================================================
+<br>
+<button type="button" @click="test">test</button>
 </template>
 
 <script>
@@ -41,12 +44,22 @@ export default {
     },
     created() {},
     methods: {
+        test() {
+            let today = new Date();
+
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1; // 월
+            let date = today.getDate(); // 날짜
+            let day = today.getDay(); // 요일
+
+            return alert(year + "/" + month + "/" + date + "/" + day)
+        },
         kakaoLogin() {
             // console.log(window.Kakao);
             window.Kakao.Auth.login({
                 scope: "profile_nickname, profile_image, account_email, gender, birthday",
                 success: this.kakaoInfo,
-            });            
+            });
         },
         async kakaoInfo(authObj) {
             console.log(authObj);
@@ -73,13 +86,12 @@ export default {
                 },
                 fail: (error) => {
                     this.$router.push("/errorPage");
-                    console.log(error);                    
+                    console.log(error);
                 },
 
-                
             });
-            this.$store.dispatch('setUserInfo',userInfo)          
-            
+            this.$store.dispatch('setUserInfo', userInfo)
+
             this.name = this.$store.state.userInfo.name;
             this.email = this.$store.state.userInfo.email;
             this.gender = this.$store.state.userInfo.gender;

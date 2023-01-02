@@ -2,7 +2,7 @@
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <!--공지 모달-->
     <div v-if="NoticeModalView == true" class="NoticeModalView" :class="{ active : NoticeModalView }">
-        <NoticeModal @close="NoticeModalPopUp"></NoticeModal>
+        <NoticeModal @move="move" @close="NoticeModalPopUp"></NoticeModal>
     </div>
 
     <div class="carousel-inner">
@@ -209,15 +209,14 @@
     </button>
     <img src="../assets/vertical.jpg" width="20" height="40">
     <!--항공편 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;
-        <img src="../assets/calendar.png" width="30" height="30">
-        <a href="">항공편 현황</a>
+    <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;        
+        <a href="">✈ &nbsp; 항공편 현황</a>
     </button>
 
 </div>
 <br>
 
-<div class="part2">
+<div class="part2" id="part2">
     <hr>
 
     <!-- 추천 여행지 -->
@@ -227,7 +226,7 @@
     <hr>
 </div>
 
-<div class="recommendProduct">
+<div class="recommendProduct" id="part3">
     <div class="">
         <div class="">
             <br>
@@ -244,7 +243,7 @@
 </div>
 
 <!--여행 도우미-->
-<div class="part4">
+<div class="part4" id="part4">
     <div class="side">
         <h2>여행의 완성을 위한 경험</h2>
     </div>
@@ -333,6 +332,9 @@ export default {
     methods: {
         ing() {
             alert('준비중입니다.')
+        },
+        move(){
+            
         },
         NoticeModalPopUp() {
             this.NoticeModalView = (this.NoticeModalView) ? false : true
@@ -683,7 +685,7 @@ export default {
     top: 40%;
     left: 70%;
     transform: translate(-50%, -50%);
-    width: 35%;
+    width: 30%;
     height: 70%;
     border-radius: 15px;
     background-color: white;
@@ -828,20 +830,20 @@ a:active {
 
 .refer {
     text-align: center;
-    margin-top: 1%;
+    margin-top: 3.5%;
     margin-bottom: 2%;
+    font-size: 30px;
+    
 }
 
 .refer button {
     width: 400px;
-}
-
-.refer span {
-    font-size: 30px;
+    font-weight: 900;
 }
 
 .recommendProduct {
     margin-top: 10%;
+    margin-bottom: 3%;
 }
 
 .travelImg {

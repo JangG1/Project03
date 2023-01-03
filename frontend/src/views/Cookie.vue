@@ -55,7 +55,7 @@ export default {
 
             //오늘이 1일인 경우
             if(nowDay == 1){
-            console.log("오늘은 1일")
+            
             }
 
             //쿠키등록일과 오늘 비교

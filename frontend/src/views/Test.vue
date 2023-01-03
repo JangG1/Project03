@@ -14,12 +14,17 @@ Test : {{$store.state.userInfo}} <br>
 
 =======================================================
 <br>
-<button type="button" @click="test">test</button>
+<div class="browser-bottom_left">
+    <input id="Chkbox" type="checkbox" class="today-btn">
+    <label for="Chkbox" @click="checkModalToday">오늘 하루 그만보기</label>
+</div>
+<button class="closeNotice" @click="closeModal">닫기</button>
 </template>
 
 <script>
 //import axios from 'axios';
 import ProfileItem from "@/components/ProfileItem.vue";
+import cookie from 'js-cookie';
 
 export default {
     name: "HelloWorld",
@@ -29,7 +34,7 @@ export default {
             email: '',
             gender: '',
             birthday: '',
-
+            testView: true,
         }
     },
     components: {
@@ -44,15 +49,20 @@ export default {
     },
     created() {},
     methods: {
-        test() {
-            let today = new Date();
+        checkModalToday() {
+            this.setCookie('bPop', 'Y', 1);
+            this.closeModal();
+        },
 
-            let year = today.getFullYear(); // 년도
-            let month = today.getMonth() + 1; // 월
-            let date = today.getDate(); // 날짜
-            let day = today.getDay(); // 요일 
-
-            return alert(year + "/" + month + "/" + date + "/" + day)
+        setCookie(key, value, expireDays) {
+            cookie.set(key, value, {
+                expires: expireDays,
+                path: ''
+            });
+        },
+        closeModal() {
+            alert("123")
+            this.$emit('close')
         },
         kakaoLogin() {
             // console.log(window.Kakao);
@@ -109,6 +119,15 @@ export default {
             });
             localStorage.clear(); // 전체삭제
         },
+    },
+    mounted() {
+        this.getEncodeData();
+        // this.showAlert();
+        this.checkCookie('bPop');
+    },
+
+    checkCookie(name) {
+        if (cookie.get(name) !== 'Y') this.showModal('browserPopup');
     }
 }
 </script>

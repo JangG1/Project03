@@ -68,10 +68,32 @@ export default ({
         }
     },
     methods: {
-        test() {
+        test1() {
             setTimeout(function () {
                 alert("Test중")
             }, 3000);
+        },
+        test2() {
+            /*let today = new Date();
+
+            document.write(today.toLocaleDateString() + '<br>');
+            document.write(today.toLocaleTimeString() + '<br>');
+            document.write(today.toLocaleString() + '<br><br>');
+
+            document.write(today.toLocaleDateString('en-US'))*/
+
+            let today = new Date();
+
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1; // 월
+            let date = today.getDate(); // 날짜
+            let day = today.getDay(); // 요일 
+            let hours = today.getHours(); // 시
+            let minutes = today.getMinutes(); // 분
+            let seconds = today.getSeconds(); // 초
+            let milliseconds = today.getMilliseconds(); // 밀리초
+
+            return alert(year + "/" + month + "/" + date + "/" + day + "/" + hours + ":" + minutes + ":" + seconds + ":" + milliseconds)
         },
         Format1(value) {
 

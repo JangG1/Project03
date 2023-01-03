@@ -62,7 +62,13 @@ const routes = [
     component: () => import('@/views/Complete.vue'),
     props: true
   },
- 
+  {
+    path: '/Cookie',
+    name: 'Cookie',
+    component: () => import('../views/Cookie.vue'),
+    props: true
+  },
+
 ]
 
 const router = createRouter({

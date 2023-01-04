@@ -13,15 +13,15 @@
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                </button>
+                </button>                                    
                 <!--슬라이드 페이지 표시-->
-                <div class="carousel-indicators">
+                <!-- <div class="carousel-indicators">
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
+                </div> -->
                 <!--배너 이미지1-->
-                <svg class="banner" viewBox="0 80 890 315">
+                <svg class="banner" viewBox="0 80 800 315">
                     <image href="../assets/bannerImage/1.jpg" />
                 </svg>
                 <div class="container1">
@@ -39,11 +39,11 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--슬라이드 페이지 표시-->
-                <div class="carousel-indicators">
+                <!-- <div class="carousel-indicators">
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" class="active" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
+                </div> -->
                 <!--배너 이미지2-->
                 <svg class="banner" viewBox="0 60 890 315">
                     <image href="../assets/bannerImage/2.jpg" />
@@ -53,7 +53,7 @@
                         <h2>Budapest</h2>
                         <h3>Capital of Hungary</h3>
                         <br>
-                        <a @click="ing">자세히 보기</a>
+                        <h4 @click="ing">자세히 보기</h4>
                     </div>
                 </div>
             </div>
@@ -65,11 +65,11 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--슬라이드 페이지 표시-->
-                <div class="carousel-indicators">
+                <!-- <div class="carousel-indicators">
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" class="active" aria-label="Slide 3"></button>
-                </div>
+                </div> -->
                 <!--배너 이미지3-->
                 <svg class="banner" viewBox="0 40 890 315">
                     <image href="../assets/bannerImage/3.jpg" />
@@ -79,7 +79,7 @@
                         <h2>Fastrip</h2>
                         <h3>The lowest-priced airline ticket!</h3>
                         <br>
-                        <a @click="ing">자세히 보기</a>
+                        <h4 @click="ing">자세히 보기</h4>
                     </div>
                 </div>
             </div>
@@ -742,7 +742,7 @@ a:active {
 
 .container1 h3 {
     color: rgba(213, 181, 22, 0.959);
-    margin-bottom: 160px;
+    margin-bottom: 320px;
     font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -755,16 +755,21 @@ a:active {
 
 .container2 h3 {
     color: rgba(213, 181, 22, 0.959);
-    margin-bottom: 100px;
     font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container2 h4 {
+    font-size: 20px;
+    margin-bottom: 240px;
+    cursor: pointer;
 }
 
 .container3 h2 {
     color: rgb(234, 246, 255);
     font-size: 80px;
     font-weight: 900;
-    margin-left: 110px;
+    margin-left: 40px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -772,9 +777,13 @@ a:active {
     color: rgb(234, 246, 255);
     font-size: 18px;
     font-weight: 900;
-    margin-bottom: 80px;
-    margin-left: 120px;
+    margin-left: 50px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container3 h4 {
+    margin-left: 100px;
+    margin-bottom: 240px;
 }
 
 .carousel-caption {
@@ -798,9 +807,11 @@ a:active {
 .banner {
     border-radius: 15px;
     width: 98%;
+    height: 800px;
     margin-left: 1%;
     margin-right: 1%;
 }
+
 
 .carousel-control-prev {
     /* 사이즈 */
@@ -1155,18 +1166,29 @@ a:active {
 
 @media (min-width: 1450px) {
 
-.container1 h2 {
-    font-size: 150px;    
-}
+    .container1 h2 {
+        font-size: 150px;
+    }
 
-.container1 h3,
-.container2 h3 {
-    font-size: 30px;
-}
+    .container1 h3 {
+        font-size: 30px;
+        margin-bottom: 250px;
+    }
 
-.container2 h2{
-    font-size: 130px;
-}
+    .container2 h2 {
+        font-size: 130px;
+    }
+
+
+    .container2 h3 {
+        font-size: 40px;
+    }
+
+    .container2 h4 {
+        font-size: 20px;
+        margin-bottom: 200px;
+    }
+    
 }
 
 @media (min-width: 1900px) {
@@ -1175,30 +1197,44 @@ a:active {
         font-size: 240px;
     }
 
-    .container1 h3,
+    .container1 h3 {
+        font-size: 40px;
+        margin-bottom: 220px;
+    }
+
+    .container2 h2 {
+        font-size: 200px;
+    }
+
     .container2 h3 {
         font-size: 40px;
     }
 
-    .container2 h2{
-        font-size: 200px;
+    .container2 h4 {
+        font-size: 30px;
+        margin-bottom: 170px;
     }
 }
 
 @media (min-width: 1600px) {
     .container3 h2 {
         font-size: 100px;
-        margin-left: 380px;        
+        margin-left: 300px;
     }
 
     .container3 h3 {
         font-size: 20px;
-        margin-left: 410px;
-        margin-bottom: 130px;
+        margin-left: 310px;
+    }
+
+    .container3 h4 {
+        font-size: 25px;
+        margin-left: 310px;
+        margin-bottom: 220px;
     }
 }
 
-@media (min-width: 2050px) {
+@media (min-width: 2000px) {
     .container3 h2 {
         font-size: 140px;
         margin-left: 530px;
@@ -1207,7 +1243,12 @@ a:active {
     .container3 h3 {
         font-size: 25px;
         margin-left: 560px;
-        margin-bottom: 180px;
+    }
+
+    .container3 h4 {
+        font-size: 30px;
+        margin-left: 560px;
+        margin-bottom: 200px;
     }
 
 }

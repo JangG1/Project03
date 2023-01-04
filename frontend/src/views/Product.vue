@@ -1,11 +1,11 @@
 <template>
-    <div class="rec">
-        지금 떠나기 좋은 여행
-    </div>
+<div class="rec">
+    지금 떠나기 좋은 여행
+</div>
 <!--슬라이드 좌우 버튼-->
 <button class="PB" type="button" @click="prev"></button>
 <button class="NB" type="button" @click="next"></button>
-<div class="image-album">    
+<div class="image-album">
     <div class="images">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url">
             <img class="image" :src="imageUrl.url" /><br>
@@ -87,7 +87,7 @@ export default {
         };
     },
     methods: {
-        ing(){
+        ing() {
             alert("준비중입니다.")
         },
         prev() {
@@ -125,19 +125,19 @@ export default {
 </script>
 
 <style>
-.rec{
+.rec {
     color: white;
     text-align: center;
     font-size: 60px;
-    margin-top: 10%;  
-    margin-bottom: 10%;    
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 
-.prodBox{
+.prodBox {
     border-radius: 20px;
     margin: 10px;
     height: 580px;
-    padding-right: 5px;    
+    padding-right: 5px;
     background-color: rgba(255, 255, 255, 0.379);
 }
 
@@ -163,22 +163,22 @@ export default {
 }
 
 .image-album {
-    width: 1300px;
-    max-width: 1500px;
+    width: 660px;
+    max-width: 700px;
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20%;
+    margin-bottom: 20%;    
 }
 
 .image {
     width: 300px;
     height: 400px;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;
     border-radius: 10px;
 }
 
-.images {    
+.images {
     display: flex;
     transition: transform 0.5s;
 }
@@ -193,7 +193,7 @@ export default {
     transform: rotate(225deg);
     margin-top: 14%;
     float: left;
-    margin-left: 11%;    
+    margin-left: 11%;
 }
 
 .NB {
@@ -207,5 +207,31 @@ export default {
     margin-top: 14%;
     float: right;
     margin-right: 11%;
+}
+
+@media (min-width: 1500px) {
+
+.image-album {
+    width: 970px;
+    max-width: 1000px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20%;
+}
+
+}
+
+@media (min-width: 1900px) {
+
+    .image-album {
+        width: 1300px;
+        max-width: 1500px;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20%;
+    }
+
 }
 </style>

@@ -13,7 +13,7 @@
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                </button>                                    
+                </button>
                 <!--슬라이드 페이지 표시-->
                 <!-- <div class="carousel-indicators">
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -326,7 +326,7 @@ export default {
             fromBtn2: false,
             toBtn2: false,
             returnDate: "",
-            NoticeModalView: false,
+            NoticeModalView: true,
         }
     },
     methods: {
@@ -683,9 +683,9 @@ export default {
     padding: 20px;
     position: fixed;
     top: 40%;
-    left: 70%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 30%;
+    width: 600px;
     height: 70%;
     border-radius: 15px;
     background-color: white;
@@ -811,7 +811,6 @@ a:active {
     margin-left: 1%;
     margin-right: 1%;
 }
-
 
 .carousel-control-prev {
     /* 사이즈 */
@@ -1165,6 +1164,9 @@ a:active {
 }
 
 @media (min-width: 1450px) {
+    .NoticeModalView {
+        left: 60%
+    }
 
     .container1 h2 {
         font-size: 150px;
@@ -1179,7 +1181,6 @@ a:active {
         font-size: 130px;
     }
 
-
     .container2 h3 {
         font-size: 40px;
     }
@@ -1188,10 +1189,13 @@ a:active {
         font-size: 20px;
         margin-bottom: 200px;
     }
-    
+
 }
 
 @media (min-width: 1900px) {
+    .NoticeModalView {
+        left: 70%
+    }
 
     .container1 h2 {
         font-size: 240px;

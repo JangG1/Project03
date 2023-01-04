@@ -119,13 +119,13 @@ export default {
 }
 
 .noticeBody1-1 {
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 900;
     color: rgba(0, 0, 0, 0.646);
 }
 
 .noticeBody1-2 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 900;
     color: rgba(0, 0, 0, 0.646);
 }
@@ -182,7 +182,7 @@ export default {
 }
 
 .text1 {
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 900;    
 }
 
@@ -195,7 +195,7 @@ export default {
 .text2-1,
 .text2-2,
 .text2-3{
-    font-size: 17px;
+    font-size: 19px;
 }
 
 .text2-1:visited,
@@ -205,32 +205,6 @@ export default {
 
 .text2-2:visited {
     color: #999;
-}
-
-@media (min-width: 1600px) {
-    .noticeBody1-1 {
-    font-size: 35px;
-    font-weight: 900;
-    color: rgba(0, 0, 0, 0.646);
-}
-
-.noticeBody1-2 {
-    font-size: 25px;
-    font-weight: 900;
-    color: rgba(0, 0, 0, 0.646);
-}
-
-.text1,
-.text2{
-    font-size: 25px;
-}
-
-.text2-1,
-.text2-2,
-.text2-3{
-    font-size: 22px;
-}
-
 }
 
 </style>

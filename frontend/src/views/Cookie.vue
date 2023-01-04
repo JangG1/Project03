@@ -6,6 +6,7 @@
     <a @click="resetTest">reset cookie</a><br>
 
     <a @click="test">test</a><br>
+    <a @click="reset">reset</a><br>
 </div>
 </template>
 
@@ -31,13 +32,11 @@ export default {
         },
         setTest() { //cookie 설정
             var Now = new Date(); // 현재 날짜 및 시간
-            var nowDay = Now.getDate(); // 일
-            var setViewCookie = VueCookies.set('view', nowDay);
-            var getViewCookie = VueCookies.get('view');
+            var nowDay = Now.getDate() + 1; // 일
 
-            VueCookies.set(setViewCookie)
+            VueCookies.set('view', this.imgView = false, "10s")
 
-            console.log(getViewCookie.toString())
+            console.log(VueCookies.get('view'))
 
         },
         getTest() { //mounted
@@ -68,9 +67,13 @@ export default {
                 console.log('삭제됨')
             }
         },
+        reset(){
+            VueCookies.remove('view')
+            console.log('삭제됨')
+        }
     },
     mounted() {
-        this.resetTest();
+        // this.resetTest();
     },
 }
 </script>

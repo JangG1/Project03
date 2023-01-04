@@ -209,7 +209,7 @@
     </button>
     <img src="../assets/vertical.jpg" width="20" height="40">
     <!--항공편 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;        
+    <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;
         <a href="">✈ &nbsp; 항공편 현황</a>
     </button>
 
@@ -326,15 +326,15 @@ export default {
             fromBtn2: false,
             toBtn2: false,
             returnDate: "",
-            NoticeModalView: true,
+            NoticeModalView: false,
         }
     },
     methods: {
         ing() {
             alert('준비중입니다.')
         },
-        move(){
-            
+        move() {
+
         },
         NoticeModalPopUp() {
             this.NoticeModalView = (this.NoticeModalView) ? false : true
@@ -736,49 +736,49 @@ a:active {
 
 .container1 h2 {
     color: rgba(213, 181, 22, 0.959);
-    font-size: 220px;
+    font-size: 100px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container1 h3 {
     color: rgba(213, 181, 22, 0.959);
     margin-bottom: 160px;
-    font-size: 40px;
+    font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container2 h2 {
     color: rgba(213, 181, 22, 0.959);
-    font-size: 220px;
+    font-size: 80px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container2 h3 {
     color: rgba(213, 181, 22, 0.959);
-    margin-bottom: 110px;
-    font-size: 40px;
+    margin-bottom: 100px;
+    font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container3 h2 {
     color: rgb(234, 246, 255);
-    font-size: 150px;
+    font-size: 80px;
     font-weight: 900;
-    margin-left: 450px;
+    margin-left: 110px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container3 h3 {
     color: rgb(234, 246, 255);
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 900;
-    margin-bottom: 180px;
-    margin-left: 520px;
+    margin-bottom: 80px;
+    margin-left: 120px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .carousel-caption {
-    margin-left: 600px;
+    margin-left: 630px;
     color: white;
 }
 
@@ -833,7 +833,7 @@ a:active {
     margin-top: 3.5%;
     margin-bottom: 2%;
     font-size: 30px;
-    
+
 }
 
 .refer button {
@@ -1151,5 +1151,64 @@ a:active {
 .form-select:hover,
 .submit-btn:hover {
     border: 1.5px solid teal;
+}
+
+@media (min-width: 1450px) {
+
+.container1 h2 {
+    font-size: 150px;    
+}
+
+.container1 h3,
+.container2 h3 {
+    font-size: 30px;
+}
+
+.container2 h2{
+    font-size: 130px;
+}
+}
+
+@media (min-width: 1900px) {
+
+    .container1 h2 {
+        font-size: 240px;
+    }
+
+    .container1 h3,
+    .container2 h3 {
+        font-size: 40px;
+    }
+
+    .container2 h2{
+        font-size: 200px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .container3 h2 {
+        font-size: 100px;
+        margin-left: 380px;        
+    }
+
+    .container3 h3 {
+        font-size: 20px;
+        margin-left: 410px;
+        margin-bottom: 130px;
+    }
+}
+
+@media (min-width: 2050px) {
+    .container3 h2 {
+        font-size: 140px;
+        margin-left: 530px;
+    }
+
+    .container3 h3 {
+        font-size: 25px;
+        margin-left: 560px;
+        margin-bottom: 180px;
+    }
+
 }
 </style>

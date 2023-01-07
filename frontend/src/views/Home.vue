@@ -686,7 +686,7 @@ export default {
     left: 70%;
     transform: translate(-50%, -50%);
     width: 30%;
-    height: 75%;
+    height: 70%;
     border-radius: 15px;
     background-color: white;
     box-shadow: 1px 1px 6px teal;

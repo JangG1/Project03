@@ -32,29 +32,46 @@
 </div>
 
 <div class="foot">
-    <button class="closeNotice" @click="closeModal">닫기</button>
+    <button class="closeNotice" @click="setNoticeView">닫기</button>
     <label class="closeNoticeToday">오늘 더 이상 안보기</label>
-    <input type="checkbox" class="closeNoticeTodayCheck" value="closeCheck" @click="closeToday">
+    <input type="checkbox" id="Chkbox" class="closeNoticeTodayCheck" value="closeCheck" @click="closeToday">
 
 </div>
 </template>
 
 <script>
+import VueCookies from 'vue-cookies'
+
 export default {
     methods: {
         move(){
             alert("test")
             this.$emit('move')
         },
-        closeToday(event) {
-            if (event.target.checked) {
-                alert(event.target.value)
-            }
-        },
         closeModal() {
             this.$emit('close')
         },
-    }
+        setNoticeView() { //cookie 설정
+            const checkbox = document.getElementById('Chkbox');
+
+            const is_checked = checkbox.checked;
+
+            this.$emit("noticeView",is_checked)                        
+
+            this.$emit('close')
+
+        },
+        getNoticeView() {            
+            if (VueCookies.get('view') == "true") {
+                this.$emit('noticeView')
+            } else if(VueCookies.get('view') == "false"){
+                console.log("false")
+            }
+        },
+    },
+    mounted() {
+
+    },
 }
 </script>
 

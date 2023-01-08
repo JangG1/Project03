@@ -38,11 +38,11 @@
         <div class="infoRight">
             <span class="listRight">{{user.flight1}}</span><br><br>
             <span class="listRight">{{user.fromArea}} &nbsp;→&nbsp; {{user.toArea}}</span><br><br>
-            <span class="listRight">{{Format(user.startDate)}} {{user.startTime1}} ~ {{user.arriveTime1}}</span><br><br>
-             <span class="listRight" v-show="infantCountView">{{InfantCount(user.InfantCount)}}</span>             
-             <span class="listRight" v-show="childCountView">{{ChildCount(user.ChildCount)}}</span>
-             <span class="listRight">{{user.AdultCount}}</span>             
-             <br><br>
+            <span class="listRight">{{user.startYear}} {{user.startTime1}} ~ {{user.arriveTime1}}</span><br><br>            
+            <span class="listRight" v-show="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
+            <span class="listRight" v-show="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
+            <span class="listRight">성인 {{user.AdultCount}} 명 </span>
+            <br><br>
             <span class="listRight">{{user.seat}} {{user.seatClass1}}</span>
         </div>
     </div>
@@ -61,13 +61,13 @@
         <div class="infoRight">
             <span class="listRight">{{user.flight2}}</span><br><br>
             <span class="listRight">{{user.toArea}} &nbsp;→&nbsp; {{user.fromArea}}</span><br><br>
-            <span class="listRight">{{Format(user.returnDate)}} {{user.startTime2}} ~ {{user.arriveTime2}}</span><br><br>
-             <span class="listRight" v-show="infantCountView">{{InfantCount(user.InfantCount)}}</span>             
-             <span class="listRight" v-show="childCountView">{{ChildCount(user.ChildCount)}}</span>
-             <span class="listRight">{{user.AdultCount}}</span>             
-             <br><br>
+            <span class="listRight">{{user.returnYear}} {{user.startTime2}} ~ {{user.arriveTime2}}</span><br><br>
+            <span class="listRight" v-show="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
+            <span class="listRight" v-show="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
+            <span class="listRight">성인 {{user.AdultCount}}명</span>
+            <br><br>
             <span class="listRight">{{user.seat}} {{user.seatClass2}}</span>
-        </div>        
+        </div>
     </div>
     <br>
 
@@ -77,15 +77,15 @@
         </div>
         <div class="infoLeft">
             <span class="listLeft">결제 수단</span><br><br>
-            <span class="listLeft">결제 후 포인트</span><br><br>            
+            <span class="listLeft">결제 후 포인트</span><br><br>
         </div>
         <div class="infoRight">
             <span class="listRight">포인트 결제</span><br><br>
-            <span class="listRight">{{this.$store.state.holdPoint - user.startPrice}}</span><br><br>             
-        </div>        
+            <span class="listRight">{{holdPoint - user.startPrice}}</span><br><br>
+        </div>
     </div>
 
-    <!--submit-->    
+    <!--submit-->
     <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
 </div>
 </template>
@@ -100,6 +100,7 @@ export default {
         return {
             childCountView: false,
             infantCountView: false,
+            holdPoint: this.$store.state.holdPoint,
         }
     },
     props: {
@@ -118,22 +119,6 @@ export default {
 
     },
     methods: {
-        ChildCount(value){
-            console.log(value.substr(4,2))
-            if(value.substr(4,2) > 0){
-                return this.childCountView = ", 소아 " + value.substr(4,2) + "명"
-            }else if(value.substr(4,2) == 0){
-                return this.user.ChildCount == ""
-            }
-        },
-        InfantCount(value){
-            console.log(value.substr(4,2))
-            if(value.substr(4,2) > 0){
-                return this.infantCountView = ", 유아 " + value.substr(4,2) + "명"
-            }else if(value.substr(4,2) == 0){
-                return this.infantCountView = ""
-            }
-        },
         Format(value) {
             var string = value.toString();
             var total = string.substring(0, 16);
@@ -187,7 +172,7 @@ export default {
 
             return year + "-" + month + "-" + day + week;
         },
-        closeModal(){
+        closeModal() {
             this.$emit('close')
         },
         Gender(value) {
@@ -201,7 +186,8 @@ export default {
         },
         submit() {
             alert("예약하시겠습니까?")
-            this.$router.push({                
+
+            this.$router.push({
                 name: 'Complete',
                 params: {
                     flight1: this.user.flight1,
@@ -217,18 +203,27 @@ export default {
                     seat: this.user.seat,
                     seatClass1: this.user.seatClass1,
                     seatClass2: this.user.seatClass2,
-                    startDate: this.user.startDate,
-                    returnDate: this.user.returnDate,
+                    startYear: this.user.startYear,
+                    startMonth: this.user.startMonth,
+                    startDay: this.user.startDay,
+                    startWeek: this.user.startWeek,
+                    returnYear: this.user.returnYear,
+                    returnMonth: this.user.returnMonth,
+                    returnDay: this.user.returnDay,
+                    returnWeek: this.user.returnWeek,
                     InfantCount: this.user.InfantCount,
                     ChildCount: this.user.ChildCount,
-                    AdultCount: this.user.AdultCount, 
+                    AdultCount: this.user.AdultCount,
                     startTime1: this.user.startTime1,
-                    arriveTime1:this.user.arriveTime1,                   
+                    arriveTime1: this.user.arriveTime1,
                     startTime2: this.user.startTime2,
                     arriveTime2: this.user.arriveTime2,
-                    startPrice: this.user.startPrice,                    
+                    startPrice: this.user.startPrice,
                 }
             });
+
+            let usePoint = this.holdPoint - this.user.startPrice
+            this.$store.dispatch("holdPoint", usePoint);
 
         }
     },
@@ -236,22 +231,21 @@ export default {
 </script>
 
 <style>
-.infoTitle{
+.infoTitle {
     margin-top: 2%;
     margin-left: 4%;
     color: teal;
-    font-weight: 900;        
+    font-weight: 900;
 }
 
-.payCloseBtn{
+.payCloseBtn {
     color: teal;
-    font-weight: 900;        
+    font-weight: 900;
     font-size: 22px;
     float: right;
     border: 1px solid white;
     background-color: white;
 }
-
 
 .payModalCloseBtn {
     float: right;
@@ -261,10 +255,10 @@ export default {
     background-color: white;
 }
 
-.payList{
+.payList {
     border: 1px solid teal;
     border-radius: 4px;
-    height: 200px;        
+    height: 200px;
     margin-bottom: 40px;
 }
 
@@ -274,7 +268,7 @@ export default {
     height: 320px;
     margin-top: 30px;
     margin-bottom: 20px;
-    
+
 }
 
 .areaList {
@@ -283,7 +277,7 @@ export default {
     height: 380px;
     margin-top: 30px;
     margin-bottom: 20px;
-    
+
 }
 
 .infoLeft {
@@ -301,23 +295,22 @@ export default {
     margin-right: 40px;
 }
 
-.listLeft{
+.listLeft {
     float: left;
 }
 
-.listRight{
+.listRight {
     float: right;
 }
 
-
-.title2{
+.title2 {
     width: 100.1%;
     color: white;
     background-color: teal;
     font-weight: 900;
     font-size: 24px;
-    text-align : center;
-    padding : 10px 0;
+    text-align: center;
+    padding: 10px 0;
     margin-bottom: 20px;
 }
 

@@ -16,17 +16,17 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{Format(startDate)}}</span> <span v-show="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
+                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> <span v-show="returnYear != null"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                {{AdultCount}}
-                <span v-show="ChildCount.substr(4,2) > 0">
-                    {{ChildCount}}
+                성인 {{AdultCount}} 명
+                <span v-show="ChildCount > 0">
+                , 유아 {{ChildCount}} 명
                 </span>
-                <span v-show="InfantCount.substr(4,2) > 0">
-                    {{InfantCount}}
+                <span v-show="InfantCount > 0">
+                , 소아 {{InfantCount}} 명
                 </span>
             </div>
         </button>
@@ -111,12 +111,36 @@ export default {
             type: String,
             default: ''
         },
-        startDate: {
+        startYear: {
             type: String,
             default: ''
         },
-        returnDate: {
-            type: String || null,
+        startMonth: {
+            type: String,
+            default: ''
+        },
+        startDay: {
+            type: String,
+            default: ''
+        },
+        startWeek: {
+            type: String,
+            default: ''
+        },
+        returnYear: {
+            type: String,
+            default: ''
+        },
+        returnMonth: {
+            type: String,
+            default: ''
+        },
+        returnDay: {
+            type: String,
+            default: ''
+        },
+        returnWeek: {
+            type: String,
             default: ''
         },
         AdultCount: {
@@ -226,9 +250,9 @@ export default {
             let startTime2 = " ";
             let arriveTime2 = " ";
 
-            if (this.returnDate.length > 1) {
+            if (this.returnYear != null) {
                 path = "Arrival";
-            } else if (this.returnDate.length > 0) {
+            } else if (this.returnYear == null) {
                 path = "Payment";
             }
 
@@ -241,8 +265,14 @@ export default {
                     seat: this.seat,
                     seatClass1: this.seatClass,                    
                     seatClass2: seatClass2,
-                    startDate: this.startDate,
-                    returnDate: this.returnDate,
+                    startYear: this.startYear,
+                    startMonth: this.startMonth,
+                    startDay: this.startDay,
+                    startWeek: this.startWeek,
+                    returnYear: this.returnYear,
+                    returnMonth: this.returnMonth,
+                    returnDay: this.returnDay,
+                    returnWeek: this.returnWeek,
                     AdultCount: this.AdultCount,
                     ChildCount: this.ChildCount,
                     InfantCount: this.InfantCount,

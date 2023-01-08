@@ -9,8 +9,13 @@ toArea
 seat
 seatClass1
 seatClass2
-startDate
-returnDate
+this.startYear
+this.startMonth
+this.startDay
+this.startWeek
+this.returnYear
+this.returnMonth
+this.returnDay
 InfantCount
 ChildCount
 AdultCount
@@ -21,101 +26,81 @@ arriveTime2
 startPrice
 
 
-korLastName: this.user.korLastName,
-korFirstName: this.user.korFirstName,
-engLastName: this.engLastName,
-engFirstName: this.engFirstName,
-birthday: this.user.birthday,
-gender: this.user.gender,
-fromArea: this.user.fromArea,
-toArea: this.user.toArea,
-seat: this.user.seat,
-seatClass1: this.user.seatClass1,
-seatClass2: this.user.seatClass2,
-startDate: this.user.startDate,
-returnDate: this.user.returnDate,
-InfantCount: this.user.InfantCount,
-ChildCount: this.user.ChildCount,
-AdultCount: this.user.AdultCount, 
-startTime1: this.user.startTime1,
-arriveTime1:this.user.arriveTime1,                   
-startTime2: this.user.startTime2,
-arriveTime2: this.user.arriveTime2,
-startPrice: this.user.startPrice,   
+ flight1: this.user.flight1,
+                    flight2: this.user.flight2,
+                    korLastName: this.user.korLastName,
+                    korFirstName: this.user.korFirstName,
+                    engLastName: this.engLastName,
+                    engFirstName: this.engFirstName,
+                    birthday: this.user.birthday,
+                    gender: this.user.gender,
+                    fromArea: this.user.fromArea,
+                    toArea: this.user.toArea,
+                    seat: this.user.seat,
+                    seatClass1: this.user.seatClass1,
+                    seatClass2: this.user.seatClass2,
+                    startYear: this.user.startYear,
+                    startMonth: this.user.startMonth,
+                    startDay: this.user.startDay,
+                    startWeek: this.user.startWeek,
+                    returnYear: this.user.returnYear,
+                    returnMonth: this.user.returnMonth,
+                    returnDay: this.user.returnDay,
+                    returnWeek: this.user.returnWeek,
+                    InfantCount: this.user.InfantCount,
+                    ChildCount: this.user.ChildCount,
+                    AdultCount: this.user.AdultCount,
+                    startTime1: this.user.startTime1,
+                    arriveTime1: this.user.arriveTime1,
+                    startTime2: this.user.startTime2,
+                    arriveTime2: this.user.arriveTime2,
+                    startPrice: this.user.startPrice,
 
 
-korLastName: {
-            type: String,
-            default: ''
-        },
-        korFirstName: {
-            type: String,
-            default: ''
-        },
-        engLastName: {
-            type: String,
-            default: ''
-        },
-        engFirstName: {
-            type: String,
-            default: ''
-        },
-        birthday: {
-            type: Number            
-        },
-        gender: {
-            type: String,
-            default: ''
-        },
-        fromArea: {
-            type: String,
-            default: ''
-        },
-        toArea: {
-            type: String,
-            default: ''
-        },
-        seat: {
-            type: String,
-            default: ''
-        },
-        seatClass1: {
-            type: String,
-            default: ''
-        },
-        seatClass2: {
-            type: String,
-            default: ''
-        },
-        startDate: {
-            type: String,
-            default: ''
-        },
-        returnDate: {
-            type: String,
-            default: ''
-        },
-        InfantCount: {
-            type: Number
-        },
-        ChildCount: {
-            type: Number
-        },
-        AdultCount: {
-            type: Number
-        },
-        startTime1: {
-            type: String
-        },
-        arriveTime1: {
-            type: String
-        },
-        startTime2: {
-            type: String
-        },
-        arriveTime2: {
-            type: String
-        },
-        startPrice: {
-            type: Number
-        },
+console.log(this.korLastName)
+            console.log(this.korFirstName)
+            console.log(this.engLastName)
+            console.log(this.engFirstName)
+            console.log(this.birthday)
+            console.log(this.gender)
+            console.log(this.fromArea)
+            console.log(this.toArea)
+            console.log(this.seat)
+            console.log(this.seatClass1)
+            console.log(this.seatClass2)
+            console.log(this.startYear)
+            console.log(this.startMonth)
+            console.log(this.startDay)
+            console.log(this.startWeek)
+            console.log(this.returnYear)
+            console.log(this.returnMonth)
+            console.log(this.returnDay)
+            console.log(this.returnWeek)
+            console.log(this.InfantCount)
+            console.log(this.ChildCount)
+            console.log(this.AdultCount)
+            console.log(this.startTime1)
+            console.log(this.arriveTime1)
+            console.log(this.startTime2)
+            console.log(this.arriveTime2)
+            console.log(this.startPrice)
+            console.log(this.korFirstName)
+            console.log(this.engLastName)
+            console.log(this.engFirstName)
+            console.log(this.birthday)
+            console.log(this.gender)
+            console.log(this.fromArea)
+            console.log(this.toArea)
+            console.log(this.seat)
+            console.log(this.seatClass1)
+            console.log(this.seatClass2)
+            console.log(this.startDate)
+            console.log(this.returnDate)
+            console.log(this.InfantCount)
+            console.log(this.ChildCount)
+            console.log(this.AdultCount)
+            console.log(this.startTime1)
+            console.log(this.arriveTime1)
+            console.log(this.startTime2)
+            console.log(this.arriveTime2)
+            console.log(this.startPrice)        

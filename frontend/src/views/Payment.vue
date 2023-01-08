@@ -30,17 +30,17 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="pInfo2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{Format(startDate)}}</span> <span v-show="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
+                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> <span v-show="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="pInfo3">
                 <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                {{AdultCount}}
-                <span v-show="ChildCount.substr(4,2) > 0">
-                    {{ChildCount}}
+                성인 {{AdultCount}} 명
+                <span v-show="ChildCount > 0">
+                , 유아 {{ChildCount}} 명
                 </span>
-                <span v-show="InfantCount.substr(4,2) > 0">
-                    {{InfantCount}}
+                <span v-show="InfantCount > 0">
+                , 소아 {{InfantCount}} 명
                 </span>
             </div>
         </button>
@@ -61,10 +61,11 @@
                 →&nbsp;
                 {{toArea}}
                 &nbsp;&nbsp;{{ flight1 }}
-            </div>            
+            </div>
             <span>│</span>
             <div class="pStartInfo2">
-                {{Format(startDate)}} {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
+                {{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})
+                {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
             </div>
 
         </button>
@@ -72,7 +73,7 @@
 
     <br>
 
-    <div class="pArriveInfo" v-show="returnDate.length > 1">
+    <div class="pArriveInfo" v-show="returnYear != null">
         <button type="button">
             <div>
                 오는 편
@@ -86,7 +87,8 @@
             </div>
             <span>│</span>
             <div class="pArriveInfo2">
-                {{Format(returnDate)}} {{startTime2}} ~ {{arriveTime2}} &nbsp; {{seat}} {{seatClass2}}
+                {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})
+                {{startTime2}} ~ {{arriveTime2}} &nbsp; {{seat}} {{seatClass2}}
             </div>
 
         </button>
@@ -163,7 +165,7 @@
 <div class="consent" v-show="consentInfo">
     <h4>
         <button type="button" @click="consent1" id="consentBtn1" class="consentBtn" v-if="consentBtn1 = true">✔ 동의</button> &nbsp;
-       {{ this.$store.state.consentBtn1 }} [필수] 운송약관, 운임 규정, 수하물 규정을 확인하였으며 이에 동의합니다.
+        <span v-show="false">{{ this.$store.state.consentBtn1 }}</span>[필수] 운송약관, 운임 규정, 수하물 규정을 확인하였으며 이에 동의합니다.
     </h4>
     <span>
         Fastrip 항공권을 구매하시는 것은 본 항공사와 운송계약 체결에 동의하는 것으로 운임규정은 항공권 변경, 취소 등에 따른 수수료와 사전좌석배정, <br>
@@ -173,7 +175,7 @@
     <br><br>
     <h4>
         <button type="button" @click="consent2" id="consentBtn2" class="consentBtn" v-if="consentBtn2 = true">✔ 동의</button> &nbsp;
-        {{ this.$store.state.consentBtn2 }}[필수] 위험품 안내를 확인하였습니다.
+        <span v-show="false">{{ this.$store.state.consentBtn2 }}</span>[필수] 위험품 안내를 확인하였습니다.
         <button type="button" class="IATAList" @click="IATAModalPopUp()">보기</button>
     </h4>
     <span>
@@ -206,28 +208,32 @@
 </div>
 <div class="payment">
     <div class="pay1">
-        <div class="pay" @click="payment">
+        <div class="cardPay" @click="payment">
             신용/체크카드
         </div>
         <div class="pay" @click="payment">
-            네이버페이
+            <img src="@/assets/pay/naverPay.png" style="width: 55px; height: 40px;">
+            &nbsp; 네이버페이
         </div>
         <div class="pay" @click="payment">
+            <img src="@/assets/pay/samsungPay.png" style="width: 80px; height: 40px;">
             삼성페이
         </div>
     </div>
     <div class="pay2">
         <div class="pay" @click="payment">
-            카카오페이
+            <img src="@/assets/pay/kakaoPay.jpg" style="width: 60px; height: 40px;">
+            &nbsp; 카카오페이
         </div>
         <div class="pay" @click="payment">
-            PAYCO
+            <img src="@/assets/pay/payco.jpg" style="width: 80px; height: 40px;">
+            &nbsp; PAYCO
         </div>
         <div class="pointPay" @click="PointPayment">
             포인트 결제
         </div>
     </div>
-    <div class="holdPoint" v-show="PointPaymentInfo = true">
+    <div class="holdPoint" v-show="PointPaymentInfo">
         보유하신 포인트 : {{ AddComma(holdPoint) + "p"}}
         <button type="button" class="addPoint" @click="addPoint">
             포인트 충전하기
@@ -281,10 +287,10 @@ export default {
             engFirstName: this.engFirstName,
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
             gender: this.$store.state.gender,
-            autofocus: true,            
+            autofocus: true,
             PayModalView: false,
             IATAModalView: false,
-            PointPaymentInfo: false,            
+            PointPaymentInfo: false,
             holdPoint: this.$store.state.holdPoint,
             user: {
                 flight1: this.flight1,
@@ -294,8 +300,14 @@ export default {
                 seat: this.seat,
                 seatClass1: this.seatClass1,
                 seatClass2: this.seatClass2,
-                startDate: this.startDate,
-                returnDate: this.returnDate,
+                startYear: this.startYear,
+                startMonth: this.startMonth,
+                startDay: this.startDay,
+                startWeek: this.startWeek,
+                returnYear: this.returnYear,
+                returnMonth: this.returnMonth,
+                returnDay: this.returnDay,
+                returnWeek: this.returnWeek,
                 AdultCount: this.AdultCount,
                 ChildCount: this.ChildCount,
                 InfantCount: this.InfantCount,
@@ -343,11 +355,37 @@ export default {
             type: String,
             default: ''
         },
-        startDate: {
-            type: String
+        startYear: {
+            type: String,
+            default: ''
         },
-        returnDate: {
-            type: String
+        startMonth: {
+            type: String,
+            default: ''
+        },
+        startDay: {
+            type: String,
+            default: ''
+        },
+        startWeek: {
+            type: String,
+            default: ''
+        },
+        returnYear: {
+            type: String,
+            default: ''
+        },
+        returnMonth: {
+            type: String,
+            default: ''
+        },
+        returnDay: {
+            type: String,
+            default: ''
+        },
+        returnWeek: {
+            type: String,
+            default: ''
         },
         AdultCount: {
             type: Number
@@ -399,11 +437,11 @@ export default {
             alert("준비중입니다.")
         },
         PointPayment() {
-            this.PointPaymentInfo = (this.PointPaymentInfo) ? false : true
+            this.PointPaymentInfo = true
         },
         addPoint() {
             this.holdPoint += 300000
-            this.$store.dispatch("holdPoint", this.holdPoint);  
+            this.$store.dispatch("holdPoint", this.holdPoint);
         },
         closeModal() {
             this.PayModalView = (this.PayModalView) ? false : true
@@ -421,10 +459,10 @@ export default {
                 alert("영문 이름을 확인해주세요")
             }
 
-            if(this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
+            if (this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                 console.log("필수 체크 완료")
-            }else{
-                alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")                
+            } else {
+                alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")
             }
 
             if (this.holdPoint < this.startPrice) {
@@ -432,7 +470,7 @@ export default {
             } else if (this.holdPoint >= this.startPrice) {
                 if (this.engLastName != null && this.engFirstName != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                     this.PayModalView = (this.PayModalView) ? false : true
-               }
+                }
             }
 
         },
@@ -440,24 +478,24 @@ export default {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
         },
-        consent1() {                        
-            if(this.consentBtn1 == true){
-            const target = document.getElementById('consentBtn1');
-            target.style.color = "white"
-            target.style.background = "teal"
-            target.style.border = "3px solid teal"
-            this.consentBtn1 = false
-            this.$store.dispatch("consentBtn1", true);  
+        consent1() {
+            if (this.consentBtn1 == true) {
+                const target = document.getElementById('consentBtn1');
+                target.style.color = "white"
+                target.style.background = "teal"
+                target.style.border = "3px solid teal"
+                this.consentBtn1 = false
+                this.$store.dispatch("consentBtn1", true);
             }
         },
         consent2() {
-            if(this.consentBtn2 == true){
-            const target = document.getElementById('consentBtn2');
-            target.style.color = "white"
-            target.style.background = "teal"
-            target.style.border = "3px solid teal"
-            this.consentBtn2 = false
-            this.$store.dispatch("consentBtn2", true);  
+            if (this.consentBtn2 == true) {
+                const target = document.getElementById('consentBtn2');
+                target.style.color = "white"
+                target.style.background = "teal"
+                target.style.border = "3px solid teal"
+                this.consentBtn2 = false
+                this.$store.dispatch("consentBtn2", true);
             }
         },
         Gender() {
@@ -1010,19 +1048,26 @@ h4 {
     margin-top: 5.5%;
 }
 
+.cardPay,
 .pay,
 .pointPay {
     border: 1px solid black;
     width: 30%;
     text-align: center;
-    padding: 25px 0;
+    padding: 20px 0;
     margin: 1%;
     color: #999;
     cursor: pointer;
     margin-top: 2%;
+
+}
+
+.cardPay {
+    padding-top: 28px;
 }
 
 .pointPay {
+    padding-top: 28px;
     color: black;
 }
 

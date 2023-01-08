@@ -35,11 +35,14 @@
         </div>
         <div class="comInfoRight">
             <span class="listRight">{{ flight1 }}</span><br><br>
-            <span class="listRight">{{ toArea }} →&nbsp; {{ fromArea }}</span><br><br>
-            <span class="listRight">{{ Format(startDate) }} {{ startTime1 }} ~ {{ arriveTime1 }}</span><br><br>
-            <span class="listRight" v-show="infantCountView">{{comInfantCount(InfantCount)}}</span>
-            <span class="listRight" v-show="childCountView">{{comChildCount(ChildCount)}}</span>
-            <span class="listRight">{{AdultCount}}</span><br><br>
+            <span class="listRight">{{ fromArea }} →&nbsp; {{ toArea }}</span><br><br>
+            <span class="listRight"> {{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}}) {{ startTime1 }} ~ {{ arriveTime1 }}</span><br><br>
+            <span class="listRight">성인 {{AdultCount}}명</span>
+            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>
+            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span><br><br>
+
+            
+            
             <span class="listRight">{{ seat }} {{ seatClass1 }}</span>
         </div>
     </div>
@@ -57,11 +60,11 @@
         </div>
         <div class="comInfoRight">
             <span class="listRight">{{ flight2 }}</span><br><br>
-            <span class="listRight">{{ fromArea }} →&nbsp; {{ toArea }}</span><br><br>
-            <span class="listRight">{{ Format(returnDate) }} {{ startTime2 }} ~ {{ arriveTime2 }}</span><br><br>
-            <span class="listRight" v-show="infantCountView">{{comInfantCount(InfantCount)}}</span>
-            <span class="listRight" v-show="childCountView">{{comChildCount(ChildCount)}}</span>
-            <span class="listRight">{{AdultCount}}</span><br><br>
+            <span class="listRight">{{ toArea }} →&nbsp; {{ fromArea }}</span><br><br>
+            <span class="listRight">{{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}}) {{ startTime2 }} ~ {{ arriveTime2 }}</span><br><br>
+            <span class="listRight">성인 {{AdultCount}}명</span>
+            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>
+            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span><br><br>
             <span class="listRight">{{ seat }} {{ seatClass2 }}</span>
         </div>
     </div>
@@ -77,16 +80,20 @@
         </div>
         <div class="comInfoRight">
             <span class="listRight">포인트 결제</span><br><br>
-            <span class="listRight">{{this.$store.state.holdPoint - startPrice}}</span><br><br>
+            <span class="listRight">{{holdPoint}}</span><br><br>
         </div>
     </div>
 
     <div class="comBtn">
-    <button type="button" class="comBtn1" @click="home">확인</button>
-    <button type="button" class="comBtn2" @click="Reservation">예약 조회하기</button>
+        <button type="button" class="comBtn1" @click="home">확인</button>
+        <button type="button" class="comBtn2" @click="Reservation">예약 조회하기</button>
+    </div>
 </div>
+<!--test-->
+=========================================================
+<div>
+    <button type="button" class="comBtn1" @click="test">test</button>
 </div>
-
 <!-- FOOTER -->
 <hr>
 <div class="footLogoName">
@@ -95,10 +102,8 @@
 </div>
 <footer class="footer">
     <p>&copy; 2022 Company, Fastrip</p>
-    <a class="topBtn" href="">🎈 Top</a>
+    <a class="topBtn" href="">✈ Top</a>
 </footer>
-
-
 </template>
 
 <script>
@@ -115,6 +120,7 @@ export default {
             gender: this.$store.state.gender,
             childCountView: false,
             infantCountView: false,
+            holdPoint: this.$store.state.holdPoint,
         }
     },
     props: {
@@ -145,11 +151,37 @@ export default {
         seatClass2: {
             type: String,
         },
-        startDate: {
+        startYear: {
             type: String,
+            default: ''
         },
-        returnDate: {
+        startMonth: {
             type: String,
+            default: ''
+        },
+        startDay: {
+            type: String,
+            default: ''
+        },
+        startWeek: {
+            type: String,
+            default: ''
+        },
+        returnYear: {
+            type: String,
+            default: ''
+        },
+        returnMonth: {
+            type: String,
+            default: ''
+        },
+        returnDay: {
+            type: String,
+            default: ''
+        },
+        returnWeek: {
+            type: String,
+            default: ''
         },
         InfantCount: {
             type: Number
@@ -177,11 +209,44 @@ export default {
         },
     },
     methods: {
-        home(){
-            this.$router.push({ name: 'Home'})
+        test() {            
+            console.log(this.korLastName)
+            console.log(this.korFirstName)
+            console.log(this.engLastName)
+            console.log(this.engFirstName)
+            console.log(this.birthday)
+            console.log(this.gender)
+            console.log(this.fromArea)
+            console.log(this.toArea)
+            console.log(this.seat)
+            console.log(this.seatClass1)
+            console.log(this.seatClass2)
+            console.log(this.startYear)
+            console.log(this.startMonth)
+            console.log(this.startDay)
+            console.log(this.startWeek)
+            console.log(this.returnYear)
+            console.log(this.returnMonth)
+            console.log(this.returnDay)
+            console.log(this.returnWeek)
+            console.log(this.InfantCount)
+            console.log(this.ChildCount)
+            console.log(this.AdultCount)
+            console.log(this.startTime1)
+            console.log(this.arriveTime1)
+            console.log(this.startTime2)
+            console.log(this.arriveTime2)
+            console.log(this.startPrice)
         },
-        Reservation(){
-            this.$router.push({ name: 'Reservation'})
+        home() {
+            this.$router.replace({
+                name: 'Home'
+            })
+        },
+        Reservation() {
+            this.$router.push({
+                name: 'Reservation'
+            })
         },
         comChildCount(value) {
             console.log(value.substr(4, 2))
@@ -350,12 +415,12 @@ export default {
     margin-bottom: 20px;
 }
 
-.comBtn{
+.comBtn {
     text-align: center;
 }
 
 .comBtn1,
-.comBtn2{
+.comBtn2 {
     width: 12%;
     padding: 1.5%;
     margin: 2%;

@@ -2,7 +2,7 @@
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <!--공지 모달-->
     <div v-if="NoticeModalView == true" class="NoticeModalView" :class="{ active : NoticeModalView }">
-        <NoticeModal @move="move" @close="NoticeModalPopUp"></NoticeModal>
+        <NoticeModal @noticeView="noticeView" @move="move" @close="NoticeModalPopUp"></NoticeModal>
     </div>
 
     <div class="carousel-inner" id="top">
@@ -21,7 +21,7 @@
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div> -->
                 <!--배너 이미지1-->
-                <svg class="banner" viewBox="0 80 800 315">
+                <svg class="banner" viewBox="0 80 830 315">
                     <image href="../assets/bannerImage/1.jpg" />
                 </svg>
                 <div class="container1">
@@ -270,7 +270,7 @@
 </div>
 <footer class="footer">
     <p>&copy; 2022 Company, Fastrip</p>
-    <a class="topBtn" href="#top">🎈 Top</a>
+    <a class="topBtn" href="#top">✈ Top</a>
 </footer>
 </template>
 
@@ -282,6 +282,7 @@ import ToArea from './ToArea.vue';
 import axios from 'axios';
 import Product from './Product.vue';
 import NoticeModal from "@/components/NoticeModal.vue";
+import VueCookies from 'vue-cookies'
 
 export default {
     name: 'HelloWorld',
@@ -325,8 +326,12 @@ export default {
             toBtn1: true,
             fromBtn2: false,
             toBtn2: false,
-            returnDate: "",
             NoticeModalView: true,
+            week: ['일', '월', '화', '수', '목', '금', '토'],
+
+            startDate: [this.startYear, this.startMonth, this.startDay, this.startWeek],
+            startYear: "",
+            returnDate: [this.returnYear, this.returnMonth, this.returnDay, this.returnWeek],
         }
     },
     methods: {
@@ -381,32 +386,21 @@ export default {
             console.log(returnDate)
         },
         test1() {
-            let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
+            const startYear = this.bothWay[0].getFullYear();
+            const startMonth = this.bothWay[0].getMonth() + 1;
+            const startDay = this.bothWay[0].getDate();
+            const startWeek = this.week[this.bothWay[0].getDay()];
 
-            alert(document.getElementById("fromValue1").value)
-            alert(document.getElementById("toValue1").value)
-            alert(document.getElementById("fromValue2").value)
-            alert(document.getElementById("toValue2").value)
-
-            if (this.selectDate1 == true) {
-                alert(this.bothWay)
-                alert("왕복")
-            } else if (this.selectDate2 == true) {
-                alert(this.oneWay)
-                alert("편도")
-            } else {
-                alert("여행 일정을 선택해주세요.")
-                return false;
+            this.startDate = {
+                'startYear': startYear,
+                'startMonth': startMonth,
+                'startDay': startDay,
+                'startWeek': startWeek
             }
 
-            alert(this.AdultCount)
-            if (this.ChildCount > 0) {
-                alert(this.ChildCount)
-            }
-            if (this.InfantCount > 0) {
-                alert(this.InfantCount)
-            }
-            alert(seat)
+            console.log(this.startDate)
+            console.log(this.returnDate)
+
         },
         Format(value) {
             this.show1 = false;
@@ -609,12 +603,36 @@ export default {
 
             return year + "-" + month + "-" + day + week;
         },
+        noticeView(value) { //cookie 설정            
+            if (value == true) {
+                VueCookies.set('view', value, "1d")
+            }
+        },
+        getNoticeView() {
+            if (VueCookies.get('view') == "true") {
+                this.NoticeModalView = false
+            } else if (VueCookies.get('view') == "false") {
+                this.NoticeModalView = true
+            }
+        },
         submit() {
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
             let fromArea = "";
             let toArea = "";
-            let startDate = "";
-            let returnDate = "";
+
+            //출발일
+            const startYear = this.bothWay[0].getFullYear();
+            const startMonth = this.bothWay[0].getMonth() + 1;
+            const startDay = this.bothWay[0].getDate();
+            const startWeek = this.week[this.bothWay[0].getDay()];
+
+            //도착일
+
+            const returnYear = this.bothWay[1].getFullYear();
+            const returnMonth = this.bothWay[1].getMonth() + 1;
+            const returnDay = this.bothWay[1].getDate();
+            const returnWeek = this.week[this.bothWay[1].getDay()];
+
 
             if (this.selectDate1 == false && this.selectDate2 == false) {
                 alert("날짜를 선택해주세요.")
@@ -630,7 +648,7 @@ export default {
                 return false;
             }
 
-            if (this.oneWay.toString() != false) {
+            /*if (this.oneWay.toString() != false) {
                 var string1 = this.oneWay.toString();
                 startDate = string1.substring(0, 16);
                 returnDate = " ";
@@ -638,7 +656,7 @@ export default {
                 var string2 = this.bothWay.toString();
                 startDate = string2.substring(0, 16);
                 returnDate = string2.substring(43, 58);
-            }
+            }*/
 
             if (seat == "좌석 등급") {
                 alert("좌석을 선택해주세요.")
@@ -660,19 +678,28 @@ export default {
                     fromArea: fromArea,
                     toArea: toArea,
                     seat: seat,
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    AdultCount: "성인 " + this.AdultCount + "명",
-                    ChildCount: ", 소아 " + this.ChildCount + "명",
-                    InfantCount: ", 유아 " + this.InfantCount + "명",
+                    startYear: startYear,
+                    startMonth: startMonth,
+                    startDay: startDay,
+                    startWeek: startWeek,
+                    returnYear: returnYear,
+                    returnMonth: returnMonth,
+                    returnDay: returnDay,
+                    returnWeek: returnWeek,
+                    AdultCount: this.AdultCount,
+                    ChildCount: this.ChildCount,
+                    InfantCount: this.InfantCount,
                 }
             });
+
+        },
+        top() {
 
         }
     },
 
     mounted() {
-        this.getData()
+        this.getNoticeView()
     }
 
 }
@@ -686,7 +713,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    height: 70%;
+    height: 780px;
     border-radius: 15px;
     background-color: white;
     box-shadow: 1px 1px 6px teal;

@@ -17,33 +17,33 @@
         <option value="이코노미">이코노미</option>
         <option value="비즈니스">비즈니스</option>
     </select><br>
-    
-       <!--여행 날짜 선택-->
-       <Datepicker  class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
 
-<!--왕복 날짜 선택-->
-<div type="button" class="selectDate1" @click="resetDate1" v-show="selectDate1">
-    <div class="selectDate2" >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-        </svg>
-        {{bothWay}}
+    <!--여행 날짜 선택-->
+    <Datepicker class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" modelAuto range />
+
+    <!--왕복 날짜 선택-->
+    <div type="button" class="selectDate1" @click="resetDate1" v-show="selectDate1">
+        <div class="selectDate2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+            </svg>
+            {{bothWay}}
+        </div>
     </div>
-</div>
 
-<!--<input v-show="selectDate" type="text" v-model="bothWay">-->
+    <!--<input v-show="selectDate" type="text" v-model="bothWay">-->
 
-<!--편도 날짜 선택-->
-<Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" />
+    <!--편도 날짜 선택-->
+    <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" />
 
-<div type="button" class="selectDate1" @click="resetDate2" v-show="selectDate2">
-    <div class="selectDate2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-        </svg>
-        {{oneWay}}
+    <div type="button" class="selectDate1" @click="resetDate2" v-show="selectDate2">
+        <div class="selectDate2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+            </svg>
+            {{oneWay}}
+        </div>
     </div>
-</div>
 
     <button type="button" @click="testSend()">보내기</button><br>
 
@@ -87,7 +87,9 @@ import Datepicker from '@vuepic/vue-datepicker';
 
 export default {
     name: 'HelloWorld',
-    components: {Datepicker},
+    components: {
+        Datepicker
+    },
     props: [""],
     data() {
         return {
@@ -100,22 +102,33 @@ export default {
     },
     methods: {
         test(){
+            console.log(this.$store.state.userInfo.email)
+            console.log(this.seat)
+            console.log(this.fromImgName)
+            console.log(this.toImgName)
+            console.log(this.Date)
+            console.log(this.way)
+            console.log(this.AdultCount)
+            console.log(this.ChildCount)
+            console.log(this.InfantCount)
+        },
+        test2() {
             let ttt = document.getElementById('testValue').value
 
             if (this.selectDate1 == true) {
                 this.Date = this.bothWay;
                 this.way = "왕복"
-            } else if(this.selectDate2 == true){
+            } else if (this.selectDate2 == true) {
                 this.Date = this.oneWay;
                 this.way = "편도"
-            }else{
-                alert("여행 일정을 선택해주세요")
+            } else {
+                console.log("여행 일정을 선택해주세요")
                 return false;
             }
 
-          alert(this.$store.state.userInfo.email)
-          alert(ttt)  
-          alert(this.way)
+            console.log(this.$store.state.userInfo.email)
+            console.log(ttt)
+            console.log(this.way)
         },
         datepickerShow1() {
             this.datePickerShow1 = false;
@@ -131,7 +144,7 @@ export default {
 
             axios
                 .post("/res/test", {
-                    email: this.$store.state.userInfo.email,                    
+                    email: this.$store.state.userInfo.email,
                     seat: this.seat,
                     way: this.way,
                     fromArea: this.fromArea,
@@ -158,7 +171,7 @@ export default {
                 this.Date = this.oneWay;
                 this.way = "편도"
             } else {
-                alert("여행 일정을 선택해주세요")
+                console.log("여행 일정을 선택해주세요")
                 return false;
             }
 
@@ -170,18 +183,17 @@ export default {
                 this.InfantCount = null;
             }
 
-            alert(this.$store.state.userInfo.email)
-            alert(seat)
-            alert(this.fromImgName)
-            alert(this.toImgName)
-            alert(this.Date)
-            alert(this.way)
-            alert(this.AdultCount)
-            alert(this.ChildCount)
-            alert(this.InfantCount)
+            console.log(this.$store.state.userInfo.email)
+            console.log(seat)
+            console.log(this.fromImgName)
+            console.log(this.toImgName)
+            console.log(this.Date)
+            console.log(this.way)
+            console.log(this.AdultCount)
+            console.log(this.ChildCount)
+            console.log(this.InfantCount)
 
-            axios
-                .post("/res/test", {
+            axios.post("/res/test", {
                     email: this.$store.state.userInfo.email,
                     seat: seat,
                     Date: this.Date,
@@ -210,7 +222,7 @@ export default {
 </script>
 
 <style scoped>
-label{
+label {
     float: left;
     margin-left: 20px;
     margin-bottom: 10px;

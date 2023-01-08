@@ -119,59 +119,6 @@ export default {
 
     },
     methods: {
-        Format(value) {
-            var string = value.toString();
-            var total = string.substring(0, 16);
-
-            var year = total.substring(11, 15);
-            var day = total.substring(8, 10);
-            var week = total.substring(0, 3);
-            var month = total.substring(4, 7);
-
-            if (week == "Mon") {
-                week = "(월)";
-            } else if (week == "Tue") {
-                week = "(화)"
-            } else if (week == "Wed") {
-                week = "(수)"
-            } else if (week == "Thu") {
-                week = "(목)"
-            } else if (week == "Fri") {
-                week = "(금)"
-            } else if (week == "Sat") {
-                week = "(토)"
-            } else if (week == "Sun") {
-                week = "(일)"
-            }
-
-            if (month == "Jan") {
-                month = "1";
-            } else if (month == "Feb") {
-                month = "2"
-            } else if (month == "Mar") {
-                month = "3"
-            } else if (month == "Apr") {
-                month = "4"
-            } else if (month == "May") {
-                month = "5"
-            } else if (month == "Jun") {
-                month = "6"
-            } else if (month == "Jul") {
-                month = "7"
-            } else if (month == "Aug") {
-                month = "8"
-            } else if (month == "Sep") {
-                month = "9"
-            } else if (month == "Oct") {
-                month = "10"
-            } else if (month == "Nov") {
-                month = "11"
-            } else if (month == "Dec") {
-                month = "12"
-            }
-
-            return year + "-" + month + "-" + day + week;
-        },
         closeModal() {
             this.$emit('close')
         },

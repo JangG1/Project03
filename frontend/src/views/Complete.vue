@@ -37,9 +37,9 @@
             <span class="listRight">{{ flight1 }}</span><br><br>
             <span class="listRight">{{ fromArea }} →&nbsp; {{ toArea }}</span><br><br>
             <span class="listRight"> {{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}}) {{ startTime1 }} ~ {{ arriveTime1 }}</span><br><br>
-            <span class="listRight">성인 {{AdultCount}}명</span>
-            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>
-            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span><br><br>
+            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span>
+            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>            
+            <span class="listRight">성인 {{AdultCount}}명</span><br><br>
 
             
             
@@ -61,10 +61,10 @@
         <div class="comInfoRight">
             <span class="listRight">{{ flight2 }}</span><br><br>
             <span class="listRight">{{ toArea }} →&nbsp; {{ fromArea }}</span><br><br>
-            <span class="listRight">{{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}}) {{ startTime2 }} ~ {{ arriveTime2 }}</span><br><br>
-            <span class="listRight">성인 {{AdultCount}}명</span>
-            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>
-            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span><br><br>
+            <span class="listRight">{{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}}) {{ startTime2 }} ~ {{ arriveTime2 }}</span><br><br>            
+            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span>
+            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>            
+            <span class="listRight">성인 {{AdultCount}}명</span><br><br>
             <span class="listRight">{{ seat }} {{ seatClass2 }}</span>
         </div>
     </div>
@@ -92,7 +92,8 @@
 <!--test-->
 =========================================================
 <div>
-    <button type="button" class="comBtn1" @click="test">test</button>
+    <button type="button" class="comBtn1" @click="test">test</button>    
+    <button type="button" class="comBtn1" @click="testSend">testSend</button>
 </div>
 <!-- FOOTER -->
 <hr>
@@ -107,6 +108,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'HelloWorld',
     components: {
@@ -210,6 +213,13 @@ export default {
     },
     methods: {
         test() {            
+
+            if(this.returnYear != null){
+                this.way = "왕복"
+            }else if(this.returnYear == null){
+                this.way = "편도";
+            }
+
             console.log(this.korLastName)
             console.log(this.korFirstName)
             console.log(this.engLastName)
@@ -218,6 +228,7 @@ export default {
             console.log(this.gender)
             console.log(this.fromArea)
             console.log(this.toArea)
+            console.log(this.way)
             console.log(this.seat)
             console.log(this.seatClass1)
             console.log(this.seatClass2)
@@ -229,14 +240,14 @@ export default {
             console.log(this.returnMonth)
             console.log(this.returnDay)
             console.log(this.returnWeek)
-            console.log(this.InfantCount)
-            console.log(this.ChildCount)
             console.log(this.AdultCount)
+            console.log(this.ChildCount)
+            console.log(this.InfantCount)
             console.log(this.startTime1)
             console.log(this.arriveTime1)
             console.log(this.startTime2)
             console.log(this.arriveTime2)
-            console.log(this.startPrice)
+            
         },
         home() {
             this.$router.replace({
@@ -247,22 +258,6 @@ export default {
             this.$router.push({
                 name: 'Reservation'
             })
-        },
-        comChildCount(value) {
-            console.log(value.substr(4, 2))
-            if (value.substr(4, 2) > 0) {
-                return this.childCountView = ", 소아 " + value.substr(4, 2) + "명"
-            } else if (value.substr(4, 2) == 0) {
-                return this.ChildCount == ""
-            }
-        },
-        comInfantCount(value) {
-            console.log(value.substr(4, 2))
-            if (value.substr(4, 2) > 0) {
-                return this.infantCountView = ", 유아 " + value.substr(4, 2) + "명"
-            } else if (value.substr(4, 2) == 0) {
-                return this.infantCountView = ""
-            }
         },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -280,58 +275,48 @@ export default {
             }
 
         },
-        Format(value) {
-            var string = value.toString();
-            var total = string.substring(0, 16);
+        testSend() {
+            const startDate = this.startYear + "-" + this. startMonth + "-" + this.startDay + '(' + this.startWeek + ')';
+            const returnDate = this.returnYear + "-" + this. returnMonth + "-" + this.returnDay + '(' + this.returnWeek + ')';
 
-            var year = total.substring(11, 15);
-            var day = total.substring(8, 10);
-            var week = total.substring(0, 3);
-            var month = total.substring(4, 7);
-
-            if (week == "Mon") {
-                week = "(월)";
-            } else if (week == "Tue") {
-                week = "(화)"
-            } else if (week == "Wed") {
-                week = "(수)"
-            } else if (week == "Thu") {
-                week = "(목)"
-            } else if (week == "Fri") {
-                week = "(금)"
-            } else if (week == "Sat") {
-                week = "(토)"
-            } else if (week == "Sun") {
-                week = "(일)"
+            if(this.returnYear != null){
+                this.way = "왕복"
+            }else{
+                this.way = "편도";
             }
 
-            if (month == "Jan") {
-                month = "1";
-            } else if (month == "Feb") {
-                month = "2"
-            } else if (month == "Mar") {
-                month = "3"
-            } else if (month == "Apr") {
-                month = "4"
-            } else if (month == "May") {
-                month = "5"
-            } else if (month == "Jun") {
-                month = "6"
-            } else if (month == "Jul") {
-                month = "7"
-            } else if (month == "Aug") {
-                month = "8"
-            } else if (month == "Sep") {
-                month = "9"
-            } else if (month == "Oct") {
-                month = "10"
-            } else if (month == "Nov") {
-                month = "11"
-            } else if (month == "Dec") {
-                month = "12"
-            }
-
-            return year + "-" + month + "-" + day + week;
+            axios.post("/res/test", {
+                    email: this.$store.state.userInfo.email,
+                    korFirstName: this.korFirstName,
+                    korLastName: this.korLastName,
+                    engFirstName: this.engFirstName,
+                    engLastName: this.engLastName,
+                    gender: this.gender,
+                    birthday: this.birthday,
+                    seat: this.seat,
+                    seatClass1: this.seatClass1,
+                    seatClass2: this.seatClass2,
+                    way: this.way,
+                    fromArea: this.fromArea,
+                    toArea: this.toArea,
+                    startDate: startDate,
+                    returnDate: returnDate,
+                    adultCount: this.AdultCount,
+                    childCount: this.ChildCount,
+                    infantCount: this.InfantCount,
+                    startTime1: this.startTime1,
+                    arriveTime1: this.arriveTime1,
+                    startTime2: this.startTime2,
+                    arriveTime2: this.arriveTime2,
+                })
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
         },
 
     },

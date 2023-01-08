@@ -55,6 +55,37 @@ public class ResController {
 	}
 	
 	@PostMapping("/test")
+	public void Test(@RequestBody ResList resList) {
+		System.out.println(resList.getEmail());
+		System.out.println(resList.getKorFirstName());
+		System.out.println(resList.getKorLastName());
+		System.out.println(resList.getEngFirstName());
+		System.out.println(resList.getEngLastName());
+		System.out.println(resList.getGender());
+		System.out.println(resList.getBirthday());
+		System.out.println(resList.getSeat());
+		System.out.println(resList.getSeatClass1());
+		System.out.println(resList.getSeatClass2());
+		System.out.println(resList.getWay());
+		System.out.println(resList.getFromArea());
+		System.out.println(resList.getToArea());
+		System.out.println(resList.getStartDate());
+		System.out.println(resList.getReturnDate());
+		System.out.println(resList.getAdultCount());
+		System.out.println(resList.getChildCount());
+		System.out.println(resList.getInfantCount());
+		System.out.println(resList.getStartTime1());
+		System.out.println(resList.getArriveTime1());
+		System.out.println(resList.getStartTime2());
+		System.out.println(resList.getArriveTime2());
+		
+		System.out.println(resList.getRes_date());
+		
+		
+		System.out.println(resList);
+	}
+	
+	/*@PostMapping("/test")
 	public void resListTest(@RequestBody ResList resList) {
 		System.out.println(resList.getEmail());		
 		System.out.println(resList.getFromArea());
@@ -63,7 +94,7 @@ public class ResController {
 		
 		resRepository.save(resList);
 		System.out.println(resList);
-	}
+	}*/
 	
 	/*@PostMapping("/test")
 	public void resListTest(@RequestBody ResList resList) {

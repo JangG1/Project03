@@ -37,22 +37,68 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String email;
 	
+	@Column(nullable = false, length = 50)
+	private String korFirstName;
+	
+	@Column(nullable = false, length = 50)
+	private String korLastName;
+	
+	@Column(nullable = false, length = 50)
+	private String engFirstName;
+	
+	@Column(nullable = false, length = 50)
+	private String engLastName;
+	
+	@Column(nullable = false, length = 50)
+	private String gender;
+	
+	@Column(nullable = false, length = 50)
+	private String birthday;
+	
 	@Enumerated(EnumType.STRING)
 	private Seat seat; //Enum 사용 (일반석, 이코노미, 비즈니스)
 	
-	@Enumerated(EnumType.STRING)
-	private Way way; //Enum 사용 (왕복,편도)
-	@Column(nullable = false, length = 500)
-	private String departDate;
+	@Column(nullable = false, length = 50)
+	private String seatClass1;
 	
 	@Column(nullable = false, length = 50)
-	private String returnDate;
+	private String seatClass2;
+	
+	@Enumerated(EnumType.STRING)
+	private Way way; //Enum 사용 (왕복,편도)
 	
 	@Column(nullable = false, length = 50)
 	private String fromArea;
 	
 	@Column(nullable = false, length = 50)
 	private String toArea;
+	
+	@Column(nullable = false, length = 50)
+	private String startDate;
+	
+	@Column(nullable = false, length = 50)
+	private String returnDate;
+	
+	@Column(nullable = false, length = 10)
+	private int adultCount;
+	
+	@Column(nullable = false, length = 10)
+	private int childCount;
+	
+	@Column(nullable = false, length = 10)
+	private int infantCount;
+	
+	@Column(nullable = false, length = 10)
+	private String startTime1;
+	
+	@Column(nullable = false, length = 10)
+	private String arriveTime1;
+	
+	@Column(nullable = false, length = 10)
+	private String startTime2;
+	
+	@Column(nullable = false, length = 10)
+	private String arriveTime2;
 	
 	@CreationTimestamp // 값을 비워두고 insert해도 시간이 자동으로 입력
 	private Timestamp res_date;

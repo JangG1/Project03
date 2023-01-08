@@ -21,12 +21,12 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                성인 {{AdultCount}} 명
+                성인 {{AdultCount}}명
                 <span v-show="ChildCount > 0">
-                , 유아 {{ChildCount}} 명
+                    , 유아 {{ChildCount}}명
                 </span>
                 <span v-show="InfantCount > 0">
-                , 소아 {{InfantCount}} 명
+                    , 소아 {{InfantCount}}명
                 </span>
             </div>
         </button>
@@ -37,13 +37,13 @@
             <div>
                 가는 편
             </div>
-
+            <span>│</span>
             <div class="startInfo1">
                 {{fromArea}} &nbsp;
                 →&nbsp;
                 {{toArea}}
             </div>
-
+            <span>│</span>
             <div class="startInfo2">
                 {{startDate}} {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
             </div>
@@ -57,7 +57,7 @@
                 <h3>{{res.start}}</h3>
                 <span> {{ fromArea }}</span>
                 <div class="flight">
-                <img src="@/assets/Logo.png" class="flightLogo">
+                    <img src="@/assets/Logo.png" class="flightLogo">
                     {{ res.flight }}
                 </div>
             </div>
@@ -91,7 +91,7 @@
 
     <div class="footNav">
         <span class="footNav1">예상 결제 금액</span>
-        <span class="startPrice">{{AddComma(selectPrice)+ " 원"}}</span>        
+        <span class="startPrice">{{AddComma(selectPrice)+ " 원"}}</span>
         <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
     </div>
 </div>
@@ -226,74 +226,20 @@ export default {
             let startTime = this.at[index].start;
             let arriveTime = this.at[index].arrive;
             let seatClass = this.at[index].flex;
-            
+
             this.selectPrice = this.startPrice;
-            this.selectPrice = parseInt(this.selectPrice) + parseInt(priceFlex)            
+            this.selectPrice = parseInt(this.selectPrice) + parseInt(priceFlex)
             this.stTime2 = startTime;
             this.arrTime2 = arriveTime;
             this.Class2 = seatClass;
         },
-        selectFlight(index){
+        selectFlight(index) {
             console.log(this.at[index].flight)
 
             let flight = this.at[index].flight;
 
             this.flight2 = flight;
         },
-        Format(value) {
-            var string = value.toString();
-            var total = string.substring(0, 16);
-
-            var year = total.substring(11, 15);
-            var day = total.substring(8, 10);
-            var week = total.substring(0, 3);
-            var month = total.substring(4, 7);
-
-            if (week == "Mon") {
-                week = "(월)";
-            } else if (week == "Tue") {
-                week = "(화)"
-            } else if (week == "Wed") {
-                week = "(수)"
-            } else if (week == "Thu") {
-                week = "(목)"
-            } else if (week == "Fri") {
-                week = "(금)"
-            } else if (week == "Sat") {
-                week = "(토)"
-            } else if (week == "Sun") {
-                week = "(일)"
-            }
-
-            if (month == "Jan") {
-                month = "1";
-            } else if (month == "Feb") {
-                month = "2"
-            } else if (month == "Mar") {
-                month = "3"
-            } else if (month == "Apr") {
-                month = "4"
-            } else if (month == "May") {
-                month = "5"
-            } else if (month == "Jun") {
-                month = "6"
-            } else if (month == "Jul") {
-                month = "7"
-            } else if (month == "Aug") {
-                month = "8"
-            } else if (month == "Sep") {
-                month = "9"
-            } else if (month == "Oct") {
-                month = "10"
-            } else if (month == "Nov") {
-                month = "11"
-            } else if (month == "Dec") {
-                month = "12"
-            }
-
-            return year + "-" + month + "-" + day + week;
-        },
-
         submit() {
             this.$router.push({
                 name: 'Payment',
@@ -303,7 +249,7 @@ export default {
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     seat: this.seat,
-                    seatClass1: this.seatClass1,                    
+                    seatClass1: this.seatClass1,
                     seatClass2: this.Class2,
                     startYear: this.startYear,
                     startMonth: this.startMonth,
@@ -318,7 +264,7 @@ export default {
                     InfantCount: this.InfantCount,
                     startTime1: this.startTime1,
                     arriveTime1: this.arriveTime1,
-                    startTime2:  this.stTime2,
+                    startTime2: this.stTime2,
                     arriveTime2: this.arrTime2,
                     startPrice: this.selectPrice,
                 }
@@ -334,17 +280,17 @@ export default {
 </script>
 
 <style>
-.flight{
+.flight {
     margin-top: 15px;
     color: #999;
 }
 
-.flightLogo{
+.flightLogo {
     width: 30px;
-    height: 30px;    
+    height: 30px;
 }
 
-.step{
+.step {
     float: right;
     margin-right: 200px;
     margin-bottom: 30px;
@@ -352,15 +298,16 @@ export default {
     display: flex;
 }
 
-.step2{
+.step2 {
     color: teal;
 }
+
 .ver {
     margin-top: 25px;
     margin-left: 14px;
 }
 
-.schedule{
+.schedule {
     color: teal;
     font-size: 28px;
     font-weight: 900;
@@ -415,6 +362,11 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
+}
+
+.startInfo span {
+    padding-top: 22px;
+    font-size: 30px;
 }
 
 .startInfo button div {
@@ -523,7 +475,7 @@ export default {
     box-shadow: 2px 2px 20px rgb(1, 83, 83);
 }
 
-.footNav1{
+.footNav1 {
     margin-left: 30px;
 }
 

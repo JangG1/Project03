@@ -621,7 +621,7 @@ export default {
             let toArea = "";
 
             //출발일
-            const startYear = this.bothWay[0].getFullYear();
+            this.startYear = this.bothWay[0].getFullYear();
             const startMonth = this.bothWay[0].getMonth() + 1;
             const startDay = this.bothWay[0].getDate();
             const startWeek = this.week[this.bothWay[0].getDay()];
@@ -633,6 +633,12 @@ export default {
             const returnDay = this.bothWay[1].getDate();
             const returnWeek = this.week[this.bothWay[1].getDay()];
 
+            this.returnDate = {
+                'returnYear': returnYear,
+                'returnMonth': returnMonth,
+                'returnDay': returnDay,
+                'returnWeek': returnWeek
+            }
 
             if (this.selectDate1 == false && this.selectDate2 == false) {
                 alert("날짜를 선택해주세요.")
@@ -678,7 +684,7 @@ export default {
                     fromArea: fromArea,
                     toArea: toArea,
                     seat: seat,
-                    startYear: startYear,
+                    startYear: this.startYear,
                     startMonth: startMonth,
                     startDay: startDay,
                     startWeek: startWeek,

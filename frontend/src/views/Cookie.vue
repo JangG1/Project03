@@ -4,7 +4,6 @@
     <a @click="setTest">set cookie</a><br>
     <a @click="getTest">get cookie</a><br>
     <a @click="resetTest">reset cookie</a><br>
-    <a @click="getAll">getAll cookie</a><br>
 
     <a @click="test">test</a><br>
 </div>
@@ -44,19 +43,20 @@ export default {
             }
         },
         resetTest: () => {
-            var tomorrow = VueCookies.get('test') + 1; // 일
+            var Now = new Date(); // 현재 날짜 및 시간
 
-            console.log(parseInt(VueCookies.get('test')) + 1)
+            var nowDay = Now.getDate(); // 일
+            var setDay = parseInt(VueCookies.get('test')) + 1;
 
-            if(VueCookies.get('test') == tomorrow){
+            console.log("설정날짜 " + VueCookies.get('test'))
+            console.log("다음날 " + setDay)
+            console.log("오늘 " + nowDay)
+
+            if(setDay == nowDay){
             VueCookies.remove('test')
             console.log('삭제됨')
             }
         },
-        getAll() {
-            VueCookies.keys().join("\n");
-            console.log(VueCookies.keys().join("\n"))
-        }
     },
     mounted() {
         this.resetTest();

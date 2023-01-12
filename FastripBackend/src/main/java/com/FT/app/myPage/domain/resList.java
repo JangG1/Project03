@@ -68,10 +68,19 @@ public class ResList {
 	private Way way; //Enum 사용 (왕복,편도)
 	
 	@Column(nullable = false, length = 50)
+	private String flight1;
+	
+	@Column(nullable = false, length = 50)
+	private String flight2;
+	
+	@Column(nullable = false, length = 50)
 	private String fromArea;
 	
 	@Column(nullable = false, length = 50)
 	private String toArea;
+	
+	@Column(nullable = false, length = 50)
+	private String oneWayArea;
 	
 	@Column(nullable = false, length = 50)
 	private String startDate;

@@ -1,7 +1,7 @@
 <template>
 <div class="Dleft">
-    <h4 class="IATAtitle1">위험품 안내</h4>
-    <h4 class="IATAtitle2">항공기 반입금지 물품</h4>
+    <h4 class="title">위험품 안내</h4>
+    <h4>항공기 반입금지 물품</h4>
     <div class="leftbox">
         <div class="leftbox1">
             <img src="../assets/danger1.jpg" class="IATAImg">
@@ -38,7 +38,7 @@
                 여분의 리튬 배터리
             </li>
             <li>
-                리튬 배터리가 분리되지 않는 전동 휠/<br>
+                리튬 배터리가 분리되지 않는 전동 휠<br>
                 스마트 가방
             </li>
         </div>
@@ -67,8 +67,8 @@
     </div>
 </div>
 
-<div class="IATAfoot" @click="closeModal">
-    <button class="IATACloseBtn" @click="closeModal">확인</button>
+<div class="foot" @click="closeModal">
+    <button class="closeBtn" @click="closeModal">확인</button>
 </div>
 </template>
 
@@ -96,7 +96,7 @@ export default {
 }
 
 .rightbox h4 {
-    margin-top: 40px;
+    margin-top: 50px;
     margin-left: 120px;
     color: rgb(79, 79, 79);
 }
@@ -115,26 +115,62 @@ export default {
     position: absolute;
 }
 
-.IATAtitle1 {
+.title {
     color: teal;
     font-size: 25px;
     font-weight: 900;
-    margin-top: 40px;
-    margin-left: 3%;
+    margin-top: 20px;
 }
 
-.IATAtitle2 {
-    margin-left: 3%;
+.Dleft {}
+
+.Dright {}
+
+.Dleft::-webkit-scrollbar {
+    width: 10px;
 }
 
-.Dleft {
-    margin-left: 3%;
+.Dleft::-webkit-scrollbar-thumb {
+    background-color: teal;
+    border-radius: 10px;
+    /*스크롤바의 색상*/
 }
 
-.Dright {
-    margin-left: 3%;
-    margin-bottom: 10%;
-    overflow: auto;
+.Dleft::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 10px;
+    /*스크롤바 트랙 색상*/
+}
+
+@media (min-width: 1970px) {
+
+    .Dleft {
+        margin-left: 1%;
+        float: left;
+    }
+
+    .Dright {
+        float: right;
+        margin-top: 10%;
+        margin-right: 7%;
+    }
+
+    .Dleft::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .Dleft::-webkit-scrollbar-thumb {
+        background-color: teal;
+        border-radius: 10px;
+        /*스크롤바의 색상*/
+    }
+
+    .Dleft::-webkit-scrollbar-track {
+        background-color: white;
+        border-radius: 10px;
+        /*스크롤바 트랙 색상*/
+    }
+
 }
 
 .IATAImg {
@@ -142,8 +178,8 @@ export default {
     height: 100px;
 }
 
-.IATAfoot {
-    display: flex;
+.foot {
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
@@ -157,7 +193,7 @@ export default {
     cursor: pointer;
 }
 
-.IATACloseBtn {
+.closeBtn {
     color: white;
     background: teal;
     border: none;
@@ -168,42 +204,5 @@ export default {
 
 }
 
-@media (min-width: 2050px) {
-    .rightbox h4 {
-        margin-top: 60px;
-    }
-
-    .Dleft {
-        margin-left: 1%;
-        float: left;
-        overflow: auto;
-    }
-
-    .Dright {
-        float: right;
-        margin-top: 100px;
-        margin-right: 60px;
-        overflow: auto;
-    }
-
-    .IATAfoot {        
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 75px;
-        padding: 1rem;
-        color: white;
-        background: teal;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 20px;
-        box-shadow: 2px 2px 20px rgb(1, 83, 83);
-    }
-
-    .IATACloseBtn {}
-
-}
+@media (min-width: 1970px) {}
 </style>

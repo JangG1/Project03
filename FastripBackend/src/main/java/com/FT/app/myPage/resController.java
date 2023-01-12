@@ -54,7 +54,7 @@ public class ResController {
 		return resList;
 	}
 	
-	@PostMapping("/test")
+	@PostMapping("/resPost")
 	public void Test(@RequestBody ResList resList) {
 		System.out.println(resList.getEmail());
 		System.out.println(resList.getKorFirstName());
@@ -67,8 +67,11 @@ public class ResController {
 		System.out.println(resList.getSeatClass1());
 		System.out.println(resList.getSeatClass2());
 		System.out.println(resList.getWay());
+		System.out.println(resList.getFlight1());
+		System.out.println(resList.getFlight2());
 		System.out.println(resList.getFromArea());
 		System.out.println(resList.getToArea());
+		System.out.println(resList.getOneWayArea());
 		System.out.println(resList.getStartDate());
 		System.out.println(resList.getReturnDate());
 		System.out.println(resList.getAdultCount());
@@ -81,7 +84,7 @@ public class ResController {
 		
 		System.out.println(resList.getRes_date());
 		
-		
+		resRepository.save(resList);
 		System.out.println(resList);
 	}
 	

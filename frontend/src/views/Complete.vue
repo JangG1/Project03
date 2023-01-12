@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div class="comAreaList">
+    <div class="comAreaList" v-if="returnYear != returnYearValue">
         <div class="comInfoTitle">
             오는편
         </div>
@@ -86,29 +86,24 @@
 
     <div class="comBtn">
         <button type="button" class="comBtn1" @click="home">확인</button>
-        <button type="button" class="comBtn2" @click="Reservation">예약 조회하기</button>
+        <!-- <button type="button" class="comBtn2" @click="Reservation">예약 조회하기</button> -->
     </div>
 </div>
-<!--test-->
-=========================================================
-<div>
-    <button type="button" class="comBtn1" @click="test">test</button>    
-    <button type="button" class="comBtn1" @click="testSend">testSend</button>
-</div>
 <!-- FOOTER -->
-<hr>
-<div class="footLogoName">
-    <img class="footLogo" src="../assets/Logo.png">
-    Fastrip
-</div>
-<footer class="footer">
-    <p>&copy; 2022 Company, Fastrip</p>
-    <a class="topBtn" href="">✈ Top</a>
+<footer class="Footer">
+    <div class="FootLeft">
+        <img class="footLogo" src="../assets/Logo2.png">
+        <span> Fastrip</span>
+        <p>&copy; 2022 Company, Fastrip</p>
+    </div>
+
+    <div class="FootRight">
+        <a class="topBtn" href="#top">✈ Top</a>
+    </div>
 </footer>
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     name: 'HelloWorld',
@@ -117,13 +112,14 @@ export default {
     },
     data() {
         return {
-            korLastName: this.$store.state.name.substring(0, 1),
+            /*korLastName: this.$store.state.name.substring(0, 1),
             korFirstName: this.$store.state.name.substring(1, 3),
             birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
-            gender: this.$store.state.gender,
+            gender: this.$store.state.gender,*/
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
+            returnYearValue: " ",
         }
     },
     props: {
@@ -133,10 +129,22 @@ export default {
         flight2: {
             type: String,
         },
+        korLastName: {
+            type: String,
+        },
+        korFirstName: {
+            type: String,
+        },
         engLastName: {
             type: String,
         },
         engFirstName: {
+            type: String,
+        },
+        birthday: {
+            type: String,
+        },
+        gender: {
             type: String,
         },
         fromArea: {
@@ -212,43 +220,7 @@ export default {
         },
     },
     methods: {
-        test() {            
 
-            if(this.returnYear != null){
-                this.way = "왕복"
-            }else if(this.returnYear == null){
-                this.way = "편도";
-            }
-
-            console.log(this.korLastName)
-            console.log(this.korFirstName)
-            console.log(this.engLastName)
-            console.log(this.engFirstName)
-            console.log(this.birthday)
-            console.log(this.gender)
-            console.log(this.fromArea)
-            console.log(this.toArea)
-            console.log(this.way)
-            console.log(this.seat)
-            console.log(this.seatClass1)
-            console.log(this.seatClass2)
-            console.log(this.startYear)
-            console.log(this.startMonth)
-            console.log(this.startDay)
-            console.log(this.startWeek)
-            console.log(this.returnYear)
-            console.log(this.returnMonth)
-            console.log(this.returnDay)
-            console.log(this.returnWeek)
-            console.log(this.AdultCount)
-            console.log(this.ChildCount)
-            console.log(this.InfantCount)
-            console.log(this.startTime1)
-            console.log(this.arriveTime1)
-            console.log(this.startTime2)
-            console.log(this.arriveTime2)
-            
-        },
         home() {
             this.$router.replace({
                 name: 'Home'
@@ -267,7 +239,6 @@ export default {
             var string = value.toString();
             var total = string.substring(0, 6);
 
-            console.log(total)
             if (total == "male") {
                 return this.value = "남자"
             } else if (total == "female") {
@@ -275,50 +246,6 @@ export default {
             }
 
         },
-        testSend() {
-            const startDate = this.startYear + "-" + this. startMonth + "-" + this.startDay + '(' + this.startWeek + ')';
-            const returnDate = this.returnYear + "-" + this. returnMonth + "-" + this.returnDay + '(' + this.returnWeek + ')';
-
-            if(this.returnYear != null){
-                this.way = "왕복"
-            }else{
-                this.way = "편도";
-            }
-
-            axios.post("/res/test", {
-                    email: this.$store.state.userInfo.email,
-                    korFirstName: this.korFirstName,
-                    korLastName: this.korLastName,
-                    engFirstName: this.engFirstName,
-                    engLastName: this.engLastName,
-                    gender: this.gender,
-                    birthday: this.birthday,
-                    seat: this.seat,
-                    seatClass1: this.seatClass1,
-                    seatClass2: this.seatClass2,
-                    way: this.way,
-                    fromArea: this.fromArea,
-                    toArea: this.toArea,
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    adultCount: this.AdultCount,
-                    childCount: this.ChildCount,
-                    infantCount: this.InfantCount,
-                    startTime1: this.startTime1,
-                    arriveTime1: this.arriveTime1,
-                    startTime2: this.startTime2,
-                    arriveTime2: this.arriveTime2,
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-        },
-
     },
 }
 </script>
@@ -415,5 +342,36 @@ export default {
     border-radius: 8px;
     font-size: 20px;
     font-weight: 900;
+}
+
+.topBtn,
+a:hover,
+a:visited,
+a:active {
+    color: rgb(77, 77, 77);
+}
+
+
+.Footer {
+    border-top: 1px solid;
+}
+
+.FootLeft {
+    float: left;
+    margin-left: 280px;
+    margin-top: 30px;
+    font-size: 40px;
+    padding-bottom: 50px;
+}
+
+.footLogo {
+    width: 100px;
+    height: 70px;
+}
+
+.FootRight {
+    float: right;
+    margin-right: 280px;
+    margin-top: 60px;
 }
 </style>

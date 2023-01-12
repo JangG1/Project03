@@ -16,7 +16,7 @@ export default createStore({
                 'email',
                 'gender',
                 'birthday',
-                'holdPoint']
+                'holdPoint',]
         })
     ],    
     state: {
@@ -33,6 +33,7 @@ export default createStore({
         consentBtn1: '',
         consentBtn2: '',
         holdPoint: '',
+        res_no: null,
     },
   mutations: {
     setToken(state, payload) {
@@ -48,6 +49,10 @@ export default createStore({
     setConsent2(state) {
         console.log(state.consentBtn2)
         state.consentBtn2 = "선택2"
+    },
+    setResNo(state, payload){
+        console.log(state.payload)
+        state.res_no = payload
     },
     setHoldPoint(state, payload) {
         state.holdPoint = payload
@@ -65,6 +70,11 @@ export default createStore({
         state.email = payload.email        
         state.gender = payload.gender
         state.birthday = payload.birthday
+        console.log("loginSuccess " + payload)
+        console.log("loginSuccess " + payload.name)
+        console.log("loginSuccess " + payload.email)
+        console.log("loginSuccess " + payload.gender)
+        console.log("loginSuccess " + payload.birthday)
     },
     loginError(state) {
         state.isLogin = false
@@ -80,6 +90,7 @@ export default createStore({
 },
   actions: {
         async setUserInfo({ commit }, payload) {
+            console.log("setUserInfo" + payload)
             let userInfo = {
                 name: payload.name,
                 email: payload.email,
@@ -87,11 +98,13 @@ export default createStore({
                 gender: payload.gender,
                 birthday: payload.birthday,
             }            
+            console.log("setUserInfo name " + payload.name)
             commit("loginSuccess", userInfo)
         },
-        async getToken({ commit }, loginObj) {
+        /*async getToken({ commit }, loginObj) {
+            console.log("getToken" + loginObj)
             await axios
-                .post("/api/test", loginObj)
+                .post("/api/test1", loginObj)
                 .then((res) => {
                     console.log(res);
                     commit('setToken', res)
@@ -101,7 +114,7 @@ export default createStore({
                     commit("loginError")
                     alert("이메일과 비밀번호를 확인하세요.")
                 });
-        },
+        },*/
         async consentBtn1({ commit }, payload) {
                 console.log(payload)
                 commit('setConsent1', payload)
@@ -109,6 +122,10 @@ export default createStore({
         async consentBtn2({ commit }, payload) {
             console.log(payload)
             commit('setConsent2', payload)
+        },
+        async res_no({ commit }, payload) {
+            console.log(payload)
+            commit('setResNo', payload)
         },
         async holdPoint({ commit }, payload) {
             commit('setHoldPoint', payload)

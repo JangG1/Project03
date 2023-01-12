@@ -16,7 +16,8 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> <span v-show="returnYear != null"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
+                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> 
+                <span v-show="returnYear != returnYearValue"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
@@ -69,10 +70,14 @@
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 
+        
     </div>
+    <div class="blank"></div>
+
+    <!--Footer-->
     <div class="footNav">
         <span class="footNav1">예상 결제 금액</span>
-        <span class="startPrice">{{AddComma(selectPrice) + " 원"}}</span>
+        <span class="startPrice">{{AddComma(selectPrice) + " 원"}}&nbsp;</span>
         <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
     </div>
 </div>
@@ -96,6 +101,7 @@ export default {
             price: '',
             selectPrice: 0,
             seatPrice: 0,
+            returnYearValue: " "
         }
     },
     props: {
@@ -192,20 +198,22 @@ export default {
         },
         submit() {
             let path = "";
+            let flight2 = " ";
             let seatClass2 = " ";
             let startTime2 = " ";
             let arriveTime2 = " ";
 
-            if (this.returnYear != null) {
-                path = "Arrival";
-            } else if (this.returnYear == null) {
+            if (this.returnYear == " ") {
                 path = "Payment";
+            } else if (this.returnYear != " ") {
+                path = "Arrival";
             }
 
             this.$router.push({
                 name: path,
                 params: {
                     flight1: this.flight1,
+                    flight2: flight2,
                     fromArea: this.fromArea,
                     toArea: this.toArea,
                     seat: this.seat,
@@ -240,6 +248,10 @@ export default {
 </script>
 
 <style>
+.blank{
+    height: 150px;
+}
+
 .flight{
     margin-top: 15px;
     color: #999;
@@ -366,7 +378,7 @@ export default {
     border-top: 4px solid black;
     opacity: 0.6;
     transition: 0.3s;
-    font-size: 22px;
+    font-size: 22px;    
 }
 
 .seatSelect:hover {

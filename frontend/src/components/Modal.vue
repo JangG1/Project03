@@ -46,6 +46,7 @@ export default {
             const userInfo = {
                 email: null,
                 profile: null,
+                name: null,
             };
             await window.Kakao.API.request({
                 url: "/v2/user/me",
@@ -53,6 +54,9 @@ export default {
                     const kakao_account = res.kakao_account;
                     userInfo.email = kakao_account.email;
                     userInfo.profile = kakao_account.profile.thumbnail_image_url;
+                    userInfo.name = kakao_account.profile.nickname;
+                    userInfo.birthday = kakao_account.birthday;
+                    userInfo.gender = kakao_account.gender;
 
                     if (userInfo.email != null || userInfo.email != "") {
                         axios
@@ -72,11 +76,7 @@ export default {
                                 console.log("기존가입");
                             });
                     }
-                },
-                fail: (error) => {
-                    this.$router.push("/errorPage");
-                    console.log(error);
-                },
+                },              
             });
             let form = new FormData();
             form.append("email", userInfo.email);

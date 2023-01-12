@@ -3,7 +3,7 @@
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- 로고 -->
-        <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo.png" class="logo"></router-link>
+        <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo2.png" class="logo"></router-link>
         <!-- 예약버튼 -->
         <ul class="nav">
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>

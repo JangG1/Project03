@@ -3,24 +3,25 @@
     <div class="pStep">
         <div>① 검색</div> &nbsp; <div>② 항공편</div> &nbsp; <div class="step3">❸ 결제</div>
     </div>
-    <div class="schedule">
-        여행 일정
-    </div>
-
-    <div class="right">
-        <div class="payInfo">
-            <h4>항공 운송료 </h4>
-            <span>운임</span><span class="price">{{Fare(startPrice)}}</span><br>
-            <span>유류할증료</span><span class="price">{{Fuel(startPrice)}}</span><br>
-            <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(startPrice)}}</span>
-        </div>
-        <div class="totalPrice">
-            <span class="total">총액</span><span class="price">{{AddComma(startPrice)}}</span>
-        </div>
-
-    </div>
 
     <div class="pInfo">
+        <div class="blank">
+            blank
+        </div>
+        <div class="right">
+            <div class="payInfo">
+                <h5>항공 운송료 </h5><br>
+                <span>운임</span><span class="price">{{Fare(startPrice)}}</span><br>
+                <span>유류할증료</span><span class="price">{{Fuel(startPrice)}}</span><br>
+                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(startPrice)}}</span>
+            </div>
+            <div class="totalPrice">
+                <span class="total">총액</span><span class="price">{{AddComma(startPrice)}} 원</span>
+            </div>
+        </div>
+        <div class="schedule">
+            여행 일정
+        </div>
         <button type="button">
             <div class="pInfo1">
                 {{fromArea}} &nbsp;
@@ -30,17 +31,18 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="pInfo2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> <span v-show="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
+                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span>
+                <span v-show="returnYear != returnYearValue"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="pInfo3">
                 <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 성인 {{AdultCount}}명
                 <span v-show="ChildCount > 0">
-                , 유아 {{ChildCount}}명
+                    , 유아 {{ChildCount}}명
                 </span>
                 <span v-show="InfantCount > 0">
-                , 소아 {{InfantCount}}명
+                    , 소아 {{InfantCount}}명
                 </span>
             </div>
         </button>
@@ -55,7 +57,7 @@
             <div>
                 가는 편
             </div>
-            <span>│</span><span>│</span>
+            <span>│</span>
             <div class="pStartInfo1">
                 {{fromArea}} &nbsp;
                 →&nbsp;
@@ -73,16 +75,16 @@
 
     <br>
 
-    <div class="pArriveInfo" v-show="returnYear != null">
+    <div class="pArriveInfo" v-show="returnYear != returnYearValue">
         <button type="button">
             <div>
                 오는 편
             </div>
             <span>│</span>
             <div class="pArriveInfo1">
-                {{fromArea}} &nbsp;
+                {{toArea}} &nbsp;
                 →&nbsp;
-                {{toArea}}
+                {{fromArea}}
                 &nbsp;&nbsp; {{ flight2 }}
             </div>
             <span>│</span>
@@ -102,8 +104,15 @@
         <br>
         <h5>[<span class="asterisk"> * </span>는 필수 입력 사항입니다.]</h5>
     </div>
+
+    <div class="pasNameHint">
+        <span>
+            예약 후 성명 변경은 불가하오니 여권에 기재된 성명을 정확히 확인하시기 바랍니다.<br>
+            발음상 변화가 없는 단순 영문 성명 철자변경의 경우 로그인한 본인에 한해 변경하기를 이용하시기 바랍니다.
+        </span>
+    </div>
     <div class="passengerTitle" @click="showPassInfo">
-        {{AdultCount}} <span class="arrow">{{arrow}}</span>
+        <span class="arrow">{{arrow}}</span>
     </div>
     <div v-show="passInfo" class="passInfo">
         <div class="passInfo1">
@@ -212,22 +221,22 @@
             신용/체크카드
         </div>
         <div class="pay" @click="payment">
-            <img src="@/assets/pay/naverPay.png" style="width: 55px; height: 40px;">
+            <img src="@/assets/pay/naverPay.png" style="width: 55px; height: 40px; border-radius: 10px;">
             &nbsp; 네이버페이
         </div>
         <div class="pay" @click="payment">
-            <img src="@/assets/pay/samsungPay.png" style="width: 80px; height: 40px;">
+            <img src="@/assets/pay/samsungPay.png" style="width: 60px; height: 40px;">
             삼성페이
         </div>
     </div>
     <div class="pay2">
         <div class="pay" @click="payment">
-            <img src="@/assets/pay/kakaoPay.jpg" style="width: 60px; height: 40px;">
+            <img src="@/assets/pay/kakaoPay.jpg" style="width: 60px; height: 40px; border-radius: 10px;">
             &nbsp; 카카오페이
         </div>
         <div class="pay" @click="payment">
             <img src="@/assets/pay/payco.jpg" style="width: 80px; height: 40px;">
-            &nbsp; PAYCO
+            PAYCO
         </div>
         <div class="pointPay" @click="PointPayment">
             포인트 결제
@@ -242,11 +251,11 @@
 </div>
 
 <!--footer-->
-<div class="footNav">
-    <span class="footNav1">예상 결제 금액</span>
-    <span class="startPrice">{{AddComma(startPrice) + " 원"}}</span>
+<div class="payFootNav">
+    <div class="payFootNav1">예상 결제 금액</div>
+    <div class="payStartPrice">{{AddComma(startPrice)}} 원</div>
 
-    <button type="button" class="submitBtn" @click="PayModalPopUp()">예약 하기</button>
+    <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
@@ -292,6 +301,7 @@ export default {
             IATAModalView: false,
             PointPaymentInfo: false,
             holdPoint: this.$store.state.holdPoint,
+            returnYearValue: " ",
             user: {
                 flight1: this.flight1,
                 flight2: this.flight2,
@@ -597,21 +607,59 @@ export default {
     /*스크롤바 트랙 색상*/
 }
 
-.IATAModalView {
+/*.IATAModalView {
     padding: 20px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 75%;
+    width: 35%;
+    height: 80%;
     border-radius: 15px;
     background-color: white;
     box-shadow: 2px 2px 10px lightgrey;
+}*/
+
+.IATAModalView {    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32%;
+    height: 60%;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 10px lightgrey;
+    overflow: auto;
 }
 
 .IATAModalView::-webkit-scrollbar {
-    width: 0px;
+    width: 20px;
+    /*스크롤바의 너비*/
+}
+
+.IATAModalView::-webkit-scrollbar-thumb {
+    background-color: teal;
+    border-radius: 10px;
+    /*스크롤바의 색상*/
+}
+
+.IATAModalView::-webkit-scrollbar-track {    
+    background-color: white;
+    /*스크롤바 트랙 색상*/
+}
+
+@media (min-width: 2050px) {
+    .IATAModalView {
+        padding: 20px;
+        width: 50%;
+        height: 75%;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 2px 2px 10px lightgrey;
+        overflow: hidden;
+    }
+
 }
 
 #hint {
@@ -624,6 +672,67 @@ export default {
     margin-right: 200px;
     font-size: 30px;
     display: flex;
+}
+
+.payInfo {
+    color: white;
+}
+
+.totalPrice {
+    color: white;
+}
+
+@media (min-width: 1970px) {
+    .pStep {
+        float: right;
+        margin-right: 200px;
+        font-size: 30px;
+        display: flex;
+    }
+
+    .right {
+        float: right;
+        margin-right: 140px;
+        margin-top: 40px;
+        padding: 40px 0;
+        background-color: rgba(34, 168, 168, 0.689);
+        border-radius: 10px;
+
+    }
+
+    .payInfo {
+
+        border-left: none;
+        border-right: none;
+        width: 400px;
+        height: 270px;
+        padding: 30px;
+        font-size: 18px;
+        color: white;
+        font-weight: 900;
+    }
+
+    .payInfo h5 {
+        font-weight: 900;
+        font-size: 24px;
+    }
+
+    .total {
+        font-weight: 900;
+        color: white;
+    }
+
+    .totalPrice {
+        border-top: 0.1px solid rgb(217, 217, 217);
+        width: 400px;
+        height: 80px;
+        padding: 30px;
+        padding-top: 40px;
+        font-size: 24px;
+        color: white;
+        font-weight: 900;
+    }
+
 }
 
 .step3 {
@@ -650,24 +759,30 @@ h4 {
     margin-right: 30px;
 }
 
+.blank{
+    color: white;
+    font-size: 25px;    
+    margin-left: 4.2%;
+    margin-bottom: 10px;
+    
+}
+
 .schedule {
     color: teal;
     font-size: 25px;
     font-weight: 900;
-    margin-left: 9.5%;
+    margin-left: 4.2%;
+    margin-bottom: 10px;
     padding-top: 10px;
 }
 
 .pInfo {
     margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1330px;
-    display: flex;
+    margin-left: 5.5%;
 }
 
 .pInfo button {
-    width: 1400px;
+    width: 1300px;
     height: 100px;
     background-color: white;
     font-size: 24px;
@@ -701,15 +816,13 @@ h4 {
 }
 
 .pStartInfo {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 8%;
     width: 1200px;
     display: flex;
 }
 
 .pArriveInfo {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 8%;
     width: 1200px;
     display: flex;
 }
@@ -738,7 +851,7 @@ h4 {
     font-size: 30px;
 }
 
-.footNav {
+.payFootNav {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -755,11 +868,11 @@ h4 {
     box-shadow: 2px 2px 20px rgb(1, 83, 83);
 }
 
-.footNav1 {
+.payFootNav1 {
     margin-left: 30px;
 }
 
-.submitBtn {
+.paySubmitBtn {
     width: 15%;
     height: 130%;
     font-size: 25px;
@@ -769,38 +882,9 @@ h4 {
     border: 1px solid white;
 }
 
-.startPrice {
+.payStartPrice {
     font-size: 20px;
-    margin-right: 1%;
-}
-
-.right {
-    float: right;
-    width: 550px;
-    height: 1000px;
-    margin-top: 1.5%;
-}
-
-.payInfo {
-    border: 0.1px solid rgb(217, 217, 217);
-    border-left: none;
-    border-right: none;
-    width: 400px;
-    height: 200px;
-    padding: 30px;
-    font-size: 18px;
-    color: rgb(87, 86, 86);
-}
-
-.totalPrice {
-    border: 0.1px solid rgb(217, 217, 217);
-    border-left: none;
-    border-right: none;
-    width: 400px;
-    height: 110px;
-    padding: 30px;
-    padding-top: 40px;
-    font-size: 24px;
+    margin-left: 70%;
 }
 
 .price {
@@ -821,7 +905,6 @@ h4 {
 }
 
 .passengerInfo {
-    width: 1225px;
     border: none;
     background: white;
 }
@@ -830,8 +913,6 @@ h4 {
     color: teal;
     font-size: 25px;
     font-weight: 900;
-    float: left;
-    text-align: left;
     padding: 10px;
     margin-left: 9%;
 }
@@ -839,6 +920,16 @@ h4 {
 .passengerInfoTitle h5 {
     color: rgb(78, 78, 78);
     padding-top: 10px;
+}
+
+.pasNameHint {
+    background-color: rgba(245, 245, 245, 0.555);
+    width: 1210px;
+    margin-left: 8.5%;
+    padding: 40px 0;
+    padding-left: 40px;
+    font-size: 20px;
+
 }
 
 .passengerTitle {
@@ -993,6 +1084,7 @@ h4 {
     margin-bottom: 10%;
     margin-left: 8.5%;
     margin-top: 5.5%;
+    font-weight: 900;
 }
 
 .cardPay,

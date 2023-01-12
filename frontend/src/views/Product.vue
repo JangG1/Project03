@@ -163,7 +163,7 @@ export default {
 }
 
 .image-album {
-    width: 660px;
+    width: 650px;
     max-width: 700px;
     overflow: hidden;
     margin-left: auto;

@@ -116,15 +116,16 @@
                 <hr>
 
                 <!--여행 날짜 선택-->
-                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" format="yyyy-MM-dd" :dayNames="lang.days" modelAuto range>
-                    <template #month="{  value  }">
+
+                <!--왕복 날짜 선택-->
+                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder="                              가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" modelAuto range>
+                    <template #month="{ value }">
                         {{ value + 1 + "월"}}
                     </template>
                     <template #month-overlay="{ value }">
                         {{ value + 1 + "월"}}
                     </template>
-                </Datepicker>
-                <!--왕복 날짜 선택-->
+                </Datepicker>                
                 <div type="button" class="selectDate1" v-show="selectDate1">
                     <div class="selectDate2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
@@ -134,11 +135,9 @@
                     </div>
                 </div>
 
-                <!--<input v-show="selectDate" type="text" v-model="bothWay">-->
-
                 <!--편도 날짜 선택-->
-                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" format="yyyy-MM-dd" :dayNames="lang.days">
-                    <template #month="{  value  }">
+                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder="                                  탑승일 선택" format="yyyy-MM-dd" :min-date="new Date()">
+                    <template #month="{ value }">
                         {{ value + 1 + "월"}}
                     </template>
                     <template #month-overlay="{ value }">
@@ -159,15 +158,15 @@
             <!--승객수 팝업-->
             <button type="button" class="btn-field" id="resPassenger" @click="popUp">
                 <div class="count1">승객 수 </div>
-                <div class="count2">
-                    <p class="adultCount">성인{{AdultCount}}명</p>
-                    <p v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</p>
-                    <p v-if="InfantCount > 0" class="infantCount">, 유아{{InfantCount}}명</p>
-                </div>
                 <div class="countImg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                     </svg>
+                </div>
+                <div class="count2">
+                    <span class="adultCount">성인{{AdultCount}}명</span>
+                    <span v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</span>
+                    <span v-if="InfantCount > 0" class="infantCount">, 유아{{InfantCount}}명</span>
                 </div>
             </button>
 
@@ -263,14 +262,16 @@
 </div>
 
 <!-- FOOTER -->
+<footer class="Footer">
+    <div class="FootLeft">
+        <img class="footLogo" src="../assets/Logo2.png">
+        <span> Fastrip</span>
+        <p>&copy; 2022 Company, Fastrip</p>
+    </div>
 
-<div class="footLogoName">
-    <img class="footLogo" src="../assets/Logo.png">
-    Fastrip
-</div>
-<footer class="footer">
-    <p>&copy; 2022 Company, Fastrip</p>
-    <a class="topBtn" href="#top">✈ Top</a>
+    <div class="FootRight">
+        <a class="topBtn" href="#top">✈ Top</a>
+    </div>
 </footer>
 </template>
 
@@ -297,9 +298,6 @@ export default {
     props: [''],
     data() {
         return {
-            lang: {
-                days: ['월', '화', '수', '목', '금', '토', '일']
-            },
             toBtn: "",
             fromBtn: "",
             bothWay: [],
@@ -338,9 +336,6 @@ export default {
         ing() {
             alert('준비중입니다.')
         },
-        move() {
-
-        },
         NoticeModalPopUp() {
             this.NoticeModalView = (this.NoticeModalView) ? false : true
         },
@@ -353,6 +348,14 @@ export default {
             this.selectDate2 = true;
         },
         toggleRoundTrip() {
+            const target1 = document.getElementById('resRoundTrip');
+            target1.style.color = "white"
+            target1.style.background = "teal"
+
+            const target2 = document.getElementById('resOneWay');
+            target2.style.color = "#999"
+            target2.style.background = "rgba(255, 255, 255, 0.963)"
+
             this.datePickerShow1 = true;
             this.datePickerShow2 = false;
             this.selectDate1 = false;
@@ -361,6 +364,14 @@ export default {
             this.oneWay = "";
         },
         toggleOneWay() {
+            const target1 = document.getElementById('resOneWay');
+            target1.style.color = "white"
+            target1.style.background = "teal"
+
+            const target2 = document.getElementById('resRoundTrip');
+            target2.style.color = "#999"
+            target2.style.background = "rgba(255, 255, 255, 0.963)"
+
             this.datePickerShow1 = false;
             this.datePickerShow2 = true;
             this.selectDate1 = false;
@@ -369,37 +380,6 @@ export default {
             this.oneWay = "";
         },
         test() {
-            let startDate = "";
-            let returnDate = "";
-
-            if (this.oneWay.toString() != false) {
-                var string1 = this.oneWay.toString();
-                startDate = string1.substring(0, 16);
-                returnDate = null;
-            } else if (this.bothWay.toString() != false) {
-                var string2 = this.bothWay.toString();
-                startDate = string2.substring(0, 16);
-                returnDate = string2.substring(43, 58);
-            }
-
-            console.log(startDate)
-            console.log(returnDate)
-        },
-        test1() {
-            const startYear = this.bothWay[0].getFullYear();
-            const startMonth = this.bothWay[0].getMonth() + 1;
-            const startDay = this.bothWay[0].getDate();
-            const startWeek = this.week[this.bothWay[0].getDay()];
-
-            this.startDate = {
-                'startYear': startYear,
-                'startMonth': startMonth,
-                'startDay': startDay,
-                'startWeek': startWeek
-            }
-
-            console.log(this.startDate)
-            console.log(this.returnDate)
 
         },
         Format(value) {
@@ -549,7 +529,6 @@ export default {
 
             return year1 + "-" + month1 + "-" + day1 + week1 + " ~ " + year2 + "-" + month2 + "-" + day2 + week2;
         },
-
         Format2(value) {
             var string = value.toString();
             var total = string.substring(0, 16);
@@ -620,24 +599,29 @@ export default {
             let fromArea = "";
             let toArea = "";
 
-            //출발일
-            this.startYear = this.bothWay[0].getFullYear();
-            const startMonth = this.bothWay[0].getMonth() + 1;
-            const startDay = this.bothWay[0].getDate();
-            const startWeek = this.week[this.bothWay[0].getDay()];
+            if (this.selectDate1 == true) {
+                //왕복 출발일
+                this.startYear = this.bothWay[0].getFullYear();
+                this.startMonth = this.bothWay[0].getMonth() + 1;
+                this.startDay = this.bothWay[0].getDate();
+                this.startWeek = this.week[this.bothWay[0].getDay()];
 
-            //도착일
+                //도착일
+                this.returnYear = this.bothWay[1].getFullYear();
+                this.returnMonth = this.bothWay[1].getMonth() + 1;
+                this.returnDay = this.bothWay[1].getDate();
+                this.returnWeek = this.week[this.bothWay[1].getDay()];
+            } else if (this.selectDate2 == true) {
+                //편도 출발일
+                this.startYear = this.oneWay.getFullYear();
+                this.startMonth = this.oneWay.getMonth() + 1;
+                this.startDay = this.oneWay.getDate();
+                this.startWeek = this.week[this.oneWay.getDay()];
 
-            const returnYear = this.bothWay[1].getFullYear();
-            const returnMonth = this.bothWay[1].getMonth() + 1;
-            const returnDay = this.bothWay[1].getDate();
-            const returnWeek = this.week[this.bothWay[1].getDay()];
-
-            this.returnDate = {
-                'returnYear': returnYear,
-                'returnMonth': returnMonth,
-                'returnDay': returnDay,
-                'returnWeek': returnWeek
+                this.returnYear = " ";
+                this.returnMonth = " ";
+                this.returnDay = " ";
+                this.returnWeek = " ";
             }
 
             if (this.selectDate1 == false && this.selectDate2 == false) {
@@ -654,16 +638,6 @@ export default {
                 return false;
             }
 
-            /*if (this.oneWay.toString() != false) {
-                var string1 = this.oneWay.toString();
-                startDate = string1.substring(0, 16);
-                returnDate = " ";
-            } else if (this.bothWay.toString() != false) {
-                var string2 = this.bothWay.toString();
-                startDate = string2.substring(0, 16);
-                returnDate = string2.substring(43, 58);
-            }*/
-
             if (seat == "좌석 등급") {
                 alert("좌석을 선택해주세요.")
                 return false;
@@ -672,7 +646,6 @@ export default {
             if (this.fromBtn1 == true) {
                 fromArea = this.fromImgName
                 toArea = this.toImgName
-
             } else {
                 fromArea = this.toImgName
                 toArea = this.fromImgName
@@ -685,13 +658,13 @@ export default {
                     toArea: toArea,
                     seat: seat,
                     startYear: this.startYear,
-                    startMonth: startMonth,
-                    startDay: startDay,
-                    startWeek: startWeek,
-                    returnYear: returnYear,
-                    returnMonth: returnMonth,
-                    returnDay: returnDay,
-                    returnWeek: returnWeek,
+                    startMonth: this.startMonth,
+                    startDay: this.startDay,
+                    startWeek: this.startWeek,
+                    returnYear: this.returnYear,
+                    returnMonth: this.returnMonth,
+                    returnDay: this.returnDay,
+                    returnWeek: this.returnWeek,
                     AdultCount: this.AdultCount,
                     ChildCount: this.ChildCount,
                     InfantCount: this.InfantCount,
@@ -761,6 +734,7 @@ a {
     cursor: pointer;
 }
 
+.topBtn,
 a:hover,
 a:visited,
 a:active {
@@ -817,6 +791,7 @@ a:active {
 .container3 h4 {
     margin-left: 100px;
     margin-bottom: 240px;
+
 }
 
 .carousel-caption {
@@ -927,28 +902,27 @@ a:active {
     padding: 10px 60px;
 }
 
-.footer {
-    display: flex;
-    margin-left: 280px;
-    margin-bottom: 30px;
-    margin-top: 5px;
+.Footer {
+    border-top: 1px solid;
 }
 
-.topBtn {
-    margin-left: 65%;
-    margin-bottom: 2%;
+.FootLeft {
+    float: left;
+    margin-left: 280px;
+    margin-top: 30px;
+    font-size: 40px;
+    padding-bottom: 50px;
 }
 
 .footLogo {
-    margin-left: 270px;
     width: 100px;
     height: 70px;
 }
 
-.footLogoName {
-    margin-top: 50px;
-    font-size: 40px;
-    font-family: "NanumBarunGothicBold";
+.FootRight {
+    float: right;
+    margin-right: 280px;
+    margin-top: 60px;
 }
 
 .carousel-inner {
@@ -986,7 +960,7 @@ a:active {
     cursor: pointer;
 }
 
-.btn-field {
+.btn-field:not(#resRoundTrip, #resOneWay) {
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
     font-size: 24px;
@@ -1017,26 +991,18 @@ a:active {
 }
 
 .countImg {
-    white-space: nowrap;
-    display: inline-block;
     float: right;
-    margin-right: 3.5%;
-    margin-top: 2.2%;
+    margin-right: 3%;
 }
 
 .count1 {
-    white-space: nowrap;
-    display: inline-block;
     float: left;
     margin-left: 7%;
-    margin-top: 2.7%;
 }
 
 .count2 {
-    white-space: nowrap;
-    display: inline-block;
-    margin-top: 2.5%;
-
+    float: right;
+    margin-right: 3%;
 }
 
 .submit-btn {
@@ -1057,6 +1023,16 @@ a:active {
     width: 85px;
     display: inline;
     margin: 6px;
+    font-size: 24px;
+    border-radius: 20px;
+    border: 1px solid rgb(193, 188, 188);
+    color: #999;
+    background: rgba(255, 255, 255, 0.963);
+}
+
+#resRoundTrip {
+    color: white;
+    background: teal;
 }
 
 .ppg-refresh {
@@ -1284,7 +1260,7 @@ a:active {
 
     .container3 h4 {
         font-size: 30px;
-        margin-left: 560px;
+        margin-left: 700px;
         margin-bottom: 200px;
     }
 

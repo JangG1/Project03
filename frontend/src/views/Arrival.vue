@@ -16,7 +16,8 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> <span v-show="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
+                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> 
+                <span v-show="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
@@ -89,9 +90,12 @@
 
     </div>
 
+    <div class="blank"></div>
+
+    <!--Footer-->
     <div class="footNav">
         <span class="footNav1">예상 결제 금액</span>
-        <span class="startPrice">{{AddComma(selectPrice)+ " 원"}}</span>
+        <span class="startPrice">{{AddComma(selectPrice)+ " 원"}}&nbsp;</span>
         <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
     </div>
 </div>
@@ -280,6 +284,10 @@ export default {
 </script>
 
 <style>
+.blank{
+    height: 150px;
+}
+
 .flight {
     margin-top: 15px;
     color: #999;
@@ -351,6 +359,7 @@ export default {
     margin-right: auto;
     width: 1250px;
     display: flex;
+    
 }
 
 .startInfo button {
@@ -362,6 +371,7 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
+    
 }
 
 .startInfo span {

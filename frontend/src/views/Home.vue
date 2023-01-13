@@ -38,12 +38,6 @@
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
-                <!--슬라이드 페이지 표시-->
-                <!-- <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" class="active" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div> -->
                 <!--배너 이미지2-->
                 <svg class="banner" viewBox="0 60 890 315">
                     <image href="../assets/bannerImage/2.jpg" />
@@ -64,12 +58,6 @@
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
-                <!--슬라이드 페이지 표시-->
-                <!-- <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" class="active" aria-label="Slide 3"></button>
-                </div> -->
                 <!--배너 이미지3-->
                 <svg class="banner" viewBox="0 40 890 315">
                     <image href="../assets/bannerImage/3.jpg" />
@@ -350,7 +338,7 @@ export default {
         toggleRoundTrip() {
             const target1 = document.getElementById('resRoundTrip');
             target1.style.color = "white"
-            target1.style.background = "teal"
+            target1.style.background = "rgb(13, 165, 165)"
 
             const target2 = document.getElementById('resOneWay');
             target2.style.color = "#999"
@@ -366,7 +354,7 @@ export default {
         toggleOneWay() {
             const target1 = document.getElementById('resOneWay');
             target1.style.color = "white"
-            target1.style.background = "teal"
+            target1.style.background = "rgb(13, 165, 165)"
 
             const target2 = document.getElementById('resRoundTrip');
             target2.style.color = "#999"
@@ -742,13 +730,13 @@ a:active {
 }
 
 .container1 h2 {
-    color: rgba(213, 181, 22, 0.959);
+    color: rgba(0, 128, 128, 0.445);
     font-size: 100px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container1 h3 {
-    color: rgba(213, 181, 22, 0.959);
+    color: rgba(0, 128, 128, 0.445);
     margin-bottom: 320px;
     font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -770,6 +758,7 @@ a:active {
     font-size: 20px;
     margin-bottom: 240px;
     cursor: pointer;
+    color: white;
 }
 
 .container3 h2 {
@@ -791,7 +780,7 @@ a:active {
 .container3 h4 {
     margin-left: 100px;
     margin-bottom: 240px;
-
+    color: rgb(234, 246, 255);
 }
 
 .carousel-caption {
@@ -814,6 +803,7 @@ a:active {
 
 .banner {
     border-radius: 15px;
+    border: 1px solid #999;
     width: 98%;
     height: 800px;
     margin-left: 1%;
@@ -824,9 +814,9 @@ a:active {
     /* 사이즈 */
     width: 40px;
     height: 40px;
-    border-top: 8px solid white;
+    border-top: 8px solid #999;
     /* 선 두께 */
-    border-right: 8px solid white;
+    border-right: 8px solid #999;
     /* 각도 */
     transform: rotate(225deg);
     top: 50%;
@@ -838,8 +828,8 @@ a:active {
     width: 40px;
     height: 40px;
     /* 선 두께 */
-    border-top: 8px solid white;
-    border-right: 8px solid white;
+    border-top: 8px solid #999;
+    border-right: 8px solid #999;
     /* 각도 */
     transform: rotate(45deg);
     top: 50%;
@@ -945,8 +935,7 @@ a:active {
 }
 
 .datePicker,
-.form-select,
-.submit-btn {
+.form-select{
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
     font-size: 24px;
@@ -1008,6 +997,17 @@ a:active {
 .submit-btn {
     width: 300px;
     height: 50px;
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 20px;
+    font-size: 24px;
+    color: white;
+    background: rgb(13, 165, 165);
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .res-area-select {
@@ -1032,7 +1032,7 @@ a:active {
 
 #resRoundTrip {
     color: white;
-    background: teal;
+    background: rgb(13, 165, 165);
 }
 
 .ppg-refresh {
@@ -1250,18 +1250,18 @@ a:active {
 @media (min-width: 2000px) {
     .container3 h2 {
         font-size: 140px;
-        margin-left: 530px;
+        margin-left: 60%;
     }
 
     .container3 h3 {
         font-size: 25px;
-        margin-left: 560px;
+        margin-left: 65%;
     }
 
     .container3 h4 {
         font-size: 30px;
-        margin-left: 700px;
-        margin-bottom: 200px;
+        margin-left: 70%;
+        margin-bottom: 200px;        
     }
 
 }

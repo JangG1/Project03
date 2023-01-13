@@ -89,6 +89,7 @@
         <!-- <button type="button" class="comBtn2" @click="Reservation">예약 조회하기</button> -->
     </div>
 </div>
+
 <!-- FOOTER -->
 <footer class="Footer">
     <div class="FootLeft">

@@ -369,8 +369,7 @@ export default {
 .arrow2 {
     width: 190px;
     height: 30px;
-    margin-top: 10%;
-
+    margin-top: 10%;    
 }
 
 .seatSelect {

@@ -1,5 +1,7 @@
 <template>
 <div>
+    <input type="button" @click="Gender2" value="남자" class="maleBtn" id="maleBtn2">
+    <input type="button" @click="Gender3" value="여자" class="femaleBtn" id="femaleBtn2">
     <div class="pStep">
         <div>① 검색</div> &nbsp; <div>② 항공편</div> &nbsp; <div class="step3">❸ 결제</div>
     </div>
@@ -97,8 +99,8 @@
     </div>
     <br><br>
     <!--승객 정보-->
-    <input type="button" class="passengerInfo">
 
+    <br>
     <div class="passengerInfoTitle">
         승객 정보
         <br>
@@ -111,46 +113,99 @@
             발음상 변화가 없는 단순 영문 성명 철자변경의 경우 로그인한 본인에 한해 변경하기를 이용하시기 바랍니다.
         </span>
     </div>
-    <div class="passengerTitle" @click="showPassInfo">
-        <span class="arrow">{{arrow}}</span>
+    <!--회원 예약자 정보-->
+    <div class="passengerBox">
+        <div class="passengerTitle" @click="showPassInfo">
+            성인 1 <span class="arrow">{{arrow}}</span>
+        </div>
+        <div v-show="passInfo" class="passInfo">
+            <div class="passInfo1">
+                <div class="passInfo1-1">
+                    <h5>승객 성<span class="asterisk"> *</span></h5><br>
+                    <input type="text" placeholder="예) 홍" v-model="korLastName1" class="passText" disabled='disabled'>
+                </div>
+                <div class="passInfo1-2">
+                    <h5>승객 이름<span class="asterisk"> *</span></h5><br>
+                    <input type="text" placeholder="예) 길동" v-model="korFirstName1" class="passText" disabled='disabled'>
+                </div>
+            </div>
+
+            <div class="passInfo1">
+                <div class="passInfo1-1">
+                    <h5>영문 성<span class="asterisk"> *</span></h5><br>
+                    <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                    <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName" class="passText">
+                </div>
+                <div class="passInfo1-2">
+                    <h5>영문 이름<span class="asterisk"> *</span></h5><br>
+                    <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                    <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
+                </div>
+            </div>
+
+            <div class="passInfo2">
+                <div class="passInfo2-1">
+                    <h5>성별<span class="asterisk"> *</span></h5><br>
+                    <input type="button" value="남자" class="maleBtn" id="maleBtn1" disabled='disabled' autofocus>
+                    <input type="button" value="여자" class="femaleBtn" id="femaleBtn1" disabled='disabled' autofocus>
+                </div>
+                <div class="passInfo2-2">
+                    <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                    <input type="text" class="passText" v-model="birthday1">
+                </div>
+                <br>
+            </div>
+        </div>
+        <br>
     </div>
-    <div v-show="passInfo" class="passInfo">
-        <div class="passInfo1">
-            <div class="passInfo1-1">
-                <h5>승객 성<span class="asterisk"> *</span></h5><br>
-                <input type="text" placeholder="예) 홍" v-model="korLastName" class="passText" disabled='disabled'>
+
+    <!--추가 예약자 정보(성인)-->
+    <div class="passengerBox" v-for="pas in parseInt(AdultCount - 1)" :key="pas">
+        <div class="passengerTitle" @click="showPassInfo(pas)">
+            {{ "성인 " + (pas + 1) }} <span class="arrow">{{arrow}}</span>
+        </div>
+        <div v-show="pas == addPas" class="passInfo">
+            <div class="passInfo1">
+                <div class="passInfo1-1">
+                    <h5>승객 성<span class="asterisk"> *</span></h5><br>
+                    <input type="text" placeholder="예) 홍" v-model="korLastName2" class="passText">
+                    <button type="button" @click="test(korLastName2)">test</button>
+                </div>
+                <div class="passInfo1-2">
+                    <h5>승객 이름<span class="asterisk"> *</span></h5><br>
+                    <input type="text" placeholder="예) 길동" v-model="korFirstName2" class="passText">
+                </div>
             </div>
-            <div class="passInfo1-2">
-                <h5>승객 이름<span class="asterisk"> *</span></h5><br>
-                <input type="text" placeholder="예) 길동" v-model="korFirstName" class="passText" disabled='disabled'>
+
+            <div class="passInfo1">
+                <div class="passInfo1-1">
+                    <h5>영문 성<span class="asterisk"> *</span></h5><br>
+                    <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                    <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName" class="passText">
+                </div>
+                <div class="passInfo1-2">
+                    <h5>영문 이름<span class="asterisk"> *</span></h5><br>
+                    <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                    <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
+                </div>
+            </div>
+
+            <div class="passInfo2">
+                <div class="passInfo2-1">
+                    <h5>성별<span class="asterisk"> *</span></h5><br>
+                    <button type="button" @click="Gender2" value="남자" class="maleBtn" id="maleBtn2">남자</button>
+                    <button type="button" @click="Gender3" value="여자" class="femaleBtn" id="femaleBtn2">여자</button>
+                </div>
+                <div class="passInfo2-2">
+                    <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                    <input type="text" class="passText" v-show="pas == 1" v-model="birthday1">
+                    <input type="text" class="passText" v-show="pas != 1" v-model="birthday2" placeholder="예) 01.01">
+                </div>
+                <br>
+                <button type="button" @click="showPassInfo(pas + 1)" class="" id="">확인</button>
             </div>
         </div>
-
-        <div class="passInfo1">
-            <div class="passInfo1-1">
-                <h5>영문 성<span class="asterisk"> *</span></h5><br>
-                <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName" class="passText">
-            </div>
-            <div class="passInfo1-2">
-                <h5>영문 이름<span class="asterisk"> *</span></h5><br>
-                <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
-            </div>
-        </div>
-
-        <div class="passInfo2">
-            <div class="passInfo2-1">
-                <h5>성별<span class="asterisk"> *</span></h5><br>
-                <input type="button" value="남자" class="maleBtn" id="maleBtn" disabled='disabled' autofocus>
-                <input type="button" value="여자" class="femaleBtn" id="femaleBtn" disabled='disabled' autofocus>
-            </div>
-            <div class="passInfo2-2">
-                <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
-                <input type="text" class="passText" v-model="birthday">
-            </div>
-        </div>
-
+        <br>
     </div>
 </div>
 
@@ -290,12 +345,12 @@ export default {
             documentInfo: true,
             noteInfo: true,
             arrow: "▲",
-            korLastName: this.$store.state.name.substring(0, 1),
-            korFirstName: this.$store.state.name.substring(1, 3),
+            korLastName1: this.$store.state.name.substring(0, 1),
+            korFirstName1: this.$store.state.name.substring(1, 3),
             engLastName: this.engLastName,
             engFirstName: this.engFirstName,
-            birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
-            gender: this.$store.state.gender,
+            birthday1: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
+            gender1: this.$store.state.gender,
             autofocus: true,
             PayModalView: false,
             IATAModalView: false,
@@ -423,6 +478,19 @@ export default {
         },
     },
     methods: {
+        test(value) {
+            let korName = [];
+            korName.push = (value);
+
+            var arr = [this.korFirstName1];
+
+            for (let i = 1; i < this.AdultCount; i++) {
+                console.log("test" + i)
+                arr[i] = value[i];
+            }
+
+            console.log(arr)
+        },
         engLastNameTest() {
             if (this.engLastName == null) {
                 alert("영문 성을 확인해주세요")
@@ -508,22 +576,49 @@ export default {
                 this.$store.dispatch("consentBtn2", true);
             }
         },
-        Gender() {
+        Gender1() {
 
-            if (this.gender == "male") {
-
-                const target = document.getElementById('maleBtn');
+            if (this.gender1 == "male") {
+                const target = document.getElementById('maleBtn1');
                 target.disabled = false;
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 return target.value = "남자" + "  ✔"
             } else {
-                const target = document.getElementById('femaleBtn');
+                const target = document.getElementById('femaleBtn1');
                 target.disabled = false;
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 return target.value = "여자" + "  ✔"
             }
+        },
+        Gender2() {
+
+            const target1 = document.getElementById('maleBtn2');
+            console.log(target1.value)
+            target1.style.color = "white"
+            target1.style.background = "teal"
+            target1.style.border = "3px solid teal"
+
+            const target2 = document.getElementById('femaleBtn2');
+            target2.style.color = "#999"
+            target2.style.background = "white"
+            target2.style.border = "3px solid #999"
+
+            return target1.value = "남자" + "  ✔", target2.value = "여자"
+        },
+        Gender3() {
+            const target1 = document.getElementById('maleBtn2');
+            target1.style.color = "#999"
+            target1.style.background = "white"
+            target1.style.border = "3px solid #999"
+
+            const target2 = document.getElementById('femaleBtn2');
+            target2.style.color = "white"
+            target2.style.background = "teal"
+            target2.style.border = "3px solid teal"
+
+            return target2.value = "여자" + "  ✔", target1.value = "남자"
 
         },
         Fare(value) {
@@ -541,15 +636,20 @@ export default {
             let Tax = Math.floor(parseInt(value) * 0.1) + " 원";
             return Tax.toString().replace(regexp, ",");
         },
-        showPassInfo() {
-            this.passInfo = (this.passInfo) ? false : true
+        showPassInfo(value) {
+            this.addpas = (value) ? false : true
+
             if (this.arrow == "▼") {
                 this.arrow = "▲"
             } else {
                 this.arrow = "▼"
             }
+
+            return this.addPas = value;
+
         },
-        showNoteInfo() {
+        showNoteInfo(value) {
+            alert(value)
             this.noteInfo = (this.noteInfo) ? false : true
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -568,7 +668,7 @@ export default {
 
     },
     mounted() {
-        this.Gender()
+        this.Gender1()
     }
 }
 </script>
@@ -620,7 +720,7 @@ export default {
     box-shadow: 2px 2px 10px lightgrey;
 }*/
 
-.IATAModalView {    
+.IATAModalView {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -644,7 +744,7 @@ export default {
     /*스크롤바의 색상*/
 }
 
-.IATAModalView::-webkit-scrollbar-track {    
+.IATAModalView::-webkit-scrollbar-track {
     background-color: white;
     /*스크롤바 트랙 색상*/
 }
@@ -759,12 +859,12 @@ h4 {
     margin-right: 30px;
 }
 
-.blank{
+.blank {
     color: white;
-    font-size: 25px;    
+    font-size: 25px;
     margin-left: 4.2%;
     margin-bottom: 10px;
-    
+
 }
 
 .schedule {

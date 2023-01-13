@@ -134,12 +134,12 @@
                 <div class="passInfo1-1">
                     <h5>영문 성<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName" class="passText">
+                    <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName1" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
+                    <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName1" class="passText">
                 </div>
             </div>
 
@@ -164,12 +164,19 @@
         <div class="passengerTitle" @click="showPassInfo(pas)">
             {{ "성인 " + (pas + 1) }} <span class="arrow">{{arrow}}</span>
         </div>
-        <div v-show="pas == addPas" class="passInfo">
+        <!-- <div v-show="pas == addPas" class="passInfo"> -->
+            <div class="passInfo">
             <div class="passInfo1">
                 <div class="passInfo1-1">
                     <h5>승객 성<span class="asterisk"> *</span></h5><br>
                     <input type="text" placeholder="예) 홍" v-model="korLastName2" class="passText">
                     <button type="button" @click="test(korLastName2)">test</button>
+                    {{ this.adultKorFirstName }}<br>
+                    {{ this.adultKorLastName }}<br>
+                    {{ this.adultEngFirstName }}<br>
+                    {{ this.adultEngLastName }}<br>
+                    {{ this.adultBirthDay }}<br>
+                    {{ this.adultGender }}<br>
                 </div>
                 <div class="passInfo1-2">
                     <h5>승객 이름<span class="asterisk"> *</span></h5><br>
@@ -181,12 +188,12 @@
                 <div class="passInfo1-1">
                     <h5>영문 성<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName" class="passText">
+                    <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName" class="passText">
+                    <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName2" class="passText">
                 </div>
             </div>
 
@@ -197,9 +204,8 @@
                     <button type="button" @click="Gender3" value="여자" class="femaleBtn" id="femaleBtn2">여자</button>
                 </div>
                 <div class="passInfo2-2">
-                    <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
-                    <input type="text" class="passText" v-show="pas == 1" v-model="birthday1">
-                    <input type="text" class="passText" v-show="pas != 1" v-model="birthday2" placeholder="예) 01.01">
+                    <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>                    
+                    <input type="text" class="passText" v-model="birthday2" placeholder="예) 01.01">
                 </div>
                 <br>
                 <button type="button" @click="showPassInfo(pas + 1)" class="" id="">확인</button>
@@ -335,6 +341,12 @@ export default {
     },
     data() {
         return {
+            adultKorFirstName: [],
+            adultKorLastName: [],
+            adultEngFirstName: [],
+            adultEngLastName: [],
+            adultBirthDay: [],
+            adultGender: [],
             start: '',
             arrive: '',
             price: '',
@@ -346,11 +358,15 @@ export default {
             noteInfo: true,
             arrow: "▲",
             korLastName1: this.$store.state.name.substring(0, 1),
+            korLastName2: "",
             korFirstName1: this.$store.state.name.substring(1, 3),
-            engLastName: this.engLastName,
-            engFirstName: this.engFirstName,
+            korFirstName2: "",
+            engLastName: this.engLastName1,
+            engFirstName: this.engFirstName1,
             birthday1: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
+            birthday2: this.birthday2,
             gender1: this.$store.state.gender,
+            gender2: document.getElementById('maleBtn2'),
             autofocus: true,
             PayModalView: false,
             IATAModalView: false,
@@ -384,8 +400,8 @@ export default {
 
                 korLastName: this.$store.state.name.substring(0, 1),
                 korFirstName: this.$store.state.name.substring(1, 3),
-                engLastName: this.engLastName,
-                engFirstName: this.engFirstName,
+                engLastName: this.engLastName1,
+                engFirstName: this.engFirstName1,
                 gender: this.$store.state.gender,
                 birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
             },
@@ -478,37 +494,45 @@ export default {
         },
     },
     methods: {
-        test(value) {
-            let korName = [];
-            korName.push = (value);
+        test() {            
+            this.adultKorFirstName[0] = this.korFirstName1;
+            this.adultKorLastName[0] = this.korLastName1;
+            this.adultEngFirstName[0] = this.engFirstName1;
+            this.adultEngLastName[0] = this.engLastName1;
+            this.adultBirthDay[0] = this.birthday1;
+            this.adultGender[0] = this.gender1;
 
-            var arr = [this.korFirstName1];
+            this.adultKorFirstName.push(this.korFirstName2)
+            this.adultKorLastName.push(this.korLastName2)
+            this.adultEngFirstName.push(this.engFirstName2)
+            this.adultEngLastName.push(this.engLastName2)
+            this.adultBirthDay.push(this.birthday2)
+            this.adultGender.push(document.getElementById('maleBtn2').value)
 
-            for (let i = 1; i < this.AdultCount; i++) {
-                console.log("test" + i)
-                arr[i] = value[i];
-            }
-
-            console.log(arr)
+            console.log(this.gender2)
+            console.log(document.getElementById('maleBtn2').value)
+            
         },
         engLastNameTest() {
-            if (this.engLastName == null) {
+            if (this.engLastName1 == null && this.engLastName2 == null ) {
                 alert("영문 성을 확인해주세요")
-            } else if (/^[A-Z]*$/.test(this.engLastName)) {
+            } else if (/^[A-Z]*$/.test(this.engLastName1) && /^[A-Z]*$/.test(this.engLastName2)) {
                 return true
             } else {
                 alert("영어 대문자로 입력해 주세요.")
-                this.engLastName = ""
+                this.engLastName1 = ""
+                this.engLastName2 = ""
             }
         },
         engFirstNameTest() {
-            if (this.engFirstName == null) {
+            if (this.engFirstName1 == null && this.engFirstName2 == null ) {
                 alert("영문 이름을 확인해주세요")
-            } else if (/^[A-Z\s]*$/.test(this.engFirstName)) {
+            } else if (/^[A-Z\s]*$/.test(this.engFirstName1) && /^[A-Z]*$/.test(this.engFirstName2)) {
                 return true
             } else {
                 alert("영어 대문자로 입력해 주세요.")
-                this.engFirstName = ""
+                this.engFirstName1 = ""
+                this.engFirstName2 = ""
             }
         },
         payment() {

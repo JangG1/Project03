@@ -822,7 +822,7 @@ export default {
             console.log( this.addPassGender)
             console.log( this.addPassBirthday)
             
-  
+   
 
             return this.addPas3 = value;
 

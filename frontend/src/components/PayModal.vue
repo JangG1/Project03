@@ -91,7 +91,7 @@
     </div>
 
     <!--submit-->
-    <button type="button" class="reserBtn" @click="test2()">예약 하기</button>
+    <button type="button" class="reserBtn" @click="submit2()">예약 하기</button>
 </div>
 </template>
 
@@ -108,10 +108,7 @@ export default {
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
-            pas: [],
             fullname: [],
-            fullBirth: [],
-            fullGender: [],
         }
     },
     props: {
@@ -216,11 +213,57 @@ export default {
             }
             return gender
         },
+        submit2() {
+            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
+                console.log(this.name[i])
+
+                this.fullname.push(this.name[i])
+
+                let name = [this.fullname];
+
+                console.log("name " + name)
+            }
+
+            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
+            
+                this.birthday = this.name[i];
+                console.log("birthday " + this.birthday)
+            }
+            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
+     
+                this.gender = this.name[i];
+                console.log("gender " + this.gender)
+            }
+
+            const axiosConfig = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+
+            axios.post("/res/resPostTest", {
+                    email: this.$store.state.userInfo.email,
+                    name: this.name,
+                    gender: this.gender,
+                    birthday: this.birthday,
+                }, axiosConfig)
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
+        },
         submit() {
             alert("예약하시겠습니까?")
 
             const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
             const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
+
+            let birthday = '';
+            let gender = '';
 
             if (this.user.returnYear != " ") {
                 this.way = "왕복"
@@ -228,14 +271,31 @@ export default {
                 this.way = "편도";
             }
 
+            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
+                console.log(this.name[i])
+                this.fullname = this.name[i];
+                console.log("name " + this.fullname)
+            }
+
+            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
+                console.log(this.name[i])
+                this.birthday = this.name[i];
+                console.log("birthday " + this.birthday)
+            }
+            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
+                console.log(this.name[i])
+                this.gender = this.name[i];
+                console.log("gender " + this.gender)
+            }
+
+            console.log(this.fullname)
+            console.log(this.birthday)
+            console.log(this.gender)
             axios.post("/res/resPost", {
                     email: this.$store.state.userInfo.email,
-                    korFirstName: this.user.korFirstName,
-                    korLastName: this.user.korLastName,
-                    engFirstName: this.engFirstName,
-                    engLastName: this.engLastName,
-                    gender: this.user.gender,
-                    birthday: this.user.birthday,
+                    name: this.fullname,
+                    gender: this.gender,
+                    birthday: this.birthday,
                     seat: this.user.seat,
                     seatClass1: this.user.seatClass1,
                     seatClass2: this.user.seatClass2,
@@ -270,12 +330,9 @@ export default {
             this.$router.push({
                 name: 'Complete',
                 params: {
-                    korFirstName: this.user.korFirstName,
-                    korLastName: this.user.korLastName,
-                    engFirstName: this.engFirstName,
-                    engLastName: this.engLastName,
-                    gender: this.user.gender,
-                    birthday: this.user.birthday,
+                    name: name,
+                    gender: gender,
+                    birthday: birthday,
                     seat: this.user.seat,
                     seatClass1: this.user.seatClass1,
                     seatClass2: this.user.seatClass2,

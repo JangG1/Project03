@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ import com.FT.app.Repo.ResRepository;
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.ResList;
+import com.FT.app.myPage.domain.ResList2;
 import com.FT.app.myPage.mapper.ResListMapper;
 
 @RestController
@@ -54,13 +56,21 @@ public class ResController {
 		return resList;
 	}
 	
+	@PostMapping("/resPostTest")
+	public void resTest(@RequestBody String  resList) {
+
+		System.out.println(resList);
+		System.out.println("연결 성공");
+
+	}
+	
 	@PostMapping("/resPost")
 	public void Test(@RequestBody ResList resList) {
 		System.out.println(resList.getEmail());
-		System.out.println(resList.getKorFirstName());
-		System.out.println(resList.getKorLastName());
-		System.out.println(resList.getEngFirstName());
-		System.out.println(resList.getEngLastName());
+		System.out.println(resList.getName());
+//		System.out.println(resList.getKorLastName());
+//		System.out.println(resList.getEngFirstName());
+//		System.out.println(resList.getEngLastName());
 		System.out.println(resList.getGender());
 		System.out.println(resList.getBirthday());
 		System.out.println(resList.getSeat());

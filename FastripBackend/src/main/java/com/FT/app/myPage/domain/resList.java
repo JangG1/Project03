@@ -37,22 +37,22 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String email;
 	
-	@Column(nullable = false, length = 50)
-	private String korFirstName;
+	@Column(nullable = false, length = 500)
+	private String name;
 	
-	@Column(nullable = false, length = 50)
-	private String korLastName;
+//	@Column(nullable = false, length = 50)
+//	private String korLastName;
+//	
+//	@Column(nullable = false, length = 50)
+//	private String engFirstName;
+//	
+//	@Column(nullable = false, length = 50)
+//	private String engLastName;
 	
-	@Column(nullable = false, length = 50)
-	private String engFirstName;
-	
-	@Column(nullable = false, length = 50)
-	private String engLastName;
-	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 500)
 	private String gender;
 	
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 500)
 	private String birthday;
 	
 	@Enumerated(EnumType.STRING)

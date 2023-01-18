@@ -16,6 +16,7 @@ import org.hibernate.annotations.DynamicInsert;
 
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.Way;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +39,7 @@ public class ResList {
 	private String email;
 	
 	@Column(nullable = false, length = 500)
+	@JsonProperty("name")
 	private String name;
 	
 //	@Column(nullable = false, length = 50)
@@ -50,9 +52,11 @@ public class ResList {
 //	private String engLastName;
 	
 	@Column(nullable = false, length = 500)
+	@JsonProperty("gender")
 	private String gender;
 	
 	@Column(nullable = false, length = 500)
+	@JsonProperty("birthday")
 	private String birthday;
 	
 	@Enumerated(EnumType.STRING)

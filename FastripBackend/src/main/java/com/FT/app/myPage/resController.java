@@ -59,7 +59,7 @@ public class ResController {
 	@PostMapping("/resPostTest")
 	public void resTest(@RequestBody String  resList) {
 
-		System.out.println(resList);
+		System.out.println(resList);				
 		System.out.println("연결 성공");
 
 	}

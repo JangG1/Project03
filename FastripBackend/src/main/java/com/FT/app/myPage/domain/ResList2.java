@@ -38,16 +38,13 @@ public class ResList2 {
 	@Column(nullable = false, length = 50)
 	private String email;
 	
-	@Column(nullable = false, length = 500)
-	@JsonProperty
+	@Column(nullable = false, length = 500)	
 	private String name;
 	
-	@Column(nullable = false, length = 500)
-	@JsonProperty
+	@Column(nullable = false, length = 500)	
 	private String gender;
 	
 	@Column(nullable = false, length = 500)
-	@JsonProperty
 	private String birthday;
 	
 

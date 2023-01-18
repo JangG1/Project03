@@ -214,39 +214,72 @@ export default {
             return gender
         },
         submit2() {
+            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
+            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
+
+            if (this.user.returnYear != " ") {
+                this.way = "왕복"
+            } else {
+                this.way = "편도";
+            }
+
             for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
-                console.log(this.name[i])
 
                 this.fullname.push(this.name[i])
 
                 let name = [this.fullname];
 
-                console.log("name " + name)
+                let data = JSON.stringify(name);
+
+                this.allNameArr = JSON.parse(data);
             }
 
             for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
-            
+
                 this.birthday = this.name[i];
-                console.log("birthday " + this.birthday)
+
+                let data = JSON.stringify(this.birthday);
+
+                this.birthdayArr = JSON.parse(data);
             }
             for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
-     
+
                 this.gender = this.name[i];
-                console.log("gender " + this.gender)
+
+                let data = JSON.stringify(this.gender);
+
+                this.genderArr = JSON.parse(data);
             }
 
-            const axiosConfig = {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
+            console.log(this.allNameArr)
+            console.log(this.birthdayArr)
+            console.log(this.genderArr)
+            
 
             axios.post("/res/resPostTest", {
                     email: this.$store.state.userInfo.email,
-                    name: this.name,
-                    gender: this.gender,
-                    birthday: this.birthday,
-                }, axiosConfig)
+                    name: this.allNameArr,
+                    gender: this.genderArr,
+                    birthday: this.birthdayArr,
+                    seat: this.user.seat,
+                    seatClass1: this.user.seatClass1,
+                    seatClass2: this.user.seatClass2,
+                    way: this.way,
+                    flight1: this.user.flight1,
+                    flight2: this.user.flight2,
+                    fromArea: this.user.fromArea,
+                    toArea: this.user.toArea,
+                    oneWayArea: " ",
+                    startDate: startDate,
+                    returnDate: returnDate,
+                    infantCount: this.user.InfantCount,
+                    childCount: this.user.ChildCount,
+                    adultCount: this.user.AdultCount,
+                    startTime1: this.user.startTime1,
+                    arriveTime1: this.user.arriveTime1,
+                    startTime2: this.user.startTime2,
+                    arriveTime2: this.user.arriveTime2
+                })
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")
@@ -262,9 +295,6 @@ export default {
             const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
             const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
 
-            let birthday = '';
-            let gender = '';
-
             if (this.user.returnYear != " ") {
                 this.way = "왕복"
             } else {
@@ -275,27 +305,36 @@ export default {
                 console.log(this.name[i])
                 this.fullname = this.name[i];
                 console.log("name " + this.fullname)
+                let data = JSON.stringify(this.fullname);
+
+                this.allNameArr = JSON.parse(data);
             }
 
             for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
                 console.log(this.name[i])
                 this.birthday = this.name[i];
                 console.log("birthday " + this.birthday)
+                let data = JSON.stringify(this.birthday);
+
+                this.birthdayArr = JSON.parse(data);
             }
             for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
                 console.log(this.name[i])
                 this.gender = this.name[i];
                 console.log("gender " + this.gender)
+                let data = JSON.stringify(this.gender);
+
+                this.genderArr = JSON.parse(data);
             }
 
-            console.log(this.fullname)
-            console.log(this.birthday)
-            console.log(this.gender)
+            console.log(this.allNameArr)
+            console.log(this.genderArr)
+            console.log(this.birthdayArr)
             axios.post("/res/resPost", {
                     email: this.$store.state.userInfo.email,
-                    name: this.fullname,
-                    gender: this.gender,
-                    birthday: this.birthday,
+                    name: this.allNameArr,
+                    gender: this.genderArr,
+                    birthday: this.birthdayArr,
                     seat: this.user.seat,
                     seatClass1: this.user.seatClass1,
                     seatClass2: this.user.seatClass2,
@@ -330,9 +369,9 @@ export default {
             this.$router.push({
                 name: 'Complete',
                 params: {
-                    name: name,
-                    gender: gender,
-                    birthday: birthday,
+                    name: this.allNameArr,
+                    gender: this.genderArr,
+                    birthday: this.birthdayArr,
                     seat: this.user.seat,
                     seatClass1: this.user.seatClass1,
                     seatClass2: this.user.seatClass2,

@@ -23,11 +23,6 @@ const routes = [
     component: () => import('../views/Reservation.vue')
   },
   {
-    path: '/Calendar',
-    name: 'Calendar',
-    component: () => import('../views/Calendar.vue')
-  },
-  {
     path: '/Test',
     name: 'Test',
     component: () => import('../views/Test.vue')
@@ -60,12 +55,6 @@ const routes = [
     path: '/Complete/:flight1/:flight2/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korLastName/:korFirstName/:engLastName/:engFirstName/:gender/:birthday',
     name: 'Complete',
     component: () => import('@/views/Complete.vue'),
-    props: true
-  },
-  {
-    path: '/Cookie',
-    name: 'Cookie',
-    component: () => import('../views/Cookie.vue'),
     props: true
   },
 

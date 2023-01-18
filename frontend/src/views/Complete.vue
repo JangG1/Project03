@@ -37,8 +37,8 @@
             <span class="listRight">{{ flight1 }}</span><br><br>
             <span class="listRight">{{ fromArea }} →&nbsp; {{ toArea }}</span><br><br>
             <span class="listRight"> {{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}}) {{ startTime1 }} ~ {{ arriveTime1 }}</span><br><br>
-            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span>
-            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>            
+            <span class="listRight" v-if="InfantCount > 0">, 소아 {{InfantCount}}명</span>
+            <span class="listRight" v-if="ChildCount > 0">, 유아 {{ChildCount}}명</span>            
             <span class="listRight">성인 {{AdultCount}}명</span><br><br>
 
             
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div class="comAreaList" v-if="returnYear != returnYearValue">
+    <div class="comAreaList" v-if="returnYear != ' '">
         <div class="comInfoTitle">
             오는편
         </div>
@@ -62,8 +62,8 @@
             <span class="listRight">{{ flight2 }}</span><br><br>
             <span class="listRight">{{ toArea }} →&nbsp; {{ fromArea }}</span><br><br>
             <span class="listRight">{{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}}) {{ startTime2 }} ~ {{ arriveTime2 }}</span><br><br>            
-            <span class="listRight" v-show="InfantCount > 0">, 소아 {{InfantCount}}명</span>
-            <span class="listRight" v-show="ChildCount > 0">, 유아 {{ChildCount}}명</span>            
+            <span class="listRight" v-if="InfantCount > 0">, 소아 {{InfantCount}}명</span>
+            <span class="listRight" v-if="ChildCount > 0">, 유아 {{ChildCount}}명</span>            
             <span class="listRight">성인 {{AdultCount}}명</span><br><br>
             <span class="listRight">{{ seat }} {{ seatClass2 }}</span>
         </div>
@@ -120,7 +120,6 @@ export default {
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
-            returnYearValue: " ",
         }
     },
     props: {

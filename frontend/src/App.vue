@@ -9,14 +9,7 @@
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
         </ul>
 
-        <ul class="nav">
-            <router-link to="/Calendar" class="nav-link px-2 link-secondary">달력</router-link>
-        </ul>
-
-        <ul class="nav">
-            <router-link to="/Cookie" class="nav-link px-2 link-secondary">쿠키</router-link>
-        </ul>
-
+        
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <router-link to="/Test" class="nav-link px-2 link-secondary">Test</router-link>
         </ul>        

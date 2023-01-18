@@ -5,24 +5,27 @@
         <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
+    <span v-for="(pas,index) in parseInt(user.AdultCount)" :key="index">
+        <div class="infoList">
+            <div class="title2">
+                승객 정보 {{ index + 1 }}
+            </div>
+            <div class="infoLeft">
+                <span class="listLeft">한글 이름</span><br><br>
+                <span class="listLeft">영어 이름</span><br><br>
+                <span class="listLeft">생년 월일</span><br><br>
+                <span class="listLeft">성별</span>
+            </div>
+            <div class="infoRight">
 
-    <div class="infoList">
-        <div class="title2">
-            승객 정보
+                <span class="listRight"> {{name[1][index]}} {{name[0][index]}}</span><br><br>
+                <span class="listRight">{{name[3][index]}} {{name[2][index]}}</span><br><br>
+
+                <span class="listRight">{{name[5][index]}}</span><br><br>
+                <span class="listRight">{{Gender(name[4][index])}}</span>
+            </div>
         </div>
-        <div class="infoLeft">
-            <span class="listLeft">한글 이름</span><br><br>
-            <span class="listLeft">영어 이름</span><br><br>
-            <span class="listLeft">생년 월일</span><br><br>
-            <span class="listLeft">성별</span>
-        </div>
-        <div class="infoRight">
-            <span class="listRight">{{user.korLastName}} {{user.korFirstName}}</span><br><br>
-            <span class="listRight">{{engLastName}} {{engFirstName}}</span><br><br>
-            <span class="listRight">{{user.birthday}}</span><br><br>
-            <span class="listRight">{{Gender(user.gender)}}</span>
-        </div>
-    </div>
+    </span>
 
     <div class="areaList">
         <div class="title2">
@@ -40,15 +43,15 @@
             <span class="listRight">{{user.fromArea}} &nbsp;→&nbsp; {{user.toArea}}</span><br><br>
             <span class="listRight">{{user.startYear}}-{{user.startMonth}}-{{user.startDay}}({{user.startWeek}})
                 {{user.startTime1}} ~ {{user.arriveTime1}}</span><br><br>
-            <span class="listRight" v-show="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
-            <span class="listRight" v-show="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
+            <span class="listRight" v-if="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
+            <span class="listRight" v-if="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
             <span class="listRight">성인 {{user.AdultCount}} 명 </span>
             <br><br>
             <span class="listRight">{{user.seat}} {{user.seatClass1}}</span>
         </div>
     </div>
 
-    <div class="areaList">
+    <div class="areaList" v-if="user.returnYear != ' '">
         <div class="title2">
             오는편
         </div>
@@ -64,8 +67,8 @@
             <span class="listRight">{{user.toArea}} &nbsp;→&nbsp; {{user.fromArea}}</span><br><br>
             <span class="listRight">{{user.returnYear}}-{{user.returnMonth}}-{{user.returnDay}}({{user.returnWeek}})
                 {{user.startTime2}} ~ {{user.arriveTime2}}</span><br><br>
-            <span class="listRight" v-show="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
-            <span class="listRight" v-show="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
+            <span class="listRight" v-if="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
+            <span class="listRight" v-if="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
             <span class="listRight">성인 {{user.AdultCount}}명</span>
             <br><br>
             <span class="listRight">{{user.seat}} {{user.seatClass2}}</span>
@@ -88,7 +91,7 @@
     </div>
 
     <!--submit-->
-    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
+    <button type="button" class="reserBtn" @click="test2()">예약 하기</button>
 </div>
 </template>
 
@@ -105,6 +108,10 @@ export default {
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
+            pas: [],
+            fullname: [],
+            fullBirth: [],
+            fullGender: [],
         }
     },
     props: {
@@ -112,34 +119,72 @@ export default {
             type: String,
             default: ''
         },
-        engLastName: {
-            type: String,
-            default: ''
-        },
-        engFirstName: {
+        name: {
             type: String,
             default: ''
         },
 
     },
     methods: {
+        test2() {
+
+            console.log(name)
+
+            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
+                console.log(this.name[i])
+
+                this.fullname.push(this.name[i])
+
+                let name = [this.fullname];
+
+                console.log("name " + name)
+            }
+
+            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
+                console.log(this.name[i])
+
+                this.fullBirth.push(this.name[i])
+
+                let birthday = [this.fullBirth];
+
+                console.log("birthday " + birthday)
+            }
+            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
+                console.log(this.name[i])
+
+                let gender = this.name[i];
+
+                console.log("gender " + gender)
+            }
+        },
         test() {
             const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
             const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
 
-            if (this.returnYear != " ") {
+            if (this.user.returnYear != " ") {
                 this.way = "왕복"
             } else {
                 this.way = "편도";
             }
 
+            console.log(this.name)
             console.log(this.$store.state.userInfo.email)
-            console.log(this.user.korFirstName)
-            console.log(this.user.korLastName)
-            console.log(this.engFirstName)
-            console.log(this.engLastName)
-            console.log(this.user.gender)
-            console.log(this.user.birthday)
+            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
+                console.log(this.name[i])
+
+                let name = this.name[i]
+                console.log("name " + name)
+            }
+            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
+                console.log(this.name[i])
+                let birthday = this.name[i]
+                console.log("birthday " + birthday)
+            }
+            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
+                console.log(this.name[i])
+                let gender = this.name[i]
+                console.log("gender " + gender)
+            }
             console.log(this.user.seat)
             console.log(this.user.seatClass1)
             console.log(this.user.seatClass2)
@@ -170,13 +215,14 @@ export default {
                 gender = "여자"
             }
             return gender
-        },submit() {
+        },
+        submit() {
             alert("예약하시겠습니까?")
 
             const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
             const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
 
-            if (this.returnYear != " ") {
+            if (this.user.returnYear != " ") {
                 this.way = "왕복"
             } else {
                 this.way = "편도";
@@ -255,14 +301,14 @@ export default {
                     arriveTime2: this.user.arriveTime2
                 }
             });
-            
+
         },
         testSend() {
             this.$router.push({
                 name: 'Complete',
                 params: {
-                    korFirstName: this.user.korFirstName,
-                    korLastName: this.user.korLastName,
+                    korFirstName: this.user.korFirstName1,
+                    korLastName: this.user.korLastName1,
                     engFirstName: this.engFirstName,
                     engLastName: this.engLastName,
                     gender: this.user.gender,

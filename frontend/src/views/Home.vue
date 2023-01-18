@@ -45,7 +45,7 @@
                 <div class="container2">
                     <div class="carousel-caption">
                         <h2>Budapest</h2>
-                        <h3>Capital of Hungary</h3>
+                        <h3>in Hungary</h3>
                         <br>
                         <h4 @click="ing">자세히 보기</h4>
                     </div>
@@ -84,8 +84,8 @@
                 <br>
                 <div class="FromTo">
                     <!--FromArea-->
-                    <img v-show="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
-                    <img v-show="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
+                    <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
+                    <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea"></FromArea>
                     </div>
@@ -93,8 +93,8 @@
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
 
                     <!--ToArea-->
-                    <img v-show="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
-                    <img v-show="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
+                    <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
+                    <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
                         <ToArea @close="toAreaPopUp" @update-toArea="updateToArea"></ToArea>
                     </div>
@@ -113,8 +113,8 @@
                     <template #month-overlay="{ value }">
                         {{ value + 1 + "월"}}
                     </template>
-                </Datepicker>                
-                <div type="button" class="selectDate1" v-show="selectDate1">
+                </Datepicker>
+                <div type="button" class="selectDate1" v-if="selectDate1">
                     <div class="selectDate2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
@@ -132,7 +132,7 @@
                         {{ value + 1 + "월"}}
                     </template>
                 </Datepicker>
-                <div type="button" class="selectDate1" v-show="selectDate2">
+                <div type="button" class="selectDate1" v-if="selectDate2">
                     <div class="selectDate2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
@@ -184,9 +184,9 @@
 <!-- 조회버튼 -->
 <div class="refer">
     <!--예약 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default" @click="ing">
-        <img src="../assets/magnifier.jpg" width="30" height="30">
-        <a href="">예약 조회</a>
+    <button type="button" class="btn btn-lg btn-default">
+        <img src="../assets/magnifier.jpg" width="30" height="30">        
+        <a href="/Reservation">예약 조회</a>
     </button>
     <!-- 버튼-->
     <img src="../assets/vertical.jpg" width="20" height="40">
@@ -416,159 +416,30 @@ export default {
             this.toAreaView = (this.toAreaView) ? false : true
         },
         Format1(value) {
-            var string = value.toString();
-            var strArray = string.substring(0, 58);
-            var from = strArray.substring(0, 16);
-            var to = strArray.substring(43, 58);
+            let startDate1 = new Date(value[0]);
+            let startDate2 = new Date(value[1]);
 
-            var year1 = from.substring(11, 15);
-            var day1 = from.substring(8, 10);
-            var week1 = from.substring(0, 3);
-            var month1 = from.substring(4, 7);
-
-            var year2 = to.substring(11, 15);
-            var day2 = to.substring(8, 10);
-            var week2 = to.substring(0, 3);
-            var month2 = to.substring(4, 7);
-
-            if (week1 == "Mon") {
-                week1 = "(월)";
-            } else if (week1 == "Tue") {
-                week1 = "(화)"
-            } else if (week1 == "Wed") {
-                week1 = "(수)"
-            } else if (week1 == "Thu") {
-                week1 = "(목)"
-            } else if (week1 == "Fri") {
-                week1 = "(금)"
-            } else if (week1 == "Sat") {
-                week1 = "(토)"
-            } else if (week1 == "Sun") {
-                week1 = "(일)"
-            }
-
-            if (month1 == "Jan") {
-                month1 = "1";
-            } else if (month1 == "Feb") {
-                month1 = "2"
-            } else if (month1 == "Mar") {
-                month1 = "3"
-            } else if (month1 == "Apr") {
-                month1 = "4"
-            } else if (month1 == "May") {
-                month1 = "5"
-            } else if (month1 == "Jun") {
-                month1 = "6"
-            } else if (month1 == "Jul") {
-                month1 = "7"
-            } else if (month1 == "Aug") {
-                month1 = "8"
-            } else if (month1 == "Sep") {
-                month1 = "9"
-            } else if (month1 == "Oct") {
-                month1 = "10"
-            } else if (month1 == "Nov") {
-                month1 = "11"
-            } else if (month1 == "Dec") {
-                month1 = "12"
-            }
-
-            if (week2 == "Mon") {
-                week2 = "(월)";
-            } else if (week2 == "Tue") {
-                week2 = "(화)"
-            } else if (week2 == "Wed") {
-                week2 = "(수)"
-            } else if (week2 == "Thu") {
-                week2 = "(목)"
-            } else if (week2 == "Fri") {
-                week2 = "(금)"
-            } else if (week2 == "Sat") {
-                week2 = "(토)"
-            } else if (week2 == "Sun") {
-                week2 = "(일)"
-            }
-
-            if (month2 == "Jan") {
-                month2 = "1";
-            } else if (month2 == "Feb") {
-                month2 = "2"
-            } else if (month2 == "Mar") {
-                month2 = "3"
-            } else if (month2 == "Apr") {
-                month2 = "4"
-            } else if (month2 == "May") {
-                month2 = "5"
-            } else if (month2 == "Jun") {
-                month2 = "6"
-            } else if (month2 == "Jul") {
-                month2 = "7"
-            } else if (month2 == "Aug") {
-                month2 = "8"
-            } else if (month2 == "Sep") {
-                month2 = "9"
-            } else if (month2 == "Oct") {
-                month2 = "10"
-            } else if (month2 == "Nov") {
-                month2 = "11"
-            } else if (month2 == "Dec") {
-                month2 = "12"
-            }
-
-            return year1 + "-" + month1 + "-" + day1 + week1 + " ~ " + year2 + "-" + month2 + "-" + day2 + week2;
+            let year1 = startDate1.getFullYear();
+            let month1 = String(startDate1.getMonth() + 1).padStart(2, "0");
+            let day1 = String(startDate1.getDate()).padStart(2, "0");
+            let date1 = this.week[startDate1.getDay()];
+          
+            let year2 = startDate2.getFullYear();
+            let month2 = String(startDate2.getMonth() + 1).padStart(2, "0");
+            let day2 = String(startDate2.getDate()).padStart(2, "0");
+            let date2 = this.week[startDate2.getDay()];
+            
+            return year1 + "-" + month1 + "-" + day1 + "(" + date1 + ") ~ " +  year2 + "-" + month2 + "-" + day2 + "(" + date2 + ")"
         },
         Format2(value) {
-            var string = value.toString();
-            var total = string.substring(0, 16);
+            let startDate = new Date(value);
 
-            var year = total.substring(11, 15);
-            var day = total.substring(8, 10);
-            var week = total.substring(0, 3);
-            var month = total.substring(4, 7);
+            let year = startDate.getFullYear();
+            let month = String(startDate.getMonth() + 1).padStart(2, "0");
+            let day = String(startDate.getDate()).padStart(2, "0");
+            let date = this.week[startDate.getDay()];
 
-            if (week == "Mon") {
-                week = "(월)";
-            } else if (week == "Tue") {
-                week = "(화)"
-            } else if (week == "Wed") {
-                week = "(수)"
-            } else if (week == "Thu") {
-                week = "(목)"
-            } else if (week == "Fri") {
-                week = "(금)"
-            } else if (week == "Sat") {
-                week = "(토)"
-            } else if (week == "Sun") {
-                week = "(일)"
-            }
-
-            if (month == "Jan") {
-                month = "1";
-            } else if (month == "Feb") {
-                month = "2"
-            } else if (month == "Mar") {
-                month = "3"
-            } else if (month == "Apr") {
-                month = "4"
-            } else if (month == "May") {
-                month = "5"
-            } else if (month == "Jun") {
-                month = "6"
-            } else if (month == "Jul") {
-                month = "7"
-            } else if (month == "Aug") {
-                month = "8"
-            } else if (month == "Sep") {
-                month = "9"
-            } else if (month == "Oct") {
-                month = "10"
-            } else if (month == "Nov") {
-                month = "11"
-            } else if (month == "Dec") {
-                month = "12"
-            }
-
-            return year + "-" + month + "-" + day + week;
+            return year + "-" + month + "-" + day + "(" + date + ") "
         },
         noticeView(value) { //cookie 설정            
             if (value == true) {
@@ -935,7 +806,7 @@ a:active {
 }
 
 .datePicker,
-.form-select{
+.form-select {
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
     font-size: 24px;
@@ -1261,7 +1132,7 @@ a:active {
     .container3 h4 {
         font-size: 30px;
         margin-left: 70%;
-        margin-bottom: 200px;        
+        margin-bottom: 200px;
     }
 
 }

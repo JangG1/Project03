@@ -80,3 +80,51 @@ console.log(this.$store.state.userInfo.email)
             console.log(this.user.arriveTime1)
             console.log(this.user.startTime2)
             console.log(this.user.arriveTime2)
+
+
+testSend() {
+            const startDate = this.startYear + "-" + this. startMonth + "-" + this.startDay + '(' + this.startWeek + ')';
+            const returnDate = this.returnYear + "-" + this. returnMonth + "-" + this.returnDay + '(' + this.returnWeek + ')';
+
+            if(this.returnYear != " "){
+                this.way = "왕복"
+            }else{
+                this.way = "편도";
+            }
+
+            axios.post("/res/resPost", {
+                    email: this.$store.state.userInfo.email,
+                    korFirstName: this.korFirstName,
+                    korLastName: this.korLastName,
+                    engFirstName: this.engFirstName,
+                    engLastName: this.engLastName,
+                    gender: this.gender,
+                    birthday: this.birthday,
+                    seat: this.seat,
+                    seatClass1: this.seatClass1,
+                    seatClass2: this.seatClass2,
+                    way: this.way,
+                    flight1: this.flight1,
+                    flight2: this.flight2,
+                    fromArea: this.fromArea,
+                    toArea: this.toArea,
+                    oneWayArea: " ",
+                    startDate: startDate,
+                    returnDate: returnDate,
+                    adultCount: this.AdultCount,
+                    childCount: this.ChildCount,
+                    infantCount: this.InfantCount,
+                    startTime1: this.startTime1,
+                    arriveTime1: this.arriveTime1,
+                    startTime2: this.startTime2,
+                    arriveTime2: this.arriveTime2,
+                })
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
+        },

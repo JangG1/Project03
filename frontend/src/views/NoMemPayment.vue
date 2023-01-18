@@ -30,16 +30,16 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="pInfo2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{Format(startDate)}}</span> <span v-show="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
+                <span>{{Format(startDate)}}</span> <span v-if="returnDate.length > 1"> ~ {{Format(returnDate)}}</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="pInfo3">
                 <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 {{AdultCount}}
-                <span v-show="InfantCount.substr(4,2) > 0">
+                <span v-if="InfantCount.substr(4,2) > 0">
                     {{ChildCount}}
                 </span>
-                <span v-show="InfantCount.substr(4,2) > 0">
+                <span v-if="InfantCount.substr(4,2) > 0">
                     {{InfantCount}}
                 </span>
             </div>
@@ -71,7 +71,7 @@
 
     <br>
 
-    <div class="pArriveInfo" v-show="returnDate.length > 1">
+    <div class="pArriveInfo" v-if="returnDate.length > 1">
         <button type="button">
             <div>
                 오는 편
@@ -101,7 +101,7 @@
     <div class="passengerTitle" @click="showPassInfo">
         {{AdultCount}} <span class="arrow">{{arrow}}</span>
     </div>
-    <div v-show="passInfo" class="passInfo">
+    <div v-if="passInfo" class="passInfo">
         <div class="passInfo1">
             <div class="passInfo1-1">
                 <h5>승객 성<span class="asterisk"> *</span></h5><br>
@@ -145,7 +145,7 @@
     <div class="noteTitle">
         유의사항 <span class="arrow">{{arrow}}</span>
     </div>
-    <div class="note1" v-show="noteInfo">
+    <div class="note1" v-if="noteInfo">
         <li>
             예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
         </li>

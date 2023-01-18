@@ -11,11 +11,7 @@
                 <tr>
                     <th scope="col">예약 번호</th>
                     <th scope="col">예약자 정보</th>
-                    <!--
-                    //1일전 날짜 오류로 수정필요
-                    //DB 이상없음
                     <th scope="col">예약 날짜</th>
-                    -->
                     <th scope="col">가는 편</th>
                     <th scope="col">오는 편</th>
                     <th scope="col">왕복/편도</th>
@@ -31,25 +27,19 @@
                 <tr v-for="res in res" :key="res">
                     <td>{{"Fastrip - " + res.res_no}}</td>
                     <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerPopUp(res.res_no)"></td>
-                    <!-- 
-                    //1일전 날짜 오류로 수정필요
-                    //DB 이상없음
-                    <td>{{res.res_date.substr(0, 16).replace("T"," ")}}</td>
-                     -->
-                    <td>{{res.startDate + " " + res.startTime1 + " ~ " + res.arriveTime1}}</td>
-                    <td>{{res.returnDate + " " + res.startTime2}}
-                        <span v-show="res.returnDate != returnYearValue">~</span>
-                        <span v-show="res.returnDate == returnYearValue">-</span>
-                        {{res.arriveTime2}}</td>
+                    <td>{{resDate1(res.res_date)}}</td>
+                    <td>{{resDate2(res.startDate) + " " + res.startTime1 + " ~ " + res.arriveTime1}}</td>
+                    <td v-if="res.way == '왕복'">{{resDate2(res.returnDate) + " " + res.startTime2}} ~ {{res.arriveTime2}}</td>
+                    <td v-if="res.way == '편도'">-</td>
                     <td>{{res.way}}</td>
                     <td>{{res.seat}}</td>
                     <td>{{res.fromArea + " → " + res.toArea + "(" + res.flight1 + ")"}}</td>
                     <td>{{res.seatClass1}}</td>
-                    <td v-if="res.returnDate != returnYearValue">{{res.toArea + " → " + res.fromArea + "(" + res.flight2 + ")"}}</td>
-                    <td v-if="res.returnDate == returnYearValue">{{res.oneWayArea}}
-                        <span v-show="res.returnDate == returnYearValue">-</span>
+                    <td v-if="res.way == '왕복'">{{res.toArea + " → " + res.fromArea + "(" + res.flight2 + ")"}}</td>
+                    <td v-if="res.way == '편도'">{{res.oneWayArea}}
+                        <span v-if="res.way == '편도'">-</span>
                     </td>
-                    <td>{{res.seatClass2}}<span v-show="res.returnDate == returnYearValue">-</span></td>
+                    <td>{{res.seatClass2}}<span v-if="res.way == '편도'">-</span></td>
                 </tr>
             </tbody>
         </table>
@@ -81,9 +71,9 @@ export default {
     props: [""],
     data() {
         return {
+            week: ['일', '월', '화', '수', '목', '금', '토'],
             res: [],
             passengerView: false,
-            returnYearValue: " ",
             user: {
                 res_no: this.res_no,
                 AdultCount: this.AdultCount,
@@ -99,6 +89,29 @@ export default {
         }
     },
     methods: {
+        resDate1(value) {
+            let resDate = new Date(value);
+
+            let year = resDate.getFullYear();
+            let month = String(resDate.getMonth() + 1).padStart(2, "0");
+            let day = String(resDate.getDate()).padStart(2, "0");
+            let date = this.week[resDate.getDay()];
+            let hour = String(resDate.getHours()).padStart(2, "0");
+            let minute = String(resDate.getMinutes()).padStart(2, "0");
+
+            return year + "-" + month + "-" + day + "(" + date + ") " + hour + ":" + minute
+        },
+        resDate2(value) {
+            let resDate = new Date(value);
+
+            let year = resDate.getFullYear();
+            let month = String(resDate.getMonth() + 1).padStart(2, "0");
+            let day = String(resDate.getDate()).padStart(2, "0");
+            let date = this.week[resDate.getDay()];
+
+            return year + "-" + month + "-" + day + "(" + date + ") "
+           
+        },
         getData() { //예약내역 전부 조회
             axios.get('/res/all')
                 .then((response) => {

@@ -17,16 +17,16 @@
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
                 <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> 
-                <span v-show="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
+                <span v-if="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 성인 {{AdultCount}}명
-                <span v-show="ChildCount > 0">
+                <span v-if="ChildCount > 0">
                     , 유아 {{ChildCount}}명
                 </span>
-                <span v-show="InfantCount > 0">
+                <span v-if="InfantCount > 0">
                     , 소아 {{InfantCount}}명
                 </span>
             </div>

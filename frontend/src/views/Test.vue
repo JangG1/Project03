@@ -13,12 +13,19 @@ birth : {{$store.state.birthday}} <br>
 Test : {{$store.state.userInfo}} <br>
 
 =======================================================
-<br>
-<div class="browser-bottom_left">
-    <input id="Chkbox" type="checkbox" class="today-btn">
-    <label for="Chkbox" @click="checkModalToday">오늘 하루 그만보기</label>
-</div>
-<button class="closeNotice" @click="closeModal">닫기</button>
+
+
+    <ul class="myMenu">
+        <li class="menu2">
+            메뉴 2
+            <ul class="menu2_s submenu">
+                <li>메뉴 2-1</li>
+                <li>메뉴 2-2</li>
+                <li>메뉴 2-3</li>
+            </ul>
+        </li>
+    </ul>
+
 </template>
 
 <script>
@@ -132,8 +139,45 @@ export default {
 }
 </script>
 
-<style scoped>
-.main {
-    padding: 0 25%;
+<style>
+ul,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu2 {
+    display: inline-block;
+    width: 80px;
+    padding: 5px 10px;
+    background: #eee;
+    border: 1px solid #eee;
+    text-align: center;
+    position: relative;
+}
+
+.menu2 ul.submenu {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+}
+
+.menu2:hover ul.submenu {
+    display: block;
+}
+
+.menu2 ul.submenu>li {
+    display: inline-block;
+    width: 80px;
+    padding: 5px 10px;
+    background: #eee;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.menu2 ul.submenu>li:hover {
+    background: #fff;
 }
 </style>

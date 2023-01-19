@@ -13,18 +13,8 @@ birth : {{$store.state.birthday}} <br>
 Test : {{$store.state.userInfo}} <br>
 
 =======================================================
-
-
-    <ul class="myMenu">
-        <li class="menu2">
-            메뉴 2
-            <ul class="menu2_s submenu">
-                <li>메뉴 2-1</li>
-                <li>메뉴 2-2</li>
-                <li>메뉴 2-3</li>
-            </ul>
-        </li>
-    </ul>
+<br>
+<button @click="test">test</button>
 
 </template>
 
@@ -32,6 +22,7 @@ Test : {{$store.state.userInfo}} <br>
 //import axios from 'axios';
 import ProfileItem from "@/components/ProfileItem.vue";
 import cookie from 'js-cookie';
+import axios from 'axios';
 
 export default {
     name: "HelloWorld",
@@ -56,21 +47,6 @@ export default {
     },
     created() {},
     methods: {
-        checkModalToday() {
-            this.setCookie('bPop', 'Y', 1);
-            this.closeModal();
-        },
-
-        setCookie(key, value, expireDays) {
-            cookie.set(key, value, {
-                expires: expireDays,
-                path: ''
-            });
-        },
-        closeModal() {
-            alert("123")
-            this.$emit('close')
-        },
         kakaoLogin() {
             // console.log(window.Kakao);
             window.Kakao.Auth.login({
@@ -126,6 +102,22 @@ export default {
             });
             localStorage.clear(); // 전체삭제
         },
+        test(){
+
+            
+
+            axios.post("/res/resPostTest", {                    
+                    name: "지원",
+                })
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
+        }
     },
     mounted() {
         this.getEncodeData();
@@ -140,44 +132,5 @@ export default {
 </script>
 
 <style>
-ul,
-li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 
-.menu2 {
-    display: inline-block;
-    width: 80px;
-    padding: 5px 10px;
-    background: #eee;
-    border: 1px solid #eee;
-    text-align: center;
-    position: relative;
-}
-
-.menu2 ul.submenu {
-    display: none;
-    position: absolute;
-    top: 30px;
-    left: 0;
-}
-
-.menu2:hover ul.submenu {
-    display: block;
-}
-
-.menu2 ul.submenu>li {
-    display: inline-block;
-    width: 80px;
-    padding: 5px 10px;
-    background: #eee;
-    border: 1px solid #eee;
-    text-align: center;
-}
-
-.menu2 ul.submenu>li:hover {
-    background: #fff;
-}
 </style>

@@ -19,8 +19,7 @@
             <div class="infoRight">
 
                 <span class="listRight"> {{name[1][index]}} {{name[0][index]}}</span><br><br>
-                <span class="listRight">{{name[3][index]}} {{name[2][index]}}</span><br><br>
-
+                <span class="listRight" >{{name[3][index]}} {{name[2][index]}}</span><br><br>
                 <span class="listRight">{{name[5][index]}}</span><br><br>
                 <span class="listRight">{{Gender(name[4][index])}}</span>
             </div>
@@ -182,6 +181,7 @@ export default {
                 let gender = this.name[i]
                 console.log("gender " + gender)
             }
+
             console.log(this.user.seat)
             console.log(this.user.seatClass1)
             console.log(this.user.seatClass2)
@@ -214,8 +214,8 @@ export default {
             return gender
         },
         submit2() {
-            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
-            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
+            // const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
+            // const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
 
             if (this.user.returnYear != " ") {
                 this.way = "왕복"
@@ -223,62 +223,65 @@ export default {
                 this.way = "편도";
             }
 
-            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
+            // for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
 
-                this.fullname.push(this.name[i])
+            //     this.fullname.push(this.name[i])
 
-                let name = [this.fullname];
+            //     let name = [this.fullname];
 
-                let data = JSON.stringify(name);
+            //     let data = JSON.stringify(name);
 
-                this.allNameArr = JSON.parse(data);
-            }
+            //     this.allNameArr = JSON.parse(data);
+            // }
 
-            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
+            // for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
 
-                this.birthday = this.name[i];
+            //     this.birthday = this.name[i];
 
-                let data = JSON.stringify(this.birthday);
+            //     let data = JSON.stringify(this.birthday);
 
-                this.birthdayArr = JSON.parse(data);
-            }
-            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
+            //     this.birthdayArr = JSON.parse(data);
+            // }
+            // for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
 
-                this.gender = this.name[i];
+            //     this.gender = this.name[i];
 
-                let data = JSON.stringify(this.gender);
+            //     let data = JSON.stringify(this.gender);
 
-                this.genderArr = JSON.parse(data);
-            }
+            //     this.genderArr = JSON.parse(data);
+            // }
+
+            this.allNameArr = [this.name[0] , this.name[1] , this.name[2] , this.name[3]]
+            this.genderArr = this.name[4]
+            this.birthdayArr = this.name[5]
 
             console.log(this.allNameArr)
             console.log(this.birthdayArr)
             console.log(this.genderArr)
             
-
             axios.post("/res/resPostTest", {
                     email: this.$store.state.userInfo.email,
-                    name: this.allNameArr,
-                    gender: this.genderArr,
-                    birthday: this.birthdayArr,
-                    seat: this.user.seat,
-                    seatClass1: this.user.seatClass1,
-                    seatClass2: this.user.seatClass2,
-                    way: this.way,
-                    flight1: this.user.flight1,
-                    flight2: this.user.flight2,
-                    fromArea: this.user.fromArea,
-                    toArea: this.user.toArea,
-                    oneWayArea: " ",
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    infantCount: this.user.InfantCount,
-                    childCount: this.user.ChildCount,
-                    adultCount: this.user.AdultCount,
-                    startTime1: this.user.startTime1,
-                    arriveTime1: this.user.arriveTime1,
-                    startTime2: this.user.startTime2,
-                    arriveTime2: this.user.arriveTime2
+                    name: '지원',
+                    gender: '남자',
+                    birthday: '04.17',
+                    // seat: this.user.seat,
+                    // seatClass1: this.user.seatClass1,
+                    // seatClass2: this.user.seatClass2,
+                    // way: this.way,
+                    // flight1: this.user.flight1,
+                    // flight2: this.user.flight2,
+                    // fromArea: this.user.fromArea,
+                    // toArea: this.user.toArea,
+                    // oneWayArea: " ",
+                    // startDate: startDate,
+                    // returnDate: returnDate,
+                    // infantCount: this.user.InfantCount,
+                    // childCount: this.user.ChildCount,
+                    // adultCount: this.user.AdultCount,
+                    // startTime1: this.user.startTime1,
+                    // arriveTime1: this.user.arriveTime1,
+                    // startTime2: this.user.startTime2,
+                    // arriveTime2: this.user.arriveTime2
                 })
                 .then(res => {
                     console.log(res)
@@ -330,6 +333,7 @@ export default {
             console.log(this.allNameArr)
             console.log(this.genderArr)
             console.log(this.birthdayArr)
+
             axios.post("/res/resPost", {
                     email: this.$store.state.userInfo.email,
                     name: this.allNameArr,

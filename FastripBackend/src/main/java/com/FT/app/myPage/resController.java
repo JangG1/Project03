@@ -30,10 +30,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FT.app.Repo.ResRepository;
+import com.FT.app.Repo.ResRepository2;
+import com.FT.app.Repo.StudentRepository;
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.Way;
+import com.FT.app.myPage.domain.AdditionalData;
 import com.FT.app.myPage.domain.ResList;
 import com.FT.app.myPage.domain.ResList2;
+import com.FT.app.myPage.domain.Student;
 import com.FT.app.myPage.mapper.ResListMapper;
 
 @RestController
@@ -41,7 +45,9 @@ import com.FT.app.myPage.mapper.ResListMapper;
 public class ResController {
 	@Autowired
 	private ResRepository resRepository;
+	private ResRepository2 resRepository2;
 	private ResListMapper mapper;
+	private StudentRepository  studentRepository;
 	
 	@GetMapping("/all")
 	public List<ResList> all(){
@@ -57,20 +63,36 @@ public class ResController {
 	}
 	
 	@PostMapping("/resPostTest")
-	public void resTest(@RequestBody String  resList) {
-
-		System.out.println(resList);				
+	public void resTest(@RequestBody ResList2  resList2) {
+		System.out.println(resList2.getEmail());
+		System.out.println(resList2.getName());
+		System.out.println(resList2.getGender());
+		System.out.println(resList2.getBirthday());		
+		
+		System.out.println(resList2);				
 		System.out.println("연결 성공");
-
+		
+		resRepository2.save(resList2);
 	}
+	
+	@PostMapping("/student")
+	public void student(@RequestBody Student  student) {
+
+		System.out.println(student);				
+		System.out.println("연결 성공");
+		
+	}
+
 	
 	@PostMapping("/resPost")
 	public void Test(@RequestBody ResList resList) {
 		System.out.println(resList.getEmail());
-		System.out.println(resList.getName());
-//		System.out.println(resList.getKorLastName());
-//		System.out.println(resList.getEngFirstName());
-//		System.out.println(resList.getEngLastName());
+		System.out.println(resList.getAddPassKorName());
+		System.out.println(resList.getAddPassEngName());
+		
+		System.out.println(resList.getKorName());
+		System.out.println(resList.getEngName());
+
 		System.out.println(resList.getGender());
 		System.out.println(resList.getBirthday());
 		System.out.println(resList.getSeat());

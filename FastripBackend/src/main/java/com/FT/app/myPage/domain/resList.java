@@ -2,8 +2,11 @@ package com.FT.app.myPage.domain;
 
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,10 +16,10 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.Type;
 
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.Way;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,25 +41,22 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String email;
 	
-	@Column(nullable = false, length = 500)
-	@JsonProperty("name")
-	private String name;
+	@ElementCollection
+	private List<String> addPassKorName;
 	
-//	@Column(nullable = false, length = 50)
-//	private String korLastName;
-//	
-//	@Column(nullable = false, length = 50)
-//	private String engFirstName;
-//	
-//	@Column(nullable = false, length = 50)
-//	private String engLastName;
+	@ElementCollection
+	private List<String> addPassEngName;
 	
-	@Column(nullable = false, length = 500)
-	@JsonProperty("gender")
+	@Column(nullable = false, length = 50)
+	private String korName;
+
+	@Column(nullable = false, length = 50)
+	private String engName;
+
+	@Column(nullable = false, length = 50)
 	private String gender;
 	
-	@Column(nullable = false, length = 500)
-	@JsonProperty("birthday")
+	@Column(nullable = false, length = 50)
 	private String birthday;
 	
 	@Enumerated(EnumType.STRING)

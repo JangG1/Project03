@@ -162,12 +162,20 @@
     </div>
 
     <!--추가 예약자 정보(성인)-->
-    <div class="passengerBox" v-for="pas in parseInt(AdultCount - 1)" :key="pas">
+    <div class="passengerBox" v-for="(pas, index) in parseInt(AdultCount)-1" :key="index">
         <div class="passengerTitle" @click="showPassInfo2(pas)">
-            {{ "성인 " + (pas + 1) }} <span class="arrow">{{arrow}}</span>
+            <span>
+                 성인 {{ (pas + 1) }} 
+            </span>                        
+            <!--<span v-else-if="pas + 1 <= (parseInt(AdultCount) + parseInt(InfantCount))">
+                유아 {{pas}} {{ pas + 1 - AdultCount}}
+            </span>
+            <span v-else-if=" parseInt(InfantCount) - parseInt(AdultCount) - parseInt(ChildCount) ">
+                소아 {{  pas + 1 - AdultCount - ChildCount  }}
+            </span>-->
+             <span class="arrow">{{arrow}}</span>
         </div>
-        <span v-if="pas == addPas" class="passInfo">
-            <!-- <span v-if="pas == true" class="passInfo"> -->
+        <span v-if="pas == addPas1" class="passInfo">
             <div class="passInfo">
                 <div class="passInfo1">
                     <div class="passInfo1-1">
@@ -215,6 +223,121 @@
             <br>
         </span>
     </div>
+
+     <!--추가 예약자 정보(유아)-->
+     <div class="passengerBox" v-for="(pas, index) in parseInt(ChildCount)" :key="index">
+        <div class="passengerTitle" @click="showPassInfo2(pas)">
+            <span>
+                 유아 {{ (pas) }} 
+            </span>
+             <span class="arrow">{{arrow}}</span>
+        </div>
+        <span v-if="pas == addPas2" class="passInfo">
+            <div class="passInfo">
+                <div class="passInfo1">
+                    <div class="passInfo1-1">
+                        <h5>승객 성<span class="asterisk"> *</span></h5><br>
+                        <input type="text" placeholder="예) 홍" v-model="korLastName2" class="passText">
+                    </div>
+                    <div class="passInfo1-2">
+                        <h5>승객 이름<span class="asterisk"> *</span></h5><br>
+                        <input type="text" placeholder="예) 길동" v-model="korFirstName2" class="passText">
+                    </div>
+                </div>
+
+                <div class="passInfo1">
+                    <div class="passInfo1-1">
+                        <h5>영문 성<span class="asterisk"> *</span></h5><br>
+                        <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                        <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                    </div>
+                    <div class="passInfo1-2">
+                        <h5>영문 이름<span class="asterisk"> *</span></h5><br>
+                        <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                        <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName2" class="passText">
+                    </div>
+                </div>
+
+                <div class="passInfo2">
+
+                    <div class="passInfo2-1">
+                        <h5>성별<span class="asterisk"> *</span></h5><br>
+                        <input type='radio' class="maleRadio" name='gender' value='남자' />
+                        <span class="maleRadioLabel">남자</span>
+                        <input type='radio' class="femaleRadio" name='gender' value='여자' />
+                        <span class="femaleRadioLabel">여자</span>
+                    </div>
+                    <div class="passInfo2-2" style="margin-left:267px">
+                        <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 01.01">
+                    </div>
+
+                </div>
+                <div class="passInfo3">
+                    <button type="button" @click="showPassInfo3(pas + 1)" class="passCheckBtn" id="">확인</button>
+                </div>
+            </div>
+            <br>
+        </span>
+    </div>
+
+<!--추가 예약자 정보(소아)-->
+<div class="passengerBox" v-for="(pas, index) in parseInt(InfantCount)" :key="index">
+        <div class="passengerTitle" @click="showPassInfo4(pas + 1)">
+            <span>
+                 소아 {{ (pas) }} 
+            </span>
+             <span class="arrow">{{arrow}}</span>
+        </div>
+        <span v-if="pas == addPas3" class="passInfo">
+            <div class="passInfo">
+                <div class="passInfo1">
+                    <div class="passInfo1-1">
+                        <h5>승객 성<span class="asterisk"> *</span></h5><br>
+                        <input type="text" placeholder="예) 홍" v-model="korLastName2" class="passText">
+                    </div>
+                    <div class="passInfo1-2">
+                        <h5>승객 이름<span class="asterisk"> *</span></h5><br>
+                        <input type="text" placeholder="예) 길동" v-model="korFirstName2" class="passText">
+                    </div>
+                </div>
+
+                <div class="passInfo1">
+                    <div class="passInfo1-1">
+                        <h5>영문 성<span class="asterisk"> *</span></h5><br>
+                        <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                        <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                    </div>
+                    <div class="passInfo1-2">
+                        <h5>영문 이름<span class="asterisk"> *</span></h5><br>
+                        <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
+                        <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName2" class="passText">
+                    </div>
+                </div>
+
+                <div class="passInfo2">
+
+                    <div class="passInfo2-1">
+                        <h5>성별<span class="asterisk"> *</span></h5><br>
+                        <input type='radio' class="maleRadio" name='gender' value='남자' />
+                        <span class="maleRadioLabel">남자</span>
+                        <input type='radio' class="femaleRadio" name='gender' value='여자' />
+                        <span class="femaleRadioLabel">여자</span>
+                    </div>
+                    <div class="passInfo2-2" style="margin-left:267px">
+                        <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 01.01">
+                    </div>
+
+                </div>
+                <div class="passInfo3">
+                    <button type="button" @click="showPassInfo4(pas+1)" class="passCheckBtn" id="">확인</button>
+                </div>
+            </div>
+            <br>
+        </span>
+    </div>
+
 </div>
 
 <button class="note" @click="showNoteInfo">
@@ -318,11 +441,11 @@
     <div class="payFootNav1">예상 결제 금액</div>
     <div class="payStartPrice">{{AddComma(startPrice)}} 원</div>
 
-    <button type="button" class="paySubmitBtn" @click="test2()">예약 하기</button>
+    <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal :PayModalView="PayModalView" :user="user" :name="name" @close="PayModalPopUp"></PayModal>
+    <PayModal :PayModalView="PayModalView" :user="user" :engLastName="engLastName1" :engFirstName="engFirstName1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" @close="PayModalPopUp"></PayModal>
 </div>
 
 <div v-if="IATAModalView == true" class="IATAModalView" :class="{ active : IATAModalView }">
@@ -334,7 +457,6 @@
 <script>
 import PayModal from "@/components/PayModal.vue";
 import IATAModal from "@/components/IATAModal.vue";
-import axios from 'axios';
 
 export default {
     name: 'HelloWorld',
@@ -344,12 +466,6 @@ export default {
     },
     data() {
         return {
-            adultKorFirstName: [],
-            adultKorLastName: [],
-            adultEngFirstName: [],
-            adultEngLastName: [],
-            adultBirthDay: [],
-            adultGender: [],
             start: '',
             arrive: '',
             price: '',
@@ -378,6 +494,8 @@ export default {
             name: '',
             addPassKorName: [],
             addPassEngName: [],
+            addPassGender: [],
+            addPassBirthday: [],
             user: {
                 flight1: this.flight1,
                 flight2: this.flight2,
@@ -402,6 +520,13 @@ export default {
                 startTime2: this.startTime2,
                 arriveTime2: this.arriveTime2,
                 startPrice: this.startPrice,
+
+                korLastName: this.$store.state.name.substring(0, 1),
+                korFirstName: this.$store.state.name.substring(1, 3),
+                engLastName: this.engLastName1,
+                engFirstName: this.engFirstName1,
+                gender: this.$store.state.gender,
+                birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
             },
         }
     },
@@ -492,154 +617,10 @@ export default {
         },
     },
     methods: {
-        test3() {
+        test(value) {
+            value = 1;
 
-            console.log(this.AdultCount)
-            console.log(this.addPassEngName)
-            console.log(JSON.stringify(this.addPassEngName))
-            
-            let parse1 = JSON.stringify(this.addPassEngName)
-
-            let arr1 = new Array(parse1);
-
-            console.log("parse1 :" + JSON.parse(parse1))
-            console.log("arr1 :" + arr1)
-
-            console.log(this.addPassKorName)
-            console.log(JSON.stringify(this.addPassKorName))
-            
-            let parse2 = [this.addPassKorName]
-            console.log("parse2 :" + parse2)
-
-            console.log("------------------------------")
-            let test1 = ["MIN JU","KIM","HANNI","PHAM"];
-            let test2 = ["민주","김","하니","팜"];
-
-            console.log(test1)
-            console.log(test2)
-            console.log("------------------------------")
-        },
-        test2() {
-            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
-            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
-
-            if (this.user.returnYear != " ") {
-                this.way = "왕복"
-            } else {
-                this.way = "편도";
-            }                        
-
-            //let name = ["지원","민주","하니"]
-            let test1 = ["MIN JU","KIM","HANNI","PHAM"];
-            let test2 = ["민주","김","하니","팜"];
-
-            console.log(test1)
-            console.log(test2)
-console.log("====================================")
-            console.log(this.AdultCount)
-            console.log(this.addPassEngName)
-            console.log(JSON.stringify(this.addPassEngName))
-            
-            let parse1 = JSON.stringify(this.addPassEngName)
-
-            console.log("parse1 :" + parse1)
-
-            console.log(this.addPassKorName)
-            console.log(JSON.stringify(this.addPassKorName))
-            
-            let parse2 = JSON.stringify(this.addPassEngName)
-            console.log("parse2 :" + parse2)
-
-            axios.post("/res/resPost", {
-                    email: this.$store.state.userInfo.email,                    
-                    korName: this.korFirstName1 + this.korLastName1,       
-                    engName: this.engFirstName1 + this.engLastName1,       
-                    //name: name,
-                    /*addPassKorName: test1,
-                    addPassEngName: test2,*/
-                    addPassKorName: this.addPassKorName,
-                    addPassEngName: this.addPassEngName,
-                    gender: this.gender1,
-                    birthday: this.birthday1,
-                    seat: this.user.seat,
-                    seatClass1: this.user.seatClass1,
-                    seatClass2: this.user.seatClass2,
-                    way: this.way,
-                    flight1: this.user.flight1,
-                    flight2: this.user.flight2,
-                    fromArea: this.user.fromArea,
-                    toArea: this.user.toArea,
-                    oneWayArea: " ",
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    infantCount: this.user.InfantCount,
-                    childCount: this.user.ChildCount,
-                    adultCount: this.user.AdultCount,
-                    startTime1: this.user.startTime1,
-                    arriveTime1: this.user.arriveTime1,
-                    startTime2: this.user.startTime2,
-                    arriveTime2: this.user.arriveTime2
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-
-            let usePoint = this.holdPoint - this.user.startPrice
-            this.$store.dispatch("holdPoint", usePoint);
-        },
-        test() {
-            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
-            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
-
-            if (this.user.returnYear != " ") {
-                this.way = "왕복"
-            } else {
-                this.way = "편도";
-            }
-
-            axios.post("/res/resPost", {
-                    email: this.$store.state.userInfo.email,
-                    korFirstName: this.korFirstName1,
-                    korLastName: this.korLastName1,
-                    engFirstName: this.engFirstName1,
-                    engLastName: this.engLastName1,
-                    gender: this.gender1,
-                    birthday: this.birthday1,
-                    seat: this.user.seat,
-                    seatClass1: this.user.seatClass1,
-                    seatClass2: this.user.seatClass2,
-                    way: this.way,
-                    flight1: this.user.flight1,
-                    flight2: this.user.flight2,
-                    fromArea: this.user.fromArea,
-                    toArea: this.user.toArea,
-                    oneWayArea: " ",
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    infantCount: this.user.InfantCount,
-                    childCount: this.user.ChildCount,
-                    adultCount: this.user.AdultCount,
-                    startTime1: this.user.startTime1,
-                    arriveTime1: this.user.arriveTime1,
-                    startTime2: this.user.startTime2,
-                    arriveTime2: this.user.arriveTime2
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-
-            let usePoint = this.holdPoint - this.user.startPrice
-            this.$store.dispatch("holdPoint", usePoint);
+            return value            
         },
         engLastNameTest() {
             if (this.engLastName1 == null) {
@@ -736,7 +717,7 @@ console.log("====================================")
         },
         showPassInfo1() {
             this.passInfo = (this.passInfo) ? false : true
-            this.addPas = true;
+            this.addPas1 = true;
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -747,41 +728,17 @@ console.log("====================================")
         showPassInfo2(value) {
             var selected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            this.adultKorFirstName.push(this.korFirstName2)
-            this.adultKorLastName.push(this.korLastName2)
-            this.adultEngFirstName.push(this.engFirstName2)
-            this.adultEngLastName.push(this.engLastName2)
-            this.adultBirthDay.push(this.birthday2)
-            this.adultGender.push(selected.value)
-
-            let name = [this.adultKorFirstName, this.adultKorLastName, this.adultEngFirstName, this.adultEngLastName, this.adultBirthDay, this.adultGender];
-
-            console.log(name)
-            console.log(name[0])
-            console.log(name[1])
-            console.log(name[2])
-            console.log(name[3])
-            console.log(name[4])
-            console.log(name[5])
-
-            console.log("=================")
-                
             this.addPassEngName.push(this.engFirstName2)
             this.addPassEngName.push(this.engLastName2)
 
             this.addPassKorName.push(this.korFirstName2)
             this.addPassKorName.push(this.korLastName2)
-     
 
-            this.name = name;
+            this.addPassGender.push(selected.value)
 
-            console.log(this.addPassEngName)
-            console.log(this.addPassKorName)
-            console.log("=========123========")
-            console.log(JSON.stringify(this.addPassEngName))
-            console.log(JSON.stringify(this.addPassKorName))
+            this.addPassBirthday.push(this.birthday2)
 
-            this.addpas = (value) ? false : true
+            this.addpas1 = (value) ? false : true
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -789,9 +746,88 @@ console.log("====================================")
                 this.arrow = "▼"
             }
 
-            return this.addPas = value;
+            console.log(value)
+            console.log(Math.max(this.AdultCount))
+
+            if(value == Math.max(this.AdultCount)){
+                alert("다음")
+                this.addpas2 = true
+                this.showPassInfo3(value = 1);
+                return this.addPas1 = false;
+            }
+
+            return this.addPas1 = value;
 
         },
+        showPassInfo3(value) {
+            console.log("?" + value)
+            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            this.addPassEngName.push(this.engFirstName2)
+            this.addPassEngName.push(this.engLastName2)
+
+            this.addPassKorName.push(this.korFirstName2)
+            this.addPassKorName.push(this.korLastName2)
+
+            this.addPassGender.push(selected.value)
+
+            this.addPassBirthday.push(this.birthday2)
+
+            this.addpas2 = (value) ? false : true
+
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
+
+            if(value == Math.max(this.ChildCount)){
+                alert("다음")
+                this.addpas3 = true
+                this.showPassInfo4(value = 1);
+                return this.addPas2 = false;
+            }
+
+            return this.addPas2 = value;
+
+        },
+        showPassInfo4(value) {
+            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            this.addPassEngName.push(this.engFirstName2)
+            this.addPassEngName.push(this.engLastName2)
+
+            this.addPassKorName.push(this.korFirstName2)
+            this.addPassKorName.push(this.korLastName2)
+
+            this.addPassGender.push(selected.value)
+
+            this.addPassBirthday.push(this.birthday2)
+
+            this.addPas3 = (value) ? false : true
+
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
+
+            if(value == Math.max(this.ChildCount)){
+                alert("끝")
+                return this.addPas3 = false;
+            }
+            
+            console.log( this.addPassEngName)
+            console.log( this.addPassKorName)
+            console.log( this.addPassGender)
+            console.log( this.addPassBirthday)
+            
+
+
+            return this.addPas3 = value;
+
+        },
+        
         showNoteInfo(value) {
             alert(value)
             this.noteInfo = (this.noteInfo) ? false : true

@@ -46,13 +46,13 @@ const routes = [
     props: true
   },
   {
-    path: '/PayModal/:flight1/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korLastName/:korFirstName/:engLastName/:engFirstName/:gender/:birthday',
+    path: '/PayModal/:flight1/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korName/:engName/:gender/:birthday/:addPassKorName/:addPassEngName/:addPassGender/:addPassBirthday',
     name: 'PayModal',
     component: () => import('@/components/PayModal.vue'),
     props: true
   },
   {
-    path: '/Complete/:flight1/:flight2/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korLastName/:korFirstName/:engLastName/:engFirstName/:gender/:birthday',
+    path: '/Complete/:flight1/:flight2/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korName/:engName/:gender/:birthday/:addPassKorName/:addPassEngName/:addPassGender/:addPassBirthday',
     name: 'Complete',
     component: () => import('@/views/Complete.vue'),
     props: true

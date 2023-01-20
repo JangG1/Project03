@@ -6,7 +6,7 @@
 
     <div class="comInfoList">
         <div class="comInfoTitle">
-            승객 정보
+            승객 정보 <span v-if="AdultCount > 1">1</span>
         </div>
         <div class="comInfoLeft">
             <span class="listLeft">한글 이름</span><br><br>
@@ -15,13 +15,34 @@
             <span class="listLeft">성별</span>
         </div>
         <div class="comInfoRight">
-            <span class="listRight">{{korLastName}} {{korFirstName}}</span><br><br>
-            <span class="listRight">{{engLastName}} {{engFirstName}}</span><br><br>
+            <span class="listRight">{{korName}}</span><br><br>
+            <span class="listRight">{{engName}}</span><br><br>
             <span class="listRight">{{birthday}}</span><br><br>
             <span class="listRight">{{Gender(gender)}}</span>
         </div>
     </div>
 
+    <span v-for="(pas,index) in parseInt(AdultCount) - 1" :key="index">
+        <div class="comInfoList">
+            <div class="comInfoTitle">
+                승객 정보 {{ index + 2 }}
+            </div>
+            <div class="comInfoLeft">
+                <span class="listLeft">한글 이름</span><br><br>
+                <span class="listLeft">영어 이름</span><br><br>
+                <span class="listLeft">생년 월일</span><br><br>
+                <span class="listLeft">성별</span>
+            </div>
+            <div class="comInfoRight">
+
+                <span class="listRight">{{JSON.parse(addPassKorName)[index*2+1]}}{{JSON.parse(addPassKorName)[index*2]}}</span><br><br>
+                <span class="listRight">{{JSON.parse(addPassEngName)[index*2+1]}} {{JSON.parse(addPassEngName)[index*2]}}</span><br><br>
+                <span class="listRight">{{JSON.parse(addPassBirthday)[index]}}</span><br><br>
+                <span class="listRight">{{JSON.parse(addPassGender)[index]}}</span>
+            </div>
+        </div>
+    </span>
+    
     <div class="comAreaList">
         <div class="comInfoTitle">
             가는편
@@ -113,13 +134,9 @@ export default {
     },
     data() {
         return {
-            /*korLastName: this.$store.state.name.substring(0, 1),
-            korFirstName: this.$store.state.name.substring(1, 3),
-            birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
-            gender: this.$store.state.gender,*/
             childCountView: false,
             infantCountView: false,
-            holdPoint: this.$store.state.holdPoint,
+            holdPoint: this.$store.state.holdPoint,            
         }
     },
     props: {
@@ -129,22 +146,28 @@ export default {
         flight2: {
             type: String,
         },
-        korLastName: {
+        korName: {
             type: String,
         },
-        korFirstName: {
-            type: String,
-        },
-        engLastName: {
-            type: String,
-        },
-        engFirstName: {
+        engName: {
             type: String,
         },
         birthday: {
             type: String,
         },
         gender: {
+            type: String,
+        },
+        addPassKorName: {
+            type: String,
+        },
+        addPassEngName: {
+            type: String,
+        },
+        addPassGender: {
+            type: String,
+        },
+        addPassBirthday: {
             type: String,
         },
         fromArea: {
@@ -263,11 +286,11 @@ export default {
 .comInfoList {
     border: 2px solid teal;
     border-radius: 4px;
-    height: 320px;
+    height: 340px;
     margin-bottom: 60px;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .comInfoTitle {
@@ -282,7 +305,7 @@ export default {
 }
 
 .comInfoLeft {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 900;
     color: #999;
     float: left;
@@ -290,20 +313,23 @@ export default {
 }
 
 .comInfoRight {
-    font-size: 20px;
-    font-weight: 900;
-    float: right;
+    font-size: 22px;
+    font-weight: 900;    
     margin-right: 40px;
+}
+
+.listRight{
+    float: right;
 }
 
 .comAreaList {
     border: 2px solid teal;
     border-radius: 4px;
-    height: 385px;
+    height: 400px;
     margin-bottom: 40px;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .comPayList {
@@ -311,9 +337,9 @@ export default {
     border-radius: 4px;
     height: 205px;
     margin-bottom: 40px;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .comPayTitle {
@@ -340,7 +366,7 @@ export default {
     background-color: teal;
     border: none;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 900;
 }
 

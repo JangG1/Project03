@@ -89,7 +89,9 @@ public class ResController {
 		System.out.println(resList.getEmail());
 		System.out.println(resList.getAddPassKorName());
 		System.out.println(resList.getAddPassEngName());
-		
+		System.out.println(resList.getAddPassGender());
+		System.out.println(resList.getAddPassBirthday());
+				
 		System.out.println(resList.getKorName());
 		System.out.println(resList.getEngName());
 

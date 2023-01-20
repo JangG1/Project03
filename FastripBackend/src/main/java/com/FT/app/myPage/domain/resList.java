@@ -47,6 +47,12 @@ public class ResList {
 	@ElementCollection
 	private List<String> addPassEngName;
 	
+	@ElementCollection
+	private List<String> addPassGender;
+	
+	@ElementCollection
+	private List<String> addPassBirthday;
+	
 	@Column(nullable = false, length = 50)
 	private String korName;
 

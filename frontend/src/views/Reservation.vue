@@ -180,11 +180,30 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30%;
-    height: 32%;
+    width: 35%;
+    height: 38%;
     border-radius: 15px;
     background-color: white;
     box-shadow: 2px 2px 10px lightgrey;
+    overflow: auto;
+}
+
+.passengerView::-webkit-scrollbar {
+    width: 15px;
+
+}
+
+.passengerView::-webkit-scrollbar-thumb {
+    background-color: teal;
+    border-radius: 10px;    
+    /*스크롤바의 색상*/
+}
+
+.passengerView::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 10px;
+    border: 0.1px solid teal;
+    /*스크롤바 트랙 색상*/
 }
 
 tr {

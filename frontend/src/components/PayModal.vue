@@ -5,10 +5,11 @@
         <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
-    <span v-for="(pas,index) in parseInt(user.AdultCount)" :key="index">
+
+    <span>
         <div class="infoList">
             <div class="title2">
-                승객 정보 {{ index + 1 }}
+                승객 정보 <span v-if="user.AdultCount > 1">1</span>
             </div>
             <div class="infoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -18,10 +19,31 @@
             </div>
             <div class="infoRight">
 
-                <span class="listRight"> {{name[1][index]}} {{name[0][index]}}</span><br><br>
-                <span class="listRight" >{{name[3][index]}} {{name[2][index]}}</span><br><br>
-                <span class="listRight">{{name[5][index]}}</span><br><br>
-                <span class="listRight">{{Gender(name[4][index])}}</span>
+                <span class="listRight">{{user.korLastName}} {{user.korFirstName}}</span><br><br>
+                <span class="listRight">{{engLastName}} {{engFirstName}}</span><br><br>
+                <span class="listRight">{{user.birthday}}</span><br><br>
+                <span class="listRight">{{Gender(user.gender)}}</span>
+            </div>
+        </div>
+    </span>
+
+    <span v-for="(pas,index) in parseInt(user.AdultCount) - 1" :key="index">
+        <div class="infoList">
+            <div class="title2">
+                승객 정보 {{ index + 2 }}
+            </div>
+            <div class="infoLeft">
+                <span class="listLeft">한글 이름</span><br><br>
+                <span class="listLeft">영어 이름</span><br><br>
+                <span class="listLeft">생년 월일</span><br><br>
+                <span class="listLeft">성별</span>
+            </div>
+            <div class="infoRight">
+
+                <span class="listRight">{{addPassKorName[index*2+1]}} {{addPassKorName[index*2]}}</span><br><br>
+                <span class="listRight">{{addPassEngName[index*2+1]}} {{addPassEngName[index*2]}}</span><br><br>
+                <span class="listRight">{{addPassBirthday[index]}}</span><br><br>
+                <span class="listRight">{{addPassGender[index]}}</span>
             </div>
         </div>
     </span>
@@ -90,7 +112,7 @@
     </div>
 
     <!--submit-->
-    <button type="button" class="reserBtn" @click="submit2()">예약 하기</button>
+    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
 </div>
 </template>
 
@@ -115,7 +137,27 @@ export default {
             type: String,
             default: ''
         },
-        name: {
+        engLastName: {
+            type: String,
+            default: ''
+        },
+        engFirstName: {
+            type: String,
+            default: ''
+        },
+        addPassKorName: {
+            type: String,
+            default: ''
+        },
+        addPassEngName: {
+            type: String,
+            default: ''
+        },
+        addPassGender: {
+            type: String,
+            default: ''
+        },
+        addPassBirthday: {
             type: String,
             default: ''
         },
@@ -123,35 +165,37 @@ export default {
     },
     methods: {
         test2() {
+            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
+            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
+          
+            console.log(this.$store.state.userInfo.email)
+            console.log(this.user.korLastName + this.user.korFirstName)
+            console.log(this.engLastName + " " + this.engFirstName)
+            console.log(this.user.gender)
+            console.log(this.user.birthday)
 
-            console.log(name)
+            console.log(this.addPassKorName)
+            console.log(this.addPassEngName)
+            console.log(this.addPassGender)
+            console.log(this.addPassBirthday)
 
-            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
-                console.log(this.name[i])
-
-                this.fullname.push(this.name[i])
-
-                let name = [this.fullname];
-
-                console.log("name " + name)
-            }
-
-            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
-                console.log(this.name[i])
-
-                this.fullBirth.push(this.name[i])
-
-                let birthday = [this.fullBirth];
-
-                console.log("birthday " + birthday)
-            }
-            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
-                console.log(this.name[i])
-
-                let gender = this.name[i];
-
-                console.log("gender " + gender)
-            }
+            console.log(this.user.seat)
+            console.log(this.user.seatClass1)
+            console.log(this.user.seatClass2)
+            console.log(this.way)
+            console.log(this.user.flight1)
+            console.log(this.user.flight2)
+            console.log(this.user.fromArea)
+            console.log(this.user.toArea)
+            console.log(startDate)
+            console.log(returnDate)
+            console.log(this.user.InfantCount)
+            console.log(this.user.ChildCount)
+            console.log(this.user.AdultCount)
+            console.log(this.user.startTime1)
+            console.log(this.user.arriveTime1)
+            console.log(this.user.startTime2)
+            console.log(this.user.arriveTime2)
         },
         test() {
             const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
@@ -213,85 +257,6 @@ export default {
             }
             return gender
         },
-        submit2() {
-            // const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
-            // const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
-
-            if (this.user.returnYear != " ") {
-                this.way = "왕복"
-            } else {
-                this.way = "편도";
-            }
-
-            // for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
-
-            //     this.fullname.push(this.name[i])
-
-            //     let name = [this.fullname];
-
-            //     let data = JSON.stringify(name);
-
-            //     this.allNameArr = JSON.parse(data);
-            // }
-
-            // for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
-
-            //     this.birthday = this.name[i];
-
-            //     let data = JSON.stringify(this.birthday);
-
-            //     this.birthdayArr = JSON.parse(data);
-            // }
-            // for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
-
-            //     this.gender = this.name[i];
-
-            //     let data = JSON.stringify(this.gender);
-
-            //     this.genderArr = JSON.parse(data);
-            // }
-
-            this.allNameArr = [this.name[0] , this.name[1] , this.name[2] , this.name[3]]
-            this.genderArr = this.name[4]
-            this.birthdayArr = this.name[5]
-
-            console.log(this.allNameArr)
-            console.log(this.birthdayArr)
-            console.log(this.genderArr)
-            
-            axios.post("/res/resPostTest", {
-                    email: this.$store.state.userInfo.email,
-                    name: '지원',
-                    gender: '남자',
-                    birthday: '04.17',
-                    // seat: this.user.seat,
-                    // seatClass1: this.user.seatClass1,
-                    // seatClass2: this.user.seatClass2,
-                    // way: this.way,
-                    // flight1: this.user.flight1,
-                    // flight2: this.user.flight2,
-                    // fromArea: this.user.fromArea,
-                    // toArea: this.user.toArea,
-                    // oneWayArea: " ",
-                    // startDate: startDate,
-                    // returnDate: returnDate,
-                    // infantCount: this.user.InfantCount,
-                    // childCount: this.user.ChildCount,
-                    // adultCount: this.user.AdultCount,
-                    // startTime1: this.user.startTime1,
-                    // arriveTime1: this.user.arriveTime1,
-                    // startTime2: this.user.startTime2,
-                    // arriveTime2: this.user.arriveTime2
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-        },
         submit() {
             alert("예약하시겠습니까?")
 
@@ -303,42 +268,17 @@ export default {
             } else {
                 this.way = "편도";
             }
-
-            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
-                console.log(this.name[i])
-                this.fullname = this.name[i];
-                console.log("name " + this.fullname)
-                let data = JSON.stringify(this.fullname);
-
-                this.allNameArr = JSON.parse(data);
-            }
-
-            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
-                console.log(this.name[i])
-                this.birthday = this.name[i];
-                console.log("birthday " + this.birthday)
-                let data = JSON.stringify(this.birthday);
-
-                this.birthdayArr = JSON.parse(data);
-            }
-            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
-                console.log(this.name[i])
-                this.gender = this.name[i];
-                console.log("gender " + this.gender)
-                let data = JSON.stringify(this.gender);
-
-                this.genderArr = JSON.parse(data);
-            }
-
-            console.log(this.allNameArr)
-            console.log(this.genderArr)
-            console.log(this.birthdayArr)
-
-            axios.post("/res/resPost", {
+           
+             axios.post("/res/resPost", {
                     email: this.$store.state.userInfo.email,
-                    name: this.allNameArr,
-                    gender: this.genderArr,
-                    birthday: this.birthdayArr,
+                    korName: this.user.korLastName + this.user.korFirstName,
+                    engName: this.engLastName + " " + this.engFirstName,
+                    gender: this.user.gender,
+                    birthday: this.user.birthday,
+                    addPassKorName: this.addPassKorName,
+                    addPassEngName: this.addPassEngName,
+                    addPassGender: this.addPassGender,
+                    addPassBirthday: this.addPassBirthday,                    
                     seat: this.user.seat,
                     seatClass1: this.user.seatClass1,
                     seatClass2: this.user.seatClass2,
@@ -373,9 +313,14 @@ export default {
             this.$router.push({
                 name: 'Complete',
                 params: {
-                    name: this.allNameArr,
-                    gender: this.genderArr,
-                    birthday: this.birthdayArr,
+                    korName: this.user.korLastName + this.user.korFirstName,
+                    engName: this.engLastName + " " + this.engFirstName,
+                    gender: this.user.gender,
+                    birthday: this.user.birthday,
+                    addPassKorName: JSON.stringify(this.addPassKorName),
+                    addPassEngName: JSON.stringify(this.addPassEngName),
+                    addPassGender: JSON.stringify(this.addPassGender),
+                    addPassBirthday: JSON.stringify(this.addPassBirthday),                    
                     seat: this.user.seat,
                     seatClass1: this.user.seatClass1,
                     seatClass2: this.user.seatClass2,
@@ -384,17 +329,12 @@ export default {
                     flight2: this.user.flight2,
                     fromArea: this.user.fromArea,
                     toArea: this.user.toArea,
-                    startYear: this.user.startYear,
-                    startMonth: this.user.startMonth,
-                    startDay: this.user.startDay,
-                    startWeek: this.user.startWeek,
-                    returnYear: this.user.returnYear,
-                    returnMonth: this.user.returnMonth,
-                    returnDay: this.user.returnDay,
-                    returnWeek: this.user.returnWeek,
-                    InfantCount: this.user.InfantCount,
-                    ChildCount: this.user.ChildCount,
-                    AdultCount: this.user.AdultCount,
+                    oneWayArea: " ",
+                    startDate: startDate,
+                    returnDate: returnDate,
+                    infantCount: this.user.InfantCount,
+                    childCount: this.user.ChildCount,
+                    adultCount: this.user.AdultCount,
                     startTime1: this.user.startTime1,
                     arriveTime1: this.user.arriveTime1,
                     startTime2: this.user.startTime2,

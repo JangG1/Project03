@@ -821,8 +821,6 @@ export default {
             console.log( this.addPassKorName)
             console.log( this.addPassGender)
             console.log( this.addPassBirthday)
-            
-    
 
             return this.addPas3 = value;
 

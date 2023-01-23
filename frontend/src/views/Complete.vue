@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <span v-for="(pas,index) in parseInt(AdultCount) - 1" :key="index">
+    <span v-for="(pas,index) in parseInt(AdultCount) + parseInt(ChildCount) + parseInt(InfantCount) - 1" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
                 승객 정보 {{ index + 2 }}

@@ -165,15 +165,15 @@
     <div class="passengerBox" v-for="(pas, index) in parseInt(AdultCount)-1" :key="index">
         <div class="passengerTitle" @click="showPassInfo2(pas)">
             <span>
-                 성인 {{ (pas + 1) }} 
-            </span>                        
+                성인 {{ (pas + 1) }}
+            </span>
             <!--<span v-else-if="pas + 1 <= (parseInt(AdultCount) + parseInt(InfantCount))">
                 유아 {{pas}} {{ pas + 1 - AdultCount}}
             </span>
             <span v-else-if=" parseInt(InfantCount) - parseInt(AdultCount) - parseInt(ChildCount) ">
                 소아 {{  pas + 1 - AdultCount - ChildCount  }}
             </span>-->
-             <span class="arrow">{{arrow}}</span>
+            <span class="arrow">{{arrow}}</span>
         </div>
         <span v-if="pas == addPas1" class="passInfo">
             <div class="passInfo">
@@ -224,13 +224,13 @@
         </span>
     </div>
 
-     <!--추가 예약자 정보(유아)-->
-     <div class="passengerBox" v-for="(pas, index) in parseInt(ChildCount)" :key="index">
+    <!--추가 예약자 정보(유아)-->
+    <div class="passengerBox" v-for="(pas, index) in parseInt(ChildCount)" :key="index">
         <div class="passengerTitle" @click="showPassInfo2(pas)">
             <span>
-                 유아 {{ (pas) }} 
+                유아 {{ pas }}
             </span>
-             <span class="arrow">{{arrow}}</span>
+            <span class="arrow">{{arrow}}</span>
         </div>
         <span v-if="pas == addPas2" class="passInfo">
             <div class="passInfo">
@@ -281,13 +281,13 @@
         </span>
     </div>
 
-<!--추가 예약자 정보(소아)-->
-<div class="passengerBox" v-for="(pas, index) in parseInt(InfantCount)" :key="index">
+    <!--추가 예약자 정보(소아)-->
+    <div class="passengerBox" v-for="(pas, index) in parseInt(InfantCount)" :key="index">
         <div class="passengerTitle" @click="showPassInfo4(pas + 1)">
             <span>
-                 소아 {{ (pas) }} 
+                소아 {{ pas }}
             </span>
-             <span class="arrow">{{arrow}}</span>
+            <span class="arrow">{{arrow}}</span>
         </div>
         <span v-if="pas == addPas3" class="passInfo">
             <div class="passInfo">
@@ -617,10 +617,8 @@ export default {
         },
     },
     methods: {
-        test(value) {
-            value = 1;
+        test() {
 
-            return value            
         },
         engLastNameTest() {
             if (this.engLastName1 == null) {
@@ -728,6 +726,26 @@ export default {
         showPassInfo2(value) {
             var selected = document.querySelector('input[type=radio][name=gender]:checked');
 
+            if (this.korLastName2 == "") {
+                alert("성을 확인해 주세요.");
+            } else if (this.korFirstName2 == "") {
+                alert("이름을 확인해 주세요");
+            } else if (this.engLastName2 == null) {
+                alert("영문 성을 확인해 주세요.");
+            } else if (this.engFirstName2 == null) {
+                alert("영문 이름을 확인해 주세요");
+            } else if (selected == null) {
+                alert("성별을 확인해 주세요.");
+            } else if (this.birthday2 == null) {
+                alert("생년 월일을 확인해 주세요.");
+            } else {
+                this.showPassInfo2Push(value);
+            }
+
+        },
+        showPassInfo2Push(value) {
+            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+
             this.addPassEngName.push(this.engFirstName2)
             this.addPassEngName.push(this.engLastName2)
 
@@ -749,10 +767,18 @@ export default {
             console.log(value)
             console.log(Math.max(this.AdultCount))
 
-            if(value == Math.max(this.AdultCount)){
-                alert("다음")
+            if (value == Math.max(this.AdultCount)) {
                 this.addpas2 = true
                 this.showPassInfo3(value = 1);
+
+                for (let i = 0; i < 2; i++) {
+                    this.addPassEngName.pop();
+                    this.addPassKorName.pop();
+
+                }
+
+                this.addPassGender.pop();
+                this.addPassBirthday.pop();
                 return this.addPas1 = false;
             }
 
@@ -760,6 +786,26 @@ export default {
 
         },
         showPassInfo3(value) {
+            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            if (this.korLastName2 == "") {
+                alert("성을 확인해 주세요.");
+            } else if (this.korFirstName2 == "") {
+                alert("이름을 확인해 주세요");
+            } else if (this.engLastName2 == null) {
+                alert("영문 성을 확인해 주세요.");
+            } else if (this.engFirstName2 == null) {
+                alert("영문 이름을 확인해 주세요");
+            } else if (selected == null) {
+                alert("성별을 확인해 주세요.");
+            } else if (this.birthday2 == null) {
+                alert("생년 월일을 확인해 주세요.");
+            } else {
+                this.showPassInfo3Push(value);
+            }
+
+        },
+        showPassInfo3Push(value) {
             console.log("?" + value)
             var selected = document.querySelector('input[type=radio][name=gender]:checked');
 
@@ -781,10 +827,17 @@ export default {
                 this.arrow = "▼"
             }
 
-            if(value == Math.max(this.ChildCount)){
-                alert("다음")
+            if (value > Math.max(this.ChildCount)) {
                 this.addpas3 = true
                 this.showPassInfo4(value = 1);
+
+                for (let i = 0; i < 2; i++) {
+                    this.addPassEngName.pop();
+                    this.addPassKorName.pop();
+                }
+                this.addPassGender.pop();
+                this.addPassBirthday.pop();
+                alert("끝~")
                 return this.addPas2 = false;
             }
 
@@ -792,6 +845,26 @@ export default {
 
         },
         showPassInfo4(value) {
+            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            if (this.korLastName2 == "") {
+                alert("성을 확인해 주세요.");
+            } else if (this.korFirstName2 == "") {
+                alert("이름을 확인해 주세요");
+            } else if (this.engLastName2 == null) {
+                alert("영문 성을 확인해 주세요.");
+            } else if (this.engFirstName2 == null) {
+                alert("영문 이름을 확인해 주세요");
+            } else if (selected == null) {
+                alert("성별을 확인해 주세요.");
+            } else if (this.birthday2 == null) {
+                alert("생년 월일을 확인해 주세요.");
+            } else {
+                this.showPassInfo4Push(value);
+            }
+
+        },
+        showPassInfo4Push(value) {
             var selected = document.querySelector('input[type=radio][name=gender]:checked');
 
             this.addPassEngName.push(this.engFirstName2)
@@ -812,20 +885,19 @@ export default {
                 this.arrow = "▼"
             }
 
-            if(value == Math.max(this.ChildCount)){
-                alert("끝")
+            if (value > Math.max(this.InfantCount)) {
                 return this.addPas3 = false;
             }
-            
-            console.log( this.addPassEngName)
-            console.log( this.addPassKorName)
-            console.log( this.addPassGender)
-            console.log( this.addPassBirthday)
+
+            console.log(this.addPassEngName)
+            console.log(this.addPassKorName)
+            console.log(this.addPassGender)
+            console.log(this.addPassBirthday)
 
             return this.addPas3 = value;
 
         },
-        
+
         showNoteInfo(value) {
             alert(value)
             this.noteInfo = (this.noteInfo) ? false : true

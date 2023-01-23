@@ -5,6 +5,7 @@
 </div>
 
 <div class="passCount1">승객수 :
+    <span class="passCount2"> (총 {{res.adultCount+res.childCount+res.infantCount}}명)</span>     
     <span class="passCount2" v-if="res.infantCount > 0">, 소아 {{res.infantCount}}명</span>
     <span class="passCount2" v-if="res.childCount > 0">, 유아 {{res.childCount}}명</span>
     <span class="passCount2">성인 {{res.adultCount}}명</span>     

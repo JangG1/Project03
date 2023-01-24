@@ -44,6 +44,8 @@
             </tbody>
         </table>
     </div>
+
+    {{ res3 }}
     <!-- FOOTER -->
     <div class="Footer">
         <div class="FootLeft">
@@ -73,6 +75,7 @@ export default {
         return {
             week: ['일', '월', '화', '수', '목', '금', '토'],
             res: [],
+            res3: [],
             passengerView: false,
             user: {
                 res_no: this.res_no,
@@ -110,12 +113,31 @@ export default {
             let date = this.week[resDate.getDay()];
 
             return year + "-" + month + "-" + day + "(" + date + ") "
-           
+
         },
-        getData() { //예약내역 전부 조회
-            axios.get('/res/all')
+        getData() { //로그인 email 기준 예약내역 전부 조회
+            //로그인 시 DB로 name과 email 전송
+            //로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
+            //로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
+            let email = this.$store.state.email;
+            axios.get('/res/resList/' + email)
                 .then((response) => {
                     this.res = response.data
+                })
+        },
+        getData2() {
+            let email = this.$store.state.email;
+
+            axios.get('/res/' + email + '')
+                .then((response) => {
+                    this.res = response.data
+                })
+        },
+        getData3() {
+
+            axios.get('/res/test')
+                .then((response) => {
+                    this.res3 = response.data
                 })
         },
         passengerPopUp(value) { //예약자 정보 팝업
@@ -135,6 +157,8 @@ export default {
     },
     mounted() {
         this.getData()
+        this.getData2()
+        this.getData3()
 
     }
 }
@@ -195,7 +219,7 @@ export default {
 
 .passengerView::-webkit-scrollbar-thumb {
     background-color: teal;
-    border-radius: 10px;    
+    border-radius: 10px;
     /*스크롤바의 색상*/
 }
 

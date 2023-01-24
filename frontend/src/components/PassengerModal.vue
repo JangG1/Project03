@@ -61,7 +61,7 @@ export default {
         getData() {
             let res_no = this.$store.state.res_no + 1;
 
-            axios.get('/res/' + res_no + '')
+            axios.get('/res/' + res_no)
                 .then((response) => {
                     this.res = response.data
                 })

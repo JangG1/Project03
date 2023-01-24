@@ -122,8 +122,8 @@ public class ResList {
 	@CreationTimestamp // 값을 비워두고 insert해도 시간이 자동으로 입력
 	private Timestamp res_date;
 
+	public ResList orElseThrow(Object object) {
+		return null;
+	}
 
-	
-
-	
 }

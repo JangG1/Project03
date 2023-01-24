@@ -75,7 +75,18 @@ export default {
     },
     methods: {
         logout() {
-            this.$store.commit("logout");
+            
+
+            if (!window.Kakao.Auth.getAccessToken()) {
+                console.log("Not logged in.");
+                return;
+            }
+            window.Kakao.Auth.logout(function () {
+                alert("로그아웃 되었습니다.");
+                window.location.href = "/Test";
+            });
+            localStorage.clear(); // 전체삭제
+
             this.$router.go("/");
         },
     },

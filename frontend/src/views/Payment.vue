@@ -13,7 +13,11 @@
                 <h5>항공 운송료 </h5><br>
                 <span>운임</span><span class="price">{{Fare(startPrice)}}</span><br>
                 <span>유류할증료</span><span class="price">{{Fuel(startPrice)}}</span><br>
-                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(startPrice)}}</span>
+                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(startPrice)}}</span><br>
+                <hr>
+                <span>성인</span> {{this.AdultCount}} 명<span class="price">{{Format1(startPrice)}}</span><br>
+                <span v-if="ChildCount >= 1">유아 {{this.ChildCount}} 명</span><span class="price">{{Format2(startPrice)}}</span><br>
+                <span v-if="InfantCount >= 1">소아 {{this.InfantCount}} 명</span><span class="price">{{Format3(startPrice)}}</span><br>
             </div>
             <div class="totalPrice">
                 <span class="total">총액</span><span class="price">{{AddComma(startPrice)}} 원</span>
@@ -167,12 +171,6 @@
             <span>
                 성인 {{ (pas + 1) }}
             </span>
-            <!--<span v-else-if="pas + 1 <= (parseInt(AdultCount) + parseInt(InfantCount))">
-                유아 {{pas}} {{ pas + 1 - AdultCount}}
-            </span>
-            <span v-else-if=" parseInt(InfantCount) - parseInt(AdultCount) - parseInt(ChildCount) ">
-                소아 {{  pas + 1 - AdultCount - ChildCount  }}
-            </span>-->
             <span class="arrow">{{arrow}}</span>
         </div>
         <span v-if="pas == addPas1" class="passInfo">
@@ -617,8 +615,20 @@ export default {
         },
     },
     methods: {
-        test() {
-
+        Format1(value){
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let price = value * this.AdultCount;            
+            return price.toString().replace(regexp, ",") + " 원";
+        },
+        Format2(value){
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let price = (value * 0.8) * this.ChildCount;            
+            return "(-20%)" + price.toString().replace(regexp, ",") + " 원";
+        },
+        Format3(value){
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let price = (value * 0.5) * this.InfantCount;            
+            return "(-50%)" + price.toString().replace(regexp, ",") + " 원";
         },
         engLastNameTest() {
             if (this.engLastName1 == null) {
@@ -647,7 +657,7 @@ export default {
             this.PointPaymentInfo = true
         },
         addPoint() {
-            this.holdPoint += 300000
+            this.holdPoint += 500000
             this.$store.dispatch("holdPoint", this.holdPoint);
         },
         closeModal() {
@@ -658,7 +668,21 @@ export default {
         },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            return num.toString().replace(regexp, ",");
+            let price = num * this.AdultCount;
+            
+            if(this.ChildCount >= 1 && this.InfantCount >= 1){
+                let addPrice1 = price + (num * this.ChildCount * 0.8);                
+                let addPrice2 = addPrice1 + (num * this.InfantCount * 0.5);                
+                return addPrice2.toString().replace(regexp, ",");
+            }else if(this.ChildCount >= 1){
+                let addPrice = price + (num * this.ChildCount * 0.8);                
+                return addPrice.toString().replace(regexp, ",");
+            }else if(this.InfantCount >= 1){
+                let addPrice = price + (num * this.InfantCount * 0.5);                
+                return addPrice.toString().replace(regexp, ",");
+            }
+
+            return price.toString().replace(regexp, ",");
         },
         consent1() {
             if (this.consentBtn1 == true) {
@@ -837,7 +861,6 @@ export default {
                 }
                 this.addPassGender.pop();
                 this.addPassBirthday.pop();
-                alert("끝~")
                 return this.addPas2 = false;
             }
 
@@ -991,19 +1014,6 @@ export default {
     /*스크롤바 트랙 색상*/
 }
 
-/*.IATAModalView {
-    padding: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 35%;
-    height: 80%;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 2px 2px 10px lightgrey;
-}*/
-
 .IATAModalView {
     position: fixed;
     top: 50%;
@@ -1085,13 +1095,13 @@ export default {
     }
 
     .payInfo {
-
         border-left: none;
         border-right: none;
         width: 400px;
-        height: 270px;
-        padding: 30px;
-        font-size: 18px;
+        height: 300px;
+        padding-left: 25px;
+        padding-right: 25px;
+        font-size: 19px;
         color: white;
         font-weight: 900;
     }
@@ -1272,7 +1282,7 @@ h4 {
 }
 
 .price {
-    float: right;
+    float: right;    
 }
 
 .passengerInfo h4 {

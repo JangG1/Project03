@@ -24,12 +24,11 @@ public class LoginController {
 			return "test";
 		}
 		
-		@PostMapping(value = "/api/test")		
-		public String PostTest(@RequestBody String test) {
-			System.out.println(test);
-			return test;
+		@PostMapping("/api/login/test")
+		public void loginTest(@RequestBody String  loginTest) {
+			System.out.println(loginTest);
+
 		}
-	
 	
 	@RequestMapping(value="/api/login")
 	public ModelAndView login(@RequestParam("code") String code, HttpSession session) {

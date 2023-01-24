@@ -15,11 +15,10 @@ Test : {{$store.state.userInfo}} <br>
 =======================================================
 <br>
 <button @click="test">test</button>
-
+{{ res }}
 </template>
 
 <script>
-//import axios from 'axios';
 import ProfileItem from "@/components/ProfileItem.vue";
 import cookie from 'js-cookie';
 import axios from 'axios';
@@ -32,7 +31,7 @@ export default {
             email: '',
             gender: '',
             birthday: '',
-            testView: true,
+            res:[]
         }
     },
     components: {
@@ -91,7 +90,6 @@ export default {
             this.birthday = this.$store.state.userInfo.birthday;
         },
         kakaoLogout() {
-            // eslint-disable-next-line
             if (!window.Kakao.Auth.getAccessToken()) {
                 console.log("Not logged in.");
                 return;
@@ -103,26 +101,18 @@ export default {
             localStorage.clear(); // 전체삭제
         },
         test(){
-
-            
-
-            axios.post("/res/resPostTest", {                    
-                    name: "지원",
+//로그인 시 DB로 name과 email 전송
+//로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
+//로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
+        let email = this.$store.state.email;
+            axios.get('/res/resList/' + email)
+                .then((response) => {
+                    this.res = response.data
                 })
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-        }
+        },
     },
-    mounted() {
-        this.getEncodeData();
-        // this.showAlert();
-        this.checkCookie('bPop');
+    mounted() {                
+        this.test();
     },
 
     checkCookie(name) {

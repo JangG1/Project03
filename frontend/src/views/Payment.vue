@@ -937,7 +937,7 @@ export default {
             } else {
                 this.arrow = "▼"
             }
-        },
+        }, 
 
         PayModalPopUp() {
 

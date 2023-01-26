@@ -20,7 +20,7 @@
                 <span v-if="InfantCount >= 1">소아 {{this.InfantCount}} 명</span><span class="price">{{Format3(startPrice)}}</span><br>
             </div>
             <div class="totalPrice">
-                <span class="total">총액</span><span class="price">{{AddComma(startPrice)}} 원</span>
+                <span class="total">총액</span><span class="price">{{AddComma1(startPrice)}} 원</span>
             </div>
         </div>
         <div class="schedule">
@@ -427,7 +427,7 @@
         </div>
     </div>
     <div class="holdPoint" v-if="PointPaymentInfo">
-        보유하신 포인트 : {{ AddComma(holdPoint) + "p"}}
+        보유하신 포인트 : {{ AddComma2(holdPoint) + "p"}}
         <button type="button" class="addPoint" @click="addPoint">
             포인트 충전하기
         </button>
@@ -437,7 +437,7 @@
 <!--footer-->
 <div class="payFootNav">
     <div class="payFootNav1">예상 결제 금액</div>
-    <div class="payStartPrice">{{AddComma(startPrice)}} 원</div>
+    <div class="payStartPrice">{{AddComma1(startPrice)}} 원</div>
 
     <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
@@ -666,7 +666,7 @@ export default {
         IATAModalPopUp() {
             this.IATAModalView = (this.IATAModalView) ? false : true
         },
-        AddComma(num) {
+        AddComma1(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             let price = num * this.AdultCount;
             
@@ -683,6 +683,11 @@ export default {
             }
 
             return price.toString().replace(regexp, ",");
+        },
+        AddComma2(num) {
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+
+            return num.toString().replace(regexp, ",");
         },
         consent1() {
             if (this.consentBtn1 == true) {
@@ -830,7 +835,6 @@ export default {
 
         },
         showPassInfo3Push(value) {
-            console.log("?" + value)
             var selected = document.querySelector('input[type=radio][name=gender]:checked');
 
             this.addPassEngName.push(this.engFirstName2)

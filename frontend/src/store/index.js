@@ -32,7 +32,7 @@ export default createStore({
         isLoad: false,
         consentBtn1: '',
         consentBtn2: '',
-        holdPoint: '',
+        holdPoint: 0,
         res_no: null,
     },
   mutations: {

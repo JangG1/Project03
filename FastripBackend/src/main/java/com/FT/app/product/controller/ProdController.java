@@ -39,14 +39,12 @@ import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.ResList;
 import com.FT.app.myPage.mapper.ResListMapper;
 import com.FT.app.product.domain.ProdList;
-import com.FT.app.product.mapper.ProdListMapper;
 
 @RestController
 @RequestMapping("/prod/*")
 public class ProdController {
 	@Autowired
-	private ProdRepository prodRepository;
-	private ProdListMapper mapper;
+	private ProdRepository prodRepository;	
 	
 	@GetMapping("/all")
 	public List<ProdList> all(){

@@ -6,7 +6,12 @@
             <PassengerModal @close="passengerPopUp" :user="user"></PassengerModal>
         </span>
 
-        <table class="table table-striped table-sm">
+        <div v-if="res == null" class="resBlank">
+            <img src="../assets/magnifier.jpg"><br>
+            <span>예약 내역 없음.</span>
+        </div>
+
+        <table v-if="res != null" class="table table-striped table-sm" >
             <thead>
                 <tr>
                     <th scope="col">예약 번호</th>
@@ -119,8 +124,8 @@ export default {
             //로그인 시 DB로 name과 email 전송
             //로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
             //로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
-            //let email = this.$store.state.email;
-            let email = "test@test.com";
+            let email = this.$store.state.email;
+            //let email = "test@test.com";
             axios.get('/res/resList/' + email)
                 .then((response) => {
                     this.res = response.data
@@ -168,6 +173,20 @@ export default {
 <style scoped>
 .res {
     padding-top: 100px;
+}
+
+.resBlank {
+    font-size: 20px;
+    font-weight: 900;
+    color: #999;
+    text-align: center;
+    padding-top: 13%;    
+}
+
+.resBlank img{
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
 }
 
 .table-responsive {

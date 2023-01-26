@@ -936,7 +936,7 @@ export default {
                 this.arrow = "▲"
             } else {
                 this.arrow = "▼"
-            }
+            }  
         }, 
 
         PayModalPopUp() {

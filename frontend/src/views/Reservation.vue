@@ -10,7 +10,7 @@
             <img src="../assets/magnifier.jpg"><br>
             <span>예약 내역 없음.</span>
         </div>
-
+ 
         <table v-if="res != null" class="table table-striped table-sm" >
             <thead>
                 <tr>

@@ -39,7 +39,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지2-->
-                <svg class="banner" viewBox="0 60 890 315">
+                <svg class="banner" viewBox="0 60 820 315">
                     <image href="../assets/bannerImage/2.jpg" />
                 </svg>
                 <div class="container2">
@@ -59,10 +59,30 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지3-->
-                <svg class="banner" viewBox="0 40 890 315">
+                <svg class="banner" viewBox="0 60 820 315">
                     <image href="../assets/bannerImage/3.jpg" />
                 </svg>
                 <div class="container3">
+                    <div class="carousel-caption">
+                        <h2>Hokkaido, Biei</h2>
+                        <h3>in Japan</h3>
+                        <br>
+                        <h4 @click="ing">자세히 보기</h4>
+                    </div>
+                </div>
+            </div>
+            <!--배너4-->
+            <div class="carousel-item">
+                <!--배너 좌우 이동 버튼-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                </button>
+                <!--배너 이미지3-->
+                <svg class="banner" viewBox="0 40 890 315">
+                    <image href="../assets/bannerImage/4.jpg" />
+                </svg>
+                <div class="container4">
                     <div class="carousel-caption">
                         <h2>Fastrip</h2>
                         <h3>The lowest-priced airline ticket!</h3>
@@ -633,14 +653,31 @@ a:active {
 }
 
 .container3 h2 {
-    color: rgb(234, 246, 255);
-    font-size: 80px;
-    font-weight: 900;
-    margin-left: 40px;
+    color: rgb(201, 223, 239);
+    font-size: 60px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container3 h3 {
+    color: rgb(201, 223, 239);
+    font-size: 30px;    
+    margin-left: 50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container3 h4 {
+    color: rgb(201, 223, 239);
+    margin-left: 100px;
+    margin-bottom: 240px;    
+}
+
+.container4 h2 {
+    color: rgb(234, 246, 255);
+    font-size: 80px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container4 h3 {
     color: rgb(234, 246, 255);
     font-size: 18px;
     font-weight: 900;
@@ -648,10 +685,10 @@ a:active {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.container3 h4 {
+.container4 h4 {
+    color: rgb(234, 246, 255);
     margin-left: 100px;
     margin-bottom: 240px;
-    color: rgb(234, 246, 255);
 }
 
 .carousel-caption {
@@ -1098,16 +1135,17 @@ a:active {
         font-size: 30px;
         margin-bottom: 170px;
     }
+    
 }
 
 @media (min-width: 1600px) {
     .container3 h2 {
-        font-size: 100px;
-        margin-left: 300px;
+        font-size: 80px;
+        margin-left: 180px;
     }
-
+    
     .container3 h3 {
-        font-size: 20px;
+        font-size: 30px;
         margin-left: 310px;
     }
 
@@ -1116,20 +1154,53 @@ a:active {
         margin-left: 310px;
         margin-bottom: 220px;
     }
+
+    .container4 h2 {
+        font-size: 100px;
+        margin-left: 300px;
+    }
+    
+    .container4 h3 {
+        font-size: 20px;
+        margin-left: 310px;
+    }
+
+    .container4 h4 {
+        font-size: 25px;
+        margin-left: 310px;
+        margin-bottom: 220px;
+    }
 }
 
 @media (min-width: 2000px) {
+
     .container3 h2 {
-        font-size: 140px;
-        margin-left: 60%;
+        font-size: 100px;
+        margin-left: 45%;
     }
 
     .container3 h3 {
-        font-size: 25px;
+        font-size: 40px;
         margin-left: 65%;
     }
 
     .container3 h4 {
+        font-size: 30px;
+        margin-left: 66%;
+        margin-bottom: 200px;
+    }
+
+    .container4 h2 {
+        font-size: 140px;
+        margin-left: 60%;
+    }
+
+    .container4 h3 {
+        font-size: 25px;
+        margin-left: 65%;
+    }
+
+    .container4 h4 {
         font-size: 30px;
         margin-left: 70%;
         margin-bottom: 200px;

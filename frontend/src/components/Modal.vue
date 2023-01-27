@@ -84,17 +84,21 @@ export default {
 
             this.$store.dispatch("getToken", form);
             this.$store.dispatch("setUserInfo", userInfo);
+
+            setTimeout(this.kakaoLogout, 6000000); // 1시간후 로그아웃 함수 실행.
+
         },
-        kakaoLogout() {
-            // eslint-disable-next-line
-            if (!window.Kakao.Auth.getAccessToken()) {
-                console.log("Not logged in.");
-                return;
-            }
-            window.Kakao.Auth.logout(function (response) {
-                alert(response + "logout");
+        kakaoLogout() {            
+            // if (!window.Kakao.Auth.getAccessToken()) {
+            //     console.log("Not logged in.");
+            //     return;
+            // }
+
+            window.Kakao.Auth.logout(function () {
+                alert("로그아웃 되었습니다.");
                 window.location.href = "/";
             });
+
             localStorage.clear(); // 전체삭제
         },
 

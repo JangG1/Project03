@@ -1,17 +1,17 @@
 <template>
 <div class="res">
-    <div class="resTitle">예약 조회</div>
+    <div class="resTitle">예약 조회</div>    
     <div class="table-responsive">
         <span v-if="passengerView" class="passengerView">
             <PassengerModal @close="passengerPopUp" :user="user"></PassengerModal>
         </span>
 
-        <div v-if="res == null" class="resBlank">
+        <div v-if="res == ''" class="resBlank">
             <img src="../assets/magnifier.jpg"><br>
             <span>예약 내역 없음.</span>
         </div>
  
-        <table v-if="res != null" class="table table-striped table-sm" >
+        <table v-if="res != ''" class="table table-striped table-sm" >
             <thead>
                 <tr>
                     <th scope="col">예약 번호</th>
@@ -49,8 +49,7 @@
             </tbody>
         </table>
     </div>
-
-    {{ res3 }}
+    
     <!-- FOOTER -->
     <div class="Footer">
         <div class="FootLeft">
@@ -81,19 +80,7 @@ export default {
             week: ['일', '월', '화', '수', '목', '금', '토'],
             res: [],
             res3: [],
-            passengerView: false,
-            user: {
-                res_no: this.res_no,
-                AdultCount: this.AdultCount,
-                ChildCount: this.ChildCount,
-                InfantCount: this.InfantCount,
-                korLastName: this.$store.state.name.substring(0, 1),
-                korFirstName: this.$store.state.name.substring(1, 3),
-                engLastName: this.engLastName,
-                engFirstName: this.engFirstName,
-                gender: this.$store.state.gender,
-                birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
-            }
+            passengerView: false,           
         }
     },
     methods: {

@@ -9,10 +9,9 @@
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
         </ul>
 
-        
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <router-link to="/Test" class="nav-link px-2 link-secondary">Test</router-link>
-        </ul>        
+        </ul>
 
         <div class="profileBox">
             <!--로그인-->
@@ -65,7 +64,7 @@ export default {
             if (this.$store.state.userInfo == null) return null;
             return this.$store.state.userInfo.email;
         },
-        isLogin() {
+        isLogin() {            
             return this.$store.state.isLogin;
         },
         isLoading() {
@@ -74,17 +73,12 @@ export default {
         },
     },
     methods: {
-        logout() {
-            
-
-            if (!window.Kakao.Auth.getAccessToken()) {
-                console.log("Not logged in.");
-                return;
-            }
-            window.Kakao.Auth.logout(function () {
-                alert("로그아웃 되었습니다.");
-                window.location.href = "/Test";
-            });
+        logout() {            
+            // if (!window.Kakao.Auth.getAccessToken()) {
+            //     console.log("Not logged in.");
+            //     return;
+            // }
+           
             localStorage.clear(); // 전체삭제
 
             this.$router.go("/");
@@ -96,7 +90,7 @@ export default {
 <style>
 #app {
     font-family: "NanumBarunGothicBold";
-    white-space:nowrap;
+    white-space: nowrap;
 }
 
 @font-face {

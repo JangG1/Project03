@@ -11,7 +11,7 @@ email : {{$store.state.email}} <br>
 gender : {{$store.state.gender}} <br>
 birth : {{$store.state.birthday}} <br>
 Test : {{$store.state.userInfo}} <br>
-  
+   
 =======================================================
 <br>
 <button @click="test">test</button>

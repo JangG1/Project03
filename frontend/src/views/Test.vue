@@ -14,10 +14,11 @@ Test : {{$store.state.userInfo}} <br>
 
 =======================================================
 <br>
-
-<button @click="kakaoLoginTest">test</button>
-
-{{ res }}
+<a href="https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code">
+    <button @click="kakaoLoginTest2">test</button>
+</a>
+{{ res }}<br>
+인가코드 : {{ code }}<br>
 TOKEN : {{ $store.state.access_token }}
 </template>
 
@@ -34,7 +35,8 @@ export default {
             email: '',
             gender: '',
             birthday: '',
-            res: []
+            res: [],
+            code: '',
         }
     },
     components: {
@@ -50,8 +52,19 @@ export default {
     created() {},
     methods: {
         kakaoLoginTest() {
+            window.Kakao.Auth.authorize({
+                redirectUri: 'http://localhost:8080/Test',
+                
+            },            
+            this.$store.dispatch("getToken", document.location.href.toString().replace("http://localhost:8080/Test?code=", ""))
+            );
+
+            
+            
+        },
+        kakaoLoginTest2() {
             //REST API KEY : 89675f71eb67437191dff96a64831fe8
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";                        
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";
 
             let APIUrl = window.location.href.toString().replace("http://localhost:8080/Test?code=", "");
 
@@ -63,29 +76,30 @@ export default {
                     }
                 })
                 .then((response) => {
-                    this.res = response.data                    
+                    this.res = response.data
+                    this.$store.dispatch("getToken", this.res)
                 })
 
-                //let access_token = this.res;
+            //let access_token = this.res;
 
-                alert("res!!!" + this.res)
+            //alert("res!!!" + this.res)
 
-                //this.$store.dispatch("getToken", access_token);                
+            //this.$store.dispatch("getToken", access_token);                
         },
-        kakaoLogin() {                
-                window.Kakao.Auth.login({
-                    scope: "profile_image, account_email",
-                    success: this.kakaoInfo,
-                });
-                this.$emit("closeModal");
-            },
-            async kakaoInfo(authObj) {
-                console.log("=============1==============")
-                console.log(authObj);
-                console.log("===============2============")
-                console.log(authObj.access_token);
-                
-                axios.get('/api/auth/kakao/callback', {
+        kakaoLogin() {
+            window.Kakao.Auth.login({
+                scope: "profile_image, account_email",
+                success: this.kakaoInfo,
+            });
+            this.$emit("closeModal");
+        },
+        async kakaoInfo(authObj) {
+            console.log("=============1==============")
+            console.log(authObj);
+            console.log("===============2============")
+            console.log(authObj.access_token);
+
+            axios.get('/api/auth/kakao/callback', {
                     params: {
                         code: authObj.access_token
                     }
@@ -93,7 +107,7 @@ export default {
                 .then((response) => {
                     this.res = response.data
                 })
-            },
+        },
         kakaoLogout() {
             if (!window.Kakao.Auth.getAccessToken()) {
                 console.log("Not logged in.");

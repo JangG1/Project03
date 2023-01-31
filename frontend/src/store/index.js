@@ -7,8 +7,6 @@ export default createStore({
     plugins: [
         createPersistedState({
             paths: [
-                'access_token',
-                'access_token2',
                 'userInfo', 
                 'access_token', 
                 'refresh_token', 
@@ -23,7 +21,6 @@ export default createStore({
     ],    
     state: {
         access_token: '',
-        access_token2: '',
         refresh_token: '',
         userInfo: null,
         name: null,
@@ -40,10 +37,11 @@ export default createStore({
     },
   mutations: {
     setToken(state, payload) {
-        localStorage.setItem("access_token", payload.data.access_token);
-        localStorage.setItem("refresh_token", payload.data.refresh_token);
-        state.access_token = payload.data.access_token
-        state.refresh_token = payload.data.refresh_token
+        alert(payload)
+        //localStorage.setItem("access_token", payload.data.access_token);
+        //localStorage.setItem("refresh_token", payload.data.refresh_token);
+        state.access_token = payload
+        state.refresh_token = payload
     },
     setConsent1(state) {
         console.log(state.consentBtn1)
@@ -98,11 +96,11 @@ export default createStore({
             }
             commit("loginSuccess", userInfo)
         },
-        async getToken({ commit }, loginObj) {
-            console.log("getToken" + loginObj)
-            commit('setToken', loginObj)
+        async getToken({ commit }, payload) {
+            console.log("getToken" + payload)
+            commit('setToken', payload)
             await axios
-                .post("/api/test1", loginObj)
+                .post("/api/test1", payload)
                 .then((res) => {
                     console.log(res);
                     //commit('setToken', res)

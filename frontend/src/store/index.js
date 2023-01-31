@@ -70,11 +70,6 @@ export default createStore({
         state.email = payload.email        
         state.gender = payload.gender
         state.birthday = payload.birthday
-        console.log("loginSuccess " + payload)
-        console.log("loginSuccess " + payload.name)
-        console.log("loginSuccess " + payload.email)
-        console.log("loginSuccess " + payload.gender)
-        console.log("loginSuccess " + payload.birthday)
     },
     loginError(state) {
         state.isLogin = false
@@ -97,8 +92,7 @@ export default createStore({
                 profile: payload.profile,
                 gender: payload.gender,
                 birthday: payload.birthday,
-            }            
-            console.log("setUserInfo name " + payload.name)
+            }
             commit("loginSuccess", userInfo)
         },
         /*async getToken({ commit }, loginObj) {

@@ -78,7 +78,6 @@ export default {
             //     console.log("Not logged in.");
             //     return;
             // }
-           
             localStorage.clear(); // 전체삭제
 
             this.$router.go("/");

@@ -46,6 +46,12 @@ export default {
     },
     created() {},
     methods: {
+        kakaoLoginTest(){
+            axios.get('/auth/kakao/callback')
+                .then((response) => {
+                    this.res = response.data
+                })
+        },
         kakaoLogin() {
             // console.log(window.Kakao);
             window.Kakao.Auth.login({

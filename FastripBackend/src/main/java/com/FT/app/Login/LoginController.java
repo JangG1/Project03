@@ -61,6 +61,10 @@ public class LoginController {
 		return mav;
 	}
 	
-	
+	@GetMapping("/auth/kakao/callback")
+	public @ResponseBody String kakaoCallback(String code) {
+		
+		return "카카오 인증 완료 : 코드값 : " + code;
+	}
 	
 }

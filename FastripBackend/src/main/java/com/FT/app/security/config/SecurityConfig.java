@@ -50,6 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         
         http.authorizeRequests().antMatchers("/api/**").permitAll();
         
+        http.authorizeRequests().antMatchers("/api/auth/kakao/callback").permitAll();
+        
         http.authorizeRequests().antMatchers("/abc").permitAll();
         
         http.authorizeRequests().antMatchers("/resources/**").permitAll();

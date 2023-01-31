@@ -7,6 +7,8 @@ export default createStore({
     plugins: [
         createPersistedState({
             paths: [
+                'access_token',
+                'access_token2',
                 'userInfo', 
                 'access_token', 
                 'refresh_token', 
@@ -21,6 +23,7 @@ export default createStore({
     ],    
     state: {
         access_token: '',
+        access_token2: '',
         refresh_token: '',
         userInfo: null,
         name: null,
@@ -95,20 +98,21 @@ export default createStore({
             }
             commit("loginSuccess", userInfo)
         },
-        /*async getToken({ commit }, loginObj) {
+        async getToken({ commit }, loginObj) {
             console.log("getToken" + loginObj)
+            commit('setToken', loginObj)
             await axios
                 .post("/api/test1", loginObj)
                 .then((res) => {
                     console.log(res);
-                    commit('setToken', res)
+                    //commit('setToken', res)
                 })
                 .catch((err) => {
                     console.log(err);
                     commit("loginError")
                     alert("이메일과 비밀번호를 확인하세요.")
                 });
-        },*/
+        },
         async consentBtn1({ commit }, payload) {
                 console.log(payload)
                 commit('setConsent1', payload)

@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
     name: "LoginModal",
@@ -43,8 +44,7 @@ export default {
         },
         async kakaoInfo(authObj) {
             console.log(authObj);
-            const userInfo = {
-            };
+            const userInfo = {};
             await window.Kakao.API.request({
                 url: "/v2/user/me",
                 success: (res) => {
@@ -55,32 +55,32 @@ export default {
                     userInfo.birthday = kakao_account.birthday;
                     userInfo.gender = kakao_account.gender;
 
-                    // if (userInfo.email != "") {
-                    //     axios
-                    //         .post("/api/user/save/normal", 
-                    //         JSON.stringify(userInfo), {
-                    //             headers: {
-                    //                 "Content-Type": `application/json`
-                    //             },
-                    //         })
-                    //         .then((res) => {
-                    //             res;
-                    //             console.log("가입성공");
-                    //             console.log("email : " + userInfo.email);
-                    //         })
-                    //         .catch((err) => {
-                    //             err;
-                    //             console.log("기존가입");
-                    //         });
-                    // }
+                    if (userInfo.email != "") {
+                        axios
+                            .post("/api/user/save/normal", 
+                            JSON.stringify(userInfo), {
+                                headers: {
+                                    "Content-Type": `application/json`
+                                },
+                            })
+                            .then((res) => {
+                                res;
+                                console.log("가입성공");
+                                console.log("email : " + userInfo.email);
+                            })
+                            .catch((err) => {
+                                err;
+                                console.log("기존가입");
+                            });
+                    }
 
                 },              
             });
-            // let form = new FormData();
-            // form.append("email", userInfo.email);
-            // form.append("password", "Fastrip");
+            let form = new FormData();
+            form.append("email", userInfo.email);
+            form.append("password", "Fastrip");
 
-            // this.$store.dispatch("getToken", form);
+            this.$store.dispatch("getToken", form);
             this.$store.dispatch("setUserInfo", userInfo);
 
             setTimeout(this.kakaoLogout, 6000000); // 1시간후 로그아웃 함수 실행.

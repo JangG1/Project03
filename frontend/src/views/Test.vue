@@ -11,11 +11,14 @@ email : {{$store.state.email}} <br>
 gender : {{$store.state.gender}} <br>
 birth : {{$store.state.birthday}} <br>
 Test : {{$store.state.userInfo}} <br>
-    
+
 =======================================================
 <br>
-<button @click="test">test</button>
+
+<button @click="kakaoLoginTest">test</button>
+
 {{ res }}
+TOKEN : {{ $store.state.access_token }}
 </template>
 
 <script>
@@ -31,7 +34,7 @@ export default {
             email: '',
             gender: '',
             birthday: '',
-            res:[]
+            res: []
         }
     },
     components: {
@@ -46,55 +49,51 @@ export default {
     },
     created() {},
     methods: {
-        kakaoLoginTest(){
-            axios.get('/auth/kakao/callback')
+        kakaoLoginTest() {
+            //REST API KEY : 89675f71eb67437191dff96a64831fe8
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";                        
+
+            let APIUrl = window.location.href.toString().replace("http://localhost:8080/Test?code=", "");
+
+            //alert(APIUrl)
+
+            axios.get('/api/auth/kakao/callback', {
+                    params: {
+                        code: APIUrl
+                    }
+                })
+                .then((response) => {
+                    this.res = response.data                    
+                })
+
+                //let access_token = this.res;
+
+                alert("res!!!" + this.res)
+
+                //this.$store.dispatch("getToken", access_token);                
+        },
+        kakaoLogin() {                
+                window.Kakao.Auth.login({
+                    scope: "profile_image, account_email",
+                    success: this.kakaoInfo,
+                });
+                this.$emit("closeModal");
+            },
+            async kakaoInfo(authObj) {
+                console.log("=============1==============")
+                console.log(authObj);
+                console.log("===============2============")
+                console.log(authObj.access_token);
+                
+                axios.get('/api/auth/kakao/callback', {
+                    params: {
+                        code: authObj.access_token
+                    }
+                })
                 .then((response) => {
                     this.res = response.data
                 })
-        },
-        kakaoLogin() {
-            // console.log(window.Kakao);
-            window.Kakao.Auth.login({
-                scope: "profile_nickname, profile_image, account_email, gender, birthday",
-                success: this.kakaoInfo,
-            });
-        },
-        async kakaoInfo(authObj) {
-            console.log(authObj);
-            const userInfo = {
-                name: null,
-                email: null,
-                profile: null,
-                gender: null,
-                birthday: null
-            };
-            await window.Kakao.API.request({
-                url: "/v2/user/me",
-                success: (res) => {
-                    const kakao_account = res.kakao_account;
-                    userInfo.name = kakao_account.profile.nickname;
-                    userInfo.email = kakao_account.email;
-                    userInfo.profile = kakao_account.profile.thumbnail_image_url;
-                    userInfo.gender = kakao_account.gender;
-                    userInfo.birthday = kakao_account.birthday;
-
-                    console.log(userInfo.name)
-                    console.log(userInfo.profile)
-                    console.log(authObj.access_token)
-                },
-                fail: (error) => {
-                    this.$router.push("/errorPage");
-                    console.log(error);
-                },
-
-            });
-            this.$store.dispatch('setUserInfo', userInfo)
-
-            this.name = this.$store.state.userInfo.name;
-            this.email = this.$store.state.userInfo.email;
-            this.gender = this.$store.state.userInfo.gender;
-            this.birthday = this.$store.state.userInfo.birthday;
-        },
+            },
         kakaoLogout() {
             if (!window.Kakao.Auth.getAccessToken()) {
                 console.log("Not logged in.");
@@ -106,19 +105,12 @@ export default {
             });
             localStorage.clear(); // 전체삭제
         },
-        test(){
-//로그인 시 DB로 name과 email 전송
-//로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
-//로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
-        let email = this.$store.state.email;
-            axios.get('/res/resList/' + email)
-                .then((response) => {
-                    this.res = response.data
-                })
+        test() {
+
         },
     },
-    mounted() {                
-        this.test();
+    mounted() {
+
     },
 
     checkCookie(name) {

@@ -1,5 +1,9 @@
 <template>
+    <div class="layerPopup" v-show="isLoading">
+        <div class="spinner"></div>
+    </div>
 <div>
+    
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- 로고 -->
@@ -33,6 +37,8 @@
     <hr>
 
     <router-view></router-view>
+
+    
 </div>
 </template>
 
@@ -64,7 +70,7 @@ export default {
             if (this.$store.state.userInfo == null) return null;
             return this.$store.state.userInfo.email;
         },
-        isLogin() {            
+        isLogin() {
             return this.$store.state.isLogin;
         },
         isLoading() {
@@ -73,7 +79,7 @@ export default {
         },
     },
     methods: {
-        logout() {            
+        logout() {
             // if (!window.Kakao.Auth.getAccessToken()) {
             //     console.log("Not logged in.");
             //     return;
@@ -128,5 +134,42 @@ export default {
     padding: 10px 20px 10px 20px;
     border: 3px solid rgb(193, 188, 188);
 
+}
+
+.layerPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 0 0;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 8px solid #f3f3f3;
+    /* Light grey */
+    border-top: 8px solid teal;
+    /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spinner 2s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>

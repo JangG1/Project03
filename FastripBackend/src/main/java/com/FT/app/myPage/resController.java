@@ -40,8 +40,7 @@ import com.FT.app.myPage.mapper.ResListMapper;
 public class ResController {
 	@Autowired
 	private ResRepository resRepository;
-	private ResListMapper mapper;	
-	
+
 	//예약 내역 전부 조회
 	@GetMapping("/all")
 	public List<ResList> all(){

@@ -16,17 +16,30 @@ export default createStore({
                 'email',
                 'gender',
                 'birthday',
-                'holdPoint',]
+                'holdPoint',
+                'name2',
+                'email2',
+                'gender2',
+                'birthday2',
+                'profile2'
+            ]
         })
     ],    
     state: {
         access_token: '',
         refresh_token: '',
         userInfo: null,
+        userInfo2: null,
+        OAuth: null,
         name: null,
         email: null,
         gender: null,
         birthday: null,
+        name2: null,
+        email2: null,
+        profile2: null,
+        gender2: null,
+        birthday2: null,
         isLogin: false,
         isLoginError: false,
         isLoad: false,
@@ -36,12 +49,26 @@ export default createStore({
         res_no: null,
     },
   mutations: {
+    onLoad(state) {
+        state.isLoad = true;
+    },
+    offLoad(state) {
+        state.isLoad = false;
+    },
     setToken(state, payload) {
-        alert(payload)
-        //localStorage.setItem("access_token", payload.data.access_token);
-        //localStorage.setItem("refresh_token", payload.data.refresh_token);
-        state.access_token = payload
+        state.access_token = payload.data
         state.refresh_token = payload
+    },
+    setUserInfo(state, payload) {        
+        state.userInfo2 = payload
+        state.name2 = payload.name        
+        state.email2 = payload.email    
+        state.profile2 = payload.profile
+        state.gender2 = payload.gender
+        state.birthday2 = payload.birthday
+    },
+    setOAuth(state, payload) {        
+        state.OAuth = payload
     },
     setConsent1(state) {
         console.log(state.consentBtn1)
@@ -85,6 +112,13 @@ export default createStore({
     },
 },
   actions: {
+    setLoading({ commit }, payload) {
+        if (payload) {
+            commit("onLoad");
+        } else {
+            commit("offLoad");
+        }
+    },
         async setUserInfo({ commit }, payload) {
             console.log("setUserInfo" + payload)
             let userInfo = {
@@ -96,20 +130,42 @@ export default createStore({
             }
             commit("loginSuccess", userInfo)
         },
-        async getToken({ commit }, payload) {
-            console.log("getToken" + payload)
-            commit('setToken', payload)
-            await axios
-                .post("/api/test1", payload)
+         getToken({ commit }, payload) {
+             axios.get('/api/auth/kakao/accessToken', {
+                params: {
+                    code: payload
+                }
+            })
+            .then((res) => {
+                console.log(res);
+                commit('setToken', res)  
+            })
+            .catch((err) => {
+                console.log(err);
+            });        
+        },
+         setInfo({ commit }, payload) {
+             axios.get('/api/auth/kakao/callback', {
+                params: {
+                    code: payload
+                }
+            })
                 .then((res) => {
                     console.log(res);
-                    //commit('setToken', res)
+                    let userInfo2 = {
+                        name: res.data.properties.nickname,
+                        email: res.data.kakao_account.email,
+                        profile: res.data.properties.thumbnail_image,
+                        birthday: res.data.kakao_account.birthday,
+                        gender: res.data.kakao_account.gender,
+                    }
+                    commit("setUserInfo", userInfo2)  
                 })
                 .catch((err) => {
                     console.log(err);
                     commit("loginError")
-                    alert("이메일과 비밀번호를 확인하세요.")
-                });
+                    //alert("이메일과 비밀번호를 확인하세요.")
+                });        
         },
         async consentBtn1({ commit }, payload) {
                 console.log(payload)

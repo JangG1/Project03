@@ -14,17 +14,27 @@ Test : {{$store.state.userInfo}} <br>
 
 =======================================================
 <br>
-<a href="https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code">
-    <button @click="kakaoLoginTest2">test</button>
+<a :href="code">
+    Kakao Test
 </a>
+
+
+<button @click="kakaoLoginTest2">kakao</button>
+<button @click="test">test</button>
+
 {{ res }}<br>
-인가코드 : {{ code }}<br>
-TOKEN : {{ $store.state.access_token }}
+accessToken : {{ $store.state.access_token }}<br>
+name : {{$store.state.name2}} <br>
+email : {{$store.state.email2}} <br>
+gender : {{$store.state.gender2}} <br>
+birth : {{$store.state.birthday2}} <br>
+profile : {{$store.state.profile2}} <br>
+
+<img :src="profile">
 </template>
 
 <script>
 import ProfileItem from "@/components/ProfileItem.vue";
-import cookie from 'js-cookie';
 import axios from 'axios';
 
 export default {
@@ -36,55 +46,44 @@ export default {
             gender: '',
             birthday: '',
             res: [],
-            code: '',
+            code: "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code",
+            profile: this.$store.state.profile2,
+            
         }
     },
     components: {
         ProfileItem
     },
-    computed: {
-        getProfile() {
-            if (this.$store.state.userInfo == null)
-                return require("@/assets/weblogin1.png");
-            return this.$store.state.userInfo.profile;
-        },
-    },
     created() {},
     methods: {
-        kakaoLoginTest() {
-            window.Kakao.Auth.authorize({
-                redirectUri: 'http://localhost:8080/Test',
-                
-            },            
-            this.$store.dispatch("getToken", document.location.href.toString().replace("http://localhost:8080/Test?code=", ""))
-            );
+        Loading(){
 
-            
+        },
+        test() {
             
         },
-        kakaoLoginTest2() {
+        kakaoLoginTest() {
+            window.Kakao.Auth.authorize({
+                redirectUri: 'http://localhost:8200/api/auth/kakao/callback',
+            })
+            this.kakaoLoginTest2();
+        },
+        async kakaoLoginTest2() {
             //REST API KEY : 89675f71eb67437191dff96a64831fe8
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";
+            //location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";
+         
+            let APIUrl = location.href.toString().replace("http://localhost:8080/Test?code=", "");
 
-            let APIUrl = window.location.href.toString().replace("http://localhost:8080/Test?code=", "");
+            
 
-            //alert(APIUrl)
+            this.$store.dispatch("setInfo", APIUrl)
+            this.$store.dispatch("getToken", APIUrl)
 
-            axios.get('/api/auth/kakao/callback', {
-                    params: {
-                        code: APIUrl
-                    }
-                })
-                .then((response) => {
-                    this.res = response.data
-                    this.$store.dispatch("getToken", this.res)
-                })
-
-            //let access_token = this.res;
-
-            //alert("res!!!" + this.res)
-
-            //this.$store.dispatch("getToken", access_token);                
+            if(this.profile == ''){
+                this.$store.dispatch("setLoading", true)
+            }else{
+                this.$store.dispatch("setLoading", false)
+            }
         },
         kakaoLogin() {
             window.Kakao.Auth.login({
@@ -109,27 +108,19 @@ export default {
                 })
         },
         kakaoLogout() {
-            if (!window.Kakao.Auth.getAccessToken()) {
+            /*if (!window.Kakao.Auth.getAccessToken()) {
                 console.log("Not logged in.");
                 return;
-            }
+            }*/
             window.Kakao.Auth.logout(function () {
-                alert("로그아웃 되었습니다.");
                 window.location.href = "/Test";
             });
             localStorage.clear(); // 전체삭제
-        },
-        test() {
-
         },
     },
     mounted() {
 
     },
-
-    checkCookie(name) {
-        if (cookie.get(name) !== 'Y') this.showModal('browserPopup');
-    }
 }
 </script>
 

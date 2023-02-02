@@ -43,10 +43,7 @@
                 this.$emit("closeModal");
             },
             async kakaoInfo(authObj) {
-                console.log("=============1==============")
                 console.log(authObj);
-                console.log("===============2============")
-                console.log(authObj.access_token);
                 const userInfo = {};
                 await window.Kakao.API.request({
                     url: "/v2/user/me",

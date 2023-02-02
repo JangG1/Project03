@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,25 +26,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"EMAIL"})})
 public class User {
+	
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    
+    @Column(nullable = false, length = 50)
     private String email;
-    private String password;
+    
+    @Column(nullable = false, length = 100)
+    private String name;
+    
+    @Column(nullable = false, length = 50)
     private String profile;
     
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+    @Column(nullable = false, length = 50)
+    private String gender;
+
+    @Column(nullable = false, length = 50)
+    private String birthday;
     
-    public User(String email, String password, MultipartFile profile) throws IOException{
-    	this.email = email;
-    	this.password = password;
-    	this.profile = null;
-    }
-    
-    public void setProfile(String profile) throws IOException {
-    	this.profile = null;
-    	if((profile!=null && !profile.equals(""))) {
-			this.profile  = profile;
-		}
-    }
 }

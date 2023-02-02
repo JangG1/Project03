@@ -15,10 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.FT.app.Repo.RoleRepo;
 import com.FT.app.Repo.UserRepo;
-import com.FT.app.security.filter.CustomAuthenticationFilter;
-import com.FT.app.security.filter.CustomAuthorizationFilter;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
+		/*CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/api/login");*/
         
         http.httpBasic().disable();
         http.cors().configurationSource(corsConfigurationSource());
@@ -77,8 +74,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers(POST,"/api/role/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST,"/api/user/save/normal").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
-        http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 	}
 	
@@ -98,10 +93,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return source;
     }
     
-    @Bean
+    /*@Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
-    }
+    }*/
 	
 }

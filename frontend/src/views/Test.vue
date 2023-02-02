@@ -60,7 +60,7 @@ export default {
 
         },
         test() {
-            
+
         },
         kakaoLoginTest() {
             window.Kakao.Auth.authorize({
@@ -70,20 +70,13 @@ export default {
         },
         async kakaoLoginTest2() {
             //REST API KEY : 89675f71eb67437191dff96a64831fe8
-            //location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";
+            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";
          
             let APIUrl = location.href.toString().replace("http://localhost:8080/Test?code=", "");
-
-            
-
+    
             this.$store.dispatch("setInfo", APIUrl)
             this.$store.dispatch("getToken", APIUrl)
 
-            if(this.profile == ''){
-                this.$store.dispatch("setLoading", true)
-            }else{
-                this.$store.dispatch("setLoading", false)
-            }
         },
         kakaoLogin() {
             window.Kakao.Auth.login({

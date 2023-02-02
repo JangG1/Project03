@@ -9,7 +9,8 @@ import com.FT.app.domain.User;
 
 public interface UserRepo extends JpaRepository<User, Long> {
 
-	void save(HashMap<String, Object> kakaoMap);
+	//void save();
+	
 	//User findByEmail(String email);
 
 }

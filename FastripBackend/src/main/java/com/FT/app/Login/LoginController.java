@@ -177,16 +177,10 @@ public class LoginController {
 		System.out.println("profile : " + profile);
 		System.out.println("gender : " + gender);
 		System.out.println("birthday : " + birthday);
-	    
-		userRepository.save(kakaoMap);
 		
-		/*User kakaoUser = User.builder()
-				.username(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
-				.email(kakaoProfile.getKakao_account().getEmail())
-				.build();*/
+		//userRepository.save(email, name, profile, gender, birthday);					
 		
-		// 가입자 혹은 비가입자 체크
-	
+		// 가입자 혹은 비가입자 체크	
 		
 		System.out.println(response2.getBody());
 

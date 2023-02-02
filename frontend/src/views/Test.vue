@@ -15,8 +15,9 @@ Test : {{$store.state.userInfo}} <br>
 =======================================================
 <br>
 
-    <button @click="[redirect(),redirect2()]">Kakao Test</button>
+    <button @click="[redirect()]">Kakao Test</button>
 
+<a href="javascript:window.history.back();"></a>
 
 {{ res }}<br>
 accessToken : {{ $store.state.access_token }}<br>
@@ -67,7 +68,7 @@ export default {
     created() {},
     methods: {
         redirect() {
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";                                   
         },
         redirect2(){
             setTimeout(() => window.location.href = "/Test", 100);

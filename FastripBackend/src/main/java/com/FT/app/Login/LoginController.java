@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.JSONParser;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.FT.app.Repo.ResRepository;
 import com.FT.app.Repo.UserRepo;
@@ -49,15 +51,11 @@ public class LoginController {
 	public List<User> all(){
 		return userRepository.findAll();
 	}
-	
-	@GetMapping("/kakao/test")
-	public @ResponseBody String Test(String code) {
-		return code;
-	}
 
 	// Kakao accessToken 가져오기
 	@GetMapping("/auth/kakao/accessToken")
-	public @ResponseBody String kakaoAccessToken(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
+	public @ResponseBody String kakaoAccessToken(String code // 인가 코드 code 변수 삽입
+			,HttpServletRequest request) { 
 		System.out.println(code);
 
 		RestTemplate rt = new RestTemplate();
@@ -91,7 +89,7 @@ public class LoginController {
 
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakao/callback")
-	public @ResponseBody String kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
+	public @ResponseBody RedirectView kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println(code);
 
 		RestTemplate rt = new RestTemplate();
@@ -200,7 +198,10 @@ public class LoginController {
 		System.out.println(kakao_account);
 		// System.out.println(profile_image);
 
-		return response2.getBody();
+		//프론트 되돌아가기 
+		 RedirectView redirectView = new RedirectView();
+	       redirectView.setUrl("http://localhost:8080/Test");
+	       return redirectView;
 	}
 
 	

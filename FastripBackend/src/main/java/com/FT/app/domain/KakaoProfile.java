@@ -1,19 +1,27 @@
 package com.FT.app.domain;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.DynamicInsert;
+
+import com.FT.app.myPage.domain.ResList;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@NoArgsConstructor 
-@AllArgsConstructor
 public class KakaoProfile {
 	public Long id;
 	public String connected_at;
-	public Properties properties;
+	//public String properties;
+	//public String kakao_account;
+	public Properties properties; 
 	public KakaoAccount kakao_account;
 	
 	@Data

@@ -23,7 +23,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor 
+@AllArgsConstructor
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"EMAIL"})})
 public class User {
 	

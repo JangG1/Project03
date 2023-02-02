@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.JSONParser;
@@ -40,7 +41,9 @@ import com.google.gson.JsonParser;
 @RestController
 @RequestMapping("/api/*")
 public class LoginController {
-		
+	@Autowired
+	private UserRepo userRepository;
+	
 	@GetMapping("/kakao/test")
 	public @ResponseBody String Test(String code) {
 		return code;
@@ -152,14 +155,15 @@ public class LoginController {
 		System.out.println("Fastrip 유저네임 : " + kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
 		System.out.println("Fastrip 이메일 : " + kakaoProfile.getKakao_account().getEmail());
 
+		//KakaoProfile 원하는 정보 Map에 담기
 		HashMap<String, Object> kakaoMap = new HashMap<String, Object>();
-		kakaoMap.put("id", kakaoProfile.getId());
+		//kakaoMap.put("id", kakaoProfile.getId());
 		kakaoMap.put("email",  kakaoProfile.getKakao_account().getEmail());
 		kakaoMap.put("name", kakaoProfile.getProperties().getNickname());
 		kakaoMap.put("profile", kakaoProfile.getProperties().getProfile_image());
 		kakaoMap.put("gender", kakaoProfile.getKakao_account().getGender());
 		kakaoMap.put("birthday", kakaoProfile.getKakao_account().getBirthday());
-		Long id = (Long) kakaoMap.get("id");
+		//Long id = (Long) kakaoMap.get("id");
 		String email = (String) kakaoMap.get("email");
 		String name = (String) kakaoMap.get("name");
 		String profile = (String) kakaoMap.get("profile");
@@ -167,12 +171,14 @@ public class LoginController {
 		String birthday = (String) kakaoMap.get("birthday");
 		
 		System.out.println("kakaoMap : " + kakaoMap);
-		System.out.println("id : " + id);
+		//System.out.println("id : " + id);
 		System.out.println("email : " + email);		
 		System.out.println("name : " + name);
 		System.out.println("profile : " + profile);
 		System.out.println("gender : " + gender);
 		System.out.println("birthday : " + birthday);
+	    
+		userRepository.save(kakaoMap);
 		
 		/*User kakaoUser = User.builder()
 				.username(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())

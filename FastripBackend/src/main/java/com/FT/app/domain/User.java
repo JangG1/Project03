@@ -28,9 +28,11 @@ import lombok.NoArgsConstructor;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"EMAIL"})})
 public class User {
 	
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    /*@Id 
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;*/
     
+	@Id 
     @Column(nullable = false, length = 50)
     private String email;
     

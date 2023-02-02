@@ -13,7 +13,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-//import com.FT.app.Repo.KakaoRepository;
 import com.FT.app.Repo.ResRepository;
 import com.FT.app.Repo.UserRepo;
 import com.FT.app.domain.KakaoProfile;
+import com.FT.app.domain.User;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -43,6 +43,12 @@ import com.google.gson.JsonParser;
 public class LoginController {
 	@Autowired
 	private UserRepo userRepository;
+	
+	//유저 정보 내역 전부 조회
+	@GetMapping("/kakao/info")
+	public List<User> all(){
+		return userRepository.findAll();
+	}
 	
 	@GetMapping("/kakao/test")
 	public @ResponseBody String Test(String code) {
@@ -156,7 +162,7 @@ public class LoginController {
 		System.out.println("Fastrip 이메일 : " + kakaoProfile.getKakao_account().getEmail());
 
 		//KakaoProfile 원하는 정보 Map에 담기
-		HashMap<String, Object> kakaoMap = new HashMap<String, Object>();
+		/*HashMap<String, Object> kakaoMap = new HashMap<String, Object>();
 		//kakaoMap.put("id", kakaoProfile.getId());
 		kakaoMap.put("email",  kakaoProfile.getKakao_account().getEmail());
 		kakaoMap.put("name", kakaoProfile.getProperties().getNickname());
@@ -176,9 +182,27 @@ public class LoginController {
 		System.out.println("name : " + name);
 		System.out.println("profile : " + profile);
 		System.out.println("gender : " + gender);
-		System.out.println("birthday : " + birthday);
+		System.out.println("birthday : " + birthday);*/
 		
-		//userRepository.save(email, name, profile, gender, birthday);					
+		System.out.println("카카오 이메일 : " + kakaoProfile.getKakao_account().getEmail());
+		System.out.println("카카오 이름 : " + kakaoProfile.getProperties().getNickname());
+		System.out.println("카카오 프로필 : " + kakaoProfile.getProperties().getProfile_image());
+		System.out.println("카카오 성별 : " + kakaoProfile.getKakao_account().getGender());
+		System.out.println("카카오 생일 : " + kakaoProfile.getKakao_account().getBirthday());
+		
+		//KakaoProfile 정보 재정의
+		User kakaoUser = User.builder()
+				.email(kakaoProfile.getKakao_account().getEmail())
+				.name(kakaoProfile.getProperties().getNickname())
+				.profile(kakaoProfile.getProperties().getProfile_image())
+				.gender(kakaoProfile.getKakao_account().getGender())
+				.birthday(kakaoProfile.getKakao_account().getBirthday())
+				.build();
+		
+		//카카오 회원 정보 저장
+		System.out.println(kakaoUser);
+		
+		userRepository.save(kakaoUser);
 		
 		// 가입자 혹은 비가입자 체크	
 		

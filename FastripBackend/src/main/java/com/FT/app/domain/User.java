@@ -1,8 +1,10 @@
 package com.FT.app.domain;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +19,10 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.FT.app.myPage.domain.ResList;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,21 +30,21 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor 
 @AllArgsConstructor
+@Builder
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"EMAIL"})})
 public class User {
 	
-    /*@Id 
+    @Id 
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;*/
-    
-	@Id 
+    private Long id;
+
     @Column(nullable = false, length = 50)
     private String email;
     
     @Column(nullable = false, length = 100)
     private String name;
     
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String profile;
     
     @Column(nullable = false, length = 50)

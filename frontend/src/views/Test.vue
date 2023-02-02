@@ -18,7 +18,6 @@ Test : {{$store.state.userInfo}} <br>
     Kakao Test
 </a>
 
-
 <button @click="kakaoLoginTest2">kakao</button>
 <button @click="test">test</button>
 
@@ -30,7 +29,19 @@ gender : {{$store.state.gender2}} <br>
 birth : {{$store.state.birthday2}} <br>
 profile : {{$store.state.profile2}} <br>
 
-<img :src="profile">
+==========================================================<br>
+<button @click="getUserInfo">getUserInfo</button><br>
+{{ userInfo }}<br>
+
+<div v-for="userInfo in userInfo" :key="userInfo">
+    {{ userInfo.id }}<br>
+    {{ userInfo.email }}<br>
+    {{ userInfo.name }}<br>
+    {{ userInfo.profile }}<br>
+    <img :src="userInfo.profile" style="width: 110px; height: 110px;"><br>
+    {{ userInfo.gender }}<br>
+    {{ userInfo.birthday }}<br>
+</div>
 </template>
 
 <script>
@@ -45,10 +56,11 @@ export default {
             email: '',
             gender: '',
             birthday: '',
+            userInfo: [],
             res: [],
             code: "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code",
-            profile: this.$store.state.profile2,
-            
+            profile: '',
+
         }
     },
     components: {
@@ -56,11 +68,15 @@ export default {
     },
     created() {},
     methods: {
-        Loading(){
-
-        },
         test() {
 
+        },
+        getUserInfo() {
+            axios.get('/api/kakao/info', {})
+                .then((res) => {
+                    console.log(res.data)
+                    this.userInfo = res.data                                        
+                })
         },
         kakaoLoginTest() {
             window.Kakao.Auth.authorize({
@@ -71,9 +87,9 @@ export default {
         async kakaoLoginTest2() {
             //REST API KEY : 89675f71eb67437191dff96a64831fe8
             location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";
-         
+
             let APIUrl = location.href.toString().replace("http://localhost:8080/Test?code=", "");
-    
+
             this.$store.dispatch("setInfo", APIUrl)
             this.$store.dispatch("getToken", APIUrl)
 

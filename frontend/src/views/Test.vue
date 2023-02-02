@@ -14,12 +14,9 @@ Test : {{$store.state.userInfo}} <br>
 
 =======================================================
 <br>
-<a :href="code">
-    Kakao Test
-</a>
 
-<button @click="kakaoLoginTest2">kakao</button>
-<button @click="test">test</button>
+    <button @click="[redirect(),redirect2()]">Kakao Test</button>
+
 
 {{ res }}<br>
 accessToken : {{ $store.state.access_token }}<br>
@@ -41,6 +38,7 @@ profile : {{$store.state.profile2}} <br>
     <img :src="userInfo.profile" style="width: 110px; height: 110px;"><br>
     {{ userInfo.gender }}<br>
     {{ userInfo.birthday }}<br>
+    {{ userInfo.access_token }}<br>
 </div>
 </template>
 
@@ -68,8 +66,11 @@ export default {
     },
     created() {},
     methods: {
-        test() {
-
+        redirect() {
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
+        },
+        redirect2(){
+            setTimeout(() => window.location.href = "/Test", 100);
         },
         getUserInfo() {
             axios.get('/api/kakao/info', {})
@@ -78,7 +79,7 @@ export default {
                     this.userInfo = res.data                                        
                 })
         },
-        kakaoLoginTest() {
+        /*kakaoLoginTest() {
             window.Kakao.Auth.authorize({
                 redirectUri: 'http://localhost:8200/api/auth/kakao/callback',
             })
@@ -115,7 +116,7 @@ export default {
                 .then((response) => {
                     this.res = response.data
                 })
-        },
+        },*/
         kakaoLogout() {
             /*if (!window.Kakao.Auth.getAccessToken()) {
                 console.log("Not logged in.");

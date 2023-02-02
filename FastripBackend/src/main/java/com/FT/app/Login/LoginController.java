@@ -44,7 +44,7 @@ public class LoginController {
 	@Autowired
 	private UserRepo userRepository;
 	
-	//유저 정보 내역 전부 조회
+	//유저 정보 내역 전부 조회 
 	@GetMapping("/kakao/info")
 	public List<User> all(){
 		return userRepository.findAll();
@@ -161,29 +161,6 @@ public class LoginController {
 		System.out.println("Fastrip 유저네임 : " + kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
 		System.out.println("Fastrip 이메일 : " + kakaoProfile.getKakao_account().getEmail());
 
-		//KakaoProfile 원하는 정보 Map에 담기
-		/*HashMap<String, Object> kakaoMap = new HashMap<String, Object>();
-		//kakaoMap.put("id", kakaoProfile.getId());
-		kakaoMap.put("email",  kakaoProfile.getKakao_account().getEmail());
-		kakaoMap.put("name", kakaoProfile.getProperties().getNickname());
-		kakaoMap.put("profile", kakaoProfile.getProperties().getProfile_image());
-		kakaoMap.put("gender", kakaoProfile.getKakao_account().getGender());
-		kakaoMap.put("birthday", kakaoProfile.getKakao_account().getBirthday());
-		//Long id = (Long) kakaoMap.get("id");
-		String email = (String) kakaoMap.get("email");
-		String name = (String) kakaoMap.get("name");
-		String profile = (String) kakaoMap.get("profile");
-		String gender = (String) kakaoMap.get("gender");
-		String birthday = (String) kakaoMap.get("birthday");
-		
-		System.out.println("kakaoMap : " + kakaoMap);
-		//System.out.println("id : " + id);
-		System.out.println("email : " + email);		
-		System.out.println("name : " + name);
-		System.out.println("profile : " + profile);
-		System.out.println("gender : " + gender);
-		System.out.println("birthday : " + birthday);*/
-		
 		System.out.println("카카오 이메일 : " + kakaoProfile.getKakao_account().getEmail());
 		System.out.println("카카오 이름 : " + kakaoProfile.getProperties().getNickname());
 		System.out.println("카카오 프로필 : " + kakaoProfile.getProperties().getProfile_image());
@@ -197,14 +174,15 @@ public class LoginController {
 				.profile(kakaoProfile.getProperties().getProfile_image())
 				.gender(kakaoProfile.getKakao_account().getGender())
 				.birthday(kakaoProfile.getKakao_account().getBirthday())
+				.access_token(access_token)
 				.build();
 		
-		//카카오 회원 정보 저장
+		//카카오 회원 정보 저장  
 		System.out.println(kakaoUser);
 		
 		userRepository.save(kakaoUser);
 		
-		// 가입자 혹은 비가입자 체크	
+		// 가입자 혹은 비가입자 체크	 
 		
 		System.out.println(response2.getBody());
 

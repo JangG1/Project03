@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.FT.app.myPage.domain.ResList;
@@ -31,7 +33,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @AllArgsConstructor
 @Builder
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"EMAIL"})})
+//@DynamicInsert
 public class User {
 	
     @Id 
@@ -52,5 +54,11 @@ public class User {
 
     @Column(nullable = false, length = 50)
     private String birthday;
+    
+    @Column(nullable = false, length = 100)
+    private String access_token;
+    
+    @CreationTimestamp
+	private Timestamp login_date;
     
 }

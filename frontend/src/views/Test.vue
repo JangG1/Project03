@@ -39,7 +39,7 @@ profile : {{$store.state.profile2}} <br>
     <img :src="userInfo.profile" style="width: 110px; height: 110px;"><br>
     {{ userInfo.gender }}<br>
     {{ userInfo.birthday }}<br>
-    {{ userInfo.access_token }}<br>
+    TOKEN : {{ userInfo.access_token }}<br>
 </div>
 </template>
 
@@ -69,9 +69,6 @@ export default {
     methods: {
         redirect() {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";                                   
-        },
-        redirect2(){
-            setTimeout(() => window.location.href = "/Test", 100);
         },
         getUserInfo() {
             axios.get('/api/kakao/info', {})

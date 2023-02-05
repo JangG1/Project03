@@ -14,10 +14,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +29,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.FT.app.Repo.MemberMapping;
 import com.FT.app.Repo.ResRepository;
-import com.FT.app.Repo.UserRepo;
+import com.FT.app.Repo.UserRepository;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.User;
+import com.FT.app.login.service.UserService;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -44,13 +47,23 @@ import com.google.gson.JsonParser;
 @RequestMapping("/api/*")
 public class LoginController {
 	@Autowired
-	private UserRepo userRepository;
+	private UserRepository userRepository;
+	private UserService userService;
 	
 	//유저 정보 내역 전부 조회 
 	@GetMapping("/kakao/info")
 	public List<User> all(){
 		return userRepository.findAll();
 	}
+
+	//유저 Email 조회 
+		@GetMapping("/kakao/{email}")
+		public List<MemberMapping> getResList(@PathVariable("email") String email) {			
+			System.out.println("이메일!!! " + userRepository.findByEmail(email));
+			List<MemberMapping> userEmail = userRepository.findByEmail(email);
+			System.out.println("??? " + userEmail);
+			return userRepository.findByEmail(email);
+		}
 
 	// Kakao accessToken 가져오기
 	/*@GetMapping("/auth/kakao/accessToken")
@@ -139,7 +152,7 @@ public class LoginController {
 		// Kakao Object
 		ObjectMapper objectMapper2 = new ObjectMapper();
 		KakaoProfile kakaoProfile = null;
-
+		
 		try {
 			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
 		} catch (JsonMappingException e) {
@@ -173,15 +186,28 @@ public class LoginController {
 				.gender(kakaoProfile.getKakao_account().getGender())
 				.birthday(kakaoProfile.getKakao_account().getBirthday())
 				.access_token(access_token)
-				.build();
+				.build();			
+		
+		System.out.println("중복필터"); 
+		System.out.println("1 " + kakaoProfile.getKakao_account().getEmail());
+		System.out.println("2 " );
 		
 		//카카오 회원 정보 저장  
-		System.out.println(kakaoUser);
+		/*if(kakaoProfile.getKakao_account().getEmail() ==  user.getEmail()) {
+			System.out.println("기존회원 입니다.");
+			
+		}
+		
+		if(kakaoProfile.getKakao_account().getEmail() !=  user.getEmail()) {
+			System.out.println("자동 회원가입 되었습니다.");
+		userRepository.save(kakaoUser);
+		}*/
 		
 		userRepository.save(kakaoUser);
 		
-		// 가입자 혹은 비가입자 체크	 
 		
+		
+		// 가입자 혹은 비가입자 체크	 
 		System.out.println(response2.getBody());
 
 		JsonParser jParser2 = new JsonParser();

@@ -32,7 +32,9 @@
                 <tr v-for="res in res" :key="res">
                     <td>{{"Fastrip - " + res.res_no}}</td>
                     <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerPopUp(res.res_no)"></td>
+                    <!-- 예약날짜 -->
                     <td>{{resDate1(res.res_date)}}</td>
+                    <!-- 가는편/오는편 -->
                     <td>{{resDate2(res.startDate) + " " + res.startTime1 + " ~ " + res.arriveTime1}}</td>
                     <td v-if="res.way == '왕복'">{{resDate2(res.returnDate) + " " + res.startTime2}} ~ {{res.arriveTime2}}</td>
                     <td v-if="res.way == '편도'">-</td>
@@ -83,7 +85,7 @@ export default {
         }
     },
     methods: {
-        resDate1(value) {
+        resDate1(value) { //협정 세계시(UTC) 시간 차이로 인한 시간 재정의
             let resDate = new Date(value);
 
             let year = resDate.getFullYear();

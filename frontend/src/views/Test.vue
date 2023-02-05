@@ -71,10 +71,11 @@ export default {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";                                   
         },
         getUserInfo() {
-            axios.get('/api/kakao/info', {})
-                .then((res) => {
-                    console.log(res.data)
-                    this.userInfo = res.data                                        
+            let email = "ft5698@nate.com";
+
+            axios.get('/api/kakao/' + email)
+                .then((response) => {
+                    this.res = response.data
                 })
         },
         /*kakaoLoginTest() {

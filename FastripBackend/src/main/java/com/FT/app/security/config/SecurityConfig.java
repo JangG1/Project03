@@ -15,7 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.FT.app.Repo.UserRepo;
+import com.FT.app.Repo.UserRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

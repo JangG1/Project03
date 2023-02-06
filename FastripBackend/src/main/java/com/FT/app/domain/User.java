@@ -40,7 +40,7 @@ public class User {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String email;
     
     @Column(nullable = false, length = 100)
@@ -58,7 +58,8 @@ public class User {
     @Column(nullable = false, length = 100)
     private String access_token;
     
-    @CreationTimestamp
-	private Timestamp login_date;
+    //@CreationTimestamp
+    @Column(nullable = false, length = 50)
+	private String login_date;
     
 }

@@ -40,6 +40,7 @@ profile : {{$store.state.profile2}} <br>
     {{ userInfo.gender }}<br>
     {{ userInfo.birthday }}<br>
     TOKEN : {{ userInfo.access_token }}<br>
+    loginDate : {{userInfo.login_date}} <br>
 </div>
 </template>
 
@@ -70,12 +71,11 @@ export default {
         redirect() {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";                                   
         },
-        getUserInfo() {
-            let email = "ft5698@nate.com";
+        getUserInfo() {            
 
-            axios.get('/api/kakao/' + email)
+            axios.get('/api/kakao/info')
                 .then((response) => {
-                    this.res = response.data
+                    this.userInfo = response.data
                 })
         },
         /*kakaoLoginTest() {

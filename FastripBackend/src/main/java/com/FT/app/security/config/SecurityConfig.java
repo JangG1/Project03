@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -26,18 +27,18 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터를 스프링 필터체인에 등록
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true) 
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	@Bean 
-	public BCryptPasswordEncoder encodePwd() { 
-		return new BCryptPasswordEncoder(); 
-	}
-	
+
+    /*@Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception{
+        return super.authenticationManagerBean();
+    }*/
+    
+    
 	@Override
-	protected void configure(HttpSecurity http) throws Exception{
-		/*CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-        customAuthenticationFilter.setFilterProcessesUrl("/api/login");*/
-        
+	protected void configure(HttpSecurity http) throws Exception{		        
         http.httpBasic().disable();
         http.cors().configurationSource(corsConfigurationSource());
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -91,10 +92,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return source;
     }
     
-    /*@Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
-        return super.authenticationManagerBean();
-    }*/
+
 	
 }

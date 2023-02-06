@@ -39,7 +39,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지2-->
-                <svg class="banner" viewBox="0 60 820 315">
+                <svg class="banner" viewBox="0 20 900 315">
                     <image href="../assets/bannerImage/2.jpg" />
                 </svg>
                 <div class="container2">
@@ -59,7 +59,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지3-->
-                <svg class="banner" viewBox="0 60 820 315">
+                <svg class="banner" viewBox="50 60 820 315">
                     <image href="../assets/bannerImage/3.jpg" />
                 </svg>
                 <div class="container3">
@@ -634,22 +634,22 @@ a:active {
 }
 
 .container2 h2 {
-    color: rgba(213, 181, 22, 0.959);
+    color: rgba(253, 217, 34, 0.959);
     font-size: 80px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container2 h3 {
-    color: rgba(213, 181, 22, 0.959);
+    color: rgba(253, 217, 34, 0.959);
     font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container2 h4 {
+    color: rgba(253, 217, 34, 0.959);
     font-size: 20px;
     margin-bottom: 240px;
     cursor: pointer;
-    color: white;
 }
 
 .container3 h2 {
@@ -1076,8 +1076,11 @@ a:active {
 .selectDate2:hover,
 .btn-field:hover,
 .form-select:hover,
-.submit-btn:hover {
-    border: 1.5px solid teal;
+.submit-btn:hover,
+#resPassenger:hover,
+#resRoundTrip:hover,
+#resOneWay:hover  {
+    border: 2.5px solid teal;
 }
 
 @media (min-width: 1450px) {

@@ -1,5 +1,8 @@
 package com.FT.app.login;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -9,11 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.JSONParser;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -46,59 +57,17 @@ import com.google.gson.JsonParser;
 @RestController
 @RequestMapping("/api/*")
 public class LoginController {
+	
 	@Autowired
 	private UserRepository userRepository;
 	private UserService userService;
+	private AuthenticationManager authenticationManager;
 	
 	//유저 정보 내역 전부 조회 
 	@GetMapping("/kakao/info")
 	public List<User> all(){
 		return userRepository.findAll();
 	}
-
-	//유저 Email 조회 
-		@GetMapping("/kakao/{email}")
-		public List<MemberMapping> getResList(@PathVariable("email") String email) {			
-			System.out.println("이메일!!! " + userRepository.findByEmail(email));
-			List<MemberMapping> userEmail = userRepository.findByEmail(email);
-			System.out.println("??? " + userEmail);
-			return userRepository.findByEmail(email);
-		}
-
-	// Kakao accessToken 가져오기
-	/*@GetMapping("/auth/kakao/accessToken")
-	public @ResponseBody String kakaoAccessToken(String code // 인가 코드 code 변수 삽입
-			,HttpServletRequest request) { 
-		System.out.println(code);
-
-		RestTemplate rt = new RestTemplate();
-
-		// HttpHeader 오브젝트 생성
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-		// HttpBody 오브젝트 생성
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("grant_type", "authorization_code");
-		params.add("client_id", "89675f71eb67437191dff96a64831fe8");
-		params.add("redirect_uri", "http://localhost:8200/api/auth/kakao/accessToken");
-		params.add("code", code);
-
-		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
-
-		// Http 요청하기 - POST방식으로 - 그리고 response 변수의 응답 받음.
-		ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
-				kakaoTokenRequest, String.class);
-
-		JsonParser jParser = new JsonParser();
-
-		JsonObject jObject1 = (JsonObject) jParser.parse(response.getBody()); // json 전체 파싱
-		// jObejct1는 json 전체가 파싱됨
-		String access_token = jObject1.get("access_token").getAsString();
-
-		return access_token;
-	}*/
 
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakao/callback")
@@ -121,7 +90,7 @@ public class LoginController {
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 
-		// Http 요청하기 - POST방식으로 - 그리고 response 변수의 응답 받음.
+		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
 		ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
 				kakaoTokenRequest, String.class);
 
@@ -145,14 +114,20 @@ public class LoginController {
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
 		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
 
-		// Http 요청하기 - POST방식으로 - 그리고 response 변수의 응답 받음.
-		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
+		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
+		ResponseEntity<String> response2 = rt2.exchange(
+				"https://kapi.kakao.com/v2/user/me", 
+				HttpMethod.POST,
 				kakaoProfileRequest2, String.class);
 
 		// Kakao Object
 		ObjectMapper objectMapper2 = new ObjectMapper();
 		KakaoProfile kakaoProfile = null;
 		
+		//현재날짜, 시간 구하기(로그인 시간)
+        LocalDateTime now = LocalDateTime.now();
+        String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
+        
 		try {
 			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
 		} catch (JsonMappingException e) {
@@ -161,7 +136,6 @@ public class LoginController {
 			e.printStackTrace();
 		}
 
-		// User 오브젝트들 : username, email
 		System.out.println("카카오 아이디 : " + kakaoProfile.getId());
 		System.out.println("카카오 이메일 : " + kakaoProfile.getKakao_account().getEmail());
 		System.out.println("카카오 이름 : " + kakaoProfile.getProperties().getNickname());
@@ -186,43 +160,41 @@ public class LoginController {
 				.gender(kakaoProfile.getKakao_account().getGender())
 				.birthday(kakaoProfile.getKakao_account().getBirthday())
 				.access_token(access_token)
-				.build();			
+				.login_date(formatedNow)
+				.build();						
 		
-		System.out.println("중복필터"); 
-		System.out.println("1 " + kakaoProfile.getKakao_account().getEmail());
-		System.out.println("2 " );
+		System.out.println("중복필터");
 		
-		//카카오 회원 정보 저장  
-		/*if(kakaoProfile.getKakao_account().getEmail() ==  user.getEmail()) {
-			System.out.println("기존회원 입니다.");
-			
+		User originUser = userService.회원찾기(kakaoUser.getEmail());
+				
+		System.out.println(originUser);
+		
+		/*if(originUser.getEmail() == null) {
+			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
+			userService.회원가입(kakaoUser);
 		}
+		 
+		System.out.println("자동 로그인을 진행합니다.");*/
 		
-		if(kakaoProfile.getKakao_account().getEmail() !=  user.getEmail()) {
-			System.out.println("자동 회원가입 되었습니다.");
-		userRepository.save(kakaoUser);
-		}*/
+		// 로그인 처리 
+		/*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
+		SecurityContextHolder.getContext().setAuthentication(authentication);*/
+
+			
 		
-		userRepository.save(kakaoUser);
+		//기존회원 체크 
+		/*if(emailCheck != null) {
+			System.out.println("기존회원 입니다.");
+		}else {
+			System.out.println("자동 회원 등록 되었습니다.");
+			userRepository.save(kakaoUser);
+		}			*/
 		
-		
+		System.out.println("1 " + kakaoProfile.getKakao_account().getEmail());
+		System.out.println("2 ");	
 		
 		// 가입자 혹은 비가입자 체크	 
 		System.out.println(response2.getBody());
-
-		JsonParser jParser2 = new JsonParser();
-
-		JsonObject jObject2 = (JsonObject) jParser2.parse(response2.getBody()); // json 전체 파싱
-		// jObejct1는 json 전체가 파싱됨
-		JsonElement properties = jObject2.get("properties");
-		JsonElement kakao_account = jObject2.get("kakao_account");
-		// String name = jObject2.get("nickname").getAsString();
-		// String profile_image = jObject2.get("profile_image").getAsString();
-
-		System.out.println("=========================");
-		System.out.println(properties);
-		System.out.println(kakao_account);
-		// System.out.println(profile_image);
 
 		//프론트 되돌아가기 
 		 RedirectView redirectView = new RedirectView();
@@ -230,11 +202,59 @@ public class LoginController {
 	       return redirectView;
 	}
 
+	//이메일 중복 체크
+	private void validateDuplicate(String email) {
+		System.out.println("이미 존재하는 회원입니다.");
+	}
 
 	@PostMapping("/login/test")
 	public void loginTest(@RequestBody String loginTest) {
 		System.out.println(loginTest);
 	}
 	 
+	
+	//유저 조회 
+			/*@GetMapping("/kakao/{email}")
+			public List<MemberMapping> getResList(@PathVariable("email") String email) {			
+				System.out.println("이메일!!! " + userRepository.findByEmail(email));
+				List<MemberMapping> userEmail = userRepository.findByEmail(email);
+				System.out.println("??? " + userEmail);
+				return userRepository.findByEmail(email);
+			}*/
+
+		// Kakao accessToken 가져오기
+		/*@GetMapping("/auth/kakao/accessToken")
+		public @ResponseBody String kakaoAccessToken(String code // 인가 코드 code 변수 삽입
+				,HttpServletRequest request) { 
+			System.out.println(code);
+
+			RestTemplate rt = new RestTemplate();
+
+			// HttpHeader 오브젝트 생성
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+			// HttpBody 오브젝트 생성
+			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+			params.add("grant_type", "authorization_code");
+			params.add("client_id", "89675f71eb67437191dff96a64831fe8");
+			params.add("redirect_uri", "http://localhost:8200/api/auth/kakao/accessToken");
+			params.add("code", code);
+
+			// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+			HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
+
+			// Http 요청하기 - POST방식으로 - 그리고 response 변수의 응답 받음.
+			ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
+					kakaoTokenRequest, String.class);
+
+			JsonParser jParser = new JsonParser();
+
+			JsonObject jObject1 = (JsonObject) jParser.parse(response.getBody()); // json 전체 파싱
+			// jObejct1는 json 전체가 파싱됨
+			String access_token = jObject1.get("access_token").getAsString();
+
+			return access_token;
+		}*/
 
 }

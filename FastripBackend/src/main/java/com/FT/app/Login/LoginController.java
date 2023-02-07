@@ -183,16 +183,6 @@ public class LoginController {
 		// 로그인 처리 
 		/*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
 		SecurityContextHolder.getContext().setAuthentication(authentication);*/
-
-			
-		
-		//기존회원 체크 
-		/*if(emailCheck != null) {
-			System.out.println("기존회원 입니다.");
-		}else {
-			System.out.println("자동 회원 등록 되었습니다.");
-			userRepository.save(kakaoUser);
-		}			*/
 		
 		System.out.println("1 " + kakaoProfile.getKakao_account().getEmail());
 		System.out.println("2 ");	
@@ -204,61 +194,6 @@ public class LoginController {
 		 RedirectView redirectView = new RedirectView();
 	       redirectView.setUrl("http://localhost:8080/Test");
 	       return redirectView;
-	}
-
-	//이메일 중복 체크
-	private void validateDuplicate(String email) {
-		System.out.println("이미 존재하는 회원입니다.");
-	}
-
-	@PostMapping("/login/test")
-	public void loginTest(@RequestBody String loginTest) {
-		System.out.println(loginTest);
-	}
-	 
+	} 
 	
-	//유저 조회 
-			/*@GetMapping("/kakao/{email}")
-			public List<MemberMapping> getResList(@PathVariable("email") String email) {			
-				System.out.println("이메일!!! " + userRepository.findByEmail(email));
-				List<MemberMapping> userEmail = userRepository.findByEmail(email);
-				System.out.println("??? " + userEmail);
-				return userRepository.findByEmail(email);
-			}*/
-
-		// Kakao accessToken 가져오기
-		/*@GetMapping("/auth/kakao/accessToken")
-		public @ResponseBody String kakaoAccessToken(String code // 인가 코드 code 변수 삽입
-				,HttpServletRequest request) { 
-			System.out.println(code);
-
-			RestTemplate rt = new RestTemplate();
-
-			// HttpHeader 오브젝트 생성
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-			// HttpBody 오브젝트 생성
-			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-			params.add("grant_type", "authorization_code");
-			params.add("client_id", "89675f71eb67437191dff96a64831fe8");
-			params.add("redirect_uri", "http://localhost:8200/api/auth/kakao/accessToken");
-			params.add("code", code);
-
-			// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-			HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
-
-			// Http 요청하기 - POST방식으로 - 그리고 response 변수의 응답 받음.
-			ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
-					kakaoTokenRequest, String.class);
-
-			JsonParser jParser = new JsonParser();
-
-			JsonObject jObject1 = (JsonObject) jParser.parse(response.getBody()); // json 전체 파싱
-			// jObejct1는 json 전체가 파싱됨
-			String access_token = jObject1.get("access_token").getAsString();
-
-			return access_token;
-		}*/
-
 }

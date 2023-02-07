@@ -19,8 +19,6 @@ import lombok.NoArgsConstructor;
 public class KakaoProfile {
 	public Long id;
 	public String connected_at;
-	//public String properties;
-	//public String kakao_account;
 	public Properties properties; 
 	public KakaoAccount kakao_account;
 	

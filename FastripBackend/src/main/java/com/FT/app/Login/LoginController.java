@@ -61,11 +61,11 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/*")
 public class LoginController {
 	
-	private final UserRepository userRepository;
+	private final UserRepository userRepository;	
 	
 	@Autowired
 	private UserService userService;
-	private AuthenticationManager authenticationManager;
+	
 	
 	//유저 정보 내역 전부 조회 
 	@GetMapping("/kakao/info")
@@ -142,8 +142,9 @@ public class LoginController {
 		
 		//KakaoProfile 정보 재정의
 		User kakaoUser = User.builder()
-				.email(kakaoProfile.getKakao_account().getEmail()+"test2")
+				.email(kakaoProfile.getKakao_account().getEmail()+"2")
 				.name(kakaoProfile.getProperties().getNickname())
+				.password("Fastrip123") //임시 비밀번호
 				.profile(kakaoProfile.getProperties().getProfile_image())
 				.gender(kakaoProfile.getKakao_account().getGender())
 				.birthday(kakaoProfile.getKakao_account().getBirthday())
@@ -162,7 +163,7 @@ public class LoginController {
 		 
 		System.out.println("자동 로그인을 진행합니다.");
 		
-		// 로그인 처리 
+		// 로그인 처리  
 		/*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
 		SecurityContextHolder.getContext().setAuthentication(authentication);*/
 

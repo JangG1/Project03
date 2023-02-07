@@ -47,6 +47,9 @@ public class User {
     private String name;
     
     @Column(nullable = false, length = 100)
+	private String password;
+    
+    @Column(nullable = false, length = 100)
     private String profile;
     
     @Column(nullable = false, length = 50)

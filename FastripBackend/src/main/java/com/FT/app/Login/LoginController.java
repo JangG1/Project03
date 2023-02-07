@@ -63,6 +63,8 @@ public class LoginController {
 	
 	private final UserRepository userRepository;	
 	
+	private final AuthenticationManager authenticationManager;
+	
 	@Autowired
 	private UserService userService;
 	
@@ -73,6 +75,7 @@ public class LoginController {
 		return userRepository.findAll();
 	}
 
+	
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakao/callback")
 	public @ResponseBody RedirectView kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
@@ -142,7 +145,7 @@ public class LoginController {
 		
 		//KakaoProfile 정보 재정의
 		User kakaoUser = User.builder()
-				.email(kakaoProfile.getKakao_account().getEmail()+"2")
+				.email(kakaoProfile.getKakao_account().getEmail())
 				.name(kakaoProfile.getProperties().getNickname())
 				.password("Fastrip123") //임시 비밀번호
 				.profile(kakaoProfile.getProperties().getProfile_image())
@@ -161,11 +164,11 @@ public class LoginController {
 			userService.회원가입(kakaoUser);
 		}
 		 
-		System.out.println("자동 로그인을 진행합니다.");
+		System.out.println("자동 로그인을 진행합니다."); 
 		
-		// 로그인 처리  
-		/*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
-		SecurityContextHolder.getContext().setAuthentication(authentication);*/
+		// 로그인 처리   
+//		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		//프론트로 리다이렉트 
 		 RedirectView redirectView = new RedirectView();

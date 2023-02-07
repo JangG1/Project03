@@ -1,97 +1,69 @@
 package com.FT.app.security.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.FT.app.Repo.UserRepository;
+/*import shop.mtcoding.bank.config.jwt.JwtAuthenticationFilter;
+import shop.mtcoding.bank.config.jwt.JwtAuthorizationFilter;
+import shop.mtcoding.bank.domain.user.UserEnum;*/
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+
+
+// WebSecurityConfigurerAdapter 사용 중지(2022.02.21)
+//Security Config 설정 공식 문서 : https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
 @Configuration
-@EnableWebSecurity // 스프링 시큐리티 필터를 스프링 필터체인에 등록
-@RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true) 
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig {
 
-    /*@Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
-        return super.authenticationManagerBean();
-    }*/
-    
-    
-	@Override
-	protected void configure(HttpSecurity http) throws Exception{		        
-        http.httpBasic().disable();
-        http.cors().configurationSource(corsConfigurationSource());
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/").permitAll();
-        
-        http.authorizeRequests().antMatchers("/api/**").permitAll();
-        
-        http.authorizeRequests().antMatchers("/api/auth/kakao/callback").permitAll();
-        
-        http.authorizeRequests().antMatchers("/abc").permitAll();
-        
-        http.authorizeRequests().antMatchers("/resources/**").permitAll();
-        
-        http.authorizeRequests().antMatchers("/api/product").permitAll();
-        http.authorizeRequests().antMatchers("/api/product/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/product/add").permitAll();
-        
-        http.authorizeRequests().antMatchers("/res/**").permitAll();
-        http.authorizeRequests().antMatchers("/res/resList/**").permitAll();
-        http.authorizeRequests().antMatchers("/res/resPostTest/**").permitAll();
-        http.authorizeRequests().antMatchers("/res/resList/upload").permitAll();
-        
-        http.authorizeRequests().antMatchers("/prod/**").permitAll();
-        http.authorizeRequests().antMatchers("/prod/prodList/**").permitAll();
-        
-        
-        http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/api/login").permitAll();
-        http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
-        
-        
-        http.authorizeRequests().anyRequest().authenticated();
-		
-	}
-	
-	 	// CORS 허용 적용
+	//private final Logger log = LoggerFactory.getLogger(getClass());
+
+	 @Bean
+	    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+	            throws Exception {
+	        return authenticationConfiguration.getAuthenticationManager();
+	    }
+	 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    	http.httpBasic().disable();
+		http.cors().configurationSource(configurationSource());
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.csrf().disable();
+		
+        http.authorizeRequests().antMatchers("/").permitAll();
 
-        //configuration.addAllowedOrigin("*");
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
+		http.authorizeRequests().antMatchers("/api/**").permitAll();
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+		http.authorizeRequests().antMatchers("/api/auth/kakao/callback").permitAll();
+        return http.build();
     }
-    
 
-	
+	// CORS 허용 적용
+	public CorsConfigurationSource configurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.addAllowedOrigin("*");
+		configuration.addAllowedOriginPattern("*");
+		configuration.addAllowedHeader("*");
+		configuration.addAllowedMethod("*");
+
+		configuration.addAllowedOriginPattern("*"); // 프론트 서버의 주소 등록
+		configuration.setAllowCredentials(true); // 클라이언트에서 쿠키 요청 허용
+		configuration.addExposedHeader("Authorization");
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }

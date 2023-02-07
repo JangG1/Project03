@@ -57,7 +57,7 @@ import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequiredArgsConstructor
+@RequiredArgsConstructor // 의존성 주입 final 필요(02/07 Service 호출 시 NPE 발생)
 @RequestMapping("/api/*")
 public class LoginController {
 	
@@ -76,7 +76,7 @@ public class LoginController {
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakao/callback")
 	public @ResponseBody RedirectView kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
-		System.out.println(code);
+		System.out.println("인가 코드 : " + code);
 
 		RestTemplate rt = new RestTemplate();
 
@@ -104,7 +104,7 @@ public class LoginController {
 		// jObejct1는 json 전체가 파싱됨
 		String access_token = jObject1.get("access_token").getAsString();
 
-		System.out.println(access_token);
+		System.out.println("ACCESS TOKEN : " + access_token);
 
 		ObjectMapper objectMapper = new ObjectMapper();
 
@@ -139,40 +139,22 @@ public class LoginController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("카카오 아이디 : " + kakaoProfile.getId());
-		System.out.println("카카오 이메일 : " + kakaoProfile.getKakao_account().getEmail());
-		System.out.println("카카오 이름 : " + kakaoProfile.getProperties().getNickname());
-		System.out.println("카카오 프로필 : " + kakaoProfile.getProperties().getProfile_image());
-		System.out.println("카카오 성별 : " + kakaoProfile.getKakao_account().getGender());
-		System.out.println("카카오 생일 : " + kakaoProfile.getKakao_account().getBirthday());
-		
-		System.out.println("Fastrip 유저네임 : " + kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
-		System.out.println("Fastrip 이메일 : " + kakaoProfile.getKakao_account().getEmail());
-
-		System.out.println("카카오 이메일 : " + kakaoProfile.getKakao_account().getEmail());
-		System.out.println("카카오 이름 : " + kakaoProfile.getProperties().getNickname());
-		System.out.println("카카오 프로필 : " + kakaoProfile.getProperties().getProfile_image());
-		System.out.println("카카오 성별 : " + kakaoProfile.getKakao_account().getGender());
-		System.out.println("카카오 생일 : " + kakaoProfile.getKakao_account().getBirthday());
 		
 		//KakaoProfile 정보 재정의
 		User kakaoUser = User.builder()
-				.email(kakaoProfile.getKakao_account().getEmail())
+				.email(kakaoProfile.getKakao_account().getEmail()+"test2")
 				.name(kakaoProfile.getProperties().getNickname())
 				.profile(kakaoProfile.getProperties().getProfile_image())
 				.gender(kakaoProfile.getKakao_account().getGender())
 				.birthday(kakaoProfile.getKakao_account().getBirthday())
 				.access_token(access_token)
 				.login_date(formatedNow)
-				.build();						
+				.build();								
 		
-		System.out.println("중복필터");
+		//기존 회원 찾기(중복)
+		User originUser = userService.회원찾기(kakaoUser.getEmail());						
 		
-		User originUser = userService.회원찾기(kakaoUser.getEmail());
-				
-		System.out.println(originUser);
-		
+		//기존 회원 아닐시 새로 등록
 		if(originUser.getEmail() == null) {
 			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
 			userService.회원가입(kakaoUser);
@@ -183,14 +165,8 @@ public class LoginController {
 		// 로그인 처리 
 		/*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
 		SecurityContextHolder.getContext().setAuthentication(authentication);*/
-		
-		System.out.println("1 " + kakaoProfile.getKakao_account().getEmail());
-		System.out.println("2 ");	
-		
-		// 가입자 혹은 비가입자 체크	 
-		System.out.println(response2.getBody());
 
-		//프론트 되돌아가기 
+		//프론트로 리다이렉트 
 		 RedirectView redirectView = new RedirectView();
 	       redirectView.setUrl("http://localhost:8080/Test");
 	       return redirectView;

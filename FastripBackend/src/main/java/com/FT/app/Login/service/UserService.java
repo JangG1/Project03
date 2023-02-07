@@ -23,12 +23,10 @@ public class UserService {
 	
 	
 	@Transactional(readOnly = true)
-	public User 회원찾기(String email) {
-		System.out.println("111111111111111111111111111");
+	public User 회원찾기(String email) {		
 		User user = userRepository.findByEmail(email).orElseGet(()->{
 			return new User();
-		});
-		System.out.println("22222222222222222222222");
+		});		
 		return user;
 	}
 	

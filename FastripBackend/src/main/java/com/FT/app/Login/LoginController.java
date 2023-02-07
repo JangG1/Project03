@@ -54,12 +54,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/*")
 public class LoginController {
 	
+	private final UserRepository userRepository;
+	
 	@Autowired
-	private UserRepository userRepository;
 	private UserService userService;
 	private AuthenticationManager authenticationManager;
 	
@@ -169,12 +173,12 @@ public class LoginController {
 				
 		System.out.println(originUser);
 		
-		/*if(originUser.getEmail() == null) {
+		if(originUser.getEmail() == null) {
 			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
 			userService.회원가입(kakaoUser);
 		}
 		 
-		System.out.println("자동 로그인을 진행합니다.");*/
+		System.out.println("자동 로그인을 진행합니다.");
 		
 		// 로그인 처리 
 		/*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));

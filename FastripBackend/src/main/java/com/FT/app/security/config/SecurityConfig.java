@@ -38,10 +38,10 @@ public class SecurityConfig {
 	 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    	http.httpBasic().disable();
-		http.cors().configurationSource(configurationSource());
+    	http.httpBasic().disable(); // httpBasic()은 브라우저가 팝업창을 이용해 사용자 인증을 진행.
+		http.cors().configurationSource(configurationSource());  // cors 재정의
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.csrf().disable();
+		http.csrf().disable(); // csrf 허용안함
 		
         http.authorizeRequests().antMatchers("/").permitAll();
 

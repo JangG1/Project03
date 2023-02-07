@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
 import axios from 'axios';
-import router from "../router"
 import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
@@ -29,7 +28,6 @@ export default createStore({
         access_token: '',
         refresh_token: '',
         userInfo: null,
-        userInfo2: null,
         OAuth: null,
         name: null,
         email: null,
@@ -56,8 +54,8 @@ export default createStore({
         state.isLoad = false;
     },
     setToken(state, payload) {
-        state.access_token = payload.data
-        state.refresh_token = payload
+        state.access_token = payload
+        //state.refresh_token = payload
     },
     setUserInfo(state, payload) {        
         state.userInfo2 = payload
@@ -94,18 +92,13 @@ export default createStore({
         state.isLogin = true
         state.isLoginError = false
         state.userInfo = payload
-        state.name = payload.name        
-        state.email = payload.email        
-        state.gender = payload.gender
-        state.birthday = payload.birthday
     },
     loginError(state) {
         state.isLogin = false
         state.isLoginError = true
         state.userInfo = null
     },
-    logout(state) {
-        localStorage.clear();
+    logout(state) {        
         state.isLogin = false
         state.isLoginError = false
         state.userInfo = null
@@ -119,53 +112,23 @@ export default createStore({
             commit("offLoad");
         }
     },
-        async setUserInfo({ commit }, payload) {
-            console.log("setUserInfo" + payload)
+        async setUserInfo({ commit }, payload) {            
+            let info = JSON.parse(payload)
+            console.log("setUserInfo : " + info[0])
             let userInfo = {
-                name: payload.name,
-                email: payload.email,
-                profile: payload.profile,
-                gender: payload.gender,
-                birthday: payload.birthday,
+                name: info[0].name,
+                email: info[0].email,
+                profile: info[0].profile,
+                gender: info[0].gender,
+                birthday: info[0].birthday,
+                access_token: info[0].access_token
             }
+            console.log(userInfo)
             commit("loginSuccess", userInfo)
         },
-         getToken({ commit }, payload) {
-             axios.get('/api/auth/kakao/accessToken', {
-                params: {
-                    code: payload
-                }
-            })
-            .then((res) => {
-                console.log(res);
-                commit('setToken', res)  
-            })
-            .catch((err) => {
-                console.log(err);
-            });        
-        },
-         setInfo({ commit }, payload) {
-             axios.get('/api/auth/kakao/callback', {
-                params: {
-                    code: payload
-                }
-            })
-                .then((res) => {
-                    console.log(res);
-                    let userInfo2 = {
-                        name: res.data.properties.nickname,
-                        email: res.data.kakao_account.email,
-                        profile: res.data.properties.thumbnail_image,
-                        birthday: res.data.kakao_account.birthday,
-                        gender: res.data.kakao_account.gender,
-                    }
-                    commit("setUserInfo", userInfo2)  
-                })
-                .catch((err) => {
-                    console.log(err);
-                    commit("loginError")
-                    //alert("이메일과 비밀번호를 확인하세요.")
-                });        
+         getToken({ commit }, payload) {            
+            console.log("user : " + payload)
+            commit("setToken", payload)
         },
         async consentBtn1({ commit }, payload) {
                 console.log(payload)
@@ -203,9 +166,8 @@ export default createStore({
                     commit('logout')
                 });
         },
-        logout({ commit }) {
+        logout({ commit } ) {
             commit("logout")
-            router.push({ name: "Home" })
         },
     },
     

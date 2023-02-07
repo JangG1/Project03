@@ -40,7 +40,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.FT.app.Repo.MemberMapping;
 import com.FT.app.Repo.ResRepository;
 import com.FT.app.Repo.UserRepository;
 import com.FT.app.domain.KakaoProfile;
@@ -60,22 +59,46 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor // 의존성 주입 final 필요(02/07 Service 호출 시 NPE 발생)
 @RequestMapping("/api/*")
 public class LoginController {
-	
-	private final UserRepository userRepository;	
-	
-	private final AuthenticationManager authenticationManager;
-	
+
+	private final UserRepository userRepository;
+
 	@Autowired
 	private UserService userService;
-	
-	
-	//유저 정보 내역 전부 조회 
+
+	// 유저 정보 내역 전부 조회
 	@GetMapping("/kakao/info")
-	public List<User> all(){
+	public List<User> all() {
 		return userRepository.findAll();
 	}
-
 	
+	//로그인 email 기준 예약 내역 전부 조회
+		/*@GetMapping("/kakao/info/{email}")
+		public String  getEmailList(@PathVariable("email") String email) {		
+			return userRepository.회원찾기(email);
+		}*/
+
+	// Kakao 로그아웃
+	@GetMapping("/kakao/logout/{access_token}")
+	public String kakaoLogout(@PathVariable("access_token") String access_token) {
+		System.out.println("Access Token : " + access_token);
+
+		RestTemplate rt = new RestTemplate();
+
+		// HttpHeader 오브젝트 생성
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + access_token);
+
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
+
+		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
+		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
+				kakaoProfileRequest, String.class);
+ 
+		System.out.println("id : " + response.getBody());
+		return "로그아웃 되었습니다."; 
+	}          
+  
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakao/callback")
 	public @ResponseBody RedirectView kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
@@ -122,19 +145,17 @@ public class LoginController {
 		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
 
 		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		ResponseEntity<String> response2 = rt2.exchange(
-				"https://kapi.kakao.com/v2/user/me", 
-				HttpMethod.POST,
+		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
 				kakaoProfileRequest2, String.class);
 
 		// Kakao Object
 		ObjectMapper objectMapper2 = new ObjectMapper();
 		KakaoProfile kakaoProfile = null;
-		
-		//현재날짜, 시간 구하기(로그인 시간)
-        LocalDateTime now = LocalDateTime.now();
-        String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
-        
+
+		// 현재날짜, 시간 구하기(로그인 시간)
+		LocalDateTime now = LocalDateTime.now();
+		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
+
 		try {
 			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
 		} catch (JsonMappingException e) {
@@ -142,38 +163,34 @@ public class LoginController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
-		//KakaoProfile 정보 재정의
-		User kakaoUser = User.builder()
-				.email(kakaoProfile.getKakao_account().getEmail())
-				.name(kakaoProfile.getProperties().getNickname())
-				.password("Fastrip123") //임시 비밀번호
+
+		// KakaoProfile 정보 재정의
+		User kakaoUser = User.builder().email(kakaoProfile.getKakao_account().getEmail())
+				.name(kakaoProfile.getProperties().getNickname()).password("Fastrip123") // 임시 비밀번호
 				.profile(kakaoProfile.getProperties().getProfile_image())
 				.gender(kakaoProfile.getKakao_account().getGender())
-				.birthday(kakaoProfile.getKakao_account().getBirthday())
-				.access_token(access_token)
-				.login_date(formatedNow)
-				.build();								
-		
-		//기존 회원 찾기(중복)
-		User originUser = userService.회원찾기(kakaoUser.getEmail());						
-		
-		//기존 회원 아닐시 새로 등록
-		if(originUser.getEmail() == null) {
+				.birthday(kakaoProfile.getKakao_account().getBirthday()).access_token(access_token)
+				.login_date(formatedNow).build();
+
+		// 기존 회원 찾기(중복)
+		User originUser = userService.회원찾기(kakaoUser.getEmail());
+
+		// 기존 회원 아닐시 새로 등록
+		if (originUser.getEmail() == null) {
 			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
 			userService.회원가입(kakaoUser);
 		}
-		 
-		System.out.println("자동 로그인을 진행합니다."); 
-		
-		// 로그인 처리   
+
+		System.out.println("자동 로그인을 진행합니다.");
+		System.out.println("id : " + kakaoProfile.getId());
+		// 로그인 처리
 //		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
 //		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		//프론트로 리다이렉트 
-		 RedirectView redirectView = new RedirectView();
-	       redirectView.setUrl("http://localhost:8080/Test");
-	       return redirectView;
-	} 
-	
+		// 프론트로 리다이렉트
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("http://localhost:8080/Test");
+		return redirectView;
+	}
+
 }

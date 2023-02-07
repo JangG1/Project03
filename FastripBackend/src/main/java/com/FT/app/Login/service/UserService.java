@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.FT.app.Repo.MemberMapping;
 import com.FT.app.Repo.UserRepository;
 import com.FT.app.domain.User;
 
@@ -27,6 +26,14 @@ public class UserService {
 		});		
 		return user;
 	}
+	
+	/*@Transactional(readOnly = true)
+	public User 토큰찾기(String accessToken) {		
+		User at = userRepository.findByAccessToken(accessToken).orElseGet(()->{
+			return new User();
+		});		
+		return at;
+	}*/
 	
 	@Transactional
 	public int 회원가입(User user) {

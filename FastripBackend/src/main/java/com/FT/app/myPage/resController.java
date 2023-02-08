@@ -67,7 +67,6 @@ public class ResController {
 	public void Test(@RequestBody ResList resList) {
 		System.out.println(resList);
 		resRepository.save(resList);
-		
 	}
 	
 

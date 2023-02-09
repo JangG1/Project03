@@ -97,7 +97,6 @@ export default {
         },
         getUserInfo() {
             if(this.$store.state.isLogin == true){
-                alert("로그인 되었습니다.")
             axios.get('/api/kakao/info')
                 .then((response) => {
                     this.userInfo = response.data

@@ -50,13 +50,18 @@ public class SecurityConfig {
 		http.authorizeRequests().antMatchers("/api/auth/kakao/callback").permitAll();
 				
 		http.authorizeRequests().antMatchers("/api/auth/kakao/callback2").permitAll();
+		
+		http.authorizeRequests().antMatchers("/res/**").permitAll();
+		
+		http.authorizeRequests().antMatchers("/res/resPost").permitAll();
         return http.build();
     }
 
 	// CORS 허용 적용
 	public CorsConfigurationSource configurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.addAllowedOrigin("*");
+		//.allowCredentials와 동시에 사용할 수 없도록 업데이트
+		//configuration.addAllowedOrigin("*");
 		configuration.addAllowedOriginPattern("*");
 		configuration.addAllowedHeader("*");
 		configuration.addAllowedMethod("*");

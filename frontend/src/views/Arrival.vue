@@ -185,7 +185,7 @@ export default {
             let returnInfo = {};
 
             if (this.flight2 == null) {
-                return alert("도착지를 선택해주세요.")
+                return alert("항공편을 선택해주세요.")
             }
 
             returnInfo = {

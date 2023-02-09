@@ -155,44 +155,17 @@ export default {
                 startPrice: this.selectPrice,
             }
 
-            this.$store.dispatch("startInfo", startInfo);
-
-            this.$router.push('Arrival')
-
-            if (this.returnYear == " ") {
-                this.$router.push('Payment')
-            } else if (this.returnYear != " ") {
-                this.$router.push('Arrival')
+            if (this.selectPrice == 0) {
+                return alert("항공편을 선택해주세요.")
             }
 
-            /*this.$router.push({
-                name: path,
-                params: {
-                    flight1: this.flight1,
-                    flight2: flight2,
-                    fromArea: this.fromArea,
-                    toArea: this.toArea,
-                    seat: this.seat,
-                    seatClass1: this.seatClass,                    
-                    seatClass2: seatClass2,
-                    startYear: this.startYear,
-                    startMonth: this.startMonth,
-                    startDay: this.startDay,
-                    startWeek: this.startWeek,
-                    returnYear: this.returnYear,
-                    returnMonth: this.returnMonth,
-                    returnDay: this.returnDay,
-                    returnWeek: this.returnWeek,
-                    AdultCount: this.AdultCount,
-                    ChildCount: this.ChildCount,
-                    InfantCount: this.InfantCount,
-                    startTime1: this.startTime,
-                    arriveTime1: this.arriveTime,
-                    startTime2: startTime2,
-                    arriveTime2: arriveTime2,
-                    startPrice: this.selectPrice,
-                }
-            });*/
+            this.$store.dispatch("startInfo", startInfo);
+
+            if (this.chooseInfo.returnYear == "") {
+                this.$router.push('Payment')
+            } else if (this.chooseInfo.returnYear != " ") {
+                this.$router.push('Arrival')
+            }
 
         }
 

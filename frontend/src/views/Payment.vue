@@ -413,24 +413,24 @@
 </div>
 <div class="payment">
     <div class="pay1">
-        <div class="cardPay" @click="payment">
+        <div class="cardPay" @click="ing">
             신용/체크카드
         </div>
-        <div class="pay" @click="payment">
+        <div class="pay" @click="ing">
             <img src="@/assets/pay/naverPay.png" style="width: 55px; height: 40px; border-radius: 10px;">
             &nbsp; 네이버페이
         </div>
-        <div class="pay" @click="payment">
+        <div class="pay" @click="ing">
             <img src="@/assets/pay/samsungPay.png" style="width: 60px; height: 40px;">
             삼성페이
         </div>
     </div>
     <div class="pay2">
-        <div class="pay" @click="payment">
+        <div class="pay" @click="ing">
             <img src="@/assets/pay/kakaoPay.jpg" style="width: 60px; height: 40px; border-radius: 10px;">
             &nbsp; 카카오페이
         </div>
-        <div class="pay" @click="payment">
+        <div class="pay" @click="ing">
             <img src="@/assets/pay/payco.jpg" style="width: 80px; height: 40px;">
             PAYCO
         </div>
@@ -439,7 +439,7 @@
         </div>
     </div>
     <div class="holdPoint" v-if="PointPaymentInfo">
-        보유하신 포인트 : {{ AddComma2(holdPoint) + "p"}}
+        보유하신 포인트 : {{ holdPoint + "p"}}
         <button type="button" class="addPoint" @click="addPoint">
             포인트 충전하기
         </button>
@@ -454,7 +454,7 @@
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal :PayModalView="PayModalView" :user="user" :engLastName="engLastName1" :engFirstName="engFirstName1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" @close="PayModalPopUp"></PayModal>
+    <PayModal :PayModalView="PayModalView" :engLastName="engLastName1" :engFirstName="engFirstName1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" :totalPoint="totalPoint" @close="PayModalPopUp"></PayModal>
 </div>
 
 <div v-if="IATAModalView == true" class="IATAModalView" :class="{ active : IATAModalView }">
@@ -480,6 +480,7 @@ export default {
             selectPrice: this.startPrice,
             seatPrice: 0,
             price: 0,
+            totalPoint: 0,
             passInfo: true,
             consentInfo: true,
             documentInfo: true,
@@ -505,42 +506,13 @@ export default {
             addPassEngName: [],
             addPassGender: [],
             addPassBirthday: [],
-            user: {
-                flight1: this.flight1,
-                flight2: this.flight2,
-                fromArea: this.fromArea,
-                toArea: this.toArea,
-                seat: this.seat,
-                seatClass1: this.seatClass1,
-                seatClass2: this.seatClass2,
-                startYear: this.startYear,
-                startMonth: this.startMonth,
-                startDay: this.startDay,
-                startWeek: this.startWeek,
-                returnYear: this.returnYear,
-                returnMonth: this.returnMonth,
-                returnDay: this.returnDay,
-                returnWeek: this.returnWeek,
-                AdultCount: this.AdultCount,
-                ChildCount: this.ChildCount,
-                InfantCount: this.InfantCount,
-                startTime1: this.startTime1,
-                arriveTime1: this.arriveTime1,
-                startTime2: this.startTime2,
-                arriveTime2: this.arriveTime2,
-                startPrice: this.startPrice,
-
-                korLastName: this.korLastName1,
-                korFirstName: this.korFirstName1,
-                engLastName: this.engLastName1,
-                engFirstName: this.engFirstName1,
-                gender: this.gender1,
-                birthday: this.birthday1,
-            },
         }
     },
     props: {},
     methods: {
+        ing() {
+            alert("준비중입니다.")
+        },
         isLogin() {
             return this.$store.state.isLogin;
         },
@@ -579,9 +551,6 @@ export default {
                 this.engFirstName1 = ""
             }
         },
-        payment() {
-            alert("준비중입니다.")
-        },
         PointPayment() {
             this.PointPaymentInfo = true
         },
@@ -602,15 +571,19 @@ export default {
             if (this.chooseInfo.ChildCount >= 1 && this.chooseInfo.InfantCount >= 1) {
                 let addPrice1 = price + (num * this.chooseInfo.ChildCount * 0.8);
                 let addPrice2 = addPrice1 + (num * this.chooseInfo.InfantCount * 0.5);
+                this.totalPoint = addPrice2;
                 return addPrice2.toString().replace(regexp, ",");
             } else if (this.chooseInfo.ChildCount >= 1) {
                 let addPrice = price + (num * this.chooseInfo.ChildCount * 0.8);
+                this.totalPoint = addPrice;
                 return addPrice.toString().replace(regexp, ",");
             } else if (this.chooseInfo.InfantCount >= 1) {
                 let addPrice = price + (num * this.chooseInfo.InfantCount * 0.5);
+                this.totalPoint = addPrice;
                 return addPrice.toString().replace(regexp, ",");
             }
-
+            
+            this.totalPoint = price;
             return price.toString().replace(regexp, ",");
         },
         AddComma2(num) {
@@ -703,6 +676,9 @@ export default {
         showPassInfo1() {
             this.passInfo = (this.passInfo) ? false : true
             this.addPas1 = true;
+            if(this.chooseInfo.AdultCount == 1){
+            this.addPas2 = true;
+            }
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -752,9 +728,9 @@ export default {
             }
 
             console.log(value)
-            console.log(Math.max(this.AdultCount))
+            console.log(Math.max(this.chooseInfo.AdultCount))
 
-            if (value == Math.max(this.AdultCount)) {
+            if (value == Math.max(this.chooseInfo.AdultCount)) {
                 this.addpas2 = true
                 this.showPassInfo3(value = 1);
 
@@ -813,7 +789,7 @@ export default {
                 this.arrow = "▼"
             }
 
-            if (value > Math.max(this.ChildCount)) {
+            if (value > Math.max(this.chooseInfo.ChildCount)) {
                 this.addpas3 = true
                 this.showPassInfo4(value = 1);
 
@@ -870,7 +846,7 @@ export default {
                 this.arrow = "▼"
             }
 
-            if (value > Math.max(this.InfantCount)) {
+            if (value > Math.max(this.chooseInfo.InfantCount)) {
                 return this.addPas3 = false;
             }
 
@@ -925,10 +901,10 @@ export default {
                 alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")
             }
 
-            if (this.holdPoint < this.startPrice) {
+            if (this.holdPoint < this.totalPoint) {
                 alert("포인트가 모자랍니다.")
-            } else if (this.holdPoint >= this.startPrice) {
-                if (this.engLastName1 != null && this.engFirstName1 != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
+            } else if (this.holdPoint >= this.totalPoint) {
+                if (this.engLastName1 != null && this.engFirstName1 != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {                    
                     this.PayModalView = (this.PayModalView) ? false : true
                 }
             }

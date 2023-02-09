@@ -10,6 +10,11 @@ export default createStore({
                 'startInfo',
                 'returnInfo',
                 'userInfo', 
+                'engName',
+                'addPassKorName',
+                'addPassEngName',
+                'addPassGender',
+                'addPassBirthday',
                 'access_token', 
                 'refresh_token', 
                 'isLogin', 
@@ -27,9 +32,14 @@ export default createStore({
         chooseInfo: '',
         startInfo: '',
         returnInfo: '',
+        userInfo: '',
+        engName: '',
         access_token: '',
         refresh_token: '',
-        userInfo: null,
+        addPassKorName: '',
+        addPassEngName: '',
+        addPassGender: '',
+        addPassBirthday: '',
         OAuth: null,        
         isLogin: false,
         isLoginError: false,
@@ -54,6 +64,21 @@ export default createStore({
     },
     setReturnInfo(state, payload){
         state.returnInfo = payload
+    },
+    setEngName(state, payload){
+        state.engName = payload
+    },
+    setAddPassKorName(state, payload){
+        state.addPassKorName = payload
+    },
+    setAddPassEngName(state, payload){
+        state.addPassEngName = payload
+    },
+    setAddPassGender(state, payload){
+        state.addPassGender = payload
+    },
+    setAddPassBirthday(state, payload){
+        state.addPassBirthday = payload
     },
     setToken(state, payload) {
         state.access_token = payload
@@ -153,6 +178,21 @@ export default createStore({
         },
         async holdPoint({ commit }, payload) {
             commit('setHoldPoint', payload)
+        },
+        async engName({ commit }, payload) {
+            commit('setEngName', payload)
+        },
+        async addPassKorName({ commit }, payload) {
+            commit('setAddPassKorName', payload)
+        },
+        async addPassEngName({ commit }, payload) {
+            commit('setAddPassEngName', payload)
+        },
+        async addPassGender({ commit }, payload) {
+            commit('setAddPassGender', payload)
+        },
+        async addPassBirthday({ commit }, payload) {
+            commit('setAddPassBirthday', payload)
         },
         async getRefreshToken({ commit }) {
             console.log("getRefreshToken call");

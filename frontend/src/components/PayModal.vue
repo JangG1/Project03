@@ -5,11 +5,10 @@
         <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
-
     <span>
         <div class="infoList">
             <div class="title2">
-                승객 정보 <span v-if="user.AdultCount > 1">1</span>
+                승객 정보 <span v-if="chooseInfo.AdultCount > 1">1</span>
             </div>
             <div class="infoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -19,15 +18,15 @@
             </div>
             <div class="infoRight">
 
-                <span class="listRight">{{user.korLastName}} {{user.korFirstName}}</span><br><br>
+                <span class="listRight">{{userInfo.lastName+userInfo.firstName}}</span><br><br>
                 <span class="listRight">{{engLastName}} {{engFirstName}}</span><br><br>
-                <span class="listRight">{{user.birthday}}</span><br><br>
-                <span class="listRight">{{Gender(user.gender)}}</span>
+                <span class="listRight">{{userInfo.birthday}}</span><br><br>
+                <span class="listRight">{{Gender(userInfo.gender)}}</span>
             </div>
         </div>
     </span>
 
-    <span v-for="(pas,index) in parseInt(user.AdultCount) + parseInt(user.ChildCount) + parseInt(user.InfantCount) - 1" :key="index">
+    <span v-for="(pas,index) in parseInt(chooseInfo.AdultCount) + parseInt(chooseInfo.ChildCount) + parseInt(chooseInfo.InfantCount) - 1" :key="index">
         <div class="infoList">
             <div class="title2">
                 승객 정보 {{ index + 2 }}
@@ -60,19 +59,19 @@
             <span class="listLeft">좌석</span>
         </div>
         <div class="infoRight">
-            <span class="listRight">{{user.flight1}}</span><br><br>
-            <span class="listRight">{{user.fromArea}} &nbsp;→&nbsp; {{user.toArea}}</span><br><br>
-            <span class="listRight">{{user.startYear}}-{{user.startMonth}}-{{user.startDay}}({{user.startWeek}})
-                {{user.startTime1}} ~ {{user.arriveTime1}}</span><br><br>
-            <span class="listRight" v-if="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
-            <span class="listRight" v-if="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
-            <span class="listRight">성인 {{user.AdultCount}} 명 </span>
+            <span class="listRight">{{startInfo.flight1}}</span><br><br>
+            <span class="listRight">{{chooseInfo.fromArea}} &nbsp;→&nbsp; {{chooseInfo.toArea}}</span><br><br>
+            <span class="listRight">{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})
+                {{startInfo.startTime1}} ~ {{startInfo.arriveTime1}}</span><br><br>
+            <span class="listRight" v-if="chooseInfo.InfantCount > 0">, 소아 {{chooseInfo.InfantCount}}명</span>
+            <span class="listRight" v-if="chooseInfo.ChildCount > 0">, 유아 {{chooseInfo.ChildCount}}명</span>
+            <span class="listRight">성인 {{chooseInfo.AdultCount}} 명 </span>
             <br><br>
-            <span class="listRight">{{user.seat}} {{user.seatClass1}}</span>
+            <span class="listRight">{{chooseInfo.seat}} {{startInfo.seatClass1}}</span>
         </div>
     </div>
 
-    <div class="areaList" v-if="user.returnYear != ' '">
+    <div class="areaList" v-if="chooseInfo.returnYear != ' '">
         <div class="title2">
             오는편
         </div>
@@ -84,15 +83,15 @@
             <span class="listLeft">좌석</span>
         </div>
         <div class="infoRight">
-            <span class="listRight">{{user.flight2}}</span><br><br>
-            <span class="listRight">{{user.toArea}} &nbsp;→&nbsp; {{user.fromArea}}</span><br><br>
-            <span class="listRight">{{user.returnYear}}-{{user.returnMonth}}-{{user.returnDay}}({{user.returnWeek}})
-                {{user.startTime2}} ~ {{user.arriveTime2}}</span><br><br>
-            <span class="listRight" v-if="user.InfantCount > 0">, 소아 {{user.InfantCount}}명</span>
-            <span class="listRight" v-if="user.ChildCount > 0">, 유아 {{user.ChildCount}}명</span>
-            <span class="listRight">성인 {{user.AdultCount}}명</span>
+            <span class="listRight">{{returnInfo.flight2}}</span><br><br>
+            <span class="listRight">{{chooseInfo.toArea}} &nbsp;→&nbsp; {{chooseInfo.fromArea}}</span><br><br>
+            <span class="listRight">{{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})
+                {{returnInfo.startTime2}} ~ {{returnInfo.arriveTime2}}</span><br><br>
+            <span class="listRight" v-if="chooseInfo.InfantCount > 0">, 소아 {{chooseInfo.InfantCount}}명</span>
+            <span class="listRight" v-if="chooseInfo.ChildCount > 0">, 유아 {{chooseInfo.ChildCount}}명</span>
+            <span class="listRight">성인 {{chooseInfo.AdultCount}}명</span>
             <br><br>
-            <span class="listRight">{{user.seat}} {{user.seatClass2}}</span>
+            <span class="listRight">{{chooseInfo.seat}} {{returnInfo.seatClass2}}</span>
         </div>
     </div>
     <br>
@@ -107,11 +106,10 @@
         </div>
         <div class="infoRight">
             <span class="listRight">포인트 결제</span><br><br>
-            <span class="listRight">{{holdPoint - user.startPrice}}</span><br><br>
+            <span class="listRight">{{holdPoint - totalPoint}}</span><br><br>
         </div>
     </div>
 
-    <!--submit-->
     <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
 </div>
 </template>
@@ -126,6 +124,10 @@ export default {
     },
     data() {
         return {
+            chooseInfo: this.$store.state.chooseInfo,
+            startInfo: this.$store.state.startInfo,
+            returnInfo: this.$store.state.returnInfo,
+            userInfo: this.$store.state.userInfo,
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
@@ -133,10 +135,6 @@ export default {
         }
     },
     props: {
-        user: {
-            type: String,
-            default: ''
-        },
         engLastName: {
             type: String,
             default: ''
@@ -161,90 +159,13 @@ export default {
             type: String,
             default: ''
         },
+        totalPoint: {
+            type: String,
+            default: ''
+        },
 
     },
     methods: {
-        test2() {
-            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
-            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
-          
-            console.log(this.$store.state.userInfo.email)
-            console.log(this.user.korLastName + this.user.korFirstName)
-            console.log(this.engLastName + " " + this.engFirstName)
-            console.log(this.user.gender)
-            console.log(this.user.birthday)
-
-            console.log(this.addPassKorName)
-            console.log(this.addPassEngName)
-            console.log(this.addPassGender)
-            console.log(this.addPassBirthday)
-
-            console.log(this.user.seat)
-            console.log(this.user.seatClass1)
-            console.log(this.user.seatClass2)
-            console.log(this.way)
-            console.log(this.user.flight1)
-            console.log(this.user.flight2)
-            console.log(this.user.fromArea)
-            console.log(this.user.toArea)
-            console.log(startDate)
-            console.log(returnDate)
-            console.log(this.user.InfantCount)
-            console.log(this.user.ChildCount)
-            console.log(this.user.AdultCount)
-            console.log(this.user.startTime1)
-            console.log(this.user.arriveTime1)
-            console.log(this.user.startTime2)
-            console.log(this.user.arriveTime2)
-        },
-        test() {
-            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
-            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
-
-            if (this.user.returnYear != " ") {
-                this.way = "왕복"
-            } else {
-                this.way = "편도";
-            }
-
-            console.log(this.name)
-            console.log(this.$store.state.userInfo.email)
-            for (let i = 0; i <= parseInt(this.user.AdultCount) - 2; i++) {
-                console.log(this.name[i])
-
-                let name = this.name[i]
-                console.log("name " + name)
-            }
-            for (let i = this.user.AdultCount; i >= parseInt(this.user.AdultCount); --i) {
-                console.log(this.name[i])
-                let birthday = this.name[i]
-                console.log("birthday " + birthday)
-            }
-            for (let i = this.user.AdultCount - 1; i >= parseInt(this.user.AdultCount) - 1; --i) {
-                console.log(this.name[i])
-                let gender = this.name[i]
-                console.log("gender " + gender)
-            }
-
-            console.log(this.user.seat)
-            console.log(this.user.seatClass1)
-            console.log(this.user.seatClass2)
-            console.log(this.way)
-            console.log(this.user.flight1)
-            console.log(this.user.flight2)
-            console.log(this.user.fromArea)
-            console.log(this.user.toArea)
-            console.log(startDate)
-            console.log(returnDate)
-            console.log(this.user.InfantCount)
-            console.log(this.user.ChildCount)
-            console.log(this.user.AdultCount)
-            console.log(this.user.startTime1)
-            console.log(this.user.arriveTime1)
-            console.log(this.user.startTime2)
-            console.log(this.user.arriveTime2)
-
-        },
         closeModal() {
             this.$emit('close')
         },
@@ -260,124 +181,68 @@ export default {
         submit() {
             alert("예약하시겠습니까?")
 
-            const startDate = this.user.startYear + "-" + this.user.startMonth + "-" + this.user.startDay + '(' + this.user.startWeek + ')';
-            const returnDate = this.user.returnYear + "-" + this.user.returnMonth + "-" + this.user.returnDay + '(' + this.user.returnWeek + ')';
+            const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
+            const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
+            
+            let engName = this.engLastName + " " + this.engFirstName;
+            let addPassKorName = this.addPassKorName;
+            let addPassEngName = this.addPassEngName;
+            let addPassGender = this.addPassGender;
+            let addPassBirthday = this.addPassBirthday;
 
-            if (this.user.returnYear != " ") {
+            if (this.chooseInfo.returnYear != " ") {
                 this.way = "왕복"
             } else {
                 this.way = "편도";
             }
            
              axios.post("/res/resPost", {
-                    email: this.$store.state.userInfo.email,
-                    korName: this.user.korLastName + this.user.korFirstName,
-                    engName: this.engLastName + " " + this.engFirstName,
-                    gender: this.user.gender,
-                    birthday: this.user.birthday,
-                    addPassKorName: this.addPassKorName,
-                    addPassEngName: this.addPassEngName,
-                    addPassGender: this.addPassGender,
-                    addPassBirthday: this.addPassBirthday,                    
-                    seat: this.user.seat,
-                    seatClass1: this.user.seatClass1,
-                    seatClass2: this.user.seatClass2,
+                    email: this.userInfo.email,
+                    korName: this.userInfo.lastName + this.userInfo.firstName,
+                    engName: engName,
+                    gender: this.userInfo.gender,
+                    birthday: this.userInfo.birthday,
+                    addPassKorName: addPassKorName,
+                    addPassEngName: addPassEngName,
+                    addPassGender: addPassGender,
+                    addPassBirthday: addPassBirthday,                    
+                    seat: this.chooseInfo.seat,
+                    seatClass1: this.startInfo.seatClass1,
+                    seatClass2: this.returnInfo.seatClass2,
                     way: this.way,
-                    flight1: this.user.flight1,
-                    flight2: this.user.flight2,
-                    fromArea: this.user.fromArea,
-                    toArea: this.user.toArea,
-                    oneWayArea: " ",
+                    flight1: this.startInfo.flight1,
+                    flight2: this.returnInfo.flight2,
+                    fromArea: this.chooseInfo.fromArea,
+                    toArea: this.chooseInfo.toArea,
+                    oneWayArea: "",
                     startDate: startDate,
                     returnDate: returnDate,
-                    infantCount: this.user.InfantCount,
-                    childCount: this.user.ChildCount,
-                    adultCount: this.user.AdultCount,
-                    startTime1: this.user.startTime1,
-                    arriveTime1: this.user.arriveTime1,
-                    startTime2: this.user.startTime2,
-                    arriveTime2: this.user.arriveTime2
+                    infantCount: this.chooseInfo.InfantCount,
+                    childCount: this.chooseInfo.ChildCount,
+                    adultCount: this.chooseInfo.AdultCount,
+                    startTime1: this.startInfo.startTime1,
+                    arriveTime1: this.startInfo.arriveTime1,
+                    startTime2: this.returnInfo.startTime2,
+                    arriveTime2: this.returnInfo.arriveTime2
                 })
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")
+                    this.$store.dispatch("engName", engName)
+                    this.$store.dispatch("addPassKorName", addPassKorName)
+                    this.$store.dispatch("addPassEngName", addPassEngName)
+                    this.$store.dispatch("addPassGender", addPassGender)
+                    this.$store.dispatch("addPassBirthday", addPassBirthday)
+                    this.$router.push('Complete')
                 })
                 .catch(err => {
                     console.log(err)
                     console.log("안보내짐")
-                })
+                })                
 
-            let usePoint = this.holdPoint - this.user.startPrice
+            let usePoint = this.holdPoint - this.totalPrice
             this.$store.dispatch("holdPoint", usePoint);
-
-            this.$router.push({
-                name: 'Complete',
-                params: {
-                    korName: this.user.korLastName + this.user.korFirstName,
-                    engName: this.engLastName + " " + this.engFirstName,
-                    gender: this.user.gender,
-                    birthday: this.user.birthday,
-                    addPassKorName: JSON.stringify(this.addPassKorName),
-                    addPassEngName: JSON.stringify(this.addPassEngName),
-                    addPassGender: JSON.stringify(this.addPassGender),
-                    addPassBirthday: JSON.stringify(this.addPassBirthday),                    
-                    seat: this.user.seat,
-                    seatClass1: this.user.seatClass1,
-                    seatClass2: this.user.seatClass2,
-                    way: this.way,
-                    flight1: this.user.flight1,
-                    flight2: this.user.flight2,
-                    fromArea: this.user.fromArea,
-                    toArea: this.user.toArea,
-                    oneWayArea: " ",
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    infantCount: this.user.InfantCount,
-                    childCount: this.user.ChildCount,
-                    adultCount: this.user.AdultCount,
-                    startTime1: this.user.startTime1,
-                    arriveTime1: this.user.arriveTime1,
-                    startTime2: this.user.startTime2,
-                    arriveTime2: this.user.arriveTime2
-                }
-            });
-
-        },
-        testSend() {
-            this.$router.push({
-                name: 'Complete',
-                params: {
-                    korFirstName: this.user.korFirstName1,
-                    korLastName: this.user.korLastName1,
-                    engFirstName: this.engFirstName,
-                    engLastName: this.engLastName,
-                    gender: this.user.gender,
-                    birthday: this.user.birthday,
-                    seat: this.user.seat,
-                    seatClass1: this.user.seatClass1,
-                    seatClass2: this.user.seatClass2,
-                    way: this.way,
-                    flight1: this.user.flight1,
-                    flight2: this.user.flight2,
-                    fromArea: this.user.fromArea,
-                    toArea: this.user.toArea,
-                    startYear: this.user.startYear,
-                    startMonth: this.user.startMonth,
-                    startDay: this.user.startDay,
-                    startWeek: this.user.startWeek,
-                    returnYear: this.user.returnYear,
-                    returnMonth: this.user.returnMonth,
-                    returnDay: this.user.returnDay,
-                    returnWeek: this.user.returnWeek,
-                    InfantCount: this.user.InfantCount,
-                    ChildCount: this.user.ChildCount,
-                    AdultCount: this.user.AdultCount,
-                    startTime1: this.user.startTime1,
-                    arriveTime1: this.user.arriveTime1,
-                    startTime2: this.user.startTime2,
-                    arriveTime2: this.user.arriveTime2
-                }
-            });
+                    
         },
     },
 }

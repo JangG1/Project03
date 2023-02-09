@@ -8,52 +8,56 @@
         <div class="blank">
             blank
         </div>
-        <div class="right">
-            <div class="payInfo">
+        <div class="pRight">
+            <div class="pPayInfo">
                 <h5>항공 운송료 </h5><br>
-                <span>운임</span><span class="price">{{Fare(startPrice)}}</span><br>
-                <span>유류할증료</span><span class="price">{{Fuel(startPrice)}}</span><br>
-                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(startPrice)}}</span><br>
+                <span>운임</span><span class="price">{{Fare(returnInfo.totalPrice)}}</span><br>
+                <span>유류할증료</span><span class="price">{{Fuel(returnInfo.totalPrice)}}</span><br>
+                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(returnInfo.totalPrice)}}</span><br>
                 <hr>
-                <span>성인</span> {{this.AdultCount}} 명<span class="price">{{Format1(startPrice)}}</span><br>
-                <span v-if="ChildCount >= 1">유아 {{this.ChildCount}} 명</span><span class="price">{{Format2(startPrice)}}</span><br>
-                <span v-if="InfantCount >= 1">소아 {{this.InfantCount}} 명</span><span class="price">{{Format3(startPrice)}}</span><br>
+                <span>성인</span> {{chooseInfo.AdultCount}} 명<span class="price">{{Format1(returnInfo.totalPrice)}}</span><br>
+                <span v-if="chooseInfo.ChildCount >= 1">유아 {{chooseInfo.ChildCount}} 명</span><span class="price">{{Format2(returnInfo.totalPrice)}}</span><br>
+                <span v-if="chooseInfo.InfantCount >= 1">소아 {{chooseInfo.InfantCount}} 명</span><span class="price">{{Format3(returnInfo.totalPrice)}}</span><br>
             </div>
-            <div class="totalPrice">
-                <span class="total">총액</span><span class="price">{{AddComma1(startPrice)}} 원</span>
+            <div class="pTotalPrice">
+                <span class="pTotal">총액</span><span class="price">{{AddComma1(returnInfo.totalPrice)}} 원</span>
             </div>
         </div>
-        <div class="schedule">
-            여행 일정
+
+        <div class="pLeft">
+            <div class="pSchedule">
+                여행 일정
+            </div>
+            <button type="button">
+                <div class="pInfo1">
+                    {{chooseInfo.fromArea}} &nbsp;
+                    <img src="../assets/arrow2.jpg"> &nbsp;
+                    {{chooseInfo.toArea}}
+                </div>
+                <img src="../assets/vertical.jpg" width="12" class="ver">
+                <div class="pInfo2">
+                    <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
+                    <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
+                    <span v-if="returnYear != ' '"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
+                </div>
+                <img src="../assets/vertical.jpg" width="12" class="ver">
+                <div class="pInfo3">
+                    <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
+                    성인 {{chooseInfo.AdultCount}}명
+                    <span v-if="chooseInfo.ChildCount > 0">
+                        , 유아 {{chooseInfo.ChildCount}}명
+                    </span>
+                    <span v-if="chooseInfo.InfantCount > 0">
+                        , 소아 {{chooseInfo.InfantCount}}명
+                    </span>
+                </div>
+            </button>
         </div>
-        <button type="button">
-            <div class="pInfo1">
-                {{fromArea}} &nbsp;
-                <img src="../assets/arrow2.jpg"> &nbsp;
-                {{toArea}}
-            </div>
-            <img src="../assets/vertical.jpg" width="12" class="ver">
-            <div class="pInfo2">
-                <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span>
-                <span v-if="returnYear != ' '"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
-            </div>
-            <img src="../assets/vertical.jpg" width="12" class="ver">
-            <div class="pInfo3">
-                <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                성인 {{AdultCount}}명
-                <span v-if="ChildCount > 0">
-                    , 유아 {{ChildCount}}명
-                </span>
-                <span v-if="InfantCount > 0">
-                    , 소아 {{InfantCount}}명
-                </span>
-            </div>
-        </button>
     </div>
 
     <br><br>
-    <div class="startInfoTitle">
+
+    <div class="pStartInfoTitle">
         여정 정보
     </div>
     <div class="pStartInfo">
@@ -63,15 +67,15 @@
             </div>
             <span>│</span>
             <div class="pStartInfo1">
-                {{fromArea}} &nbsp;
+                {{chooseInfo.fromArea}} &nbsp;
                 →&nbsp;
-                {{toArea}}
+                {{chooseInfo.toArea}}
                 &nbsp;&nbsp;{{ flight1 }}
             </div>
             <span>│</span>
             <div class="pStartInfo2">
-                {{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})
-                {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
+                {{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})
+                {{startInfo.startTime1}} ~ {{startInfo.arriveTime1}} &nbsp; {{chooseInfo.seat}} {{startInfo.seatClass1}}
             </div>
 
         </button>
@@ -86,15 +90,15 @@
             </div>
             <span>│</span>
             <div class="pArriveInfo1">
-                {{toArea}} &nbsp;
+                {{chooseInfo.toArea}} &nbsp;
                 →&nbsp;
-                {{fromArea}}
+                {{chooseInfo.fromArea}}
                 &nbsp;&nbsp; {{ flight2 }}
             </div>
             <span>│</span>
             <div class="pArriveInfo2">
-                {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})
-                {{startTime2}} ~ {{arriveTime2}} &nbsp; {{seat}} {{seatClass2}}
+                {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})
+                {{returnInfo.startTime2}} ~ {{returnInfo.arriveTime2}} &nbsp; {{chooseInfo.seat}} {{returnInfo.seatClass2}}
             </div>
 
         </button>
@@ -174,7 +178,7 @@
     </div>
 
     <!--추가 예약자 정보(성인)-->
-    <div class="passengerBox" v-for="(pas, index) in parseInt(AdultCount)-1" :key="index">
+    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.AdultCount)-1" :key="index">
         <div class="passengerTitle" @click="showPassInfo2(pas)">
             <span>
                 성인 {{ (pas + 1) }}
@@ -231,7 +235,7 @@
     </div>
 
     <!--추가 예약자 정보(유아)-->
-    <div class="passengerBox" v-for="(pas, index) in parseInt(ChildCount)" :key="index">
+    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.ChildCount)" :key="index">
         <div class="passengerTitle" @click="showPassInfo2(pas)">
             <span>
                 유아 {{ pas }}
@@ -288,7 +292,7 @@
     </div>
 
     <!--추가 예약자 정보(소아)-->
-    <div class="passengerBox" v-for="(pas, index) in parseInt(InfantCount)" :key="index">
+    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.InfantCount)" :key="index">
         <div class="passengerTitle" @click="showPassInfo4(pas + 1)">
             <span>
                 소아 {{ pas }}
@@ -442,10 +446,9 @@
     </div>
 </div>
 
-<!--footer-->
 <div class="payFootNav">
     <div class="payFootNav1">예상 결제 금액</div>
-    <div class="payStartPrice">{{AddComma1(startPrice)}} 원</div>
+    <div class="payStartPrice">{{AddComma1(returnInfo.totalPrice)}} 원</div>
 
     <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
@@ -457,7 +460,6 @@
 <div v-if="IATAModalView == true" class="IATAModalView" :class="{ active : IATAModalView }">
     <IATAModal @close="IATAModalPopUp"></IATAModal>
 </div>
-<!--test-->
 </template>
 
 <script>
@@ -472,11 +474,12 @@ export default {
     },
     data() {
         return {
-            start: '',
-            arrive: '',
-            price: '',
+            chooseInfo: this.$store.state.chooseInfo,
+            startInfo: this.$store.state.startInfo,
+            returnInfo: this.$store.state.returnInfo,
             selectPrice: this.startPrice,
             seatPrice: 0,
+            price: 0,
             passInfo: true,
             consentInfo: true,
             documentInfo: true,
@@ -536,109 +539,24 @@ export default {
             },
         }
     },
-    props: {
-        flight1: {
-            type: String,
-            default: ''
-        },
-        flight2: {
-            type: String,
-            default: ''
-        },
-        fromArea: {
-            type: String,
-            default: ''
-        },
-        toArea: {
-            type: String,
-            default: ''
-        },
-        seat: {
-            type: String,
-            default: ''
-        },
-        seatClass1: {
-            type: String,
-            default: ''
-        },
-        seatClass2: {
-            type: String,
-            default: ''
-        },
-        startYear: {
-            type: String,
-            default: ''
-        },
-        startMonth: {
-            type: String,
-            default: ''
-        },
-        startDay: {
-            type: String,
-            default: ''
-        },
-        startWeek: {
-            type: String,
-            default: ''
-        },
-        returnYear: {
-            type: String,
-            default: ''
-        },
-        returnMonth: {
-            type: String,
-            default: ''
-        },
-        returnDay: {
-            type: String,
-            default: ''
-        },
-        returnWeek: {
-            type: String,
-            default: ''
-        },
-        AdultCount: {
-            type: Number
-        },
-        ChildCount: {
-            type: Number
-        },
-        InfantCount: {
-            type: Number
-        },
-        startTime1: {
-            type: String
-        },
-        arriveTime1: {
-            type: String
-        },
-        startTime2: {
-            type: String
-        },
-        arriveTime2: {
-            type: String
-        },
-        startPrice: {
-            type: Number
-        },
-    },
+    props: {},
     methods: {
         isLogin() {
             return this.$store.state.isLogin;
         },
         Format1(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            let price = value * this.AdultCount;
+            let price = value * this.chooseInfo.AdultCount;
             return price.toString().replace(regexp, ",") + " 원";
         },
         Format2(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            let price = (value * 0.8) * this.ChildCount;
+            let price = (value * 0.8) * this.chooseInfo.ChildCount;
             return "(-20%)" + price.toString().replace(regexp, ",") + " 원";
         },
         Format3(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            let price = (value * 0.5) * this.InfantCount;
+            let price = (value * 0.5) * this.chooseInfo.InfantCount;
             return "(-50%)" + price.toString().replace(regexp, ",") + " 원";
         },
         engLastNameTest() {
@@ -679,17 +597,17 @@ export default {
         },
         AddComma1(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            let price = num * this.AdultCount;
+            let price = num * this.chooseInfo.AdultCount;
 
-            if (this.ChildCount >= 1 && this.InfantCount >= 1) {
-                let addPrice1 = price + (num * this.ChildCount * 0.8);
-                let addPrice2 = addPrice1 + (num * this.InfantCount * 0.5);
+            if (this.chooseInfo.ChildCount >= 1 && this.chooseInfo.InfantCount >= 1) {
+                let addPrice1 = price + (num * this.chooseInfo.ChildCount * 0.8);
+                let addPrice2 = addPrice1 + (num * this.chooseInfo.InfantCount * 0.5);
                 return addPrice2.toString().replace(regexp, ",");
-            } else if (this.ChildCount >= 1) {
-                let addPrice = price + (num * this.ChildCount * 0.8);
+            } else if (this.chooseInfo.ChildCount >= 1) {
+                let addPrice = price + (num * this.chooseInfo.ChildCount * 0.8);
                 return addPrice.toString().replace(regexp, ",");
-            } else if (this.InfantCount >= 1) {
-                let addPrice = price + (num * this.InfantCount * 0.5);
+            } else if (this.chooseInfo.InfantCount >= 1) {
+                let addPrice = price + (num * this.chooseInfo.InfantCount * 0.5);
                 return addPrice.toString().replace(regexp, ",");
             }
 
@@ -1087,7 +1005,31 @@ export default {
     /*스크롤바 트랙 색상*/
 }
 
+.pStep {
+    float: right;
+    margin-right: 5%;
+    font-size: 30px;
+    display: flex;
+}
+
+/*.pRight,
+    .pPayInfo,
+    .pPayInfo h5,
+    .pTotal,
+    .pTotalPrice,
+    .pPayInfo,
+    .pTotalPrice {
+        color: white;        
+    }*/
+
 @media (min-width: 2050px) {
+    .pStep {
+        float: right;
+        margin-right: 10%;
+        font-size: 30px;
+        display: flex;
+    }
+
     .IATAModalView {
         padding: 20px;
         width: 50%;
@@ -1098,69 +1040,53 @@ export default {
         overflow: hidden;
     }
 
-}
-
-#hint {
-    font-size: 18px;
-    color: teal;
-}
-
-.pStep {
-    float: right;
-    margin-right: 200px;
-    font-size: 30px;
-    display: flex;
-}
-
-.payInfo {
-    color: white;
-}
-
-.totalPrice {
-    color: white;
-}
-
-@media (min-width: 1970px) {
-    .pStep {
-        float: right;
-        margin-right: 200px;
-        font-size: 30px;
-        display: flex;
+    #hint {
+        font-size: 18px;
+        color: teal;
     }
 
-    .right {
+}
+
+.pRight {
+    width: 1%;
+    height: 1px;
+    overflow: hidden;
+}
+
+@media (min-width: 1870px) {
+    .pRight {
+        width: 22.3%;
+        height: 470px;
         float: right;
-        margin-right: 140px;
-        margin-top: 40px;
+        margin-right: 2.5%;
+        margin-top: 2%;
         padding: 40px 0;
         background-color: rgba(34, 168, 168, 0.689);
         border-radius: 10px;
-
     }
 
-    .payInfo {
+    .pPayInfo {
         border-left: none;
         border-right: none;
-        width: 400px;
+        width: 360px;
         height: 300px;
-        padding-left: 25px;
-        padding-right: 25px;
+        padding-left: 7%;
         font-size: 19px;
-        color: white;
         font-weight: 900;
+        color: white;
     }
 
-    .payInfo h5 {
+    .pPayInfo h5 {
         font-weight: 900;
         font-size: 24px;
     }
 
-    .total {
+    .pTotal {
         font-weight: 900;
         color: white;
     }
 
-    .totalPrice {
+    .pTotalPrice {
         border-top: 0.1px solid rgb(217, 217, 217);
         width: 400px;
         height: 80px;
@@ -1171,6 +1097,13 @@ export default {
         font-weight: 900;
     }
 
+    .pPayInfo {
+        color: white;
+    }
+
+    .pTotalPrice {
+        color: white;
+    }
 }
 
 .step3 {
@@ -1205,7 +1138,7 @@ h4 {
 
 }
 
-.schedule {
+.pSchedule {
     color: teal;
     font-size: 25px;
     font-weight: 900;
@@ -1243,7 +1176,7 @@ h4 {
     border: 2px solid teal;
 }
 
-.startInfoTitle,
+.pStartInfoTitle,
 .consentInfoTitle {
     color: black;
     color: teal;

@@ -1,9 +1,9 @@
 <template>
-    <div class="layerPopup" v-show="isLoading">
-        <div class="spinner"></div>
-    </div>
+<div class="layerPopup" v-show="isLoading">
+    <div class="spinner"></div>
+</div>
 <div>
-    
+
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- 로고 -->
@@ -21,8 +21,8 @@
             <!--로그인-->
             <div class="email" v-if="isLogin">{{ this.$store.state.userInfo.email }} 님</div>
             <div class="loginBtn" @click="loginModal = true">
-                <ProfileItem :profile="getProfile" :email="getEmail" />                
-            </div>            
+                <ProfileItem :profile="getProfile" :email="getEmail" />
+            </div>
             <!--로그아웃-->
             <div class="logoutBtn" @click="logout" v-if="isLogin">
                 로그아웃
@@ -39,22 +39,23 @@
 
     <router-view></router-view>
 
-    
 </div>
 </template>
 
 <script>
 import ProfileItem from "@/components/ProfileItem.vue";
 import LoginModal from "@/components/LoginModal.vue";
+import axios from 'axios';
 
 export default {
     name: "App",
     data() {
         return {
-            loginModal: false,            
+            loginModal: false,
         };
     },
-    mounted() {        
+    mounted() {
+        this.getUserInfo();
     },
     components: {
         ProfileItem,
@@ -73,12 +74,16 @@ export default {
             return value = this.$store.state.userInfo.email;
         },
         isLogin() {
+            if(this.$store.state.isLogin == true){
+                alert("로그인 되었습니다.")
+            }
             return this.$store.state.isLogin;
         },
         isLoading() {
             console.log("loading " + this.$store.state.isLoad);
             return this.$store.state.isLoad;
         },
+
     },
     methods: {
         logout() {
@@ -89,6 +94,18 @@ export default {
             localStorage.clear(); // 전체삭제
 
             this.$router.go("/");
+        },
+        getUserInfo() {
+            if(this.$store.state.isLogin == true){
+                alert("로그인 되었습니다.")
+            axios.get('/api/kakao/info')
+                .then((response) => {
+                    this.userInfo = response.data
+                    console.log(this.userInfo)
+                    this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
+                    this.$store.dispatch("loginSuccess");
+                })
+            }
         },
     },
 };
@@ -117,7 +134,7 @@ export default {
     margin-left: 1%;
 }
 
-.email{
+.email {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(95, 95, 95);
     padding: 3%;

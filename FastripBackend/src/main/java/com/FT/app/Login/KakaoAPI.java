@@ -30,7 +30,7 @@ public class KakaoAPI {
 	private UserService userService;
 	
 	//인가코드 받은 후 유저정보 및 토큰 전달
-	public  User KakaoAPI(String code) {
+	public  User KakaoAPI(String code,String redNum) { //redNum = redirectNumber
 		System.out.println("여기는 API : " + code);
 		
 		RestTemplate rt = new RestTemplate();
@@ -43,7 +43,7 @@ public class KakaoAPI {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", "89675f71eb67437191dff96a64831fe8");
-		params.add("redirect_uri", "http://localhost:8200/api/auth/kakao/callback");
+		params.add("redirect_uri", "http://localhost:8200/api/auth/kakao/callback"+redNum);
 		params.add("code", code);
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기

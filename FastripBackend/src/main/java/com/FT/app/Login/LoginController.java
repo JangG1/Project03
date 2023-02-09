@@ -106,7 +106,9 @@ public class LoginController {
 
 		KakaoAPI kakaoAPI = new KakaoAPI();
 		//KakaoAPI 인가 코드 전송 및 유저 정보 응답
-		User kakaoUser = (User) kakaoAPI.KakaoAPI(code);
+		String redNum = ""; //redNum = redirectNumber
+		
+		User kakaoUser = (User) kakaoAPI.KakaoAPI(code,redNum);
 		
 		// 기존 회원 찾기(중복)
 		User originUser = userService.회원찾기(kakaoUser.getEmail());
@@ -135,27 +137,28 @@ public class LoginController {
 	public @ResponseBody RedirectView kakaoCallback2(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println("인가 코드 : " + code);
 
-		KakaoAPI kakaoAPI = new KakaoAPI();
+		KakaoAPI kakaoAPI2 = new KakaoAPI();
 		//KakaoAPI 인가 코드 전송 및 유저 정보 응답		
 		System.out.println("1");
-		System.out.println(kakaoAPI);
-		User kakaoUser = (User) kakaoAPI.KakaoAPI(code);
-		System.out.println("2");
+		String redNum = "2"; //redNum = redirectNumber
+		
+		User kakaoUser2 = (User) kakaoAPI2.KakaoAPI(code, redNum); 
+		System.out.println("2" + kakaoUser2);
 		// 기존 회원 찾기(중복)
-		User originUser = userService.회원찾기(kakaoUser.getEmail());
+		User originUser = userService.회원찾기(kakaoUser2.getEmail());
 		System.out.println("3");
 		// 기존 회원 아닐시 새로 등록
 		if (originUser.getEmail() == null) {
 			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
-			userService.회원가입(kakaoUser);
+			userService.회원가입(kakaoUser2);
 		}
 
 		System.out.println("자동 로그인을 진행합니다.");
-		System.out.println("id : " + kakaoUser.getId());
+		System.out.println("id : " + kakaoUser2.getId());
 
 		// 프론트로 리다이렉트 
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:8080/");
+		redirectView.setUrl("http://localhost:8080/Arrival");
 		return redirectView;
 	}
 	

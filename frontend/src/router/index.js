@@ -28,31 +28,31 @@ const routes = [
     component: () => import('../views/Test.vue')
   },
   {
-    path: '/Departure/:fromArea/:toArea/:seat/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount',
+    path: '/Departure',
     name: 'Departure',
     component: () => import('../views/Departure.vue'),
     props: true
   },  
   {
-    path: '/Arrival/:flight1/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2',
+    path: '/Arrival',
     name: 'Arrival',
     component: () => import('../views/Arrival.vue'),
     props: true
   },
   {
-    path: '/Payment/:flight1/:flight2/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2',
+    path: '/Payment',
     name: 'Payment',
     component: () => import('../views/Payment.vue'),
     props: true
   },
   {
-    path: '/PayModal/:flight1/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korName/:engName/:gender/:birthday/:addPassKorName/:addPassEngName/:addPassGender/:addPassBirthday',
+    path: '/PayModal',
     name: 'PayModal',
     component: () => import('@/components/PayModal.vue'),
     props: true
   },
   {
-    path: '/Complete/:flight1/:flight2/:fromArea/:toArea/:seat/:seatClass1/:seatClass2/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount/:startTime1/:arriveTime1/:startPrice/:startTime2/:arriveTime2/:korName/:engName/:gender/:birthday/:addPassKorName/:addPassEngName/:addPassGender/:addPassBirthday',
+    path: '/Complete',
     name: 'Complete',
     component: () => import('@/views/Complete.vue'),
     props: true

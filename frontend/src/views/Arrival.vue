@@ -3,50 +3,50 @@
     <div class="step">
         <div>① 검색</div> &nbsp; <div class="step2">❷ 항공편</div> &nbsp; <div>③ 결제</div>
     </div>
-    <div class="schedule">
+    <div class="arrSchedule">
         여행 일정
     </div>
-    <div class="info">
+    <div class="arrInfo">
         <button type="button">
             <div class="info1">
-                {{fromArea}} &nbsp;
+                {{chooseInfo.fromArea}} &nbsp;
                 <img src="../assets/arrow2.jpg"> &nbsp;
-                {{toArea}}
+                {{chooseInfo.toArea}}
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
-                <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span>
-                <span v-if="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
+                <img class="arrInfoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
+                <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
+                <span v-if="chooseInfo.returnYear"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
-                <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                성인 {{AdultCount}}명
-                <span v-if="ChildCount > 0">
-                    , 유아 {{ChildCount}}명
+                <img class="arrInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
+                성인 {{chooseInfo.AdultCount}}명
+                <span v-if="chooseInfo.ChildCount > 0">
+                    , 유아 {{chooseInfo.ChildCount}}명
                 </span>
-                <span v-if="InfantCount > 0">
-                    , 소아 {{InfantCount}}명
+                <span v-if="chooseInfo.InfantCount > 0">
+                    , 소아 {{chooseInfo.InfantCount}}명
                 </span>
             </div>
         </button>
     </div>
     <br>
-    <div class="startInfo">
+    <div class="arrStartInfo">
         <button type="button">
             <div>
                 가는 편
             </div>
             <span>│</span>
             <div class="startInfo1">
-                {{fromArea}} &nbsp;
+                {{chooseInfo.fromArea}} &nbsp;
                 →&nbsp;
-                {{toArea}}
+                {{chooseInfo.toArea}}
             </div>
             <span>│</span>
             <div class="startInfo2">
-                {{startDate}} {{startTime1}} ~ {{arriveTime1}} &nbsp; {{seat}} {{seatClass1}}
+                {{chooseInfo.startDate}} {{startInfo.startTime1}} ~ {{startInfo.arriveTime1}} &nbsp; {{chooseInfo.seat}} {{startInfo.seatClass1}}
             </div>
 
         </button>
@@ -56,7 +56,7 @@
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
                 <h3>{{res.start}}</h3>
-                <span> {{ fromArea }}</span>
+                <span> {{ chooseInfo.fromArea }}</span>
                 <div class="flight">
                     <img src="@/assets/Logo.png" class="flightLogo">
                     {{ res.flight }}
@@ -65,12 +65,12 @@
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
             <div class="arriveTime">
                 <h3>{{res.arrive}} </h3>
-                <span>{{ toArea }}</span>
+                <span>{{ chooseInfo.toArea }}</span>
             </div>
         </div>
 
         <button type="button" class="seatSelect" @click="[selectStandard(index),selectFlight(index)]">
-            <h3>{{seat}} {{res.standard}}
+            <h3>{{chooseInfo.seat}} {{res.standard}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
@@ -79,7 +79,7 @@
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
         <button type="button" class="seatSelect" @click="[selectFlex(index),selectFlight(index)]">
-            <h3>{{seat}} {{res.flex}}
+            <h3>{{chooseInfo.seat}} {{res.flex}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
@@ -92,7 +92,7 @@
 
     <div class="blank"></div>
 
-    <!--Footer-->
+
     <div class="arrFootNav">
         <span class="arrFootNav1">예상 결제 금액</span>
         <span class="arrStartPrice">{{AddComma(selectPrice)+ " 원"}}&nbsp;</span>
@@ -119,98 +119,16 @@ export default {
     data() {
         return {
             at,
-            start: '',
-            arrive: '',
-            price: '',
-            selectPrice: this.startPrice,
-            seatPrice: 0,
+            seatClass2: '',
+            startTime2: '',
+            arriveTime2: '',
+            selectPrice: this.$store.state.startInfo.startPrice,
             loginModal: false,
+            chooseInfo : this.$store.state.chooseInfo,
+            startInfo : this.$store.state.startInfo
         }
     },
     props: {
-        flight1: {
-            type: String,
-            default: ''
-        },
-        fromArea: {
-            type: String,
-            default: ''
-        },
-        toArea: {
-            type: String,
-            default: ''
-        },
-        seat: {
-            type: String,
-            default: ''
-        },
-        seatClass1: {
-            type: String,
-            default: ''
-        },
-        seatClass2: {
-            type: String,
-            default: ''
-        },
-        startYear: {
-            type: String,
-            default: ''
-        },
-        startMonth: {
-            type: String,
-            default: ''
-        },
-        returnYear: {
-            type: String,
-            default: ''
-        },
-        returnMonth: {
-            type: String,
-            default: ''
-        },
-        returnDay: {
-            type: String,
-            default: ''
-        },
-        returnWeek: {
-            type: String,
-            default: ''
-        },
-        startDay: {
-            type: String,
-            default: ''
-        },
-        startWeek: {
-            type: String,
-            default: ''
-        },
-        nDate: {
-            type: String
-        },
-        AdultCount: {
-            type: Number
-        },
-        ChildCount: {
-            type: Number
-        },
-        InfantCount: {
-            type: Number
-        },
-        startTime1: {
-            type: String
-        },
-        arriveTime1: {
-            type: String
-        },
-        startTime2: {
-            type: String
-        },
-        arriveTime2: {
-            type: String
-        },
-        startPrice: {
-            type: Number
-        },
     },
     methods: {
         AddComma(num) {
@@ -222,12 +140,12 @@ export default {
             let startTime = this.at[index].start;
             let arriveTime = this.at[index].arrive;
             let seatClass = this.at[index].standard;
-
-            this.selectPrice = this.startPrice;
+            
+            this.selectPrice = this.$store.state.startInfo.startPrice;
             this.selectPrice = parseInt(this.selectPrice) + parseInt(priceStandard)
-            this.stTime2 = startTime;
-            this.arrTime2 = arriveTime;
-            this.Class2 = seatClass;
+            this.startTime2 = startTime;
+            this.arriveTime2 = arriveTime;
+            this.seatClass2 = seatClass;
 
         },
         selectFlex(index) {
@@ -236,11 +154,11 @@ export default {
             let arriveTime = this.at[index].arrive;
             let seatClass = this.at[index].flex;
 
-            this.selectPrice = this.startPrice;
+            this.selectPrice = this.$store.state.startInfo.startPrice;
             this.selectPrice = parseInt(this.selectPrice) + parseInt(priceFlex)
-            this.stTime2 = startTime;
-            this.arrTime2 = arriveTime;
-            this.Class2 = seatClass;
+            this.startTime2 = startTime;
+            this.arriveTime2 = arriveTime;
+            this.seatClass2 = seatClass;
         },
         selectFlight(index) {
             console.log(this.at[index].flight)
@@ -259,44 +177,28 @@ export default {
                 return this.loginModal = true;
             }
 
-            if (this.$store.state.isLogin) {
+            if (this.$store.state.isLogin == true) {
                 this.submit();
             }
         },
         submit() {
+            let returnInfo = {};
+
             if (this.flight2 == null) {
                 return alert("도착지를 선택해주세요.")
             }
 
-            this.$router.push({
-                name: 'Payment',
-                params: {
-                    flight1: this.flight1,
-                    flight2: this.flight2,
-                    fromArea: this.fromArea,
-                    toArea: this.toArea,
-                    seat: this.seat,
-                    seatClass1: this.seatClass1,
-                    seatClass2: this.Class2,
-                    startYear: this.startYear,
-                    startMonth: this.startMonth,
-                    startDay: this.startDay,
-                    startWeek: this.startWeek,
-                    returnYear: this.returnYear,
-                    returnMonth: this.returnMonth,
-                    returnDay: this.returnDay,
-                    returnWeek: this.returnWeek,
-                    AdultCount: this.AdultCount,
-                    ChildCount: this.ChildCount,
-                    InfantCount: this.InfantCount,
-                    startTime1: this.startTime1,
-                    arriveTime1: this.arriveTime1,
-                    startTime2: this.stTime2,
-                    arriveTime2: this.arrTime2,
-                    startPrice: this.selectPrice,
-                }
-            });
+            returnInfo = {
+                flight2: this.flight2,
+                seatClass2: this.seatClass2,
+                startTime2: this.startTime2,
+                arriveTime2: this.arriveTime2,
+                totalPrice: this.selectPrice,
+            }
 
+            this.$store.dispatch("returnInfo", returnInfo);        
+
+            this.$router.push('Payment')
         }
 
     },
@@ -338,7 +240,7 @@ export default {
     margin-left: 14px;
 }
 
-.schedule {
+.arrSchedule {
     color: teal;
     font-size: 28px;
     font-weight: 900;
@@ -346,14 +248,14 @@ export default {
     margin-top: 2%;
 }
 
-.info {
+.arrInfo {
     margin-left: auto;
     margin-right: auto;
     width: 1380px;
-    margin-top: 20px;
+    margin-top: 20px;    
 }
 
-.info button {
+.arrInfo button {
     width: 100%;
     height: 100px;
     background-color: white;
@@ -364,28 +266,27 @@ export default {
     float: left;
 }
 
-.info button div {
+.arrInfo button div {
     padding: 30px;
 }
 
-.infoImg {
+.arrInfoImg {
     margin-left: 14px;
     margin-bottom: 4px;
 }
 
-.info button:hover {
+.arrInfo button:hover {
     border: 2px solid teal;
 }
 
-.startInfo {
+.arrStartInfo {
     margin-left: auto;
     margin-right: auto;
     width: 1250px;
-    display: flex;
-
+    display: flex;    
 }
 
-.startInfo button {
+.arrStartInfo button {
     color: white;
     width: 100%;
     height: 90px;
@@ -394,19 +295,19 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-
+    margin-top: 30px;
 }
 
-.startInfo span {
+.arrStartInfo span {
     padding-top: 22px;
     font-size: 30px;
 }
 
-.startInfo button div {
+.arrStartInfo button div {
     padding: 30px;
 }
 
-.startInfoImg {
+.arrStartInfoImg {
     margin-left: 14px;
 }
 
@@ -520,6 +421,7 @@ export default {
     color: white;
     background: teal;
     border: 1px solid white;
+    margin-left:1%;
 }
 
 .arrSubmitBtn2 {
@@ -531,6 +433,7 @@ export default {
     color: rgb(6, 165, 165);
     background: white;
     border: 3px solid rgba(34, 168, 168, 0.689);
+    margin-left:1%;
 }
 
 .arrStartPrice {

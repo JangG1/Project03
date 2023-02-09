@@ -48,6 +48,8 @@ public class SecurityConfig {
 		http.authorizeRequests().antMatchers("/api/**").permitAll();
 
 		http.authorizeRequests().antMatchers("/api/auth/kakao/callback").permitAll();
+				
+		http.authorizeRequests().antMatchers("/api/auth/kakao/callback2").permitAll();
         return http.build();
     }
 

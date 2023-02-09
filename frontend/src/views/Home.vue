@@ -474,6 +474,7 @@ export default {
             }
         },
         submit() {
+            let chooseInfo = {};
             let seat = document.getElementById('inputState').options[document.getElementById("inputState").selectedIndex].value;
             let fromArea = "";
             let toArea = "";
@@ -530,7 +531,28 @@ export default {
                 toArea = this.fromImgName
             }
 
-            this.$router.push({
+            chooseInfo = {
+                fromArea: fromArea,
+                    toArea: toArea,
+                    seat: seat,
+                    startYear: this.startYear,
+                    startMonth: this.startMonth,
+                    startDay: this.startDay,
+                    startWeek: this.startWeek,
+                    returnYear: this.returnYear,
+                    returnMonth: this.returnMonth,
+                    returnDay: this.returnDay,
+                    returnWeek: this.returnWeek,
+                    AdultCount: this.AdultCount,
+                    ChildCount: this.ChildCount,
+                    InfantCount: this.InfantCount
+                }
+
+            this.$store.dispatch("chooseInfo", chooseInfo);
+
+            this.$router.push('Departure')
+
+            /*this.$router.push({
                 name: 'Departure',
                 params: {
                     fromArea: fromArea,
@@ -548,7 +570,7 @@ export default {
                     ChildCount: this.ChildCount,
                     InfantCount: this.InfantCount,
                 }
-            });
+            });*/
 
         },
         top() {

@@ -6,6 +6,9 @@ export default createStore({
     plugins: [
         createPersistedState({
             paths: [
+                'chooseInfo',
+                'startInfo',
+                'returnInfo',
                 'userInfo', 
                 'access_token', 
                 'refresh_token', 
@@ -21,6 +24,9 @@ export default createStore({
         })
     ],    
     state: {
+        chooseInfo: '',
+        startInfo: '',
+        returnInfo: '',
         access_token: '',
         refresh_token: '',
         userInfo: null,
@@ -39,6 +45,15 @@ export default createStore({
     },
     offLoad(state) {
         state.isLoad = false;
+    },
+    setChooseInfo(state, payload){
+        state.chooseInfo = payload
+    },
+    setStartInfo(state, payload){
+        state.startInfo = payload
+    },
+    setReturnInfo(state, payload){
+        state.returnInfo = payload
     },
     setToken(state, payload) {
         state.access_token = payload
@@ -90,7 +105,19 @@ export default createStore({
         } else {
             commit("offLoad");
         }
-    },
+        },
+        chooseInfo({ commit }, payload) {            
+            console.log(payload)
+            commit("setChooseInfo", payload)
+        },
+        startInfo({ commit }, payload) {            
+            console.log(payload)
+            commit("setStartInfo", payload)
+        },
+        returnInfo({ commit }, payload) {            
+            console.log(payload)
+            commit("setReturnInfo", payload)
+        },
         async setUserInfo({ commit }, payload) {            
             let info = JSON.parse(payload)
             console.log("setUserInfo : " + info[0])
@@ -107,11 +134,11 @@ export default createStore({
             console.log(userInfo)
             commit("loginSuccess", userInfo)
         },
-         getToken({ commit }, payload) {            
+        /*getToken({ commit }, payload) {            
             console.log("at : " + payload)
             console.log("rt : " + payload)
             commit("setToken", payload)
-        },
+        },*/
         async consentBtn1({ commit }, payload) {
                 console.log(payload)
                 commit('setConsent1', payload)

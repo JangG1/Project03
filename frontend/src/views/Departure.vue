@@ -9,25 +9,25 @@
     <div class="info">
         <button type="button">
             <div class="info1">
-                {{fromArea}} &nbsp;
+                {{chooseInfo.fromArea}} &nbsp;
                 <img src="../assets/arrow2.jpg"> &nbsp;
-                {{toArea}}
+                {{chooseInfo.toArea}}
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> 
-                <span v-if="returnYear != returnYearValue"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
+                <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
+                <span v-if="chooseInfo.returnYear != chooseInfo.returnYearValue"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                성인 {{AdultCount}}명
-                <span v-if="ChildCount > 0">
-                , 유아 {{ChildCount}}명
+                성인 {{chooseInfo.AdultCount}}명
+                <span v-if="chooseInfo.ChildCount > 0">
+                    , 유아 {{chooseInfo.ChildCount}}명
                 </span>
-                <span v-if="InfantCount > 0">
-                , 소아 {{InfantCount}}명
+                <span v-if="chooseInfo.InfantCount > 0">
+                    , 소아 {{chooseInfo.InfantCount}}명
                 </span>
             </div>
         </button>
@@ -38,21 +38,21 @@
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
                 <h3>{{res.start}}</h3>
-                <span> {{ fromArea }}</span><br>
+                <span> {{ chooseInfo.fromArea }}</span><br>
                 <div class="flight">
-                <img src="@/assets/Logo.png" class="flightLogo">
+                    <img src="@/assets/Logo.png" class="flightLogo">
                     {{ res.flight }}
                 </div>
             </div>
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
             <div class="arriveTime">
                 <h3>{{res.arrive}} </h3>
-                <span>{{ toArea }}</span>
-            </div><br>            
+                <span>{{ chooseInfo.toArea }}</span>
+            </div><br>
         </div>
 
         <button type="button" class="seatSelect" @click="[selectStandard(index),selectFlight(index)]">
-            <h3>{{seat}} {{res.standard}}
+            <h3>{{chooseInfo.seat}} {{res.standard}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
@@ -61,7 +61,7 @@
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
         <button type="button" class="seatSelect" @click="[selectFlex(index),selectFlight(index)]">
-            <h3>{{seat}} {{res.flex}}
+            <h3>{{chooseInfo.seat}} {{res.flex}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
@@ -70,7 +70,6 @@
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 
-        
     </div>
     <div class="blank"></div>
 
@@ -101,66 +100,15 @@ export default {
             price: '',
             selectPrice: 0,
             seatPrice: 0,
-            returnYearValue: " "
+            returnYearValue: " ",
+            chooseInfo: this.$store.state.chooseInfo,
         }
     },
     props: {
-        fromArea: {
-            type: String,
-            default: ''
-        },
-        toArea: {
-            type: String,
-            default: ''
-        },
-        seat: {
-            type: String,
-            default: ''
-        },
-        startYear: {
-            type: String,
-            default: ''
-        },
-        startMonth: {
-            type: String,
-            default: ''
-        },
-        startDay: {
-            type: String,
-            default: ''
-        },
-        startWeek: {
-            type: String,
-            default: ''
-        },
-        returnYear: {
-            type: String,
-            default: ''
-        },
-        returnMonth: {
-            type: String,
-            default: ''
-        },
-        returnDay: {
-            type: String,
-            default: ''
-        },
-        returnWeek: {
-            type: String,
-            default: ''
-        },
-        AdultCount: {
-            type: Number
-        },
-        ChildCount: {
-            type: Number
-        },
-        InfantCount: {
-            type: Number
-        }
+
     },
     methods: {
-        test(){
+        test() {
             console.log(this.seatClass)
         },
         AddComma(num) {
@@ -189,7 +137,7 @@ export default {
             this.arriveTime = arriveTime;
             this.seatClass = seatClass;
         },
-        selectFlight(index){
+        selectFlight(index) {
             console.log(this.st[index].flight)
 
             let flight = this.st[index].flight;
@@ -197,19 +145,27 @@ export default {
             this.flight1 = flight;
         },
         submit() {
-            let path = "";
-            let flight2 = " ";
-            let seatClass2 = " ";
-            let startTime2 = " ";
-            let arriveTime2 = " ";
+            let startInfo = {};
 
-            if (this.returnYear == " ") {
-                path = "Payment";
-            } else if (this.returnYear != " ") {
-                path = "Arrival";
+            startInfo = {
+                flight1: this.flight1,
+                seatClass1: this.seatClass,
+                startTime1: this.startTime,
+                arriveTime1: this.arriveTime,
+                startPrice: this.selectPrice,
             }
 
-            this.$router.push({
+            this.$store.dispatch("startInfo", startInfo);
+
+            this.$router.push('Arrival')
+
+            if (this.returnYear == " ") {
+                this.$router.push('Payment')
+            } else if (this.returnYear != " ") {
+                this.$router.push('Arrival')
+            }
+
+            /*this.$router.push({
                 name: path,
                 params: {
                     flight1: this.flight1,
@@ -236,7 +192,7 @@ export default {
                     arriveTime2: arriveTime2,
                     startPrice: this.selectPrice,
                 }
-            });
+            });*/
 
         }
 
@@ -248,21 +204,21 @@ export default {
 </script>
 
 <style>
-.blank{
+.blank {
     height: 150px;
 }
 
-.flight{
+.flight {
     margin-top: 15px;
     color: #999;
 }
 
-.flightLogo{
+.flightLogo {
     width: 30px;
-    height: 30px;    
+    height: 30px;
 }
 
-.step{
+.step {
     float: right;
     margin-right: 200px;
     margin-bottom: 30px;
@@ -270,8 +226,8 @@ export default {
     display: flex;
 }
 
-.step2{
-    color: teal;    
+.step2 {
+    color: teal;
 }
 
 .caption {
@@ -284,7 +240,7 @@ export default {
     margin-left: 14px;
 }
 
-.schedule{
+.schedule {
     color: black;
     color: teal;
     font-size: 28px;
@@ -292,7 +248,6 @@ export default {
     margin-left: 15%;
     margin-top: 2%;
 }
-
 
 .info {
     margin-left: auto;
@@ -369,7 +324,7 @@ export default {
 .arrow2 {
     width: 190px;
     height: 30px;
-    margin-top: 10%;    
+    margin-top: 10%;
 }
 
 .seatSelect {
@@ -377,7 +332,7 @@ export default {
     border-top: 4px solid black;
     opacity: 0.6;
     transition: 0.3s;
-    font-size: 22px;    
+    font-size: 22px;
 }
 
 .seatSelect:hover {
@@ -387,13 +342,13 @@ export default {
 }
 
 .seatSelect:focus {
-    width: 600px;    
+    width: 600px;
     transform: translate(-0.5%, -10%);
     border-radius: 15px;
     background-color: teal;
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
-    opacity: 1;    
+    opacity: 1;
     font-size: 22px;
 }
 
@@ -423,7 +378,7 @@ export default {
     box-shadow: 2px 2px 20px rgb(1, 83, 83);
 }
 
-.footNav1{
+.footNav1 {
     margin-left: 30px;
 }
 

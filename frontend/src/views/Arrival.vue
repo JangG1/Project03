@@ -96,7 +96,8 @@
     <div class="footNav">
         <span class="footNav1">예상 결제 금액</span>
         <span class="startPrice">{{AddComma(selectPrice)+ " 원"}}&nbsp;</span>
-        <button type="button" class="submitBtn" @click="submit()">다음 여정</button>
+        <button type="button" class="submitBtn1" @click="submit()">비회원 결제 하기</button>
+        <button type="button" class="submitBtn2" @click="submit()">회원 결제 하기</button>
     </div>
 </div>
 </template>
@@ -242,9 +243,13 @@ export default {
 
             let flight = this.at[index].flight;
 
-            this.flight2 = flight;
+            this.flight2 = flight;       
         },
         submit() {
+            if(this.flight2 == null){
+                return alert("도착지를 선택해주세요.")
+            }  
+
             this.$router.push({
                 name: 'Payment',
                 params: {
@@ -489,18 +494,29 @@ export default {
     margin-left: 30px;
 }
 
-.submitBtn {
-    width: 15%;
+.submitBtn1 {    
+    width: 240px;
     height: 130%;
     font-size: 25px;
     border-radius: 4px;
     color: white;
     background: teal;
-    border: 1px solid white;
+    border: 1px solid white;    
+}
+
+.submitBtn2{
+    width: 240px;
+    height: 130%;
+    font-size: 25px;
+    font-weight: 900;
+    border-radius: 4px;
+    color: rgb(6, 165, 165);
+    background: white;
+    border: 3px solid rgba(34, 168, 168, 0.689);
 }
 
 .startPrice {
     font-size: 20px;
-    margin-left: 70%;
+    margin-left: 60%;
 }
 </style>

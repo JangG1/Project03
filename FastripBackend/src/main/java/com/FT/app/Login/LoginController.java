@@ -95,8 +95,8 @@ public class LoginController {
 		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
 				kakaoProfileRequest, String.class);
  
-		System.out.println("id : " + response.getBody());
-		return "로그아웃 되었습니다."; 
+		System.out.println("로그아웃 id : " + response.getBody());
+		return "로그아웃 되었습니다.";           
 	}          
   
 	// Kakao User 정보 가져오기

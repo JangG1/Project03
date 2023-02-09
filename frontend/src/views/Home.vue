@@ -39,7 +39,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지2-->
-                <svg class="banner" viewBox="0 20 900 315">
+                <svg class="banner" viewBox="0 30 820 315">
                     <image href="../assets/bannerImage/2.jpg" />
                 </svg>
                 <div class="container2">
@@ -79,7 +79,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지3-->
-                <svg class="banner" viewBox="0 40 890 315">
+                <svg class="banner" viewBox="0 40 850 315">
                     <image href="../assets/bannerImage/4.jpg" />
                 </svg>
                 <div class="container4">

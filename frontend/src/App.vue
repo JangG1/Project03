@@ -23,14 +23,14 @@
                 <ProfileItem :profile="getProfile" :email="getEmail" />
             </div>
             <!--로그아웃-->
-            <div class="logoutBtn" @click="logout" v-show="isLogin">
+            <div class="logoutBtn" @click="logout" v-if="isLogin">
                 로그아웃
             </div>
         </div>
 
     </div>
 
-    <div v-show="!isLogin">
+    <div v-if="!isLogin">
         <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
 
@@ -53,8 +53,7 @@ export default {
             loginModal: false,
         };
     },
-    mounted() {
-        console.log(this.isLogin);
+    mounted() {        
     },
     components: {
         ProfileItem,

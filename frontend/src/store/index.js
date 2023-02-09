@@ -11,10 +11,6 @@ export default createStore({
                 'refresh_token', 
                 'isLogin', 
                 'isLoginError',
-                'name',
-                'email',
-                'gender',
-                'birthday',
                 'holdPoint',
                 'name2',
                 'email2',
@@ -28,16 +24,7 @@ export default createStore({
         access_token: '',
         refresh_token: '',
         userInfo: null,
-        OAuth: null,
-        name: null,
-        email: null,
-        gender: null,
-        birthday: null,
-        name2: null,
-        email2: null,
-        profile2: null,
-        gender2: null,
-        birthday2: null,
+        OAuth: null,        
         isLogin: false,
         isLoginError: false,
         isLoad: false,
@@ -57,14 +44,14 @@ export default createStore({
         state.access_token = payload
         //state.refresh_token = payload
     },
-    setUserInfo(state, payload) {        
+    /*setUserInfo(state, payload) {        
         state.userInfo2 = payload
         state.name2 = payload.name        
         state.email2 = payload.email    
         state.profile2 = payload.profile
         state.gender2 = payload.gender
         state.birthday2 = payload.birthday
-    },
+    },*/
     setOAuth(state, payload) {        
         state.OAuth = payload
     },
@@ -96,12 +83,12 @@ export default createStore({
     loginError(state) {
         state.isLogin = false
         state.isLoginError = true
-        state.userInfo = null
+        state.userInfo = ''
     },
     logout(state) {        
         state.isLogin = false
         state.isLoginError = false
-        state.userInfo = null
+        state.userInfo = ''
     },
 },
   actions: {
@@ -116,7 +103,8 @@ export default createStore({
             let info = JSON.parse(payload)
             console.log("setUserInfo : " + info[0])
             let userInfo = {
-                name: info[0].name,
+                lastName: info[0].name.substr(0,1),
+                firstName: info[0].name.substr(1,3),
                 email: info[0].email,
                 profile: info[0].profile,
                 gender: info[0].gender,

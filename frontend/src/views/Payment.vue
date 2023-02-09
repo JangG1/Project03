@@ -79,7 +79,7 @@
 
     <br>
 
-    <div class="pArriveInfo" v-if="returnYear != ' '">
+    <div class="pArriveInfo" v-if="returnYear != ''">
         <button type="button">
             <div>
                 오는 편
@@ -101,7 +101,6 @@
     </div>
     <br><br>
     <!--승객 정보-->
-
     <br>
     <div class="passengerInfoTitle">
         승객 정보
@@ -118,17 +117,23 @@
     <!--회원 예약자 정보-->
     <div class="passengerBox">
         <div class="passengerTitle" @click="showPassInfo1">
-            성인 1 <span class="arrow">{{arrow}}</span>
+            성인 1 [예약자]<span class="arrow">{{arrow}}</span>
         </div>
         <div v-if="passInfo" class="passInfo">
             <div class="passInfo1">
                 <div class="passInfo1-1">
                     <h5>승객 성<span class="asterisk"> *</span></h5><br>
-                    <input type="text" placeholder="예) 홍" v-model="korLastName1" class="passText" disabled='disabled'>
+                    <!--회원-->
+                    <input type="text" v-if="isLogin()" v-model="korLastName1" class="passText" disabled='disabled'>
+                    <!--비회원-->
+                    <input type="text" v-if="!isLogin()" placeholder="예) 홍" v-model="korLastName1" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>승객 이름<span class="asterisk"> *</span></h5><br>
-                    <input type="text" placeholder="예) 길동" v-model="korFirstName1" class="passText" disabled='disabled'>
+                    <!--회원-->
+                    <input type="text" v-if="isLogin()" v-model="korFirstName1" class="passText" disabled='disabled'>
+                    <!--비회원-->
+                    <input type="text" v-if="!isLogin()" placeholder="예) 길동" v-model="korFirstName1" class="passText">
                 </div>
             </div>
 
@@ -152,8 +157,11 @@
                     <input type="button" value="여자" class="femaleBtn" id="femaleBtn1" disabled='disabled' autofocus>
                 </div>
                 <div class="passInfo2-2">
-                    <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
-                    <input type="text" class="passText" v-model="birthday1">
+                    <h5>생년 월일 (MMDD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                    <!--회원-->
+                    <input type="text" v-if="isLogin()" class="passText" v-model="birthday1">
+                    <!--비회원-->
+                    <input type="text" v-if="!isLogin()" placeholder="예) MMDD" v-model="birthday1" class="passText">
                 </div>
 
             </div>
@@ -474,15 +482,15 @@ export default {
             documentInfo: true,
             noteInfo: true,
             arrow: "▲",
-            korLastName1: this.$store.state.name.substring(0, 1),
+            korLastName1: this.$store.state.userInfo.lastName,
             korLastName2: "",
-            korFirstName1: this.$store.state.name.substring(1, 3),
+            korFirstName1: this.$store.state.userInfo.firstName,
             korFirstName2: "",
             engLastName: this.engLastName1,
             engFirstName: this.engFirstName1,
-            birthday1: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
+            birthday1: this.$store.state.userInfo.birthday,
             birthday2: this.birthday2,
-            gender1: this.$store.state.gender,
+            gender1: this.$store.state.userInfo.gender,
             gender2: document.getElementById('maleBtn2'),
             autofocus: true,
             PayModalView: false,
@@ -519,12 +527,12 @@ export default {
                 arriveTime2: this.arriveTime2,
                 startPrice: this.startPrice,
 
-                korLastName: this.$store.state.name.substring(0, 1),
-                korFirstName: this.$store.state.name.substring(1, 3),
+                korLastName: this.korLastName1,
+                korFirstName: this.korFirstName1,
                 engLastName: this.engLastName1,
                 engFirstName: this.engFirstName1,
-                gender: this.$store.state.gender,
-                birthday: this.$store.state.birthday.toString().replace(/\B(?=(\d{2})+(?!\d))/g, "."),
+                gender: this.gender1,
+                birthday: this.birthday1,
             },
         }
     },
@@ -615,19 +623,22 @@ export default {
         },
     },
     methods: {
-        Format1(value){
+        isLogin() {
+            return this.$store.state.isLogin;
+        },
+        Format1(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            let price = value * this.AdultCount;            
+            let price = value * this.AdultCount;
             return price.toString().replace(regexp, ",") + " 원";
         },
-        Format2(value){
+        Format2(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            let price = (value * 0.8) * this.ChildCount;            
+            let price = (value * 0.8) * this.ChildCount;
             return "(-20%)" + price.toString().replace(regexp, ",") + " 원";
         },
-        Format3(value){
+        Format3(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            let price = (value * 0.5) * this.InfantCount;            
+            let price = (value * 0.5) * this.InfantCount;
             return "(-50%)" + price.toString().replace(regexp, ",") + " 원";
         },
         engLastNameTest() {
@@ -669,16 +680,16 @@ export default {
         AddComma1(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             let price = num * this.AdultCount;
-            
-            if(this.ChildCount >= 1 && this.InfantCount >= 1){
-                let addPrice1 = price + (num * this.ChildCount * 0.8);                
-                let addPrice2 = addPrice1 + (num * this.InfantCount * 0.5);                
+
+            if (this.ChildCount >= 1 && this.InfantCount >= 1) {
+                let addPrice1 = price + (num * this.ChildCount * 0.8);
+                let addPrice2 = addPrice1 + (num * this.InfantCount * 0.5);
                 return addPrice2.toString().replace(regexp, ",");
-            }else if(this.ChildCount >= 1){
-                let addPrice = price + (num * this.ChildCount * 0.8);                
+            } else if (this.ChildCount >= 1) {
+                let addPrice = price + (num * this.ChildCount * 0.8);
                 return addPrice.toString().replace(regexp, ",");
-            }else if(this.InfantCount >= 1){
-                let addPrice = price + (num * this.InfantCount * 0.5);                
+            } else if (this.InfantCount >= 1) {
+                let addPrice = price + (num * this.InfantCount * 0.5);
                 return addPrice.toString().replace(regexp, ",");
             }
 
@@ -709,7 +720,7 @@ export default {
                 this.$store.dispatch("consentBtn2", true);
             }
         },
-        Gender1() {
+        Gender() {
 
             if (this.gender1 == "male") {
                 const target = document.getElementById('maleBtn1');
@@ -718,13 +729,42 @@ export default {
                 target.style.border = "3px solid teal"
                 target.value = "남자" + "  ✔"
                 return this.gender1 = "남자"
-            } else {
+            } else if (this.gender1 == "female") {
                 const target = document.getElementById('femaleBtn1');
                 target.disabled = false;
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 target.value = "여자" + "  ✔"
                 return this.gender1 = "여자"
+            } else {
+                const target1 = document.getElementById('maleBtn1');
+                const target2 = document.getElementById('femaleBtn1');
+                target1.disabled = false;
+                target2.disabled = false;
+
+                target1.addEventListener('click', function () {
+                    target1.style.color = "teal"
+                    target1.style.border = "3px solid teal"
+                    target1.value = "남자" + "  ✔"
+
+                    target2.style.color = "#999"
+                    target2.style.border = "3px solid #999"
+                    target2.value = "여자"
+
+                    return this.gender1 = "남자"
+                });
+
+                target2.addEventListener('click', function () {
+                    target2.style.color = "teal"
+                    target2.style.border = "3px solid teal"
+                    target2.value = "여자" + "  ✔"
+
+                    target1.style.color = "#999"
+                    target1.style.border = "3px solid #999"
+                    target1.value = "남자"
+
+                    return this.gender1 = "여자"
+                });
             }
         },
         Fare(value) {
@@ -940,8 +980,8 @@ export default {
                 this.arrow = "▲"
             } else {
                 this.arrow = "▼"
-            }  
-        }, 
+            }
+        },
 
         PayModalPopUp() {
 
@@ -979,7 +1019,7 @@ export default {
 
     },
     mounted() {
-        this.Gender1()
+        this.Gender()
     }
 }
 </script>
@@ -1286,7 +1326,7 @@ h4 {
 }
 
 .price {
-    float: right;    
+    float: right;
 }
 
 .passengerInfo h4 {

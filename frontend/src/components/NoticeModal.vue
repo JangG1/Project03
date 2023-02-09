@@ -144,7 +144,7 @@ export default {
 .noticeBody1-2 {
     font-size: 20px;
     font-weight: 900;
-    color: rgba(0, 0, 0, 0.646);
+    color: rgba(58, 58, 58, 0.646);
 }
 
 .noticeBody2 {

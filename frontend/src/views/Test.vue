@@ -8,10 +8,12 @@
     <button @click="redirect()">Kakao Login</button>
     <button type="button" @click="logout">로그아웃</button>
 
+   <div v-if="isLogin()" >로그인 상태</div><br>
+    <div v-if="!isLogin()">로그아웃 상태</div>
 <a href="javascript:window.history.back();"></a>
 <!---->
 <div v-if="$store.state.userInfo != null">
-name : {{$store.state.userInfo.name}} <br>
+name : {{$store.state.userInfo.lastName+$store.state.userInfo.firstName}}<br>
 email : {{$store.state.userInfo.email}} <br>
 gender : {{$store.state.userInfo.gender}} <br>
 birth : {{$store.state.userInfo.birthday}} <br>
@@ -51,12 +53,16 @@ export default {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";                                   
         },
         getUserInfo() {            
+
             axios.get('/api/kakao/info')
                 .then((response) => {
                     this.userInfo = response.data
                     console.log(this.userInfo)
                     this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
+                    this.$store.dispatch("loginSuccess");
                 })
+
+
         },
         logout(){
             let access_token = this.$store.state.userInfo.access_token;
@@ -71,10 +77,13 @@ export default {
 
                 //window.location.href = "/";
         },
+        isLogin() {
+            return this.$store.state.isLogin;
+        },
 
     },
     mounted() {
-        
+        //this.getUserInfo();        
     },
 }
 </script>

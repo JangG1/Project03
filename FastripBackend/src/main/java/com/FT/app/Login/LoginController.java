@@ -129,8 +129,12 @@ public class LoginController {
 		JsonObject jObject1 = (JsonObject) jParser.parse(response.getBody()); // json 전체 파싱
 		// jObejct1는 json 전체가 파싱됨
 		String access_token = jObject1.get("access_token").getAsString();
+		String refresh_token = jObject1.get("refresh_token").getAsString();
 
+		//System.out.println("!!Test!! : " + response.getBody());
+		
 		System.out.println("ACCESS TOKEN : " + access_token);
+		System.out.println("REFRESH TOKEN : " + refresh_token);
 
 		ObjectMapper objectMapper = new ObjectMapper();
 
@@ -169,7 +173,9 @@ public class LoginController {
 				.name(kakaoProfile.getProperties().getNickname()).password("Fastrip123") // 임시 비밀번호
 				.profile(kakaoProfile.getProperties().getProfile_image())
 				.gender(kakaoProfile.getKakao_account().getGender())
-				.birthday(kakaoProfile.getKakao_account().getBirthday()).access_token(access_token)
+				.birthday(kakaoProfile.getKakao_account().getBirthday())
+				.access_token(access_token)
+				.refresh_token(refresh_token)
 				.login_date(formatedNow).build();
 
 		// 기존 회원 찾기(중복)
@@ -193,4 +199,19 @@ public class LoginController {
 		return redirectView;
 	}
 
+	// Kakao User 정보 가져오기
+	@GetMapping("/auth/kakao/callback2")
+	public @ResponseBody RedirectView kakaoCallback2(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
+		System.out.println("1 : " + code);
+				
+		String t = kakaoCallback(code).getUrl();
+		
+		System.out.println("2 : " + t);
+		
+		// 프론트로 리다이렉트
+				RedirectView redirectView = new RedirectView();
+				redirectView.setUrl("http://localhost:8080/Arrival");
+				return redirectView;
+	}
+	
 }

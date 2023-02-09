@@ -8,9 +8,9 @@ const routes = [
     component: Home
   },
   {
-    path: "/Modal",
-    name: "Modal",
-    component: () => import("@/components/Modal.vue"),
+    path: "/LoginModal",
+    name: "LoginModal",
+    component: () => import("@/components/LoginModal.vue"),
   },
   {
     path: "/Callback",

@@ -59,6 +59,9 @@ public class User {
     private String birthday;
     
     @Column(nullable = false, length = 100)
+    private String refresh_token;
+    
+    @Column(nullable = false, length = 100)
     private String access_token;
     
     //@CreationTimestamp

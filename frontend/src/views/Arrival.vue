@@ -16,7 +16,7 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
-                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span> 
+                <span>{{startYear}}-{{startMonth}}-{{startDay}}({{startWeek}})</span>
                 <span v-if="returnYear"> ~ {{returnYear}}-{{returnMonth}}-{{returnDay}}({{returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
@@ -93,24 +93,28 @@
     <div class="blank"></div>
 
     <!--Footer-->
-    <div class="footNav">
-        <span class="footNav1">예상 결제 금액</span>
-        <span class="startPrice">{{AddComma(selectPrice)+ " 원"}}&nbsp;</span>
-        <button type="button" class="submitBtn1" @click="submit()">비회원 결제 하기</button>
-        <button type="button" class="submitBtn2" @click="submit()">회원 결제 하기</button>
+    <div class="arrFootNav">
+        <span class="arrFootNav1">예상 결제 금액</span>
+        <span class="arrStartPrice">{{AddComma(selectPrice)+ " 원"}}&nbsp;</span>
+        <button type="button" class="arrSubmitBtn1" @click="submit()">비회원 결제 하기</button>
+        <button type="button" class="arrSubmitBtn2" @click="loginSubmit()">회원 결제 하기</button>
     </div>
+</div>
+<div v-if="!isLogin">
+    <LoginModal2 @closeModal="loginModal = false" :loginModal="loginModal" />
 </div>
 </template>
 
 <script>
 import arrivalTime from '../components/arrivalTime.json';
+import LoginModal2 from "@/components/LoginModal2.vue";
 
 const at = arrivalTime;
 
 export default {
     name: 'HelloWorld',
     components: {
-
+        LoginModal2
     },
     data() {
         return {
@@ -120,7 +124,7 @@ export default {
             price: '',
             selectPrice: this.startPrice,
             seatPrice: 0,
-
+            loginModal: false,
         }
     },
     props: {
@@ -243,12 +247,26 @@ export default {
 
             let flight = this.at[index].flight;
 
-            this.flight2 = flight;       
+            this.flight2 = flight;
+        },
+        loginSubmit() {
+            if (this.flight2 == null) {
+                return alert("도착지를 선택해주세요.")
+            }
+
+            if (!this.$store.state.isLogin) {
+                alert("로그인을 진행해 주세요.")                
+                return this.loginModal = true;
+            }
+
+            if (this.$store.state.isLogin) {
+                this.submit();
+            }
         },
         submit() {
-            if(this.flight2 == null){
+            if (this.flight2 == null) {
                 return alert("도착지를 선택해주세요.")
-            }  
+            }
 
             this.$router.push({
                 name: 'Payment',
@@ -289,7 +307,7 @@ export default {
 </script>
 
 <style>
-.blank{
+.blank {
     height: 150px;
 }
 
@@ -364,7 +382,7 @@ export default {
     margin-right: auto;
     width: 1250px;
     display: flex;
-    
+
 }
 
 .startInfo button {
@@ -376,7 +394,7 @@ export default {
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-    
+
 }
 
 .startInfo span {
@@ -473,7 +491,7 @@ export default {
     color: white;
 }
 
-.footNav {
+.arrFootNav {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -490,21 +508,21 @@ export default {
     box-shadow: 2px 2px 20px rgb(1, 83, 83);
 }
 
-.footNav1 {
+.arrFootNav1 {
     margin-left: 30px;
 }
 
-.submitBtn1 {    
+.arrSubmitBtn1 {
     width: 240px;
     height: 130%;
     font-size: 25px;
     border-radius: 4px;
     color: white;
     background: teal;
-    border: 1px solid white;    
+    border: 1px solid white;
 }
 
-.submitBtn2{
+.arrSubmitBtn2 {
     width: 240px;
     height: 130%;
     font-size: 25px;
@@ -515,8 +533,8 @@ export default {
     border: 3px solid rgba(34, 168, 168, 0.689);
 }
 
-.startPrice {
+.arrStartPrice {
     font-size: 20px;
-    margin-left: 60%;
+    margin-left: 62%;
 }
 </style>

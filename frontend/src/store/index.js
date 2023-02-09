@@ -42,16 +42,8 @@ export default createStore({
     },
     setToken(state, payload) {
         state.access_token = payload
-        //state.refresh_token = payload
+        state.refresh_token = payload
     },
-    /*setUserInfo(state, payload) {        
-        state.userInfo2 = payload
-        state.name2 = payload.name        
-        state.email2 = payload.email    
-        state.profile2 = payload.profile
-        state.gender2 = payload.gender
-        state.birthday2 = payload.birthday
-    },*/
     setOAuth(state, payload) {        
         state.OAuth = payload
     },
@@ -109,13 +101,15 @@ export default createStore({
                 profile: info[0].profile,
                 gender: info[0].gender,
                 birthday: info[0].birthday,
-                access_token: info[0].access_token
+                access_token: info[0].access_token,
+                refresh_token: info[0].refresh_token
             }
             console.log(userInfo)
             commit("loginSuccess", userInfo)
         },
          getToken({ commit }, payload) {            
-            console.log("user : " + payload)
+            console.log("at : " + payload)
+            console.log("rt : " + payload)
             commit("setToken", payload)
         },
         async consentBtn1({ commit }, payload) {

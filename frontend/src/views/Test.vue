@@ -5,26 +5,27 @@
 =======================================================
 <br>
 
-    <button @click="redirect()">Kakao Login</button>
-    <button type="button" @click="logout">로그아웃</button>
+<button @click="redirect()">Kakao Login</button>
+<button type="button" @click="logout">로그아웃</button>
 
-   <div v-if="isLogin()" >로그인 상태</div><br>
-    <div v-if="!isLogin()">로그아웃 상태</div>
-<a href="javascript:window.history.back();"></a>
+<div v-if="isLogin()">로그인 상태</div><br>
+<div v-if="!isLogin()">로그아웃 상태</div>
+
 <!---->
 <div v-if="$store.state.userInfo != null">
-name : {{$store.state.userInfo.lastName+$store.state.userInfo.firstName}}<br>
-email : {{$store.state.userInfo.email}} <br>
-gender : {{$store.state.userInfo.gender}} <br>
-birth : {{$store.state.userInfo.birthday}} <br>
-profile : {{$store.state.userInfo.profile}} <br>
-access_token : {{$store.state.userInfo.access_token}} <br>
+    name : {{$store.state.userInfo.lastName+$store.state.userInfo.firstName}}<br>
+    email : {{$store.state.userInfo.email}} <br>
+    gender : {{$store.state.userInfo.gender}} <br>
+    birth : {{$store.state.userInfo.birthday}} <br>
+    profile : {{$store.state.userInfo.profile}} <br>
+    access_token : {{$store.state.userInfo.access_token}} <br>
+    refresh_token : {{$store.state.userInfo.refresh_token}} <br>
 </div>
 ==========================================================<br>
 
 ==========================================================<br>
 <button @click="getUserInfo">getUserInfo</button><br>
-
+<button @click="test">test</button><br>
 </template>
 
 <script>
@@ -45,14 +46,16 @@ export default {
 
         }
     },
-    components: {
-    },
+    components: {},
     created() {},
     methods: {
         redirect() {
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";                                   
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
         },
-        getUserInfo() {            
+        test() {
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback2&response_type=code";
+        },
+        getUserInfo() {
 
             axios.get('/api/kakao/info')
                 .then((response) => {
@@ -62,20 +65,18 @@ export default {
                     this.$store.dispatch("loginSuccess");
                 })
 
-
         },
-        logout(){
+        logout() {
             let access_token = this.$store.state.userInfo.access_token;
-            
+
             axios.get('/api/kakao/logout/' + access_token)
-                .then((response) => {                    
+                .then((response) => {
                     alert(response.data)
                 })
 
-                
-                this.$store.dispatch("logout");
+            this.$store.dispatch("logout");
 
-                //window.location.href = "/";
+            //window.location.href = "/";
         },
         isLogin() {
             return this.$store.state.isLogin;

@@ -19,9 +19,10 @@
 
         <div class="profileBox">
             <!--로그인-->
+            <div class="email" v-if="isLogin">{{ this.$store.state.userInfo.email }} 님</div>
             <div class="loginBtn" @click="loginModal = true">
-                <ProfileItem :profile="getProfile" :email="getEmail" />
-            </div>
+                <ProfileItem :profile="getProfile" :email="getEmail" />                
+            </div>            
             <!--로그아웃-->
             <div class="logoutBtn" @click="logout" v-if="isLogin">
                 로그아웃
@@ -31,7 +32,7 @@
     </div>
 
     <div v-if="!isLogin">
-        <Modal @closeModal="loginModal = false" :loginModal="loginModal" />
+        <LoginModal @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
 
     <hr>
@@ -44,20 +45,20 @@
 
 <script>
 import ProfileItem from "@/components/ProfileItem.vue";
-import Modal from "@/components/Modal.vue";
+import LoginModal from "@/components/LoginModal.vue";
 
 export default {
     name: "App",
     data() {
         return {
-            loginModal: false,
+            loginModal: false,            
         };
     },
     mounted() {        
     },
     components: {
         ProfileItem,
-        Modal,
+        LoginModal,
     },
     computed: {
         getProfile() {
@@ -65,9 +66,11 @@ export default {
                 return require("@/assets/weblogin1.png");
             return this.$store.state.userInfo.profile;
         },
-        getEmail() {
-            if (this.$store.state.userInfo == null) return null;
-            return this.$store.state.userInfo.email;
+        getEmail(value) {
+            if (this.$store.state.userInfo == null) {
+                return value == null;
+            }
+            return value = this.$store.state.userInfo.email;
         },
         isLogin() {
             return this.$store.state.isLogin;
@@ -114,10 +117,17 @@ export default {
     margin-left: 1%;
 }
 
+.email{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(95, 95, 95);
+    padding: 3%;
+    margin-right: 10px;
+}
+
 .profileBox {
     display: flex;
     margin-top: 46px;
-    margin-right: 1%;
+    margin-right: 2%;
 }
 
 .nav-link {

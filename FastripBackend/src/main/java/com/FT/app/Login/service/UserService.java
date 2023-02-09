@@ -11,7 +11,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.FT.app.Repo.UserRepository;
 import com.FT.app.domain.User;
-import com.FT.app.login.kakaoCallback;
 
 import lombok.RequiredArgsConstructor;
 

@@ -104,80 +104,10 @@ public class LoginController {
 	public @ResponseBody RedirectView kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println("인가 코드 : " + code);
 
-		RestTemplate rt = new RestTemplate();
-
-		// HttpHeader 오브젝트 생성
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-		// HttpBody 오브젝트 생성
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("grant_type", "authorization_code");
-		params.add("client_id", "89675f71eb67437191dff96a64831fe8");
-		params.add("redirect_uri", "http://localhost:8200/api/auth/kakao/callback");
-		params.add("code", code);
-
-		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
-
-		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
-				kakaoTokenRequest, String.class);
-
-		JsonParser jParser = new JsonParser();
-
-		JsonObject jObject1 = (JsonObject) jParser.parse(response.getBody()); // json 전체 파싱
-		// jObejct1는 json 전체가 파싱됨
-		String access_token = jObject1.get("access_token").getAsString();
-		String refresh_token = jObject1.get("refresh_token").getAsString();
-
-		//System.out.println("!!Test!! : " + response.getBody());
+		KakaoAPI kakaoAPI = new KakaoAPI();
+		//KakaoAPI 인가 코드 전송 및 유저 정보 응답
+		User kakaoUser = (User) kakaoAPI.KakaoAPI(code);
 		
-		System.out.println("ACCESS TOKEN : " + access_token);
-		System.out.println("REFRESH TOKEN : " + refresh_token);
-
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		RestTemplate rt2 = new RestTemplate();
-
-		// HttpHeader 오브젝트 생성
-		HttpHeaders headers2 = new HttpHeaders();
-		headers2.add("Authorization", "Bearer " + access_token);
-		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
-
-		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
-				kakaoProfileRequest2, String.class);
-
-		// Kakao Object
-		ObjectMapper objectMapper2 = new ObjectMapper();
-		KakaoProfile kakaoProfile = null;
-
-		// 현재날짜, 시간 구하기(로그인 시간)
-		LocalDateTime now = LocalDateTime.now();
-		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
-
-		try {
-			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
-		// KakaoProfile 정보 재정의
-		User kakaoUser = User.builder().email(kakaoProfile.getKakao_account().getEmail())
-				.name(kakaoProfile.getProperties().getNickname()).password("Fastrip123") // 임시 비밀번호
-				.profile(kakaoProfile.getProperties().getProfile_image())
-				.gender(kakaoProfile.getKakao_account().getGender())
-				.birthday(kakaoProfile.getKakao_account().getBirthday())
-				.access_token(access_token)
-				.refresh_token(refresh_token)
-				.login_date(formatedNow).build();
-
 		// 기존 회원 찾기(중복)
 		User originUser = userService.회원찾기(kakaoUser.getEmail());
 
@@ -188,30 +118,45 @@ public class LoginController {
 		}
 
 		System.out.println("자동 로그인을 진행합니다.");
-		System.out.println("id : " + kakaoProfile.getId());
+		System.out.println("id : " + kakaoUser.getId());
+		
 		// 로그인 처리
 //		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
 //		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		
 		// 프론트로 리다이렉트
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://localhost:8080/Test");
 		return redirectView;
 	}
 
-	// Kakao User 정보 가져오기
+	// Kakao User 정보 가져오기(도착지 선택 페이지에서 결제 페이지 넘어갈시 로그인이 필요한 경우)
 	@GetMapping("/auth/kakao/callback2")
 	public @ResponseBody RedirectView kakaoCallback2(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
-		System.out.println("1 : " + code);
-				
-		String t = kakaoCallback(code).getUrl();
-		
-		System.out.println("2 : " + t);
-		
-		// 프론트로 리다이렉트
-				RedirectView redirectView = new RedirectView();
-				redirectView.setUrl("http://localhost:8080/Arrival");
-				return redirectView;
+		System.out.println("인가 코드 : " + code);
+
+		KakaoAPI kakaoAPI = new KakaoAPI();
+		//KakaoAPI 인가 코드 전송 및 유저 정보 응답		
+		System.out.println("1");
+		System.out.println(kakaoAPI);
+		User kakaoUser = (User) kakaoAPI.KakaoAPI(code);
+		System.out.println("2");
+		// 기존 회원 찾기(중복)
+		User originUser = userService.회원찾기(kakaoUser.getEmail());
+		System.out.println("3");
+		// 기존 회원 아닐시 새로 등록
+		if (originUser.getEmail() == null) {
+			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
+			userService.회원가입(kakaoUser);
+		}
+
+		System.out.println("자동 로그인을 진행합니다.");
+		System.out.println("id : " + kakaoUser.getId());
+
+		// 프론트로 리다이렉트 
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("http://localhost:8080/");
+		return redirectView;
 	}
 	
 }

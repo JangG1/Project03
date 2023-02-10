@@ -60,11 +60,14 @@ export default {
         },
         getData() {
             let res_no = this.$store.state.res_no + 1;
-
+            
             axios.get('/res/' + res_no)
                 .then((response) => {
+                    this.$store.dispatch("setLoading", true);
                     this.res = response.data
+                    this.$store.dispatch("setLoading", false);
                 })
+            
         },
         Gender(value) {
             let gender = value

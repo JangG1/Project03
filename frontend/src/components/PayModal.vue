@@ -131,7 +131,7 @@ export default {
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
-            fullname: [],
+            fullname: [],            
         }
     },
     props: {
@@ -160,12 +160,17 @@ export default {
             default: ''
         },
         totalPoint: {
-            type: String,
-            default: ''
+            type: Number
         },
 
     },
     methods: {
+        test(){
+            console.log(this.holdPoint)
+            console.log(this.totalPoint)
+            let usePoint =  this.holdPoint - this.totalPoint;
+            console.log("잔여포인트 " + usePoint)
+        },
         closeModal() {
             this.$emit('close')
         },
@@ -240,7 +245,7 @@ export default {
                     console.log("안보내짐")
                 })                
 
-            let usePoint = this.holdPoint - this.totalPrice
+            let usePoint =  this.holdPoint - this.totalPoint;
             this.$store.dispatch("holdPoint", usePoint);
                     
         },

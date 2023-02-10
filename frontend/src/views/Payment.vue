@@ -5,7 +5,7 @@
     </div>
 
     <div class="pInfo">
-        <div class="blank">
+        <div class="pBlank">
             blank
         </div>
         <div class="pRight">
@@ -16,8 +16,8 @@
                 <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(returnInfo.totalPrice)}}</span><br>
                 <hr>
                 <span>성인</span> {{chooseInfo.AdultCount}} 명<span class="price">{{Format1(returnInfo.totalPrice)}}</span><br>
-                <span v-if="chooseInfo.ChildCount >= 1">유아 {{chooseInfo.ChildCount}} 명</span><span class="price">{{Format2(returnInfo.totalPrice)}}</span><br>
-                <span v-if="chooseInfo.InfantCount >= 1">소아 {{chooseInfo.InfantCount}} 명</span><span class="price">{{Format3(returnInfo.totalPrice)}}</span><br>
+                <span v-if="chooseInfo.ChildCount >= 1">유아 {{chooseInfo.ChildCount}} 명<span class="price">{{Format2(returnInfo.totalPrice)}}</span></span><br>
+                <span v-if="chooseInfo.InfantCount >= 1">소아 {{chooseInfo.InfantCount}} 명<span class="price">{{Format3(returnInfo.totalPrice)}}</span></span><br>
             </div>
             <div class="pTotalPrice">
                 <span class="pTotal">총액</span><span class="price">{{AddComma1(returnInfo.totalPrice)}} 원</span>
@@ -988,15 +988,9 @@ export default {
     display: flex;
 }
 
-/*.pRight,
-    .pPayInfo,
-    .pPayInfo h5,
-    .pTotal,
-    .pTotalPrice,
-    .pPayInfo,
-    .pTotalPrice {
-        color: white;        
-    }*/
+.pPayInfo hr{
+    height: 2px;    
+}
 
 @media (min-width: 2050px) {
     .pStep {
@@ -1037,7 +1031,7 @@ export default {
         margin-right: 2.5%;
         margin-top: 2%;
         padding: 40px 0;
-        background-color: rgba(34, 168, 168, 0.689);
+        background-color: rgba(34, 168, 168, 0.712);
         border-radius: 10px;
     }
 
@@ -1106,12 +1100,11 @@ h4 {
     margin-right: 30px;
 }
 
-.blank {
+.pBlank {
     color: white;
     font-size: 25px;
     margin-left: 4.2%;
     margin-bottom: 10px;
-
 }
 
 .pSchedule {
@@ -1231,7 +1224,7 @@ h4 {
 
 .payStartPrice {
     font-size: 20px;
-    margin-left: 70%;
+    margin-left: 65%;
 }
 
 .price {

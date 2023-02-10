@@ -92,7 +92,6 @@
 
     <div class="blank"></div>
 
-
     <div class="arrFootNav">
         <span class="arrFootNav1">예상 결제 금액</span>
         <span class="arrStartPrice">{{AddComma(selectPrice)+ " 원"}}&nbsp;</span>
@@ -108,6 +107,7 @@
 <script>
 import arrivalTime from '../components/arrivalTime.json';
 import LoginModal2 from "@/components/LoginModal2.vue";
+import axios from 'axios';
 
 const at = arrivalTime;
 
@@ -124,13 +124,21 @@ export default {
             arriveTime2: '',
             selectPrice: this.$store.state.startInfo.startPrice,
             loginModal: false,
-            chooseInfo : this.$store.state.chooseInfo,
-            startInfo : this.$store.state.startInfo
+            chooseInfo: this.$store.state.chooseInfo,
+            startInfo: this.$store.state.startInfo
         }
     },
-    props: {
-    },
+    props: {},
     methods: {
+        getUserInfo() {
+            axios.get('/api/kakao/info')
+                .then((response) => {
+                    this.userInfo = response.data
+                    console.log(this.userInfo)
+                    this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
+                })
+
+        },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
@@ -140,7 +148,7 @@ export default {
             let startTime = this.at[index].start;
             let arriveTime = this.at[index].arrive;
             let seatClass = this.at[index].standard;
-            
+
             this.selectPrice = this.$store.state.startInfo.startPrice;
             this.selectPrice = parseInt(this.selectPrice) + parseInt(priceStandard)
             this.startTime2 = startTime;
@@ -173,7 +181,7 @@ export default {
             }
 
             if (!this.$store.state.isLogin) {
-                alert("로그인을 진행해 주세요.")                
+                alert("로그인을 진행해 주세요.")
                 return this.loginModal = true;
             }
 
@@ -196,20 +204,20 @@ export default {
                 totalPrice: this.selectPrice,
             }
 
-            this.$store.dispatch("returnInfo", returnInfo);        
+            this.$store.dispatch("returnInfo", returnInfo);
 
             this.$router.push('Payment')
         }
 
     },
     mounted() {
-
+        this.getUserInfo();
     }
 }
 </script>
 
 <style>
-.blank {
+.arrBlank {
     height: 150px;
 }
 
@@ -252,7 +260,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     width: 1380px;
-    margin-top: 20px;    
+    margin-top: 20px;
 }
 
 .arrInfo button {
@@ -283,7 +291,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     width: 1250px;
-    display: flex;    
+    display: flex;
 }
 
 .arrStartInfo button {
@@ -421,7 +429,7 @@ export default {
     color: white;
     background: teal;
     border: 1px solid white;
-    margin-left:1%;
+    margin-left: 1%;
 }
 
 .arrSubmitBtn2 {
@@ -433,7 +441,7 @@ export default {
     color: rgb(6, 165, 165);
     background: white;
     border: 3px solid rgba(34, 168, 168, 0.689);
-    margin-left:1%;
+    margin-left: 1%;
 }
 
 .arrStartPrice {

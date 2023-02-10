@@ -506,6 +506,7 @@ export default {
 
             if (this.selectDate1 == false && this.selectDate2 == false) {
                 alert("날짜를 선택해주세요.")
+                return false;
             }
 
             if (this.fromImgName == "SEL") {
@@ -550,27 +551,7 @@ export default {
 
             this.$store.dispatch("chooseInfo", chooseInfo);
 
-            this.$router.push('Departure')
-
-            /*this.$router.push({
-                name: 'Departure',
-                params: {
-                    fromArea: fromArea,
-                    toArea: toArea,
-                    seat: seat,
-                    startYear: this.startYear,
-                    startMonth: this.startMonth,
-                    startDay: this.startDay,
-                    startWeek: this.startWeek,
-                    returnYear: this.returnYear,
-                    returnMonth: this.returnMonth,
-                    returnDay: this.returnDay,
-                    returnWeek: this.returnWeek,
-                    AdultCount: this.AdultCount,
-                    ChildCount: this.ChildCount,
-                    InfantCount: this.InfantCount,
-                }
-            });*/
+            this.$router.push('Departure')           
 
         },
         top() {

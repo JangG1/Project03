@@ -75,7 +75,7 @@ export default {
         },
         isLogin() {
             if(this.$store.state.isLogin == true){
-                alert("로그인 되었습니다.")
+                console.log("로그인 되었습니다.")
             }
             return this.$store.state.isLogin;
         },
@@ -87,13 +87,14 @@ export default {
     },
     methods: {
         logout() {
-            // if (!window.Kakao.Auth.getAccessToken()) {
-            //     console.log("Not logged in.");
-            //     return;
-            // }
-            localStorage.clear(); // 전체삭제
+            let access_token = this.$store.state.userInfo.access_token;
 
-            this.$router.go("/");
+            axios.get('/api/kakao/logout/' + access_token)
+                .then((response) => {
+                    alert(response.data)
+                })
+
+            this.$store.dispatch("logout");
         },
         getUserInfo() {
             if(this.$store.state.isLogin == true){

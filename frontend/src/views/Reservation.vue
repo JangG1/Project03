@@ -112,15 +112,19 @@ export default {
             //로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
             //로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
             let email = this.$store.state.userInfo.email;
+            this.$store.dispatch("setLoading", true);
             //let email = "test@test.com";
             axios.get('/res/resList/' + email)
                 .then((response) => {
                     this.res = response.data
                 })
+            this.$store.dispatch("setLoading", false);
         },
         passengerPopUp(value) { //예약자 정보 팝업
+
             this.passengerView = (this.passengerView) ? false : true
             this.$store.dispatch("res_no", value - 1);
+
         },
         Gender(value) { //성별 컨버트
             let gender = value

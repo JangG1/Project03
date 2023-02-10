@@ -26,6 +26,9 @@
 ==========================================================<br>
 <button @click="getUserInfo">getUserInfo</button><br>
 <button @click="test">test</button><br>
+
+==========================================================<br>
+<button @click="point">point</button><br>{{ holdPoint }}
 </template>
 
 <script>
@@ -35,6 +38,7 @@ export default {
     name: "HelloWorld",
     data() {
         return {
+            holdPoint: this.$store.state.holdPoint,
             name: '',
             email: '',
             gender: '',
@@ -49,6 +53,10 @@ export default {
     components: {},
     created() {},
     methods: {
+        point(){
+            this.holdPoint += 500000;
+            this.$store.dispatch("holdPoint",this.holdPoint);
+        },
         redirect() {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
         },

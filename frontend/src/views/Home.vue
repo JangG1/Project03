@@ -387,9 +387,6 @@ export default {
             this.bothWay = "";
             this.oneWay = "";
         },
-        test() {
-
-        },
         Format(value) {
             this.show1 = false;
             var regexp = /(\d{3}(\d{3})(\d))$/g;
@@ -570,7 +567,7 @@ export default {
 .NoticeModalView {
     padding: 20px;
     position: fixed;
-    top: 40%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 600px;

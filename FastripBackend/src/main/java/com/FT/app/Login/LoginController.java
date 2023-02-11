@@ -44,6 +44,7 @@ import com.FT.app.Repo.ResRepository;
 import com.FT.app.Repo.UserRepository;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.User;
+import com.FT.app.login.API.KakaoAPI;
 import com.FT.app.login.service.UserService;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -128,7 +129,7 @@ public class LoginController {
 		
 		// 프론트로 리다이렉트
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:8080/Test");
+		redirectView.setUrl("http://localhost:8080/");
 		return redirectView;
 	}
 

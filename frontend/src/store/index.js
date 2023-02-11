@@ -124,6 +124,12 @@ export default createStore({
     },
 },
   actions: {
+    login({ commit } ) {
+        commit("loginSuccess")
+    },
+    logout({ commit } ) {
+        commit("logout")
+    },
     setLoading({ commit }, payload) {
         if (payload) {
             commit("onLoad");
@@ -145,7 +151,6 @@ export default createStore({
         },
         async setUserInfo({ commit }, payload) {            
             let info = JSON.parse(payload)
-            console.log("setUserInfo : " + info[0])
             let userInfo = {
                 lastName: info[0].name.substr(0,1),
                 firstName: info[0].name.substr(1,3),
@@ -156,14 +161,8 @@ export default createStore({
                 access_token: info[0].access_token,
                 refresh_token: info[0].refresh_token
             }
-            console.log(userInfo)
             commit("loginSuccess", userInfo)
         },
-        /*getToken({ commit }, payload) {            
-            console.log("at : " + payload)
-            console.log("rt : " + payload)
-            commit("setToken", payload)
-        },*/
         async consentBtn1({ commit }, payload) {
                 console.log(payload)
                 commit('setConsent1', payload)
@@ -214,9 +213,6 @@ export default createStore({
                     console.log('refreshToken error : ', err.config);
                     commit('logout')
                 });
-        },
-        logout({ commit } ) {
-            commit("logout")
         },
     },
     

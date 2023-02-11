@@ -34,20 +34,16 @@ export default {
         loginModal: Boolean,
     },
     methods: {
+        kakaoLogin2() {
+                this.$store.dispatch("login")
+                console.log("로그인 상태 : " + this.$store.state.isLogin)
+        },
         //카카오 로그인
         kakaoLogin() {
+            if(this.$store.state.isLogin == false){
+                this.$store.dispatch("login")
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
-        },
-        getUserInfo() {
-
-            axios.get('/api/kakao/info')
-                .then((response) => {
-                    this.userInfo = response.data
-                    console.log(this.userInfo)
-                    this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
-                    this.$store.dispatch("loginSuccess");
-                })
-
+            }
         },
         logout() {
             let access_token = this.$store.state.userInfo.access_token;

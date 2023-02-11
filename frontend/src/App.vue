@@ -54,9 +54,6 @@ export default {
             loginModal: false,
         };
     },
-    mounted() {
-        this.getUserInfo();
-    },
     components: {
         ProfileItem,
         LoginModal,
@@ -88,7 +85,7 @@ export default {
     methods: {
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
-
+            alert("로그아웃 되었습니다.")
             axios.get('/api/kakao/logout/' + access_token)
                 .then((response) => {
                     alert(response.data)
@@ -101,12 +98,16 @@ export default {
             axios.get('/api/kakao/info')
                 .then((response) => {
                     this.userInfo = response.data
-                    console.log(this.userInfo)
+                    console.log("로그인 되었습니다.")
                     this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
                     this.$store.dispatch("loginSuccess");
                 })
             }
         },
+    },
+    
+    mounted() {
+        this.getUserInfo();
     },
 };
 </script>

@@ -40,7 +40,7 @@ export default {
         },
         //카카오 로그인
         kakaoLogin() {
-            if(this.$store.state.isLogin == false){
+            if(!this.$store.state.isLogin){
                 this.$store.dispatch("login")
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
             }

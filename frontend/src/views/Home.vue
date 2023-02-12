@@ -1098,7 +1098,7 @@ a:active {
     }
 
     .container2 h2 {
-        font-size: 130px;
+        font-size: 120px;
     }
 
     .container2 h3 {
@@ -1126,17 +1126,20 @@ a:active {
         margin-bottom: 220px;
     }
 
-    .container2 h2 {
-        font-size: 200px;
+    .container2 h2 {        
+        font-size: 190px;
+        
     }
 
     .container2 h3 {
         font-size: 40px;
+        
     }
 
     .container2 h4 {
         font-size: 30px;
         margin-bottom: 170px;
+
     }
     
 }
@@ -1144,33 +1147,33 @@ a:active {
 @media (min-width: 1600px) {
     .container3 h2 {
         font-size: 80px;
-        margin-left: 180px;
+        margin-left: 40%;
     }
     
     .container3 h3 {
         font-size: 30px;
-        margin-left: 310px;
+        margin-left: 57%;
     }
 
     .container3 h4 {
         font-size: 25px;
-        margin-left: 310px;
+        margin-left: 57%;
         margin-bottom: 220px;
     }
 
     .container4 h2 {
         font-size: 100px;
-        margin-left: 300px;
+        margin-left: 70%;
     }
     
     .container4 h3 {
         font-size: 20px;
-        margin-left: 310px;
+        margin-left: 70%;
     }
 
     .container4 h4 {
         font-size: 25px;
-        margin-left: 310px;
+        margin-left: 75%;
         margin-bottom: 220px;
     }
 }
@@ -1179,33 +1182,33 @@ a:active {
 
     .container3 h2 {
         font-size: 100px;
-        margin-left: 45%;
+        margin-left: 10%;
     }
 
     .container3 h3 {
         font-size: 40px;
-        margin-left: 65%;
+        margin-left: 30%;
     }
 
     .container3 h4 {
         font-size: 30px;
-        margin-left: 66%;
+        margin-left: 30%;
         margin-bottom: 200px;
     }
 
     .container4 h2 {
         font-size: 140px;
-        margin-left: 60%;
+        margin-left: 10%;
     }
 
     .container4 h3 {
         font-size: 25px;
-        margin-left: 65%;
+        margin-left: 10%;
     }
 
     .container4 h4 {
         font-size: 30px;
-        margin-left: 70%;
+        margin-left: 10%;
         margin-bottom: 200px;
     }
 

@@ -22,7 +22,9 @@
     refresh_token : {{$store.state.userInfo.refresh_token}} <br>
 </div>
 ==========================================================<br>
-
+<ul class="nav">
+            <router-link to="/Arrival2">arr2</router-link>
+        </ul>
 ==========================================================<br>
 <button @click="getUserInfo">getUserInfo</button><br>
 <button @click="test">test</button><br>

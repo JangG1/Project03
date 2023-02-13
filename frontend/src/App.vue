@@ -37,6 +37,7 @@
 
     <hr>
 
+    <Home v-if="$route.name !== 'Arrival'"></Home>
     <router-view></router-view>
 
 </div>
@@ -77,6 +78,7 @@ export default {
             return this.$store.state.isLogin;
         },
         isLoading() {
+            
             console.log("loading " + this.$store.state.isLoad);
             return this.$store.state.isLoad;
         },
@@ -92,6 +94,7 @@ export default {
                 })
 
             this.$store.dispatch("logout");
+            this.$router.push('/')
         },
         getUserInfo() {
             if(this.$store.state.isLogin == true){

@@ -5,8 +5,13 @@
     </div>
     <div class="loginBtns mt-4 mb-5">
         <!-- 카카오 아이디로 로그인 -->
-        <div @click="kakaoLogin" class="kakaoBtn mb-3">
+        <div @click="kakaoLogin" class="kakaoBtn mb-3" v-if="$route.name !== 'Arrival'">
             <img src="@/assets/kakaoLogo.png" />
+            <br>            
+        </div>
+        <!-- 카카오 아이디로 로그인(Arrive 페이지용) -->
+        <div @click="kakaoLogin2" class="kakaoBtn mb-3" v-if="$route.name == 'Arrival'">
+            <img src="@/assets/kakaoLogo.png" />2
             <br>            
         </div>
         <!-- 네이버 아이디로 로그인 -->
@@ -34,10 +39,6 @@ export default {
         loginModal: Boolean,
     },
     methods: {
-        kakaoLogin2() {
-                this.$store.dispatch("login")
-                console.log("로그인 상태 : " + this.$store.state.isLogin)
-        },
         //카카오 로그인
         kakaoLogin() {
             if(!this.$store.state.isLogin){
@@ -45,6 +46,13 @@ export default {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
             }
         },
+        //카카오 로그인(Arrive 페이지용)
+        kakaoLogin2() {
+            if(!this.$store.state.isLogin){
+                this.$store.dispatch("login")
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback2&response_type=code";
+            }
+        },       
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
 

@@ -57,12 +57,21 @@ const routes = [
     component: () => import('@/views/Complete.vue'),
     props: true
   },
+]
 
+const routes2 = [
+  {
+    path: '/Arrival2',
+    name: 'Arrival2',
+    component: () => import('@/components/Arrival2.vue'),
+    props: true
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  routes2
 })
 
 export default router

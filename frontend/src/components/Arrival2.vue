@@ -100,13 +100,13 @@
     </div>
 </div>
 <div v-if="!isLogin">
-    <LoginModal @closeModal="loginModal = false" :loginModal="loginModal" />
+    <LoginModal2 @closeModal="loginModal = false" :loginModal="loginModal" />
 </div>
 </template>
 
 <script>
 import arrivalTime from '../components/arrivalTime.json';
-import LoginModal from "@/components/LoginModal.vue";
+import LoginModal2 from "@/components/LoginModal2.vue";
 import axios from 'axios';
 
 const at = arrivalTime;
@@ -114,7 +114,7 @@ const at = arrivalTime;
 export default {
     name: 'HelloWorld',
     components: {
-        LoginModal
+        LoginModal2
     },
     data() {
         return {

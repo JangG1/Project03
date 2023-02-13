@@ -1,7 +1,7 @@
 <template>
 <div class="login-modal px-5 py-5" v-if="loginModal">
     <div class="login-text">
-        <p>로그인</p>
+        <p>로그인2</p>
     </div>
     <div class="loginBtns mt-4 mb-5">
         <!-- 카카오 아이디로 로그인 -->
@@ -33,10 +33,13 @@ export default {
         loginModal: Boolean,
     },
     methods: {
-        //카카오 로그인
-        kakaoLogin() {
+          //카카오 로그인
+          kakaoLogin() {
+            if(!this.$store.state.isLogin){
+                this.$store.dispatch("login")
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback2&response_type=code";
-        },        
+            }
+        },       
         naverLogin(){
             alert('준비중 입니다.')
         }

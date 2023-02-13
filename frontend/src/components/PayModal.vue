@@ -165,12 +165,6 @@ export default {
 
     },
     methods: {
-        test(){
-            console.log(this.holdPoint)
-            console.log(this.totalPoint)
-            let usePoint =  this.holdPoint - this.totalPoint;
-            console.log("잔여포인트 " + usePoint)
-        },
         closeModal() {
             this.$emit('close')
         },
@@ -184,7 +178,7 @@ export default {
             return gender
         },
         submit() {
-            alert("예약하시겠습니까?")
+            alert("예약 되었습니다.")
 
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';

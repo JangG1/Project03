@@ -1107,7 +1107,7 @@ a:active {
 
     .container2 h4 {
         font-size: 20px;
-        margin-bottom: 200px;
+        margin-bottom: 200px;        
     }
 
 }
@@ -1133,13 +1133,13 @@ a:active {
 
     .container2 h3 {
         font-size: 40px;
-        
+        margin-left: 10%;
     }
 
     .container2 h4 {
         font-size: 30px;
         margin-bottom: 170px;
-
+        margin-left: 10%;
     }
     
 }

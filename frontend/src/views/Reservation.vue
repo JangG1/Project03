@@ -2,8 +2,13 @@
 <div class="res">
     <div class="resTitle">예약 조회</div>
     <div class="table-responsive">
+        <!--예약자 정보 모달-->
         <span v-if="passengerView" class="passengerView">
-            <PassengerModal @close="passengerPopUp" :user="user"></PassengerModal>
+            <PassengerModal @close="passengerModal" :user="user"></PassengerModal>
+        </span>
+        <!--예약 취소 모달--> 
+        <span v-if="resCancelView" class="passengerView">
+            <ResCancelModal @close="resCancelModal"></ResCancelModal>
         </span>
 
         <div v-if="res == ''" class="resBlank">
@@ -31,18 +36,11 @@
 
             <tbody>
                 <tr v-for="res in res" :key="res">
-                    <td>                        
-                        <button type="button" class="resDelDrop" @click="dropMenu(res.res_no)">취소</button>                        
-                        <!-- <div style="display: none;" id="dropResDel" > -->
-                        <div id="dropResDel">
-                            <div></div>{{ res.res_no }}
-                            <span class="resDelTitle">예약을 취소 하시겠습니까?</span><br>
-                            <button type="button" class="resDelBtn1" @click="test(res.res_no)">예</button>
-                            <button type="button" class="resDelBtn2" @click="dropMenu">아니요</button>
-                        </div>
+                    <td>
+                        <button type="button" class="resDelBtn" @click="resDelModal(res.res_no)">취소</button>                                                                        
                     </td>
                     <td>{{"Fastrip - " + res.res_no}}</td>
-                    <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerPopUp(res.res_no)"></td>
+                    <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerModal(res.res_no)"></td>
                     <!-- 예약날짜 -->
                     <td>{{resDate1(res.res_date)}}</td>
                     <!-- 가는편/오는편 -->
@@ -81,11 +79,13 @@
 <script>
 import axios from 'axios'
 import PassengerModal from "@/components/PassengerModal";
+import ResCancelModal from "@/components/ResCancelModal";
 
 export default {
     name: 'HelloWorld',
     components: {
-        PassengerModal
+        PassengerModal,
+        ResCancelModal
     },
     props: [""],
     data() {
@@ -93,11 +93,13 @@ export default {
             week: ['일', '월', '화', '수', '목', '금', '토'],
             res: [],
             passengerView: false,
+            resCancelView: true
         }
     },
     methods: {
         dropMenu() {
             let click = document.getElementById("dropResDel");
+            console.log(click)
             if(click.style.display === "none"){
                 click.style.display = "block";
  
@@ -105,6 +107,10 @@ export default {
                 click.style.display = "none";
  
             }
+        },
+        resDelModal(value){
+            console.log(value)
+            this.resCancelView = (this.resCancelView) ? false : true
         },
         test(value) {
             console.log(value)
@@ -155,7 +161,7 @@ export default {
                 })
             this.$store.dispatch("setLoading", false);
         },
-        passengerPopUp(value) { //예약자 정보 팝업
+        passengerModal(value) { //예약자 정보 팝업
 
             this.passengerView = (this.passengerView) ? false : true
             this.$store.dispatch("res_no", value - 1);
@@ -332,7 +338,7 @@ a:active {
     color: rgb(77, 77, 77);
 }
 
-.resDelDrop{
+.resDelBtn{
     color: white;
     font-weight: 900;
     background-color: teal;
@@ -341,6 +347,8 @@ a:active {
     padding: 6px;
 }
 
+
+/* 
 #dropResDel{
     width: 330px;
     padding: 2%;
@@ -369,5 +377,5 @@ a:active {
     padding-bottom: 3%;
     padding-left: 5%;
     padding-right: 5%;
-}
+} */
 </style>

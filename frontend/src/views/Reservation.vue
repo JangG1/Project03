@@ -1,6 +1,6 @@
 <template>
 <div class="res">
-    <div class="resTitle">예약 조회</div>    
+    <div class="resTitle">예약 조회</div>
     <div class="table-responsive">
         <span v-if="passengerView" class="passengerView">
             <PassengerModal @close="passengerPopUp" :user="user"></PassengerModal>
@@ -10,11 +10,11 @@
             <img src="../assets/magnifier.jpg"><br>
             <span>예약 내역 없음.</span>
         </div>
- 
-        <table v-if="res != ''" class="table table-striped table-sm" >
+
+        <table v-if="res != ''" class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col">삭제Test</th>
+                    <th scope="col">예약 취소</th>
                     <th scope="col">예약 번호</th>
                     <th scope="col">예약자 정보</th>
                     <th scope="col">예약 날짜</th>
@@ -31,7 +31,16 @@
 
             <tbody>
                 <tr v-for="res in res" :key="res">
-                    <td><input type="checkbox"  name='resNo' :value=res.res_no @click="test(res.res_no)"></td>
+                    <td><button type="button" class="resDelDrop" @click="dropMenu">취소</button>
+                        <div style="display: none;" id="dropResDel">
+                            <span class="resDelTitle">
+                                예약 번호 [Fastrip - {{res.res_no}}]<br>
+                                예약을 취소 하시겠습니까?
+                            </span><br>
+                            <button type="button" class="resDelBtn1" @click="resDelete(res.res_no)">예</button>
+                            <button type="button" class="resDelBtn2" @click="dropMenu">아니오</button>
+                        </div>
+                    </td>
                     <td>{{"Fastrip - " + res.res_no}}</td>
                     <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerPopUp(res.res_no)"></td>
                     <!-- 예약날짜 -->
@@ -53,7 +62,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <!-- FOOTER -->
     <div class="Footer">
         <div class="FootLeft">
@@ -83,19 +92,32 @@ export default {
         return {
             week: ['일', '월', '화', '수', '목', '금', '토'],
             res: [],
-            passengerView: false,           
+            passengerView: false,
         }
     },
     methods: {
-        test(value){
-             value = [2,3]
-            axios.get('/res/remove/' + value)
-                .then((response) => {
-
-                    this.res = response.data
-
+        dropMenu(){
+            let click = document.getElementById("dropResDel");
+            if(click.style.display === "none"){
+                click.style.display = "block";
+ 
+            }else{
+                click.style.display = "none";
+ 
+            }
+        },
+        resDelete(value) {
+            axios.post("/res/remove/" + value)
+                .then(res => {
+                    console.log(res)
+                    console.log("보내짐")
+                    alert("Fastrip - " + value + " 예약이 취소되었습니다.")
                 })
-            
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })
+                this.$router.push('Reservation')
         },
         resDate1(value) { //협정 세계시(UTC) 시간 차이로 인한 시간 재정의
             let resDate = new Date(value);
@@ -166,10 +188,10 @@ export default {
     font-weight: 900;
     color: #999;
     text-align: center;
-    padding-top: 13%;    
+    padding-top: 13%;
 }
 
-.resBlank img{
+.resBlank img {
     width: 60px;
     height: 60px;
     margin-bottom: 10px;
@@ -307,5 +329,49 @@ a:hover,
 a:visited,
 a:active {
     color: rgb(77, 77, 77);
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+#dropResDel{
+    width: 20%;
+    position: absolute;
+    border:3px solid teal;
+    border-radius: 4px;
+    padding: 30px;
+    background-color: white;
+    margin-top: 0.5%;
+}
+
+.resDelTitle{
+    color: teal;
+    font-weight: 900;
+}
+
+.resDelDrop{
+    color: white;
+    font-weight: 900;
+    background-color: teal;
+    border:1px solid white;
+    border-radius: 4px;
+}
+
+.resDelBtn1,
+.resDelBtn2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    font-weight: 900;
+    background-color: teal;
+    border:1px solid white;
+    border-radius: 4px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
 }
 </style>

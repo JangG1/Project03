@@ -510,6 +510,10 @@ export default {
     },
     props: {},
     methods: {
+        test(){
+            console.log(this.totalPoint)
+            console.log(this.Point)
+        },
         ing() {
             alert("준비중입니다.")
         },
@@ -878,14 +882,6 @@ export default {
         },
 
         PayModalPopUp() {
-
-            if (this.engLastName1 == null) {
-                alert("영문 성을 확인해주세요")
-            }
-
-            if (this.engFirstName1 == null) {
-                alert("영문 이름을 확인해주세요")
-            }
 
             if (this.engLastName1 == null) {
                 alert("영문 성을 확인해주세요")

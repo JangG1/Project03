@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,6 +35,9 @@ import com.FT.app.domain.Seat;
 import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.ResList;
 import com.FT.app.myPage.mapper.ResListMapper;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 @RestController
 @RequestMapping("/res/*")
@@ -70,12 +74,20 @@ public class ResController {
 	}
 	
 	//id(res_no) 기준으로 예약내역(승객 정보) 삭제
-	@GetMapping("/remove/{id}")
+	@PostMapping("/remove/{id}")
 	public void detailDelete(@PathVariable int id){
-		//resRepository.deleteById(id);
+		resRepository.deleteById(id);
 		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
 	}
 
-	
+	//다중 삭제
+	@PostMapping("/remove")
+	public void selectAllDelete(@RequestBody String id){
+
+		//resRepository.deleteById(id);
+	    System.out.println("test : " + id);
+	    
+		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
+	}
 	
 }

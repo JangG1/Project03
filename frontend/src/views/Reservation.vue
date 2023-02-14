@@ -4,11 +4,11 @@
     <div class="table-responsive">
         <!--예약자 정보 모달-->
         <span v-if="passengerView" class="passengerView">
-            <PassengerModal @close="passengerModal" :user="user"></PassengerModal>
+            <PassengerModal @close="passengerModal"></PassengerModal>
         </span>
         <!--예약 취소 모달--> 
         <span v-if="resCancelView" class="passengerView">
-            <ResCancelModal @close="resCancelModal"></ResCancelModal>
+            <ResCancelModal @close="resDelModal"></ResCancelModal>
         </span>
 
         <div v-if="res == ''" class="resBlank">
@@ -93,7 +93,7 @@ export default {
             week: ['일', '월', '화', '수', '목', '금', '토'],
             res: [],
             passengerView: false,
-            resCancelView: true
+            resCancelView: false
         }
     },
     methods: {
@@ -108,15 +108,11 @@ export default {
  
             }
         },
-        resDelModal(value){
-            console.log(value)
-            this.resCancelView = (this.resCancelView) ? false : true
-        },
         test(value) {
             console.log(value)
         },
         test2(value) {
-            axios.post("/res/remove/" + value, {})
+            axios.post("/res/remove/" + value)
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")
@@ -162,10 +158,14 @@ export default {
             this.$store.dispatch("setLoading", false);
         },
         passengerModal(value) { //예약자 정보 팝업
-
             this.passengerView = (this.passengerView) ? false : true
             this.$store.dispatch("res_no", value - 1);
 
+        },
+        resDelModal(value){//예약 취소 팝업
+            console.log(value)
+            this.resCancelView = (this.resCancelView) ? false : true
+            this.$store.dispatch("res_no", value - 1);
         },
         Gender(value) { //성별 컨버트
             let gender = value
@@ -347,35 +347,4 @@ a:active {
     padding: 6px;
 }
 
-
-/* 
-#dropResDel{
-    width: 330px;
-    padding: 2%;
-    border: 3px solid teal;
-    border-radius: 4px;
-    background-color: white;
-    position: absolute;
-    margin-top: 1%;
-}
-
-.resDelTitle{
-    color: teal;
-    font-weight: 900;
-}
-
-.resDelBtn1,
-.resDelBtn2{
-    color: white;
-    font-weight: 900;
-    background-color: teal;
-    border: 1px solid white;    
-    margin-top: 10%;
-    margin-left: 4%;
-    margin-right: 4%;
-    padding-top: 3%;
-    padding-bottom: 3%;
-    padding-left: 5%;
-    padding-right: 5%;
-} */
 </style>

@@ -22,9 +22,7 @@
     refresh_token : {{$store.state.userInfo.refresh_token}} <br>
 </div>
 ==========================================================<br>
-<ul class="nav">
-            <router-link to="/Arrival2">arr2</router-link>
-        </ul>
+
 ==========================================================<br>
 <button @click="getUserInfo">getUserInfo</button><br>
 <button @click="test">test</button><br>
@@ -63,7 +61,7 @@ export default {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
         },
         test() {
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback2&response_type=code";
+            this.$router.push('Reservation')
         },
         getUserInfo() {
 

@@ -11,4 +11,5 @@ import com.FT.app.myPage.domain.ResList;
 // @Repository 생략 가능.
 public interface ResRepository extends JpaRepository<ResList, Integer>{//Integer 프라이머리 키 
 	 List<ResList> findByEmail(String email);
+	 void deleteByEmail(String email);
 }

@@ -14,6 +14,7 @@
         <table v-if="res != ''" class="table table-striped table-sm" >
             <thead>
                 <tr>
+                    <th scope="col">삭제Test</th>
                     <th scope="col">예약 번호</th>
                     <th scope="col">예약자 정보</th>
                     <th scope="col">예약 날짜</th>
@@ -30,6 +31,7 @@
 
             <tbody>
                 <tr v-for="res in res" :key="res">
+                    <td><input type="checkbox"  name='resNo' :value=res.res_no @click="test(res.res_no)"></td>
                     <td>{{"Fastrip - " + res.res_no}}</td>
                     <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerPopUp(res.res_no)"></td>
                     <!-- 예약날짜 -->
@@ -85,6 +87,16 @@ export default {
         }
     },
     methods: {
+        test(value){
+             value = [2,3]
+            axios.get('/res/remove/' + value)
+                .then((response) => {
+
+                    this.res = response.data
+
+                })
+            
+        },
         resDate1(value) { //협정 세계시(UTC) 시간 차이로 인한 시간 재정의
             let resDate = new Date(value);
 

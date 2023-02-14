@@ -69,6 +69,12 @@ public class ResController {
 		resRepository.save(resList);
 	}
 	
+	//id(res_no) 기준으로 예약내역(승객 정보) 삭제
+	@GetMapping("/remove/{id}")
+	public void detailDelete(@PathVariable int id){
+		//resRepository.deleteById(id);
+		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
+	}
 
 	
 	

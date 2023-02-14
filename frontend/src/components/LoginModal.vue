@@ -11,7 +11,7 @@
         </div>
         <!-- 카카오 아이디로 로그인(Arrive 페이지용) -->
         <div @click="kakaoLogin2" class="kakaoBtn mb-3" v-if="$route.name == 'Arrival'">
-            <img src="@/assets/kakaoLogo.png" />2
+            <img src="@/assets/kakaoLogo.png" />
             <br>            
         </div>
         <!-- 네이버 아이디로 로그인 -->

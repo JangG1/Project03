@@ -10,7 +10,7 @@
         <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo2.png" class="logo"></router-link>
         <!-- 예약버튼 -->
         <ul class="nav">
-            <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
+            <router-link to="/Reservation" class="nav-link px-2 link-secondary" @click="resPage">예약</router-link>
         </ul>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -85,6 +85,12 @@ export default {
 
     },
     methods: {
+        resPage(){
+            if(!this.$store.state.isLogin){
+                alert("로그인을 해주세요.")
+                return this.$router.push('/')
+            }
+        },
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
             alert("로그아웃 되었습니다.")

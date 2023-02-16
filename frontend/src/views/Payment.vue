@@ -128,14 +128,14 @@
                 <div class="passInfo1-1">
                     <h5>승객 성<span class="asterisk"> *</span></h5><br>
                     <!--회원-->
-                    <input type="text" v-if="isLogin()" v-model="korLastName1" class="passText" disabled='disabled'>
+                    <input type="text" v-if="isLogin()" v-model="korLastName1" class="passText">
                     <!--비회원-->
                     <input type="text" v-if="!isLogin()" placeholder="예) 홍" v-model="korLastName1" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>승객 이름<span class="asterisk"> *</span></h5><br>
                     <!--회원-->
-                    <input type="text" v-if="isLogin()" v-model="korFirstName1" class="passText" disabled='disabled'>
+                    <input type="text" v-if="isLogin()" v-model="korFirstName1" class="passText">
                     <!--비회원-->
                     <input type="text" v-if="!isLogin()" placeholder="예) 길동" v-model="korFirstName1" class="passText">
                 </div>
@@ -154,11 +154,33 @@
                 </div>
             </div>
 
+            <div class="passInfo1-email" v-if="!isLogin()">
+                <div class="passInfo1-1-email">
+                    <h5>이메일<span class="asterisk"> *</span></h5><br>
+                    <input type="text" v-model="passEmail" class="passEmail">
+                    <span class="emailAtSign">@</span>
+                    <select id="inputEmail" class="emailSelect">
+                        <option>이메일을 입력해주세요.</option>
+                        <option>naver.com</option>
+                        <option>nate.com</option>
+                        <option>gmail.com</option>
+                        <option>직접입력</option>
+                    </select>
+
+                </div>
+                <div class="passInfo1-2-email"></div>
+                <h5 id="hint-email">
+                    <img src="@/assets/email.jpg" class="hint-email-img">
+
+                    &nbsp; 이메일 입력으로 예약 조회가 가능합니다.
+                </h5>
+            </div>
+
             <div class="passInfo2">
                 <div class="passInfo2-1">
                     <h5>성별<span class="asterisk"> *</span></h5><br>
-                    <input type="button" value="남자" class="maleBtn" id="maleBtn1" disabled='disabled' autofocus>
-                    <input type="button" value="여자" class="femaleBtn" id="femaleBtn1" disabled='disabled' autofocus>
+                    <input type="button" value="남자" class="maleBtn" id="maleBtn1" @click="Gender2" disabled='disabled' autofocus>
+                    <input type="button" value="여자" class="femaleBtn" id="femaleBtn1" @click="Gender3" disabled='disabled' autofocus>
                 </div>
                 <div class="passInfo2-2">
                     <h5>생년 월일 (MMDD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
@@ -454,7 +476,7 @@
 </div>
 
 <div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal :PayModalView="PayModalView" :engLastName="engLastName1" :engFirstName="engFirstName1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" :totalPoint="totalPoint" @close="PayModalPopUp"></PayModal>
+    <PayModal :PayModalView="PayModalView" :korLastName="korLastName1" :korFirstName="korFirstName1" :engLastName="engLastName1" :engFirstName="engFirstName1" :birthday="birthday1" :gender="gender1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" :totalPoint="totalPoint" @close="PayModalPopUp"></PayModal>
 </div>
 
 <div v-if="IATAModalView == true" class="IATAModalView" :class="{ active : IATAModalView }">
@@ -498,7 +520,6 @@ export default {
             gender2: document.getElementById('maleBtn2'),
             autofocus: true,
             PayModalView: false,
-            IATAModalView: false,
             PointPaymentInfo: false,
             holdPoint: this.$store.state.holdPoint,
             name: '',
@@ -510,9 +531,8 @@ export default {
     },
     props: {},
     methods: {
-        test(){
-            console.log(this.totalPoint)
-            console.log(this.Point)
+        test() {
+
         },
         ing() {
             alert("준비중입니다.")
@@ -586,7 +606,7 @@ export default {
                 this.totalPoint = addPrice;
                 return addPrice.toString().replace(regexp, ",");
             }
-            
+
             this.totalPoint = price;
             return price.toString().replace(regexp, ",");
         },
@@ -615,25 +635,24 @@ export default {
                 this.$store.dispatch("consentBtn2", true);
             }
         },
-        Gender() {
-
+        Gender1() {
             if (this.gender1 == "male") {
-                const target = document.getElementById('maleBtn1');
+                let target = document.getElementById('maleBtn1');
                 target.disabled = false;
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 target.value = "남자" + "  ✔"
                 return this.gender1 = "남자"
             } else if (this.gender1 == "female") {
-                const target = document.getElementById('femaleBtn1');
+                let target = document.getElementById('femaleBtn1');
                 target.disabled = false;
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 target.value = "여자" + "  ✔"
                 return this.gender1 = "여자"
-            } else {
-                const target1 = document.getElementById('maleBtn1');
-                const target2 = document.getElementById('femaleBtn1');
+            } else { //비회원
+                let target1 = document.getElementById('maleBtn1');
+                let target2 = document.getElementById('femaleBtn1');
                 target1.disabled = false;
                 target2.disabled = false;
 
@@ -645,8 +664,6 @@ export default {
                     target2.style.color = "#999"
                     target2.style.border = "3px solid #999"
                     target2.value = "여자"
-
-                    return this.gender1 = "남자"
                 });
 
                 target2.addEventListener('click', function () {
@@ -657,10 +674,18 @@ export default {
                     target1.style.color = "#999"
                     target1.style.border = "3px solid #999"
                     target1.value = "남자"
-
-                    return this.gender1 = "여자"
                 });
             }
+        },
+        Gender2() {
+            let t1 = document.getElementById('maleBtn1').value.substring(0, 2);
+
+            this.gender1 = t1;
+        },
+        Gender3() {
+            let t2 = document.getElementById('femaleBtn1').value.substring(0, 2);
+
+            this.gender1 = t2;
         },
         Fare(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -680,8 +705,8 @@ export default {
         showPassInfo1() {
             this.passInfo = (this.passInfo) ? false : true
             this.addPas1 = true;
-            if(this.chooseInfo.AdultCount == 1){
-            this.addPas2 = true;
+            if (this.chooseInfo.AdultCount == 1) {
+                this.addPas2 = true;
             }
 
             if (this.arrow == "▼") {
@@ -690,8 +715,8 @@ export default {
                 this.arrow = "▼"
             }
         },
-        showPassInfo2(value) {
-            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+        showPassInfo2(value) { //추가 승객 성인
+            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -701,7 +726,7 @@ export default {
                 alert("영문 성을 확인해 주세요.");
             } else if (this.engFirstName2 == null) {
                 alert("영문 이름을 확인해 주세요");
-            } else if (selected == null) {
+            } else if (genderSelected == null) {
                 alert("성별을 확인해 주세요.");
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
@@ -711,7 +736,7 @@ export default {
 
         },
         showPassInfo2Push(value) {
-            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             this.addPassEngName.push(this.engFirstName2)
             this.addPassEngName.push(this.engLastName2)
@@ -719,7 +744,7 @@ export default {
             this.addPassKorName.push(this.korFirstName2)
             this.addPassKorName.push(this.korLastName2)
 
-            this.addPassGender.push(selected.value)
+            this.addPassGender.push(genderSelected.value)
 
             this.addPassBirthday.push(this.birthday2)
 
@@ -741,7 +766,6 @@ export default {
                 for (let i = 0; i < 2; i++) {
                     this.addPassEngName.pop();
                     this.addPassKorName.pop();
-
                 }
 
                 this.addPassGender.pop();
@@ -753,7 +777,7 @@ export default {
 
         },
         showPassInfo3(value) {
-            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -763,7 +787,7 @@ export default {
                 alert("영문 성을 확인해 주세요.");
             } else if (this.engFirstName2 == null) {
                 alert("영문 이름을 확인해 주세요");
-            } else if (selected == null) {
+            } else if (genderSelected == null) {
                 alert("성별을 확인해 주세요.");
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
@@ -773,7 +797,7 @@ export default {
 
         },
         showPassInfo3Push(value) {
-            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             this.addPassEngName.push(this.engFirstName2)
             this.addPassEngName.push(this.engLastName2)
@@ -781,7 +805,7 @@ export default {
             this.addPassKorName.push(this.korFirstName2)
             this.addPassKorName.push(this.korLastName2)
 
-            this.addPassGender.push(selected.value)
+            this.addPassGender.push(genderSelected.value)
 
             this.addPassBirthday.push(this.birthday2)
 
@@ -810,7 +834,7 @@ export default {
 
         },
         showPassInfo4(value) {
-            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -820,7 +844,7 @@ export default {
                 alert("영문 성을 확인해 주세요.");
             } else if (this.engFirstName2 == null) {
                 alert("영문 이름을 확인해 주세요");
-            } else if (selected == null) {
+            } else if (genderSelected == null) {
                 alert("성별을 확인해 주세요.");
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
@@ -830,7 +854,7 @@ export default {
 
         },
         showPassInfo4Push(value) {
-            var selected = document.querySelector('input[type=radio][name=gender]:checked');
+            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             this.addPassEngName.push(this.engFirstName2)
             this.addPassEngName.push(this.engLastName2)
@@ -838,7 +862,7 @@ export default {
             this.addPassKorName.push(this.korFirstName2)
             this.addPassKorName.push(this.korLastName2)
 
-            this.addPassGender.push(selected.value)
+            this.addPassGender.push(genderSelected.value)
 
             this.addPassBirthday.push(this.birthday2)
 
@@ -863,8 +887,7 @@ export default {
 
         },
 
-        showNoteInfo(value) {
-            alert(value)
+        showNoteInfo() {
             this.noteInfo = (this.noteInfo) ? false : true
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -900,7 +923,7 @@ export default {
             if (this.holdPoint < this.totalPoint) {
                 alert("포인트가 모자랍니다.")
             } else if (this.holdPoint >= this.totalPoint) {
-                if (this.engLastName1 != null && this.engFirstName1 != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {                    
+                if (this.engLastName1 != null && this.engFirstName1 != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                     this.PayModalView = (this.PayModalView) ? false : true
                 }
             }
@@ -909,7 +932,7 @@ export default {
 
     },
     mounted() {
-        this.Gender()
+        this.Gender1()
     }
 }
 </script>
@@ -984,8 +1007,8 @@ export default {
     display: flex;
 }
 
-.pPayInfo hr{
-    height: 2px;    
+.pPayInfo hr {
+    height: 2px;
 }
 
 @media (min-width: 2050px) {
@@ -1294,6 +1317,40 @@ h4 {
     border: 3px solid teal;
 }
 
+.passEmail{
+    width: 170px;
+    float: left;
+    padding: 20px;
+    border: 2px solid teal;
+    background-color: white;
+}
+
+.passEmail:hover{
+    border: 3px solid teal;
+}
+
+.emailAtSign{
+    color:teal;
+    font-size:26px;
+    font-weight: 900;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.emailSelect{
+    width: 210px;    
+    height: 70px;
+    padding: 20px;
+    border: 2px solid teal;
+    background-color: white;
+    color: #999;
+    font-weight: 900;
+}
+
+.emailSelect:hover{
+    border: 3px solid teal;
+}
+
 .passInfo {
     width: 1210px;
     border: none;
@@ -1301,7 +1358,8 @@ h4 {
 
 }
 
-.passInfo1 {
+.passInfo1,
+.passInfo1-email {
     width: 100%;
     border: 1px solid;
     padding-top: 80px;
@@ -1322,6 +1380,19 @@ h4 {
 
 .passInfo1-2 {
     margin-left: 200px;
+}
+
+.passInfo1-2-email {
+    margin-left: 200px;
+}
+
+#hint-email {
+    margin-top: 65px;
+}
+
+.hint-email-img {
+    width: 50px;
+    height: 50px;
 }
 
 .maleBtn,

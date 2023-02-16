@@ -1,6 +1,6 @@
 <template>
 <div class="res">
-    <div class="resTitle">예약 조회</div>
+    <div class="resTitle">예약 조회</div>{{ res }}
     <div class="table-responsive">
         <!--예약자 정보 모달-->
         <span v-if="passengerView" class="passengerView">

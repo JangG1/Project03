@@ -29,6 +29,7 @@
         승객 {{ index + 2 }}
     </div>
     <div class="info">        
+        <span class="listLeft">test 이름 :</span> <span class="listRight"> {{res.addPassKorName}}</span><br><br>
         <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res.addPassKorName[index*2+1]}}{{res.addPassKorName[index*2]}}</span><br><br>
         <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res.addPassEngName[index*2+1]}} {{res.addPassEngName[index*2]}} </span><br><br>
         <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res.addPassBirthday[index]}}</span><br><br>
@@ -79,7 +80,6 @@ export default {
     },
     mounted() {
         this.getData()
-
     }
 }
 </script>

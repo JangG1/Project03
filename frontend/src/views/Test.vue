@@ -1,6 +1,8 @@
 <template>
 <div class="main">
-    <img src="@/assets/kakaoLogo.png" @click="kakaoLoginBtn()" style="width: 200px;" alt="카카오 로그인" />
+    <img class="b1" src="@/assets/bannerImage/2.jpg"/>
+    <img class="b3" src="@/assets/bannerImage/3.jpg"/>
+    <img class="b4" src="@/assets/bannerImage/4.jpg"/>
 </div>
 =======================================================
 <br>
@@ -22,6 +24,12 @@
     refresh_token : {{$store.state.userInfo.refresh_token}} <br>
 </div>
 ==========================================================<br>
+
+[ { name: { first: kim, last: yeji }, gender: female, birth: 0202 },
+{ name: { first: kim, last: yeji }, gender: female, birth: 0202 },
+{ name: { first: kim, last: yeji }, gender: female, birth: 0202 } ]
+
+pas[0].name.first = choi
 
 ==========================================================<br>
 <button @click="getUserInfo">getUserInfo</button><br>
@@ -98,5 +106,9 @@ export default {
 </script>
 
 <style>
-
+.b2{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
 </style>

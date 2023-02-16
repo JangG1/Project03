@@ -14,12 +14,6 @@
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
-                <!--슬라이드 페이지 표시-->
-                <!-- <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div> -->
                 <!--배너 이미지1-->
                 <svg class="banner" viewBox="0 80 830 315">
                     <image href="../assets/bannerImage/1.jpg" />

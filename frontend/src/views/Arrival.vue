@@ -95,7 +95,7 @@
     <div class="arrFootNav">
         <span class="arrFootNav1">예상 결제 금액</span>
         <span class="arrStartPrice">{{AddComma(selectPrice)+ " 원"}}&nbsp;</span>
-        <button type="button" class="arrSubmitBtn1" @click="submit()">비회원 결제 하기</button>
+        <button type="button" v-show="!loginCheck" class="arrSubmitBtn1" @click="submit()">비회원 결제 하기</button>
         <button type="button" class="arrSubmitBtn2" @click="loginSubmit()">회원 결제 하기</button>
     </div>
 </div>
@@ -125,7 +125,8 @@ export default {
             selectPrice: this.$store.state.startInfo.startPrice,
             loginModal: false,
             chooseInfo: this.$store.state.chooseInfo,
-            startInfo: this.$store.state.startInfo
+            startInfo: this.$store.state.startInfo,
+            loginCheck: this.$store.state.isLogin
         }
     },
     props: {},

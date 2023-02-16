@@ -17,11 +17,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-
-                <span class="listRight">{{userInfo.lastName+userInfo.firstName}}</span><br><br>
+                <span class="listRight">{{korLastName}} {{korFirstName}}</span><br><br>
                 <span class="listRight">{{engLastName}} {{engFirstName}}</span><br><br>
-                <span class="listRight">{{userInfo.birthday}}</span><br><br>
-                <span class="listRight">{{Gender(userInfo.gender)}}</span>
+                <span class="listRight">{{birthday}}</span><br><br>
+                <span class="listRight">{{gender}}</span>
             </div>
         </div>
     </span>
@@ -135,11 +134,27 @@ export default {
         }
     },
     props: {
+        korLastName: {
+            type: String,
+            default: ''
+        },
+        korFirstName: {
+            type: String,
+            default: ''
+        },
         engLastName: {
             type: String,
             default: ''
         },
         engFirstName: {
+            type: String,
+            default: ''
+        },
+        birthday: {
+            type: String,
+            default: ''
+        },
+        gender: {
             type: String,
             default: ''
         },
@@ -168,22 +183,17 @@ export default {
         closeModal() {
             this.$emit('close')
         },
-        Gender(value) {
-            let gender = value
-            if (gender == "male") {
-                gender = "남자"
-            } else if (gender == "female") {
-                gender = "여자"
-            }
-            return gender
-        },
         submit() {
-            alert("예약 되었습니다.")
-
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
             
+            let korName = this.korLastName + this.korFirstName;
             let engName = this.engLastName + " " + this.engFirstName;
+
+            console.log(korName)
+            console.log(this.birthday)
+            console.log(this.gender)
+
             let addPassKorName = this.addPassKorName;
             let addPassEngName = this.addPassEngName;
             let addPassGender = this.addPassGender;
@@ -197,10 +207,10 @@ export default {
            
              axios.post("/res/resPost", {
                     email: this.userInfo.email,
-                    korName: this.userInfo.lastName + this.userInfo.firstName,
+                    korName: korName,
                     engName: engName,
-                    gender: this.userInfo.gender,
-                    birthday: this.userInfo.birthday,
+                    gender: this.gender,
+                    birthday: this.birthday,
                     addPassKorName: addPassKorName,
                     addPassEngName: addPassEngName,
                     addPassGender: addPassGender,
@@ -227,6 +237,7 @@ export default {
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")
+                    alert("예약 되었습니다.")
                     this.$store.dispatch("engName", engName)
                     this.$store.dispatch("addPassKorName", addPassKorName)
                     this.$store.dispatch("addPassEngName", addPassEngName)
@@ -243,6 +254,9 @@ export default {
             this.$store.dispatch("holdPoint", usePoint);
                     
         },
+    },
+    mounted() {
+        this.test();
     },
 }
 </script>

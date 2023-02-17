@@ -6,7 +6,7 @@
     </div>
     <br>
     <span>
-        <div class="infoList">
+        <div class="infoList">{{ passEmail1 }} @ {{ passEmail2 }}
             <div class="title2">
                 승객 정보 <span v-if="chooseInfo.AdultCount > 1">1</span>
             </div>
@@ -134,6 +134,14 @@ export default {
         }
     },
     props: {
+        passEmail1: {
+            type: String,
+            default: ''
+        },
+        passEmail2: {
+            type: String,
+            default: ''
+        },
         korLastName: {
             type: String,
             default: ''
@@ -181,7 +189,7 @@ export default {
     },
     methods: {
         closeModal() {
-            this.$emit('close')
+            this.$emit('closeModal')
         },
         submit() {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
@@ -205,8 +213,16 @@ export default {
                 this.way = "편도";
             }
            
+            let email = "";
+
+            if (this.$store.state.isLogin == false) {
+                email = this.passEmail1 + "@" + this.passEmail2;
+            } else if(this.$store.state.isLogin == true){
+                email = this.userInfo.email;
+            }
+
              axios.post("/res/resPost", {
-                    email: this.userInfo.email,
+                    email: email,
                     korName: korName,
                     engName: engName,
                     gender: this.gender,
@@ -256,7 +272,6 @@ export default {
         },
     },
     mounted() {
-        this.test();
     },
 }
 </script>

@@ -157,22 +157,21 @@
             <div class="passInfo1-email" v-if="!isLogin()">
                 <div class="passInfo1-1-email">
                     <h5>이메일<span class="asterisk"> *</span></h5><br>
-                    <input type="text" v-model="passEmail" class="passEmail">
+                    <input type="text" v-model="passEmail1" class="passEmail">
                     <span class="emailAtSign">@</span>
-                    <select id="inputEmail" class="emailSelect">
-                        <option>이메일을 입력해주세요.</option>
+                    <select v-if="emailSelect" v-model="passEmail2" id="passEmail2" class="emailSelect" @change="showTextbar">
+                        <option selected disabled>이메일을 입력해주세요.</option>
                         <option>naver.com</option>
                         <option>nate.com</option>
                         <option>gmail.com</option>
                         <option>직접입력</option>
                     </select>
-
+                    <input type="text" v-if="emailText" v-model="passEmail2" id="passEmail2" class="emailText" placeholder="직접입력">
                 </div>
                 <div class="passInfo1-2-email"></div>
                 <h5 id="hint-email">
                     <img src="@/assets/email.jpg" class="hint-email-img">
-
-                    &nbsp; 이메일 입력으로 예약 조회가 가능합니다.
+                    &nbsp; 비회원 예약시 이메일 입력으로 예약 조회가 가능합니다.
                 </h5>
             </div>
 
@@ -475,11 +474,11 @@
     <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 
-<div v-if="PayModalView == true" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal :PayModalView="PayModalView" :korLastName="korLastName1" :korFirstName="korFirstName1" :engLastName="engLastName1" :engFirstName="engFirstName1" :birthday="birthday1" :gender="gender1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" :totalPoint="totalPoint" @close="PayModalPopUp"></PayModal>
+<div v-if="PayModalView" class="PayModalView" :class="{ active : PayModalView }">
+    <PayModal :PayModalView="PayModalView" :passEmail1="passEmail1" :passEmail2="passEmail2" :korLastName="korLastName1" :korFirstName="korFirstName1" :engLastName="engLastName1" :engFirstName="engFirstName1" :birthday="birthday1" :gender="gender1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" :totalPoint="totalPoint" @closeModal="closeModal"></PayModal>
 </div>
 
-<div v-if="IATAModalView == true" class="IATAModalView" :class="{ active : IATAModalView }">
+<div v-if="IATAModalView" class="IATAModalView" :class="{ active : IATAModalView }">
     <IATAModal @close="IATAModalPopUp"></IATAModal>
 </div>
 </template>
@@ -523,6 +522,8 @@ export default {
             PointPaymentInfo: false,
             holdPoint: this.$store.state.holdPoint,
             name: '',
+            emailText: false,
+            emailSelect: true,
             addPassKorName: [],
             addPassEngName: [],
             addPassGender: [],
@@ -532,13 +533,20 @@ export default {
     props: {},
     methods: {
         test() {
-
+            let passEmail2 = document.getElementById('passEmail2').value
+            console.log(passEmail2);
         },
         ing() {
             alert("준비중입니다.")
         },
         isLogin() {
             return this.$store.state.isLogin;
+        },
+        showTextbar() {            
+            if (this.passEmail2 == "직접입력") {
+                this.emailSelect = false;
+                this.emailText = true;
+            }
         },
         Format1(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -583,7 +591,8 @@ export default {
             this.$store.dispatch("holdPoint", this.holdPoint);
         },
         closeModal() {
-            this.PayModalView = (this.PayModalView) ? false : true
+            this.PayModalView = false;
+            console.log("후")
         },
         IATAModalPopUp() {
             this.IATAModalView = (this.IATAModalView) ? false : true
@@ -703,10 +712,18 @@ export default {
             return Tax.toString().replace(regexp, ",");
         },
         showPassInfo1() {
-            this.passInfo = (this.passInfo) ? false : true
             this.addPas1 = true;
             if (this.chooseInfo.AdultCount == 1) {
                 this.addPas2 = true;
+            }
+
+            //비회원 예약시 이메일 누락시 경고            
+            if (this.$store.state.isLogin == false) {
+                if (this.passEmail1 == null || this.passEmail2 == null) {
+                    alert("이메일을 입력해주세요.")
+                } else {
+                    this.passInfo = false;
+                }
             }
 
             if (this.arrow == "▼") {
@@ -714,6 +731,7 @@ export default {
             } else {
                 this.arrow = "▼"
             }
+
         },
         showPassInfo2(value) { //추가 승객 성인
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
@@ -924,7 +942,7 @@ export default {
                 alert("포인트가 모자랍니다.")
             } else if (this.holdPoint >= this.totalPoint) {
                 if (this.engLastName1 != null && this.engFirstName1 != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
-                    this.PayModalView = (this.PayModalView) ? false : true
+                    this.PayModalView = true
                 }
             }
 
@@ -1317,7 +1335,7 @@ h4 {
     border: 3px solid teal;
 }
 
-.passEmail{
+.passEmail {
     width: 170px;
     float: left;
     padding: 20px;
@@ -1325,20 +1343,21 @@ h4 {
     background-color: white;
 }
 
-.passEmail:hover{
+.passEmail:hover {
     border: 3px solid teal;
 }
 
-.emailAtSign{
-    color:teal;
-    font-size:26px;
+.emailAtSign {
+    color: teal;
+    font-size: 26px;
     font-weight: 900;
     margin-top: 20px;
     padding: 10px;
 }
 
-.emailSelect{
-    width: 210px;    
+.emailSelect,
+.emailText {
+    width: 220px;
     height: 70px;
     padding: 20px;
     border: 2px solid teal;
@@ -1347,7 +1366,7 @@ h4 {
     font-weight: 900;
 }
 
-.emailSelect:hover{
+.emailSelect:hover {
     border: 3px solid teal;
 }
 
@@ -1383,11 +1402,13 @@ h4 {
 }
 
 .passInfo1-2-email {
-    margin-left: 200px;
+    margin-left: 120px;
 }
 
 #hint-email {
     margin-top: 65px;
+    font-weight: 900;
+    color: #505050;
 }
 
 .hint-email-img {

@@ -1,6 +1,6 @@
 <template>
 <div class="res">
-    <div class="resTitle">예약 조회</div>{{ res }}
+    <div class="resTitle">예약 조회</div>
     <div class="table-responsive">
         <!--예약자 정보 모달-->
         <span v-if="passengerView" class="passengerView">
@@ -13,7 +13,9 @@
 
         <div v-if="res == ''" class="resBlank">
             <img src="../assets/magnifier.jpg"><br>
-            <span>예약 내역 없음.</span>
+            <span>예약 내역 없음.</span><br>
+            <input type="text" v-model="emailValue" class="emailTextBar" placeholder="이메일을 입력해주세요.">
+            <input type="button" class="emailGetData" @click="getData(emailValue)" value="비회원 조회하기">
         </div>
 
         <table v-if="res != ''" class="table table-striped table-sm">
@@ -144,18 +146,26 @@ export default {
 
             return year + "-" + month + "-" + day + "(" + date + ") "
         },
-        getData() { //로그인 email 기준 예약내역 전부 조회
+        emailGetData(value){
+            console.log("1 : " + value);
+            this.getData(value);
+        },
+        getData(value) { //로그인 email 기준 예약내역 전부 조회
             //로그인 시 자동으로 DB로 name과 email 전송
             //로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
             //로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
-            let email = this.$store.state.userInfo.email;
-            this.$store.dispatch("setLoading", true);
+            let email = '';
+            if(this.$store.state.isLogin == true){
+                email = this.$store.state.userInfo.email;
+            } else if (this.$store.state.isLogin == false){
+                email = value;
+            }
+
             //let email = "test@test.com";
             axios.get('/res/resList/' + email)
                 .then((response) => {
                     this.res = response.data
                 })
-            this.$store.dispatch("setLoading", false);
         },
         passengerModal(value) { //예약자 정보 팝업
             this.passengerView = (this.passengerView) ? false : true
@@ -347,4 +357,27 @@ a:active {
     padding: 6px;
 }
 
+.emailGetData{
+    margin-top: 50px;
+    border: 3px solid teal;
+    border-radius: 4px;
+    color: teal;
+    background-color: white;
+    padding: 10px;
+    font-weight: 900;
+}
+
+.emailTextBar{
+    margin-top: 50px;
+    border: 3px solid 999;
+    border-radius: 4px;
+    color: #999;
+    background-color: white;
+    padding: 10px;    
+    margin-right: 15px;
+}
+
+.emailTextBar:hover{    
+    border: 3px solid teal;
+}
 </style>

@@ -166,7 +166,7 @@
                         <option>gmail.com</option>
                         <option>직접입력</option>
                     </select>
-                    <input type="text" v-if="emailText" v-model="passEmail2" id="passEmail2" class="emailText" placeholder="직접입력">
+                    <input type="text" v-if="emailText" v-model="passEmail2" id="passEmail2" class="emailText" >
                 </div>
                 <div class="passInfo1-2-email"></div>
                 <h5 id="hint-email">

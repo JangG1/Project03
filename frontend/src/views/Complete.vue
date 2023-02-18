@@ -15,10 +15,10 @@
             <span class="listLeft">성별</span>
         </div>
         <div class="comInfoRight">
-            <span class="listRight">{{userInfo.lastName + userInfo.firstName}}</span><br><br>
+            <span class="listRight">{{userInfo2[0].korName}}</span><br><br>
             <span class="listRight">{{engName}}</span><br><br>
-            <span class="listRight">{{userInfo.birthday}}</span><br><br>
-            <span class="listRight">{{Gender(userInfo.gender)}}</span>
+            <span class="listRight">{{userInfo2[2].birthday}}</span><br><br>
+            <span class="listRight">{{userInfo2[1].gender}}</span>
         </div>
     </div>
 
@@ -132,7 +132,7 @@ export default {
             chooseInfo: this.$store.state.chooseInfo,
             startInfo: this.$store.state.startInfo,
             returnInfo: this.$store.state.returnInfo,
-            userInfo: this.$store.state.userInfo,
+            userInfo2: this.$store.state.userInfo2,
             engName: this.$store.state.engName,
             childCountView: false,
             infantCountView: false,

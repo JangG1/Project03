@@ -6,7 +6,7 @@
     </div>
     <br>
     <span>
-        <div class="infoList">{{ passEmail1 }} @ {{ passEmail2 }}
+        <div class="infoList">
             <div class="title2">
                 승객 정보 <span v-if="chooseInfo.AdultCount > 1">1</span>
             </div>
@@ -198,10 +198,6 @@ export default {
             let korName = this.korLastName + this.korFirstName;
             let engName = this.engLastName + " " + this.engFirstName;
 
-            console.log(korName)
-            console.log(this.birthday)
-            console.log(this.gender)
-
             let addPassKorName = this.addPassKorName;
             let addPassEngName = this.addPassEngName;
             let addPassGender = this.addPassGender;
@@ -221,6 +217,8 @@ export default {
                 email = this.userInfo.email;
             }
 
+            let user = [{korName:korName},{gender:this.gender},{birthday:this.birthday}];
+            
              axios.post("/res/resPost", {
                     email: email,
                     korName: korName,
@@ -253,7 +251,8 @@ export default {
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")
-                    alert("예약 되었습니다.")
+                    alert("예약 되었습니다.")                    
+                    this.$store.dispatch("setUserInfo2", user)
                     this.$store.dispatch("engName", engName)
                     this.$store.dispatch("addPassKorName", addPassKorName)
                     this.$store.dispatch("addPassEngName", addPassEngName)

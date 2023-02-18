@@ -10,6 +10,7 @@ export default createStore({
                 'startInfo',
                 'returnInfo',
                 'userInfo', 
+                'userInfo2', 
                 'engName',
                 'addPassKorName',
                 'addPassEngName',
@@ -33,6 +34,7 @@ export default createStore({
         startInfo: '',
         returnInfo: '',
         userInfo: '',
+        userInfo2: '',
         engName: '',
         access_token: '',
         refresh_token: '',
@@ -55,6 +57,9 @@ export default createStore({
     },
     offLoad(state) {
         state.isLoad = false;
+    },
+    setUserInfo(state, payload) {
+        state.userInfo2 = payload
     },
     setChooseInfo(state, payload){
         state.chooseInfo = payload
@@ -105,8 +110,7 @@ export default createStore({
     setAccessToken(state, payload) {
         localStorage.setItem("access_token", payload.data.access_token);
         state.access_token = payload.data.access_token
-    }
-    ,
+    },
     loginSuccess(state, payload) {
         state.isLogin = true
         state.isLoginError = false
@@ -162,6 +166,10 @@ export default createStore({
                 refresh_token: info[0].refresh_token
             }
             commit("loginSuccess", userInfo)
+        },
+        async setUserInfo2({ commit }, payload) {        
+            console.log(payload)
+            commit("setUserInfo", payload)
         },
         async consentBtn1({ commit }, payload) {
                 console.log(payload)

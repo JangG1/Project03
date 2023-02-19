@@ -13,9 +13,11 @@
 
         <div v-if="res == ''" class="resBlank">
             <img src="../assets/magnifier.jpg"><br>
-            <span>예약 내역 없음.</span><br>
+            <span v-if="this.$store.state.isLogin == true">예약 내역 없음.</span><br>
+            <div v-if="this.$store.state.isLogin == false">
             <input type="text" v-model="emailValue" class="emailTextBar" placeholder="이메일을 입력해주세요.">
             <input type="button" class="emailGetData" @click="getData(emailValue)" value="비회원 조회하기">
+            </div>
         </div>
 
         <table v-if="res != ''" class="table table-striped table-sm">
@@ -357,8 +359,7 @@ a:active {
     padding: 6px;
 }
 
-.emailGetData{
-    margin-top: 50px;
+.emailGetData{    
     border: 3px solid teal;
     border-radius: 4px;
     color: teal;
@@ -368,6 +369,7 @@ a:active {
 }
 
 .emailTextBar{
+    width: 350px;
     margin-top: 50px;
     border: 3px solid 999;
     border-radius: 4px;

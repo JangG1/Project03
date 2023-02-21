@@ -25,10 +25,11 @@
         </div>
     </span>
 
-    <span v-for="(pas,index) in parseInt(chooseInfo.AdultCount) + parseInt(chooseInfo.ChildCount) + parseInt(chooseInfo.InfantCount) - 1" :key="index">
+    <!--추가 승객 정보(성인)-->
+    <span v-for="(pas,index) in parseInt(chooseInfo.AdultCount) - 1" :key="index">
         <div class="infoList">
             <div class="title2">
-                승객 정보 {{ index + 2 }}
+                [성인] 승객 정보 {{ index + 2 }}
             </div>
             <div class="infoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -37,11 +38,52 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
+                <span class="listRight">{{addAdult[index].korName.lastName}} {{addAdult[index].korName.firstName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].engName.lastName}} {{addAdult[index].engName.firstName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].gender.gender}}</span><br><br>
+                <span class="listRight">{{addAdult[index].birthday.birthday}}</span>
+            </div>
+        </div>
+    </span>
 
-                <span class="listRight">{{addPassKorName[index*2+1]}} {{addPassKorName[index*2]}}</span><br><br>
-                <span class="listRight">{{addPassEngName[index*2+1]}} {{addPassEngName[index*2]}}</span><br><br>
-                <span class="listRight">{{addPassBirthday[index]}}</span><br><br>
-                <span class="listRight">{{addPassGender[index]}}</span>
+    <!-- 추가 승객 정보(유아) -->
+    <span v-for="(pas,index) in parseInt(chooseInfo.ChildCount)" :key="index">
+        <div class="infoList">
+            <div class="title2">
+                [유아] 승객 정보 {{ index + 1 }}
+            </div>
+            <div class="infoLeft">
+                <span class="listLeft">한글 이름</span><br><br>
+                <span class="listLeft">영어 이름</span><br><br>
+                <span class="listLeft">생년 월일</span><br><br>
+                <span class="listLeft">성별</span>
+            </div>
+            <div class="infoRight">
+                <span class="listRight">{{addChild[index].korName.lastName}} {{addChild[index].korName.firstName}}</span><br><br>
+                <span class="listRight">{{addChild[index].engName.lastName}} {{addChild[index].engName.firstName}}</span><br><br>
+                <span class="listRight">{{addChild[index].gender.gender}}</span><br><br>
+                <span class="listRight">{{addChild[index].birthday.birthday}}</span>
+            </div>
+        </div>
+    </span>
+
+    <!-- 추가 승객 정보(소아)-->
+    <span v-for="(pas,index) in parseInt(chooseInfo.InfantCount)" :key="index">
+        <div class="infoList">
+            <div class="title2">
+                [소아] 승객 정보 {{ index + 1 }}
+            </div>
+            <div class="infoLeft">
+                <span class="listLeft">한글 이름</span><br><br>
+                <span class="listLeft">영어 이름</span><br><br>
+                <span class="listLeft">생년 월일</span><br><br>
+                <span class="listLeft">성별</span>
+            </div>
+            <div class="infoRight">
+                <span class="listRight">{{addInfant[index].korName.lastName}} {{addInfant[index].korName.firstName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].engName.lastName}} {{addInfant[index].engName.firstName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].gender.gender}}</span><br><br>
+                <span class="listRight">{{addInfant[index].birthday.birthday}}</span>
             </div>
         </div>
     </span>
@@ -166,19 +208,15 @@ export default {
             type: String,
             default: ''
         },
-        addPassKorName: {
+        addAdult: {
             type: String,
             default: ''
         },
-        addPassEngName: {
+        addChild: {
             type: String,
             default: ''
         },
-        addPassGender: {
-            type: String,
-            default: ''
-        },
-        addPassBirthday: {
+        addInfant: {
             type: String,
             default: ''
         },
@@ -198,10 +236,9 @@ export default {
             let korName = this.korLastName + this.korFirstName;
             let engName = this.engLastName + " " + this.engFirstName;
 
-            let addPassKorName = this.addPassKorName;
-            let addPassEngName = this.addPassEngName;
-            let addPassGender = this.addPassGender;
-            let addPassBirthday = this.addPassBirthday;
+            let addAdult = this.addAdult;
+            let addChild = this.addChild;
+            let addInfant = this.addInfant;            
 
             if (this.chooseInfo.returnYear != " ") {
                 this.way = "왕복"
@@ -225,10 +262,9 @@ export default {
                     engName: engName,
                     gender: this.gender,
                     birthday: this.birthday,
-                    addPassKorName: addPassKorName,
-                    addPassEngName: addPassEngName,
-                    addPassGender: addPassGender,
-                    addPassBirthday: addPassBirthday,                    
+                    addAdult: addAdult,
+                    addChild: addChild,
+                    addInfant: addInfant,                             
                     seat: this.chooseInfo.seat,
                     seatClass1: this.startInfo.seatClass1,
                     seatClass2: this.returnInfo.seatClass2,
@@ -254,10 +290,9 @@ export default {
                     alert("예약 되었습니다.")                    
                     this.$store.dispatch("setUserInfo2", user)
                     this.$store.dispatch("engName", engName)
-                    this.$store.dispatch("addPassKorName", addPassKorName)
-                    this.$store.dispatch("addPassEngName", addPassEngName)
-                    this.$store.dispatch("addPassGender", addPassGender)
-                    this.$store.dispatch("addPassBirthday", addPassBirthday)
+                    this.$store.dispatch("addAdult", addAdult)
+                    this.$store.dispatch("addChild", addChild)
+                    this.$store.dispatch("addInfant", addInfant)                    
                     this.$router.push('Complete')
                 })
                 .catch(err => {

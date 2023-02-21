@@ -472,11 +472,11 @@
     <div class="payStartPrice">{{AddComma1(returnInfo.totalPrice)}} 원</div>
 
     <!-- <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button> -->
-    <button type="button" class="paySubmitBtn" @click="test()">예약 하기</button>
+    <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 
 <div v-if="PayModalView" class="PayModalView" :class="{ active : PayModalView }">
-    <PayModal :PayModalView="PayModalView" :passEmail1="passEmail1" :passEmail2="passEmail2" :korLastName="korLastName1" :korFirstName="korFirstName1" :engLastName="engLastName1" :engFirstName="engFirstName1" :birthday="birthday1" :gender="gender1" :addPassKorName="addPassKorName" :addPassEngName="addPassEngName" :addPassGender="addPassGender" :addPassBirthday="addPassBirthday" :totalPoint="totalPoint" @closeModal="closeModal"></PayModal>
+    <PayModal :PayModalView="PayModalView" :passEmail1="passEmail1" :passEmail2="passEmail2" :korLastName="korLastName1" :korFirstName="korFirstName1" :engLastName="engLastName1" :engFirstName="engFirstName1" :birthday="birthday1" :gender="gender1" :addAdult="addAdult" :addChild="addChild" :addInfant="addInfant" :totalPoint="totalPoint" @closeModal="closeModal"></PayModal>
 </div>
 
 <div v-if="IATAModalView" class="IATAModalView" :class="{ active : IATAModalView }">
@@ -525,10 +525,6 @@ export default {
             name: '',
             emailText: false,
             emailSelect: true,
-            addPassKorName: [],
-            addPassEngName: [],
-            addPassGender: [],
-            addPassBirthday: [],
             addAdult: [],
             addChild: [],
             addInfant: [],
@@ -547,32 +543,24 @@ export default {
             this.passInfo = (this.passInfo) ? false : true
         },
         showPassInfo2(value) {
-            console.log("어른num : " + value)
-            this.addpas1 = (value) ? false : true //성인 입력창
-
             //승객 정보 입력란 초기화
             this.korLastName2 = "";
             this.korFirstName2 = "";
-            this.engLastName = "";
-            this.engFirstName = "";
+            this.engLastName2 = "";
+            this.engFirstName2 = "";
             this.birthday2 = "";
+
+            this.addPas1 = (value) ? false : true //성인 입력창
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
             } else {
                 this.arrow = "▼"
-            }
-
-            if (value == Math.max(this.chooseInfo.AdultCount)) {
-                this.addpas2 = true //유아 입력창
-                return this.addPas1 = false; //성인 입력창
             }
 
             return this.addPas1 = value;
         },
         showPassInfo3(value) {
-            console.log("유아num : " + value)
-
             //승객 정보 입력란 초기화
             this.korLastName2 = "";
             this.korFirstName2 = "";
@@ -580,41 +568,30 @@ export default {
             this.engFirstName = "";
             this.birthday2 = "";
 
-            this.addpas2 = (value) ? false : true
+            this.addPas2 = (value) ? false : true //유아 입력창
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
             } else {
                 this.arrow = "▼"
-            }
-
-            if (value > Math.max(this.chooseInfo.ChildCount)) {
-                this.addpas3 = true
-                return this.addPas2 = false;
             }
 
             return this.addPas2 = value;
         },
         showPassInfo4(value) {
-            console.log("소아num : " + value)
-
             //승객 정보 입력란 초기화
             this.korLastName2 = "";
             this.korFirstName2 = "";
-            this.engLastName = "";
-            this.engFirstName = "";
+            this.engLastName2 = "";
+            this.engFirstName2 = "";
             this.birthday2 = "";
 
-            this.addPas3 = (value) ? false : true
+            this.addPas3 = (value) ? false : true //소아 입력창
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
             } else {
                 this.arrow = "▼"
-            }
-
-            if (value > Math.max(this.chooseInfo.InfantCount)) {
-                return this.addPas3 = false;
             }
 
             return this.addPas3 = value;
@@ -642,15 +619,8 @@ export default {
 
             return this.passInfo = false;
         },
-        addPassInfo2(value) { //추가 승객 성인
+        addPassInfo2(value) { // 추가 승객(성인)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            //승객 정보 입력란 초기화
-            this.korLastName2 = "";
-            this.korFirstName2 = "";
-            this.engLastName = "";
-            this.engFirstName = "";
-            this.birthday2 = "";
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -712,7 +682,14 @@ export default {
                 })
             }
 
-            this.addpas1 = (value) ? false : true //성인 입력창
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName2 = "";
+            this.engFirstName2 = "";
+            this.birthday2 = "";
+
+            this.addPas1 = (value + 1) ? false : true //성인 입력창
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -720,23 +697,16 @@ export default {
                 this.arrow = "▼"
             }
 
-            if (value == Math.max(this.chooseInfo.AdultCount)) {
-                this.addpas2 = true //유아 입력창                
+            if (value + 1 == Math.max(this.chooseInfo.AdultCount)) {
+                this.addPas2 = true //유아 입력창                
                 return this.addPas1 = false; //성인 입력창
             }
 
-            // return this.addPas1 = value;
+            return this.addPas1 = value + 1; // 인원 최대값 이전까지 1씩 증가
 
         },
-        addPassInfo3(value) {
+        addPassInfo3(value) { // 추가 승객(유아)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            //승객 정보 입력란 초기화
-            this.korLastName2 = "";
-            this.korFirstName2 = "";
-            this.engLastName = "";
-            this.engFirstName = "";
-            this.birthday2 = "";
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -799,7 +769,14 @@ export default {
                 })
             }
 
-            this.addpas2 = (value) ? false : true
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName2 = "";
+            this.engFirstName2 = "";
+            this.birthday2 = "";
+
+            this.addPas2 = (value) ? false : true
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -807,23 +784,16 @@ export default {
                 this.arrow = "▼"
             }
 
-            if (value > Math.max(this.chooseInfo.ChildCount)) {
-                this.addpas3 = true
-                return this.addPas2 = false;
+            if (value + 1 > Math.max(this.chooseInfo.ChildCount)) {
+                this.addPas3 = true //유아 입력창    
+                return this.addPas2 = false; //성인 입력창
             }
 
-            // return this.addPas2 = value;
+            return this.addPas2 = value + 1; // 인원 최대값 이전까지 1씩 증가
 
         },
-        addPassInfo4(value) {
+        addPassInfo4(value) { // 추가 승객(소아)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            //승객 정보 입력란 초기화
-            this.korLastName2 = "";
-            this.korFirstName2 = "";
-            this.engLastName = "";
-            this.engFirstName = "";
-            this.birthday2 = "";
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -886,6 +856,13 @@ export default {
                 })
             }
 
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName2 = "";
+            this.engFirstName2 = "";
+            this.birthday2 = "";
+
             this.addPas3 = (value) ? false : true
 
             if (this.arrow == "▼") {
@@ -894,11 +871,11 @@ export default {
                 this.arrow = "▼"
             }
 
-            if (value > Math.max(this.chooseInfo.InfantCount)) {
+            if (value + 1 > Math.max(this.chooseInfo.InfantCount)) {
                 return this.addPas3 = false;
             }
 
-            // return this.addPas3 = value;
+            return this.addPas3 = value + 1; // 인원 최대값 이전까지 1씩 증가
         },
         ing() {
             alert("준비중입니다.")
@@ -1075,200 +1052,6 @@ export default {
             let Tax = Math.floor(parseInt(value) * 0.1) + " 원";
             return Tax.toString().replace(regexp, ",");
         },
-        xshowPassInfo1() {
-            this.addPas1 = true;
-            if (this.chooseInfo.AdultCount == 1) {
-                this.addPas2 = true;
-            }
-
-            //비회원 예약시 이메일 누락시 경고            
-            if (this.$store.state.isLogin == false) {
-                if (this.passEmail1 == null || this.passEmail2 == null) {
-                    alert("이메일을 입력해주세요.")
-                } else {
-                    this.passInfo = false;
-                }
-            }
-
-            if (this.arrow == "▼") {
-                this.arrow = "▲"
-            } else {
-                this.arrow = "▼"
-            }
-
-        },
-        xshowPassInfo2(value) { //추가 승객 성인
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            if (this.korLastName2 == "") {
-                alert("성을 확인해 주세요.");
-            } else if (this.korFirstName2 == "") {
-                alert("이름을 확인해 주세요");
-            } else if (this.engLastName2 == null) {
-                alert("영문 성을 확인해 주세요.");
-            } else if (this.engFirstName2 == null) {
-                alert("영문 이름을 확인해 주세요");
-            } else if (genderSelected == null) {
-                alert("성별을 확인해 주세요.");
-            } else if (this.birthday2 == null) {
-                alert("생년 월일을 확인해 주세요.");
-            } else {
-                this.showPassInfo2Push(value);
-            }
-
-        },
-        xshowPassInfo2Push(value) {
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            this.addPassEngName.push(this.engFirstName2)
-            this.addPassEngName.push(this.engLastName2)
-
-            this.addPassKorName.push(this.korFirstName2)
-            this.addPassKorName.push(this.korLastName2)
-
-            this.addPassGender.push(genderSelected.value)
-
-            this.addPassBirthday.push(this.birthday2)
-
-            this.addpas1 = (value) ? false : true
-
-            if (this.arrow == "▼") {
-                this.arrow = "▲"
-            } else {
-                this.arrow = "▼"
-            }
-
-            console.log(value)
-            console.log(Math.max(this.chooseInfo.AdultCount))
-
-            if (value == Math.max(this.chooseInfo.AdultCount)) {
-                this.addpas2 = true
-                this.showPassInfo3(value = 1);
-
-                for (let i = 0; i < 2; i++) {
-                    this.addPassEngName.pop();
-                    this.addPassKorName.pop();
-                }
-
-                this.addPassGender.pop();
-                this.addPassBirthday.pop();
-                return this.addPas1 = false;
-            }
-
-            return this.addPas1 = value;
-
-        },
-        xshowPassInfo3(value) {
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            if (this.korLastName2 == "") {
-                alert("성을 확인해 주세요.");
-            } else if (this.korFirstName2 == "") {
-                alert("이름을 확인해 주세요");
-            } else if (this.engLastName2 == null) {
-                alert("영문 성을 확인해 주세요.");
-            } else if (this.engFirstName2 == null) {
-                alert("영문 이름을 확인해 주세요");
-            } else if (genderSelected == null) {
-                alert("성별을 확인해 주세요.");
-            } else if (this.birthday2 == null) {
-                alert("생년 월일을 확인해 주세요.");
-            } else {
-                this.showPassInfo3Push(value);
-            }
-
-        },
-        xshowPassInfo3Push(value) {
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            this.addPassEngName.push(this.engFirstName2)
-            this.addPassEngName.push(this.engLastName2)
-
-            this.addPassKorName.push(this.korFirstName2)
-            this.addPassKorName.push(this.korLastName2)
-
-            this.addPassGender.push(genderSelected.value)
-
-            this.addPassBirthday.push(this.birthday2)
-
-            this.addpas2 = (value) ? false : true
-
-            if (this.arrow == "▼") {
-                this.arrow = "▲"
-            } else {
-                this.arrow = "▼"
-            }
-
-            if (value > Math.max(this.chooseInfo.ChildCount)) {
-                this.addpas3 = true
-                this.showPassInfo4(value = 1);
-
-                for (let i = 0; i < 2; i++) {
-                    this.addPassEngName.pop();
-                    this.addPassKorName.pop();
-                }
-                this.addPassGender.pop();
-                this.addPassBirthday.pop();
-                return this.addPas2 = false;
-            }
-
-            return this.addPas2 = value;
-
-        },
-        xshowPassInfo4(value) {
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            if (this.korLastName2 == "") {
-                alert("성을 확인해 주세요.");
-            } else if (this.korFirstName2 == "") {
-                alert("이름을 확인해 주세요");
-            } else if (this.engLastName2 == null) {
-                alert("영문 성을 확인해 주세요.");
-            } else if (this.engFirstName2 == null) {
-                alert("영문 이름을 확인해 주세요");
-            } else if (genderSelected == null) {
-                alert("성별을 확인해 주세요.");
-            } else if (this.birthday2 == null) {
-                alert("생년 월일을 확인해 주세요.");
-            } else {
-                this.showPassInfo4Push(value);
-            }
-
-        },
-        xshowPassInfo4Push(value) {
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
-
-            this.addPassEngName.push(this.engFirstName2)
-            this.addPassEngName.push(this.engLastName2)
-
-            this.addPassKorName.push(this.korFirstName2)
-            this.addPassKorName.push(this.korLastName2)
-
-            this.addPassGender.push(genderSelected.value)
-
-            this.addPassBirthday.push(this.birthday2)
-
-            this.addPas3 = (value) ? false : true
-
-            if (this.arrow == "▼") {
-                this.arrow = "▲"
-            } else {
-                this.arrow = "▼"
-            }
-
-            if (value > Math.max(this.chooseInfo.InfantCount)) {
-                return this.addPas3 = false;
-            }
-
-            console.log(this.addPassEngName)
-            console.log(this.addPassKorName)
-            console.log(this.addPassGender)
-            console.log(this.addPassBirthday)
-
-            return this.addPas3 = value;
-
-        },
-
         showNoteInfo() {
             this.noteInfo = (this.noteInfo) ? false : true
             if (this.arrow == "▼") {

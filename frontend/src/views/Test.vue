@@ -12,8 +12,10 @@
 <input type="button" @click="arrCorrect" value="수정"><br>
 <input type="button" @click="arrCheck" value="확인"><br>
 <div v-if="testview">
-{{ arr }}<br>
-{{ arr[0].name.testname }}<br>
+    {{ arr }}<br>    
+    {{ arr[0].korName }}<br>
+    {{ arr[0].korName.firstName }}<br>
+    {{ arr[0].korName.lastName }}<br>
 </div>
 
 =======================================================
@@ -76,27 +78,44 @@ export default {
     },
     components: {},
     created() {},
-    methods: {        
-        arrPush(){
-            this.arr.push({name:{testname:this.testname},gender:{gender:this.testgender},birthday:{birthday:this.testbirthday}})
-            
+    methods: {
+        arrPush() {
+            this.arr.push({
+                korName: {
+                    lastName: this.testname+"l",
+                    firstName: this.testname+"f"
+                },
+                engName: {
+                    lastName: this.testgender,
+                    firstName: this.testgender
+                },
+                birthday: {
+                    birthday: this.testbirthday
+                }
+            })
         },
-        arrCorrect(){        
+        arrCorrect() {
 
-            this.arr.splice(1,1,
-            {name:{testname:this.testname},
-            gender:{gender:this.testgender},
-            birthday:{birthday:this.testbirthday}}
-            )
+            this.arr.splice(1, 1, {
+                name: {
+                    testname: this.testname
+                },
+                gender: {
+                    gender: this.testgender
+                },
+                birthday: {
+                    birthday: this.testbirthday
+                }
+            })
 
             //this.arr.push({name:{testname:this.testname}})
         },
-        arrCheck(){            
-            this.testview = true;          
+        arrCheck() {
+            this.testview = true;
         },
-        point(){
+        point() {
             this.holdPoint += 500000;
-            this.$store.dispatch("holdPoint",this.holdPoint);
+            this.$store.dispatch("holdPoint", this.holdPoint);
         },
         redirect() {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
@@ -139,7 +158,7 @@ export default {
 </script>
 
 <style>
-.b2{
+.b2 {
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;

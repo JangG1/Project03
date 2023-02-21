@@ -544,11 +544,18 @@ export default {
             console.log("===================")
         },
         showPassInfo1() {
-
+            this.passInfo = (this.passInfo) ? false : true
         },
         showPassInfo2(value) {
             console.log("어른num : " + value)
             this.addpas1 = (value) ? false : true //성인 입력창
+
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName = "";
+            this.engFirstName = "";
+            this.birthday2 = "";
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -565,6 +572,14 @@ export default {
         },
         showPassInfo3(value) {
             console.log("유아num : " + value)
+
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName = "";
+            this.engFirstName = "";
+            this.birthday2 = "";
+
             this.addpas2 = (value) ? false : true
 
             if (this.arrow == "▼") {
@@ -577,9 +592,19 @@ export default {
                 this.addpas3 = true
                 return this.addPas2 = false;
             }
+
+            return this.addPas2 = value;
         },
         showPassInfo4(value) {
             console.log("소아num : " + value)
+
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName = "";
+            this.engFirstName = "";
+            this.birthday2 = "";
+
             this.addPas3 = (value) ? false : true
 
             if (this.arrow == "▼") {
@@ -591,6 +616,8 @@ export default {
             if (value > Math.max(this.chooseInfo.InfantCount)) {
                 return this.addPas3 = false;
             }
+
+            return this.addPas3 = value;
         },
         addPassInfo1() {
             this.addPas1 = true;
@@ -613,9 +640,17 @@ export default {
                 this.arrow = "▼"
             }
 
+            return this.passInfo = false;
         },
         addPassInfo2(value) { //추가 승객 성인
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName = "";
+            this.engFirstName = "";
+            this.birthday2 = "";
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -635,25 +670,47 @@ export default {
 
         },
         addPassInfo2Push(value) {
-            console.log(" 어른입력 " + value)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            this.addAdult.push({
-                korName: {
-                    lastName: this.korLastName2,
-                    firstName: this.korFirstName2
-                },
-                engName: {
-                    lastName: this.engLastName2,
-                    firstName: this.engFirstName2
-                },
-                gender: {
-                    gender: genderSelected.value
-                },
-                birthday: {
-                    birthday: this.birthday2
-                }
-            })
+            //해당 인덱스 공란 경우 등록
+            if (this.addAdult[value - 1] == undefined) {
+                this.addAdult.push({
+                    korName: {
+                        lastName: this.korLastName2,
+                        firstName: this.korFirstName2
+                    },
+                    engName: {
+                        lastName: this.engLastName2,
+                        firstName: this.engFirstName2
+                    },
+                    gender: {
+                        gender: genderSelected.value
+                    },
+                    birthday: {
+                        birthday: this.birthday2
+                    }
+                })
+            }
+
+            //해당 인덱스 기존 정보가 입력된 경우 수정
+            if (this.addAdult[value - 1] != undefined) {
+                this.addAdult.splice(value - 1, 1, {
+                    korName: {
+                        lastName: this.korLastName2,
+                        firstName: this.korFirstName2
+                    },
+                    engName: {
+                        lastName: this.engLastName2,
+                        firstName: this.engFirstName2
+                    },
+                    gender: {
+                        gender: genderSelected.value
+                    },
+                    birthday: {
+                        birthday: this.birthday2
+                    }
+                })
+            }
 
             this.addpas1 = (value) ? false : true //성인 입력창
 
@@ -664,7 +721,7 @@ export default {
             }
 
             if (value == Math.max(this.chooseInfo.AdultCount)) {
-                this.addpas2 = true //유아 입력창
+                this.addpas2 = true //유아 입력창                
                 return this.addPas1 = false; //성인 입력창
             }
 
@@ -673,6 +730,13 @@ export default {
         },
         addPassInfo3(value) {
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName = "";
+            this.engFirstName = "";
+            this.birthday2 = "";
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -695,22 +759,45 @@ export default {
             console.log(" 유아입력 " + value)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            this.addChild.push({
-                korName: {
-                    lastName: this.korLastName2,
-                    firstName: this.korFirstName2
-                },
-                engName: {
-                    lastName: this.engLastName2,
-                    firstName: this.engFirstName2
-                },
-                gender: {
-                    gender: genderSelected.value
-                },
-                birthday: {
-                    birthday: this.birthday2
-                }
-            })
+            //해당 인덱스 공란 경우 등록
+            if (this.addChild[value - 1] == undefined) {
+                this.addChild.push({
+                    korName: {
+                        lastName: this.korLastName2,
+                        firstName: this.korFirstName2
+                    },
+                    engName: {
+                        lastName: this.engLastName2,
+                        firstName: this.engFirstName2
+                    },
+                    gender: {
+                        gender: genderSelected.value
+                    },
+                    birthday: {
+                        birthday: this.birthday2
+                    }
+                })
+            }
+
+            //해당 인덱스 기존 정보가 입력된 경우 수정
+            if (this.addChild[value - 1] != undefined) {
+                this.addChild.splice(value - 1, 1, {
+                    korName: {
+                        lastName: this.korLastName2,
+                        firstName: this.korFirstName2
+                    },
+                    engName: {
+                        lastName: this.engLastName2,
+                        firstName: this.engFirstName2
+                    },
+                    gender: {
+                        gender: genderSelected.value
+                    },
+                    birthday: {
+                        birthday: this.birthday2
+                    }
+                })
+            }
 
             this.addpas2 = (value) ? false : true
 
@@ -730,6 +817,13 @@ export default {
         },
         addPassInfo4(value) {
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            //승객 정보 입력란 초기화
+            this.korLastName2 = "";
+            this.korFirstName2 = "";
+            this.engLastName = "";
+            this.engFirstName = "";
+            this.birthday2 = "";
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -752,22 +846,45 @@ export default {
             console.log(" 소아입력 " + value)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            this.addInfant.push({
-                korName: {
-                    lastName: this.korLastName2,
-                    firstName: this.korFirstName2
-                },
-                engName: {
-                    lastName: this.engLastName2,
-                    firstName: this.engFirstName2
-                },
-                gender: {
-                    gender: genderSelected.value
-                },
-                birthday: {
-                    birthday: this.birthday2
-                }
-            })
+            //해당 인덱스 공란 경우 등록
+            if (this.addInfant[value - 1] == undefined) {
+                this.addInfant.push({
+                    korName: {
+                        lastName: this.korLastName2,
+                        firstName: this.korFirstName2
+                    },
+                    engName: {
+                        lastName: this.engLastName2,
+                        firstName: this.engFirstName2
+                    },
+                    gender: {
+                        gender: genderSelected.value
+                    },
+                    birthday: {
+                        birthday: this.birthday2
+                    }
+                })
+            }
+
+            //해당 인덱스 기존 정보가 입력된 경우 수정
+            if (this.addInfant[value - 1] != undefined) {
+                this.addInfant.splice(value - 1, 1, {
+                    korName: {
+                        lastName: this.korLastName2,
+                        firstName: this.korFirstName2
+                    },
+                    engName: {
+                        lastName: this.engLastName2,
+                        firstName: this.engFirstName2
+                    },
+                    gender: {
+                        gender: genderSelected.value
+                    },
+                    birthday: {
+                        birthday: this.birthday2
+                    }
+                })
+            }
 
             this.addPas3 = (value) ? false : true
 

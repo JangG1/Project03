@@ -166,7 +166,7 @@
                         <option>gmail.com</option>
                         <option>직접입력</option>
                     </select>
-                    <input type="text" v-if="emailText" v-model="passEmail2" id="passEmail2" class="emailText" >
+                    <input type="text" v-if="emailText" v-model="passEmail2" id="passEmail2" class="emailText">
                 </div>
                 <div class="passInfo1-2-email"></div>
                 <h5 id="hint-email">
@@ -191,7 +191,7 @@
 
             </div>
             <div class="passInfo3">
-                <button type="button" @click="showPassInfo1(pas + 1)" class="passCheckBtn" id="">확인</button>
+                <button type="button" @click="addPassInfo1(pas)" class="passCheckBtn" id="">확인</button>
             </div>
 
         </div>
@@ -206,8 +206,7 @@
             </span>
             <span class="arrow">{{arrow}}</span>
         </div>
-        <!-- <span v-if="pas == addPas1" class="passInfo"> -->
-            <span class="passInfo">
+        <span v-if="pas == addPas1" class="passInfo">
             <div class="passInfo">
                 <div class="passInfo1">
                     <div class="passInfo1-1">
@@ -249,7 +248,7 @@
 
                 </div>
                 <div class="passInfo3">
-                    <button type="button" @click="showPassInfo2(pas + 1)" class="passCheckBtn" id="">확인</button>
+                    <button type="button" @click="addPassInfo2(pas)" class="passCheckBtn" id="">확인</button>
                 </div>
             </div>
             <br>
@@ -258,14 +257,13 @@
 
     <!--추가 예약자 정보(유아)-->
     <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.ChildCount)" :key="index">
-        <div class="passengerTitle" @click="showPassInfo2(pas)">
+        <div class="passengerTitle" @click="showPassInfo3(pas)">
             <span>
                 유아 {{ pas }}
             </span>
             <span class="arrow">{{arrow}}</span>
         </div>
-        <!-- <span v-if="pas == addPas2" class="passInfo"> -->
-            <span class="passInfo">
+        <span v-if="pas == addPas2" class="passInfo">
             <div class="passInfo">
                 <div class="passInfo1">
                     <div class="passInfo1-1">
@@ -307,7 +305,7 @@
 
                 </div>
                 <div class="passInfo3">
-                    <button type="button" @click="showPassInfo3(pas + 1)" class="passCheckBtn" id="">확인</button>
+                    <button type="button" @click="addPassInfo3(pas)" class="passCheckBtn" id="">확인</button>
                 </div>
             </div>
             <br>
@@ -316,14 +314,13 @@
 
     <!--추가 예약자 정보(소아)-->
     <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.InfantCount)" :key="index">
-        <div class="passengerTitle" @click="showPassInfo4(pas + 1)">
+        <div class="passengerTitle" @click="showPassInfo4(pas)">
             <span>
                 소아 {{ pas }}
             </span>
             <span class="arrow">{{arrow}}</span>
         </div>
-        <!-- <span v-if="pas == addPas3" class="passInfo"> -->
-            <span class="passInfo">
+        <span v-if="pas == addPas3" class="passInfo">
             <div class="passInfo">
                 <div class="passInfo1">
                     <div class="passInfo1-1">
@@ -365,7 +362,7 @@
 
                 </div>
                 <div class="passInfo3">
-                    <button type="button" @click="showPassInfo4(pas+1)" class="passCheckBtn" id="">확인</button>
+                    <button type="button" @click="addPassInfo4(pas)" class="passCheckBtn" id="">확인</button>
                 </div>
             </div>
             <br>
@@ -546,8 +543,56 @@ export default {
             console.log(this.addInfant);
             console.log("===================")
         },
-        
         showPassInfo1() {
+
+        },
+        showPassInfo2(value) {
+            console.log("어른num : " + value)
+            this.addpas1 = (value) ? false : true //성인 입력창
+
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
+
+            if (value == Math.max(this.chooseInfo.AdultCount)) {
+                this.addpas2 = true //유아 입력창
+                return this.addPas1 = false; //성인 입력창
+            }
+
+            return this.addPas1 = value;
+        },
+        showPassInfo3(value) {
+            console.log("유아num : " + value)
+            this.addpas2 = (value) ? false : true
+
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
+
+            if (value > Math.max(this.chooseInfo.ChildCount)) {
+                this.addpas3 = true
+                return this.addPas2 = false;
+            }
+        },
+        showPassInfo4(value) {
+            console.log("소아num : " + value)
+            this.addPas3 = (value) ? false : true
+
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
+
+            if (value > Math.max(this.chooseInfo.InfantCount)) {
+                return this.addPas3 = false;
+            }
+        },
+        addPassInfo1() {
             this.addPas1 = true;
             if (this.chooseInfo.AdultCount == 1) {
                 this.addPas2 = true;
@@ -569,7 +614,7 @@ export default {
             }
 
         },
-        showPassInfo2(value) { //추가 승객 성인
+        addPassInfo2(value) { //추가 승객 성인
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
@@ -585,31 +630,32 @@ export default {
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
             } else {
-                this.showPassInfo2Push(value);
+                this.addPassInfo2Push(value);
             }
 
         },
-        showPassInfo2Push(value) {
+        addPassInfo2Push(value) {
             console.log(" 어른입력 " + value)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            // this.addPassEngName.push(this.engFirstName2)
-            // this.addPassEngName.push(this.engLastName2)
-
-            // this.addPassKorName.push(this.korFirstName2)
-            // this.addPassKorName.push(this.korLastName2)
-
-            // this.addPassGender.push(genderSelected.value)
-
-            // this.addPassBirthday.push(this.birthday2)
-
             this.addAdult.push({
-                korName:{lastName:this.korLastName2,firstName:this.korFirstName2},
-                engName:{lastName:this.engLastName2,firstName:this.engFirstName2},
-                gender:{gender:genderSelected.value},
-                birthday:{birthday:this.birthday2}})
+                korName: {
+                    lastName: this.korLastName2,
+                    firstName: this.korFirstName2
+                },
+                engName: {
+                    lastName: this.engLastName2,
+                    firstName: this.engFirstName2
+                },
+                gender: {
+                    gender: genderSelected.value
+                },
+                birthday: {
+                    birthday: this.birthday2
+                }
+            })
 
-            this.addpas1 = (value) ? false : true
+            this.addpas1 = (value) ? false : true //성인 입력창
 
             if (this.arrow == "▼") {
                 this.arrow = "▲"
@@ -618,15 +664,14 @@ export default {
             }
 
             if (value == Math.max(this.chooseInfo.AdultCount)) {
-                this.addpas2 = true
-                this.showPassInfo3(value = 1);
-                return this.addPas1 = false;
+                this.addpas2 = true //유아 입력창
+                return this.addPas1 = false; //성인 입력창
             }
 
-            return this.addPas1 = value;
+            // return this.addPas1 = value;
 
         },
-        showPassInfo3(value) {
+        addPassInfo3(value) {
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
@@ -642,29 +687,30 @@ export default {
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
             } else {
-                this.showPassInfo3Push(value);
+                this.addPassInfo3Push(value);
             }
 
         },
-        showPassInfo3Push(value) {
+        addPassInfo3Push(value) {
             console.log(" 유아입력 " + value)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            // this.addPassEngName.push(this.engFirstName2)
-            // this.addPassEngName.push(this.engLastName2)
-
-            // this.addPassKorName.push(this.korFirstName2)
-            // this.addPassKorName.push(this.korLastName2)
-
-            // this.addPassGender.push(genderSelected.value)
-
-            // this.addPassBirthday.push(this.birthday2)
-
             this.addChild.push({
-                korName:{lastName:this.korLastName2,firstName:this.korFirstName2},
-                engName:{lastName:this.engLastName2,firstName:this.engFirstName2},
-                gender:{gender:genderSelected.value},
-                birthday:{birthday:this.birthday2}})
+                korName: {
+                    lastName: this.korLastName2,
+                    firstName: this.korFirstName2
+                },
+                engName: {
+                    lastName: this.engLastName2,
+                    firstName: this.engFirstName2
+                },
+                gender: {
+                    gender: genderSelected.value
+                },
+                birthday: {
+                    birthday: this.birthday2
+                }
+            })
 
             this.addpas2 = (value) ? false : true
 
@@ -676,15 +722,13 @@ export default {
 
             if (value > Math.max(this.chooseInfo.ChildCount)) {
                 this.addpas3 = true
-                this.showPassInfo4(value = 1);
-
                 return this.addPas2 = false;
             }
 
-            return this.addPas2 = value;
+            // return this.addPas2 = value;
 
         },
-        showPassInfo4(value) {
+        addPassInfo4(value) {
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
@@ -700,29 +744,30 @@ export default {
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
             } else {
-                this.showPassInfo4Push(value);
+                this.addPassInfo4Push(value);
             }
 
         },
-        showPassInfo4Push(value) {
+        addPassInfo4Push(value) {
             console.log(" 소아입력 " + value)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            // this.addPassEngName.push(this.engFirstName2)
-            // this.addPassEngName.push(this.engLastName2)
-
-            // this.addPassKorName.push(this.korFirstName2)
-            // this.addPassKorName.push(this.korLastName2)
-
-            // this.addPassGender.push(genderSelected.value)
-
-            // this.addPassBirthday.push(this.birthday2)
-
             this.addInfant.push({
-                korName:{lastName:this.korLastName2,firstName:this.korFirstName2},
-                engName:{lastName:this.engLastName2,firstName:this.engFirstName2},
-                gender:{gender:genderSelected.value},
-                birthday:{birthday:this.birthday2}})
+                korName: {
+                    lastName: this.korLastName2,
+                    firstName: this.korFirstName2
+                },
+                engName: {
+                    lastName: this.engLastName2,
+                    firstName: this.engFirstName2
+                },
+                gender: {
+                    gender: genderSelected.value
+                },
+                birthday: {
+                    birthday: this.birthday2
+                }
+            })
 
             this.addPas3 = (value) ? false : true
 
@@ -736,7 +781,7 @@ export default {
                 return this.addPas3 = false;
             }
 
-            return this.addPas3 = value;
+            // return this.addPas3 = value;
         },
         ing() {
             alert("준비중입니다.")
@@ -744,7 +789,7 @@ export default {
         isLogin() {
             return this.$store.state.isLogin;
         },
-        showTextbar() {            
+        showTextbar() {
             if (this.passEmail2 == "직접입력") {
                 this.emailSelect = false;
                 this.emailText = true;

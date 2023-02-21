@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -73,30 +76,48 @@ public class ResController {
 	}
 	
 	//예약 내역 저장
-	/*@PostMapping("/resPost")
+	@PostMapping("/resPost2")
 	public void Test(@RequestBody ResList resList) {
 		System.out.println(resList);
 		resRepository.save(resList);
-	}*/
+	}
 	
 	@PostMapping("/resPost")
-    public void getTTShelper(
+    public void getResList(
     		@RequestBody HashMap<String, Object> resList)  throws IOException {
-		//HashMap<String, Object> rtnMap = new HashMap<String, Object>();
+		HashMap<String, Object> rtnMap = new HashMap<String, Object>();
+		rtnMap.put("text", resList.get("addChild"));
+		ArrayList q = (ArrayList) rtnMap.get("text");
 		
-		System.out.println(resList);		
+		System.out.println("q : " + q.get(0));
+		System.out.println("q : " + q.get(1));
 		
-		System.out.println(resList.get("korName"));
-		System.out.println(resList.get("engName"));
-		System.out.println(resList.get("gender"));
-		System.out.println(resList.get("birthday"));
-		System.out.println(resList.getOrDefault("addAdult","korName"));
+		/*for(String key : resList.keySet()){
+		    String value = resList.get(key).toString();
+		    System.out.println(key+" : "+value);
+		}*/
 		
-		System.out.println(resList.get("addAdult"));
+		System.out.println("1");
 		
-		System.out.println();
+	    Object a = resList.get("addAdult");
+	    Object b = resList.get("addChild");
+	    Object c = resList.get("addInfant");	    
+		
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
+		
+		 System.out.println();
 
+		//resRepository.save(resList);
+		
+		System.out.println("2");
 
+		System.out.println("?");
+		
+		resList.remove("addAdult");
+		resList.remove("addChild");
+		resList.remove("addInfant");
 
 		}
 		

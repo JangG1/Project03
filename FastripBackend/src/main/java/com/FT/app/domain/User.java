@@ -21,7 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.FT.app.myPage.domain.ResList;
+import com.FT.app.myPage.domain.ResList2;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

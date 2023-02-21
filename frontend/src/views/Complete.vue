@@ -22,22 +22,65 @@
         </div>
     </div>
 
-    <span v-for="(pas,index) in chooseInfo.AdultCount + chooseInfo.ChildCount + chooseInfo.InfantCount - 1" :key="index">
-        <div class="comInfoList">
-            <div class="comInfoTitle">
-                승객 정보 {{ index + 2 }}
+    <!--추가 승객 정보(성인)-->
+    <span v-for="(pas,index) in chooseInfo.AdultCount - 1" :key="index">
+        <div class="infoList">
+            <div class="title2">
+                [성인] 승객 정보 {{ index + 2 }}
             </div>
-            <div class="comInfoLeft">
+            <div class="infoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
                 <span class="listLeft">영어 이름</span><br><br>
                 <span class="listLeft">생년 월일</span><br><br>
                 <span class="listLeft">성별</span>
             </div>
-            <div class="comInfoRight">
-                <span class="listRight">{{addPassKorName[index*2+1]}}{{addPassKorName[index*2]}}</span><br><br>
-                <span class="listRight">{{addPassEngName[index*2+1]}} {{addPassEngName[index*2]}}</span><br><br>
-                <span class="listRight">{{addPassBirthday[index]}}</span><br><br>
-                <span class="listRight">{{addPassGender[index]}}</span>
+            <div class="infoRight">
+                <span class="listRight">{{addAdult[index].korName.lastName}} {{addAdult[index].korName.firstName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].engName.lastName}} {{addAdult[index].engName.firstName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].gender.gender}}</span><br><br>
+                <span class="listRight">{{addAdult[index].birthday.birthday}}</span>
+            </div>
+        </div>
+    </span>
+
+    <!-- 추가 승객 정보(유아) -->
+    <span v-for="(pas,index) in parseInt(chooseInfo.ChildCount)" :key="index">
+        <div class="infoList">
+            <div class="title2">
+                [유아] 승객 정보 {{ index + 1 }}
+            </div>
+            <div class="infoLeft">
+                <span class="listLeft">한글 이름</span><br><br>
+                <span class="listLeft">영어 이름</span><br><br>
+                <span class="listLeft">생년 월일</span><br><br>
+                <span class="listLeft">성별</span>
+            </div>
+            <div class="infoRight">
+                <span class="listRight">{{addChild[index].korName.lastName}} {{addChild[index].korName.firstName}}</span><br><br>
+                <span class="listRight">{{addChild[index].engName.lastName}} {{addChild[index].engName.firstName}}</span><br><br>
+                <span class="listRight">{{addChild[index].gender.gender}}</span><br><br>
+                <span class="listRight">{{addChild[index].birthday.birthday}}</span>
+            </div>
+        </div>
+    </span>
+
+    <!-- 추가 승객 정보(소아)-->
+    <span v-for="(pas,index) in parseInt(chooseInfo.InfantCount)" :key="index">
+        <div class="infoList">
+            <div class="title2">
+                [소아] 승객 정보 {{ index + 1 }}
+            </div>
+            <div class="infoLeft">
+                <span class="listLeft">한글 이름</span><br><br>
+                <span class="listLeft">영어 이름</span><br><br>
+                <span class="listLeft">생년 월일</span><br><br>
+                <span class="listLeft">성별</span>
+            </div>
+            <div class="infoRight">
+                <span class="listRight">{{addInfant[index].korName.lastName}} {{addInfant[index].korName.firstName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].engName.lastName}} {{addInfant[index].engName.firstName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].gender.gender}}</span><br><br>
+                <span class="listRight">{{addInfant[index].birthday.birthday}}</span>
             </div>
         </div>
     </span>
@@ -103,7 +146,7 @@
     </div>
 
     <div class="comBtn">
-        <button type="button" class="comBtn1" @click="home">확인</button>        
+        <button type="button" class="comBtn1" @click="home">확인</button>
     </div>
 </div>
 
@@ -137,10 +180,9 @@ export default {
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
-            addPassKorName:this.$store.state.addPassKorName,
-            addPassEngName:this.$store.state.addPassEngName,
-            addPassGender:this.$store.state.addPassGender,
-            addPassBirthday:this.$store.state.addPassBirthday,
+            addAdult: this.$store.state.addAdult,
+            addChild: this.$store.state.addChild,
+            addInfant: this.$store.state.addInfant,
         }
     },
     props: {},

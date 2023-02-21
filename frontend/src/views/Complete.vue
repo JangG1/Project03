@@ -24,17 +24,17 @@
 
     <!--추가 승객 정보(성인)-->
     <span v-for="(pas,index) in chooseInfo.AdultCount - 1" :key="index">
-        <div class="infoList">
-            <div class="title2">
+        <div class="comInfoList">
+            <div class="comInfoTitle">
                 [성인] 승객 정보 {{ index + 2 }}
             </div>
-            <div class="infoLeft">
+            <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
                 <span class="listLeft">영어 이름</span><br><br>
                 <span class="listLeft">생년 월일</span><br><br>
                 <span class="listLeft">성별</span>
             </div>
-            <div class="infoRight">
+            <div class="comInfoRight">
                 <span class="listRight">{{addAdult[index].korName.lastName}} {{addAdult[index].korName.firstName}}</span><br><br>
                 <span class="listRight">{{addAdult[index].engName.lastName}} {{addAdult[index].engName.firstName}}</span><br><br>
                 <span class="listRight">{{addAdult[index].gender.gender}}</span><br><br>
@@ -45,17 +45,17 @@
 
     <!-- 추가 승객 정보(유아) -->
     <span v-for="(pas,index) in parseInt(chooseInfo.ChildCount)" :key="index">
-        <div class="infoList">
-            <div class="title2">
+        <div class="comInfoList">
+            <div class="comInfoTitle">
                 [유아] 승객 정보 {{ index + 1 }}
             </div>
-            <div class="infoLeft">
+            <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
                 <span class="listLeft">영어 이름</span><br><br>
                 <span class="listLeft">생년 월일</span><br><br>
                 <span class="listLeft">성별</span>
             </div>
-            <div class="infoRight">
+            <div class="comInfoRight">
                 <span class="listRight">{{addChild[index].korName.lastName}} {{addChild[index].korName.firstName}}</span><br><br>
                 <span class="listRight">{{addChild[index].engName.lastName}} {{addChild[index].engName.firstName}}</span><br><br>
                 <span class="listRight">{{addChild[index].gender.gender}}</span><br><br>
@@ -66,17 +66,17 @@
 
     <!-- 추가 승객 정보(소아)-->
     <span v-for="(pas,index) in parseInt(chooseInfo.InfantCount)" :key="index">
-        <div class="infoList">
-            <div class="title2">
+        <div class="comInfoList">
+            <div class="comInfoTitle">
                 [소아] 승객 정보 {{ index + 1 }}
             </div>
-            <div class="infoLeft">
+            <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
                 <span class="listLeft">영어 이름</span><br><br>
                 <span class="listLeft">생년 월일</span><br><br>
                 <span class="listLeft">성별</span>
             </div>
-            <div class="infoRight">
+            <div class="comInfoRight">
                 <span class="listRight">{{addInfant[index].korName.lastName}} {{addInfant[index].korName.firstName}}</span><br><br>
                 <span class="listRight">{{addInfant[index].engName.lastName}} {{addInfant[index].engName.firstName}}</span><br><br>
                 <span class="listRight">{{addInfant[index].gender.gender}}</span><br><br>

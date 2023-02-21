@@ -42,16 +42,13 @@ public class ResList {
 	private String email;
 	
 	@ElementCollection
-	private List<String> addPassKorName;
+	private List<String> addAdult;
 	
 	@ElementCollection
-	private List<String> addPassEngName;
+	private List<String> addChild;
 	
 	@ElementCollection
-	private List<String> addPassGender;
-	
-	@ElementCollection
-	private List<String> addPassBirthday;
+	private List<String> addInfant;
 	
 	@Column(nullable = false, length = 50)
 	private String korName;

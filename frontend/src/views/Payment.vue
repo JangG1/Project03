@@ -688,6 +688,7 @@ export default {
             this.engLastName2 = "";
             this.engFirstName2 = "";
             this.birthday2 = "";
+            genderSelected = false;
 
             this.addPas1 = (value + 1) ? false : true //성인 입력창
 
@@ -775,6 +776,7 @@ export default {
             this.engLastName2 = "";
             this.engFirstName2 = "";
             this.birthday2 = "";
+            genderSelected = false;
 
             this.addPas2 = (value) ? false : true
 
@@ -862,7 +864,8 @@ export default {
             this.engLastName2 = "";
             this.engFirstName2 = "";
             this.birthday2 = "";
-
+            genderSelected = false;
+            
             this.addPas3 = (value) ? false : true
 
             if (this.arrow == "▼") {

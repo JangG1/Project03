@@ -236,9 +236,11 @@ export default {
             let korName = this.korLastName + this.korFirstName;
             let engName = this.engLastName + " " + this.engFirstName;
 
-            let addAdult = this.addAdult;
-            let addChild = this.addChild;
-            let addInfant = this.addInfant;            
+            console.log(this.addAdult.toString());
+
+            let addAdult = JSON.stringify(this.addAdult);
+            let addChild = JSON.stringify(this.addChild);
+            let addInfant = JSON.stringify(this.addInfant);            
 
             if (this.chooseInfo.returnYear != " ") {
                 this.way = "왕복"

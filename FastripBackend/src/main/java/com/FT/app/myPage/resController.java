@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +32,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FT.app.Repo.ResRepository;
+import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.Seat;
+import com.FT.app.domain.User;
 import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.ResList;
 import com.FT.app.myPage.mapper.ResListMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -67,11 +73,35 @@ public class ResController {
 	}
 	
 	//예약 내역 저장
-	@PostMapping("/resPost")
+	/*@PostMapping("/resPost")
 	public void Test(@RequestBody ResList resList) {
 		System.out.println(resList);
 		resRepository.save(resList);
-	}
+	}*/
+	
+	@PostMapping("/resPost")
+    public void getTTShelper(
+    		@RequestBody HashMap<String, Object> resList)  throws IOException {
+		//HashMap<String, Object> rtnMap = new HashMap<String, Object>();
+		
+		System.out.println(resList);		
+		
+		System.out.println(resList.get("korName"));
+		System.out.println(resList.get("engName"));
+		System.out.println(resList.get("gender"));
+		System.out.println(resList.get("birthday"));
+		System.out.println(resList.getOrDefault("addAdult","korName"));
+		
+		System.out.println(resList.get("addAdult"));
+		
+		System.out.println();
+
+
+
+		}
+		
+	
+	
 	
 	//id(res_no) 기준으로 예약내역(승객 정보) 삭제
 	@PostMapping("/remove/{id}")

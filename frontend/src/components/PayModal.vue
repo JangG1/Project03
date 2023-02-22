@@ -230,7 +230,7 @@ export default {
             this.$emit('closeModal')
         },
         submit() {
-            /*const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
+            const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
             
             let korName = this.korLastName + this.korFirstName;
@@ -238,13 +238,13 @@ export default {
 
             console.log(JSON.stringify(this.addAdult));
             console.log(this.addAdult.toString());
-            console.log(this.addAdult);*/
+            console.log(this.addAdult);
 
             let addAdult = this.addAdult
-            /*let addChild = this.addChild
-            let addInfant = this.addInfant*/
+            let addChild = this.addChild
+            let addInfant = this.addInfant
 
-            /*if (this.chooseInfo.returnYear != " ") {
+            if (this.chooseInfo.returnYear != " ") {
                 this.way = "왕복"
             } else {
                 this.way = "편도";
@@ -256,11 +256,10 @@ export default {
                 email = this.passEmail1 + "@" + this.passEmail2;
             } else if(this.$store.state.isLogin == true){
                 email = this.userInfo.email;
-            }*/
+            }
 
              axios.post("/res/resPost", {
-                addAdult: addAdult    
-                    /*email: email,
+                    email: email,
                     korName: korName,
                     engName: engName,
                     gender: this.gender,
@@ -285,7 +284,7 @@ export default {
                     startTime1: this.startInfo.startTime1,
                     arriveTime1: this.startInfo.arriveTime1,
                     startTime2: this.returnInfo.startTime2,
-                    arriveTime2: this.returnInfo.arriveTime2*/
+                    arriveTime2: this.returnInfo.arriveTime2
                 })
                 .then(res => {
                     console.log(res)

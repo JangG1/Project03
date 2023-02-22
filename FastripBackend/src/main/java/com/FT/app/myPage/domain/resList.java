@@ -2,9 +2,11 @@ package com.FT.app.myPage.domain;
 
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,6 +15,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -41,14 +45,32 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String email;
 	
-	/*@ElementCollection
-	private List<String> addAdult;
+	@ElementCollection
+	@CollectionTable(
+			name="res_list_add_adult",
+			joinColumns = @JoinColumn(name = "res_no")
+	)
+	@MapKeyColumn(name = "add_adult_key")
+	@Column(name = "add_adult_value", length = 5000)
+	private Map<String, String> addAdult = new HashMap<>();
 	
 	@ElementCollection
-	private List<String> addChild;
+	@CollectionTable(
+			name="res_list_add_child",
+			joinColumns = @JoinColumn(name = "res_no")
+	)
+	@MapKeyColumn(name = "add_child_key")
+	@Column(name = "add_child_value", length = 5000)
+	private Map<String, String> addChild = new HashMap<>();
 	
 	@ElementCollection
-	private List<String> addInfant;*/
+	@CollectionTable(
+			name="res_list_add_infant",
+			joinColumns = @JoinColumn(name = "res_no")
+	)
+	@MapKeyColumn(name = "add_infant_key")
+	@Column(name = "add_infant_value", length = 5000)
+	private Map<String, String> addInfant = new HashMap<>();
 	
 	@Column(nullable = false, length = 50)
 	private String korName;

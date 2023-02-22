@@ -51,6 +51,24 @@ public class ResList2 {
 	@Column(name = "add_adult_value", length = 5000)
 	private Map<String, String> addAdult = new HashMap<>();
 	
+	@ElementCollection
+	@CollectionTable(
+			name="res_list2_add_child",
+			joinColumns = @JoinColumn(name = "res_no")
+	)
+	@MapKeyColumn(name = "add_child_key")
+	@Column(name = "add_child_value", length = 5000)
+	private Map<String, String> addChild = new HashMap<>();
+	
+	@ElementCollection
+	@CollectionTable(
+			name="res_list2_add_infant",
+			joinColumns = @JoinColumn(name = "res_no")
+	)
+	@MapKeyColumn(name = "add_infant_key")
+	@Column(name = "add_infant_value", length = 5000)
+	private Map<String, String> addInfant = new HashMap<>();
+	
 	public ResList2 orElseThrow(Object object) {
 		return null;
 	}

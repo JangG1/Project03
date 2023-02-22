@@ -72,11 +72,13 @@ public class ResController {
 
 		System.out.println(resList2);
 		
+		//추가 승객
 		Map<String, String> addAdult = resList2.getAddAdult();
-		addAdult.put("p2", "v2");
-		
-		System.out.println(addAdult);
-		System.out.println(resList2);
+		Map<String, String> addChild = resList2.getAddChild();
+		Map<String, String> addInfant = resList2.getAddInfant();
+		addAdult.put("addAdult", "김민지");
+		addChild.put("addChild", "팜하니");
+		addInfant.put("addInfant", "강해린");				
 		
 		resRepository2.save(resList2);
 		
@@ -117,26 +119,36 @@ public class ResController {
 		// rtnMap.put("text", requestJsonHashMap.get("data1"));
 		// String tts = (String) rtnMap.get("text");
 
-		System.out.println(resList.getClass().getName());
-		
-
-		String list = resList.toString();
-
-		System.out.println(list.getClass().getName());// String
-
+		///////추가 승객 시작///////(정상작동 2/23 02:33)
+		/*String addAdultInfo = resList.get("addAdult").toString();
+		String addChildInfo = resList.get("addChild").toString();
+		String addInfantInfo = resList.get("addInfant").toString();
 		
 		ResList2 resList2 = new ResList2();
-
-		System.out.println(resList2);
 		
-		//추가 승객 (성인)
 		Map<String, String> addAdult = resList2.getAddAdult();
-		addAdult.put("addAdult", list);
+		Map<String, String> addChild = resList2.getAddChild();
+		Map<String, String> addInfant = resList2.getAddInfant();
+		addAdult.put("addAdult", addAdultInfo);
+		addChild.put("addChild", addChildInfo);
+		addInfant.put("addInfant", addInfantInfo);			
 		
-		System.out.println(addAdult);
-		System.out.println(resList2);
+		resRepository2.save(resList2);*/
+		///////추가 승객 종료///////				
 		
-		resRepository2.save(resList2);
+		
+		
+		
+		///////예약자 시작///////
+		resList.remove("addAdult");
+		resList.remove("addChild");
+		resList.remove("addInfant");
+		
+		String list = resList.toString();
+		
+		System.out.println();
+		///////예약자 종료///////		
+		
 		
 		
 //		ResList2 q = (ResList2) rtnMap.get("text");

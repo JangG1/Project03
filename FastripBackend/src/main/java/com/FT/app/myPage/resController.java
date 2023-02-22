@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -65,23 +66,21 @@ public class ResController {
 	// Test
 	@GetMapping("/JPATest")
 	public void JPATest() {
-		System.out.println("시작");
-		/*SessionFactory factory = new Configuration().configure().addAnnotatedClass(ResList2.class)
-				.buildSessionFactory();
-
-		Session session = factory.getCurrentSession();
-
-		session.beginTransaction();*/
-
+		System.out.println("시작");			
+		
 		ResList2 resList2 = new ResList2();
 
+		System.out.println(resList2);
+		
 		Map<String, String> addAdult = resList2.getAddAdult();
 		addAdult.put("p1", "v1");
-
-		/*session.persist(resList2);
-
-		session.getTransaction().commit();*/
-		System.out.println("종료");
+		
+		System.out.println(addAdult);
+		System.out.println(resList2);
+		
+		resRepository2.save(resList2);
+		
+		System.out.println("종료");		
 	}
 	
 	// 예약 내역 전부 조회

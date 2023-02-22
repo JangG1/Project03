@@ -17,7 +17,8 @@
     {{ arr[0].korName.firstName }}<br>
     {{ arr[0].korName.lastName }}<br>
 </div>
-
+<br>
+<input type="button" @click="test" value="test"><br>
 =======================================================
 <br>
 
@@ -79,6 +80,18 @@ export default {
     components: {},
     created() {},
     methods: {
+        test() {
+            axios.get('/res/JPATest')
+                .then((response) => {
+                    console.log("성공")
+                    console.log(response.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("안보내짐")
+                })                
+
+        },
         arrPush() {
             this.arr.push({
                 korName: {
@@ -119,9 +132,6 @@ export default {
         },
         redirect() {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
-        },
-        test() {
-            this.$router.push('Reservation')
         },
         getUserInfo() {
 

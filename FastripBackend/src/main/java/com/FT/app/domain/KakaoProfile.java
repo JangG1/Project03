@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.DynamicInsert;
 
-import com.FT.app.myPage.domain.ResList2;
+import com.FT.app.myPage.domain.AddPassenger;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

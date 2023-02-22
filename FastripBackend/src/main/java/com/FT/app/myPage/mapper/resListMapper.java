@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.FT.app.myPage.domain.ResList2;
+import com.FT.app.myPage.domain.AddPassenger;
 
 @Mapper
 public interface ResListMapper {
@@ -22,7 +22,7 @@ public interface ResListMapper {
 //	List<ResList> getResList();
 //	
 	@Select("select * from res where email = #{email} order by res_no desc")
-	List<ResList2> getResListByEmail(@Param("email") String email);
+	List<AddPassenger> getResListByEmail(@Param("email") String email);
 //	
 //	@Select("select * from res where email = #{email} and res_no = #{res_no}")
 //	ResList getResList(

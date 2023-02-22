@@ -36,7 +36,7 @@ import com.FT.app.Repo.ProdRepository;
 import com.FT.app.Repo.ResRepository;
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.Way;
-import com.FT.app.myPage.domain.ResList2;
+import com.FT.app.myPage.domain.AddPassenger;
 import com.FT.app.myPage.mapper.ResListMapper;
 import com.FT.app.product.domain.ProdList;
 

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.FT.app.domain.User;
-import com.FT.app.myPage.domain.ResList2;
+import com.FT.app.myPage.domain.AddPassenger;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	 

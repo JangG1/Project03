@@ -188,9 +188,10 @@ export default {
     props: {},
     methods: {
         home() {
-            this.$router.replace({
+            /*this.$router.replace({
                 name: 'Home'
-            })
+            })*/
+            this.$router.push('/')
         },
         Reservation() {
             this.$router.push({

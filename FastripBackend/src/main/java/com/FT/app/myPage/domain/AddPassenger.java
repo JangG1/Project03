@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @DynamicInsert
-public class ResList2 {
+public class AddPassenger {
 	
 	@Id // Primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 제작된 DB의 넘버링을 따라간다.
@@ -44,7 +44,7 @@ public class ResList2 {
 	
 	@ElementCollection
 	@CollectionTable(
-			name="res_list2_add_adult",
+			name="res_list_add_adult",
 			joinColumns = @JoinColumn(name = "res_no")
 	)
 	@MapKeyColumn(name = "add_adult_key")
@@ -53,7 +53,7 @@ public class ResList2 {
 	
 	@ElementCollection
 	@CollectionTable(
-			name="res_list2_add_child",
+			name="res_list_add_child",
 			joinColumns = @JoinColumn(name = "res_no")
 	)
 	@MapKeyColumn(name = "add_child_key")
@@ -62,14 +62,14 @@ public class ResList2 {
 	
 	@ElementCollection
 	@CollectionTable(
-			name="res_list2_add_infant",
+			name="res_list_add_infant",
 			joinColumns = @JoinColumn(name = "res_no")
 	)
 	@MapKeyColumn(name = "add_infant_key")
 	@Column(name = "add_infant_value", length = 5000)
 	private Map<String, String> addInfant = new HashMap<>();
 	
-	public ResList2 orElseThrow(Object object) {
+	public AddPassenger orElseThrow(Object object) {
 		return null;
 	}
 

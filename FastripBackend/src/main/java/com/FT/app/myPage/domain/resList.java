@@ -43,34 +43,7 @@ public class ResList {
 	private int res_no; // 시퀀스, auto_increment
 	
 	@Column(nullable = false, length = 50)
-	private String email;
-	
-	@ElementCollection
-	@CollectionTable(
-			name="res_list_add_adult",
-			joinColumns = @JoinColumn(name = "res_no")
-	)
-	@MapKeyColumn(name = "add_adult_key")
-	@Column(name = "add_adult_value", length = 5000)
-	private Map<String, String> addAdult = new HashMap<>();
-	
-	@ElementCollection
-	@CollectionTable(
-			name="res_list_add_child",
-			joinColumns = @JoinColumn(name = "res_no")
-	)
-	@MapKeyColumn(name = "add_child_key")
-	@Column(name = "add_child_value", length = 5000)
-	private Map<String, String> addChild = new HashMap<>();
-	
-	@ElementCollection
-	@CollectionTable(
-			name="res_list_add_infant",
-			joinColumns = @JoinColumn(name = "res_no")
-	)
-	@MapKeyColumn(name = "add_infant_key")
-	@Column(name = "add_infant_value", length = 5000)
-	private Map<String, String> addInfant = new HashMap<>();
+	private String email;		
 	
 	@Column(nullable = false, length = 50)
 	private String korName;
@@ -141,7 +114,7 @@ public class ResList {
 	@CreationTimestamp // 값을 비워두고 insert해도 시간이 자동으로 입력
 	private Timestamp res_date;
 
-	public ResList2 orElseThrow(Object object) {
+	public AddPassenger orElseThrow(Object object) {
 		return null;
 	}
 

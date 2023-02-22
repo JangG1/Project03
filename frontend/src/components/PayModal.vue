@@ -172,7 +172,7 @@ export default {
             childCountView: false,
             infantCountView: false,
             holdPoint: this.$store.state.holdPoint,
-            fullname: [],            
+            fullname: [],
         }
     },
     props: {
@@ -226,39 +226,44 @@ export default {
 
     },
     methods: {
+        test() {
+
+        },
         closeModal() {
             this.$emit('closeModal')
         },
         submit() {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
-            
+
             let korName = this.korLastName + this.korFirstName;
             let engName = this.engLastName + " " + this.engFirstName;
-
-            console.log(JSON.stringify(this.addAdult));
-            console.log(this.addAdult.toString());
-            console.log(this.addAdult);
 
             let addAdult = this.addAdult
             let addChild = this.addChild
             let addInfant = this.addInfant
+
+            let infantCount = this.chooseInfo.InfantCount
+            let childCount = this.chooseInfo.ChildCount
+            let adultCount = this.chooseInfo.AdultCount
+
+            let trigger = adultCount + childCount + infantCount;
 
             if (this.chooseInfo.returnYear != " ") {
                 this.way = "왕복"
             } else {
                 this.way = "편도";
             }
-           
+
             let email = "";
 
             if (this.$store.state.isLogin == false) {
                 email = this.passEmail1 + "@" + this.passEmail2;
-            } else if(this.$store.state.isLogin == true){
+            } else if (this.$store.state.isLogin == true) {
                 email = this.userInfo.email;
             }
 
-             axios.post("/res/resPost", {
+            axios.post("/res/resPost", {
                     email: email,
                     korName: korName,
                     engName: engName,
@@ -288,98 +293,49 @@ export default {
                 })
                 .then(res => {
                     console.log(res)
-                    console.log("보내짐")            
+                    console.log("예약자 정보 보내짐")
+                    if (trigger > 1) {
+                        this.submit2();
+                    } else {
+                        let usePoint = this.holdPoint - this.totalPoint;
+                        this.$store.dispatch("holdPoint", usePoint);
+                        this.$router.push('Complete');
+                    }
                 })
                 .catch(err => {
                     console.log(err)
-                    console.log("안보내짐")
-                })                
-
-
-                    
+                    console.log("예약자 정보 안보내짐")
+                })
         },
         submit2() {
-            const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
-            const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
-            
-            let korName = this.korLastName + this.korFirstName;
-            let engName = this.engLastName + " " + this.engFirstName;
-
-            console.log(JSON.stringify(this.addAdult));
-            console.log(this.addAdult.toString());
-            console.log(this.addAdult);
 
             let addAdult = this.addAdult
             let addChild = this.addChild
             let addInfant = this.addInfant
 
-            if (this.chooseInfo.returnYear != " ") {
-                this.way = "왕복"
-            } else {
-                this.way = "편도";
-            }
-           
-            let email = "";
-
-            if (this.$store.state.isLogin == false) {
-                email = this.passEmail1 + "@" + this.passEmail2;
-            } else if(this.$store.state.isLogin == true){
-                email = this.userInfo.email;
-            }
-
-            let user = [{korName:korName},{gender:this.gender},{birthday:this.birthday}];
-            
-             axios.post("/res/resPost", {
-                    email: email,
-                    korName: korName,
-                    engName: engName,
-                    gender: this.gender,
-                    birthday: this.birthday,
+            axios.post("/res/resPost/addPas", {
                     addAdult: addAdult,
                     addChild: addChild,
                     addInfant: addInfant,
-                    seat: this.chooseInfo.seat,
-                    seatClass1: this.startInfo.seatClass1,
-                    seatClass2: this.returnInfo.seatClass2,
-                    way: this.way,
-                    flight1: this.startInfo.flight1,
-                    flight2: this.returnInfo.flight2,
-                    fromArea: this.chooseInfo.fromArea,
-                    toArea: this.chooseInfo.toArea,
-                    oneWayArea: "",
-                    startDate: startDate,
-                    returnDate: returnDate,
-                    infantCount: this.chooseInfo.InfantCount,
-                    childCount: this.chooseInfo.ChildCount,
-                    adultCount: this.chooseInfo.AdultCount,
-                    startTime1: this.startInfo.startTime1,
-                    arriveTime1: this.startInfo.arriveTime1,
-                    startTime2: this.returnInfo.startTime2,
-                    arriveTime2: this.returnInfo.arriveTime2
                 })
                 .then(res => {
                     console.log(res)
-                    console.log("보내짐")
-                    alert("예약 되었습니다.")                    
-                    this.$store.dispatch("setUserInfo2", user)
-                    this.$store.dispatch("engName", engName)
-                    this.$store.dispatch("addAdult", addAdult)
-                    this.$store.dispatch("addChild", addChild)
-                    this.$store.dispatch("addInfant", addInfant)                    
-                    this.$router.push('Complete')
+                    console.log("추가 승객 보내짐")
                 })
                 .catch(err => {
                     console.log(err)
-                    console.log("안보내짐")
-                })                
+                    console.log("추가 승객 안보내짐")
+                })
 
-            let usePoint =  this.holdPoint - this.totalPoint;
+            let usePoint = this.holdPoint - this.totalPoint;
             this.$store.dispatch("holdPoint", usePoint);
-                    
+            this.$store.dispatch("addAdult", addAdult);
+            this.$store.dispatch("addChild", addChild);
+            this.$store.dispatch("addInfant", addInfant);
+            this.$router.push('Complete');
         },
     },
-    mounted() {
-    },
+    mounted() {},
 }
 </script>
 

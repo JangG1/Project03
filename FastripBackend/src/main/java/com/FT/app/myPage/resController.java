@@ -41,7 +41,7 @@ import com.FT.app.domain.Seat;
 import com.FT.app.domain.User;
 import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.ResList;
-import com.FT.app.myPage.domain.ResList2;
+import com.FT.app.myPage.domain.AddPassenger;
 import com.FT.app.myPage.mapper.ResListMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -68,7 +68,7 @@ public class ResController {
 	public void JPATest() {
 		System.out.println("시작");			
 		
-		ResList2 resList2 = new ResList2();
+		AddPassenger resList2 = new AddPassenger();
 
 		System.out.println(resList2);
 		
@@ -107,83 +107,32 @@ public class ResController {
 	}
 
 	// 예약 내역 저장
-	@PostMapping("/resPost2")
+	@PostMapping("/resPost")
 	public void Test(@RequestBody ResList resList) {
 		System.out.println(resList);
 		resRepository.save(resList);
 	}
 
-	@PostMapping("/resPost")
+	@PostMapping("/resPost/addPas")
 	public void getResList(@RequestBody HashMap<String, Object> resList) throws IOException {
-		// HashMap<String, Object> rtnMap = new HashMap<String, Object>();
-		// rtnMap.put("text", requestJsonHashMap.get("data1"));
-		// String tts = (String) rtnMap.get("text");
 
 		///////추가 승객 시작///////(정상작동 2/23 02:33)
-		/*String addAdultInfo = resList.get("addAdult").toString();
+		String addAdultInfo = resList.get("addAdult").toString();
 		String addChildInfo = resList.get("addChild").toString();
 		String addInfantInfo = resList.get("addInfant").toString();
 		
-		ResList2 resList2 = new ResList2();
+		AddPassenger addPas = new AddPassenger();
 		
-		Map<String, String> addAdult = resList2.getAddAdult();
-		Map<String, String> addChild = resList2.getAddChild();
-		Map<String, String> addInfant = resList2.getAddInfant();
+		Map<String, String> addAdult = addPas.getAddAdult();
+		Map<String, String> addChild = addPas.getAddChild();
+		Map<String, String> addInfant = addPas.getAddInfant();
 		addAdult.put("addAdult", addAdultInfo);
 		addChild.put("addChild", addChildInfo);
 		addInfant.put("addInfant", addInfantInfo);			
 		
-		resRepository2.save(resList2);*/
+		resRepository2.save(addPas);
 		///////추가 승객 종료///////				
-		
-		
-		
-		
-		///////예약자 시작///////
-		resList.remove("addAdult");
-		resList.remove("addChild");
-		resList.remove("addInfant");
-		
-		String list = resList.toString();
-		
-		System.out.println();
-		///////예약자 종료///////		
-		
-		
-		
-//		ResList2 q = (ResList2) rtnMap.get("text");
-
-		// ResList2 r = (ResList2) q.getAddAdult();
-
-//		System.out.println(q);
-//		System.out.println(r);
-//		
-//		System.out.println("=====");
-//		
-//		System.out.println(q.getClass().getName());
-//		System.out.println(r.getClass().getName());
-//		
-
-		// resRepository2.save(q);
-
-		/*
-		 * for(String key : resList.keySet()){ String value =
-		 * resList.get(key).toString(); System.out.println(key+" : "+value); }
-		 */
-
-		// Object a = resList.get("addAdult");
-		// Object b = resList.get("addChild");
-		// Object c = resList.get("addInfant");
-
-		// System.out.println(a);
-		// System.out.println(b);
-		// System.out.println(c);
-
-		// resRepository.save(resList);
-
-		// resList.remove("addAdult");
-		// resList.remove("addChild");
-		// resList.remove("addInfant");
+					
 
 	}
 

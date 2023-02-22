@@ -46,7 +46,7 @@ import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.User;
 import com.FT.app.login.API.KakaoAPI;
 import com.FT.app.login.service.UserService;
-import com.FT.app.myPage.domain.ResList2;
+import com.FT.app.myPage.domain.AddPassenger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

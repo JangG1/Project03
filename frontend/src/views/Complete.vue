@@ -16,9 +16,9 @@
         </div>
         <div class="comInfoRight">
             <span class="listRight">{{userInfo2[0].korName}}</span><br><br>
-            <span class="listRight">{{engName}}</span><br><br>
-            <span class="listRight">{{userInfo2[2].birthday}}</span><br><br>
-            <span class="listRight">{{userInfo2[1].gender}}</span>
+            <span class="listRight">{{userInfo2[1].engName}}</span><br><br>
+            <span class="listRight">{{userInfo2[3].birthday}}</span><br><br>
+            <span class="listRight">{{userInfo2[2].gender}}</span>
         </div>
     </div>
 

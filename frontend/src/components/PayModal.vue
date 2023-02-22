@@ -263,6 +263,8 @@ export default {
                 email = this.userInfo.email;
             }
 
+            let userInfo = [{korName:korName},{engName:engName},{gender:this.gender},{birthday:this.birthday}];
+
             axios.post("/res/resPost", {
                     email: email,
                     korName: korName,
@@ -299,6 +301,8 @@ export default {
                     } else {
                         let usePoint = this.holdPoint - this.totalPoint;
                         this.$store.dispatch("holdPoint", usePoint);
+                        this.$store.dispatch("setUserInfo2", userInfo);    
+                        alert("예약이 완료 되었습니다.")                    
                         this.$router.push('Complete');
                     }
                 })
@@ -312,7 +316,12 @@ export default {
             let addAdult = this.addAdult
             let addChild = this.addChild
             let addInfant = this.addInfant
-
+            
+            let korName = this.korLastName + this.korFirstName;
+            let engName = this.engLastName + " " + this.engFirstName;
+            
+            let userInfo = [{korName:korName},{engName:engName},{gender:this.gender},{birthday:this.birthday}];
+            
             axios.post("/res/resPost/addPas", {
                     addAdult: addAdult,
                     addChild: addChild,
@@ -329,6 +338,7 @@ export default {
 
             let usePoint = this.holdPoint - this.totalPoint;
             this.$store.dispatch("holdPoint", usePoint);
+            this.$store.dispatch("setUserInfo2", userInfo);  
             this.$store.dispatch("addAdult", addAdult);
             this.$store.dispatch("addChild", addChild);
             this.$store.dispatch("addInfant", addInfant);

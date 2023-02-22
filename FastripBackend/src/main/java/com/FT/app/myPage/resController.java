@@ -73,7 +73,7 @@ public class ResController {
 		System.out.println(resList2);
 		
 		Map<String, String> addAdult = resList2.getAddAdult();
-		addAdult.put("p1", "v1");
+		addAdult.put("p2", "v2");
 		
 		System.out.println(addAdult);
 		System.out.println(resList2);
@@ -117,34 +117,28 @@ public class ResController {
 		// rtnMap.put("text", requestJsonHashMap.get("data1"));
 		// String tts = (String) rtnMap.get("text");
 
-		System.out.println(resList);
+		System.out.println(resList.getClass().getName());
 		
-		/*SessionFactory factory = new Configuration().configure().addAnnotatedClass(ResList2.class)
-				.buildSessionFactory();
-
-		Session session = factory.getCurrentSession();
-
-		session.beginTransaction();
-
-		ResList2 resList2 = new ResList2();
-
-		Map<String, String> addAdult = resList2.getAddAdult();
-		addAdult.put("p1", "v1");
-
-		session.persist(resList2);
-
-		session.getTransaction().commit();*/
 
 		String list = resList.toString();
 
-		// resRepository2.save(list);
+		System.out.println(list.getClass().getName());// String
 
-		System.out.println("====");
+		
+		ResList2 resList2 = new ResList2();
 
-		// resRepository2.save(list);
-
-		System.out.println(list);// String
-
+		System.out.println(resList2);
+		
+		//추가 승객 (성인)
+		Map<String, String> addAdult = resList2.getAddAdult();
+		addAdult.put("addAdult", list);
+		
+		System.out.println(addAdult);
+		System.out.println(resList2);
+		
+		resRepository2.save(resList2);
+		
+		
 //		ResList2 q = (ResList2) rtnMap.get("text");
 
 		// ResList2 r = (ResList2) q.getAddAdult();

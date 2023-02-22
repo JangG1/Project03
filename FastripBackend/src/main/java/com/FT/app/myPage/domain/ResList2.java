@@ -48,7 +48,7 @@ public class ResList2 {
 			joinColumns = @JoinColumn(name = "res_no")
 	)
 	@MapKeyColumn(name = "add_adult_key")
-	@Column(name = "add_adult_value")
+	@Column(name = "add_adult_value", length = 5000)
 	private Map<String, String> addAdult = new HashMap<>();
 	
 	public ResList2 orElseThrow(Object object) {

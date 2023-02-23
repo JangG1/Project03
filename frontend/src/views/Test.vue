@@ -4,20 +4,7 @@
     <img class="b3" src="@/assets/bannerImage/3.jpg"/>
     <img class="b4" src="@/assets/bannerImage/4.jpg"/>
 </div>-->
-이름 : <input type="text" v-model="testname"><br>
-성별 : <input type="text" v-model="testgender"><br>
-생일 : <input type="text" v-model="testbirthday"><br>
 
-<input type="button" @click="arrPush" value="추가"><br>
-<input type="button" @click="arrCorrect" value="수정"><br>
-<input type="button" @click="arrCheck" value="확인"><br>
-<div v-if="testview">
-    {{ arr }}<br>    
-    {{ arr[0].korName }}<br>
-    {{ arr[0].korName.firstName }}<br>
-    {{ arr[0].korName.lastName }}<br>
-</div>
-<br>
 <input type="button" @click="test" value="test"><br>
 =======================================================
 <br>

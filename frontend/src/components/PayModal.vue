@@ -232,7 +232,8 @@ export default {
         closeModal() {
             this.$emit('closeModal')
         },
-        submit() {
+
+        /*submit() {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
@@ -310,18 +311,45 @@ export default {
                     console.log(err)
                     console.log("예약자 정보 안보내짐")
                 })
+        },*/
+        submit() {
+
+            //let userInfo = [{korName:korName},{engName:engName},{gender:this.gender},{birthday:this.birthday}];
+
+            axios.post("/res/resPost", {
+                    params: {
+                        resList: 12345,
+                        addPas: [{name:{name:"name"}}],
+                    },
+                })
+                .then(res => {
+                    console.log(res)
+                    console.log("예약자 정보 보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("예약자 정보 안보내짐")
+                })
         },
         submit2() {
 
             let addAdult = this.addAdult
             let addChild = this.addChild
             let addInfant = this.addInfant
-            
+
             let korName = this.korLastName + this.korFirstName;
             let engName = this.engLastName + " " + this.engFirstName;
-            
-            let userInfo = [{korName:korName},{engName:engName},{gender:this.gender},{birthday:this.birthday}];
-            
+
+            let userInfo = [{
+                korName: korName
+            }, {
+                engName: engName
+            }, {
+                gender: this.gender
+            }, {
+                birthday: this.birthday
+            }];
+
             axios.post("/res/resPost/addPas", {
                     addAdult: addAdult,
                     addChild: addChild,
@@ -338,7 +366,7 @@ export default {
 
             let usePoint = this.holdPoint - this.totalPoint;
             this.$store.dispatch("holdPoint", usePoint);
-            this.$store.dispatch("setUserInfo2", userInfo);  
+            this.$store.dispatch("setUserInfo2", userInfo);
             this.$store.dispatch("addAdult", addAdult);
             this.$store.dispatch("addChild", addChild);
             this.$store.dispatch("addInfant", addInfant);

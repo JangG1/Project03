@@ -106,12 +106,23 @@ public class ResController {
 		return resRepository.findByEmail(email);
 	}
 
-	// 예약 내역 저장
-	@PostMapping("/resPost")
-	public void Test(@RequestBody ResList resList) {
-		System.out.println(resList);
-		resRepository.save(resList);
-	}
+//	// 예약 내역 저장
+//	@PostMapping("/resPost")
+//	public void Test(@RequestBody ResList resList) {
+//		System.out.println(resList);
+//		resRepository.save(resList);
+//	}
+	
+	// 예약 내역 저장 Test
+		@PostMapping("/resPost")
+		public void Test(@RequestParam ResList resList,
+				@RequestParam HashMap<String, Object> addPas) {
+			System.out.println(resList);
+			System.out.println(addPas);
+			
+			
+			//resRepository.save(resList);
+		}
 
 	@PostMapping("/resPost/addPas")
 	public void getResList(@RequestBody HashMap<String, Object> resList) throws IOException {

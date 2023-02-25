@@ -313,15 +313,78 @@ export default {
                 })
         },*/
         submit() {
+            const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
+            const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
+
+            let korName = this.korLastName + this.korFirstName;
+            let engName = this.engLastName + " " + this.engFirstName;
+
+            /*let addAdult = this.addAdult
+            let addChild = this.addChild
+            let addInfant = this.addInfant*/
+
+            if (this.chooseInfo.returnYear != " ") {
+                this.way = "왕복"
+            } else {
+                this.way = "편도";
+            }
+
+            let email = "";
+
+            if (this.$store.state.isLogin == false) {
+                email = this.passEmail1 + "@" + this.passEmail2;
+            } else if (this.$store.state.isLogin == true) {
+                email = this.userInfo.email;
+            }
 
             //let userInfo = [{korName:korName},{engName:engName},{gender:this.gender},{birthday:this.birthday}];
 
-            axios.post("/res/resPost", {
-                    params: {
-                        resList: 12345,
-                        addPas: [{name:{name:"name"}}],
-                    },
-                })
+            var params = new URLSearchParams();
+
+            /*let resList = [
+            {email: email},
+            {korName: korName},
+            {engName: engName},
+            {gender: this.gender},
+            {birthday: this.birthday},
+            {seat: this.chooseInfo.seat},
+            {seatClass1: this.startInfo.seatClass1},
+            {seatClass2: this.returnInfo.seatClass2},
+            {way: this.way},
+            {flight1: this.startInfo.flight1},
+            {flight2: this.returnInfo.flight2},
+            {fromArea: this.chooseInfo.fromArea},
+            {toArea: this.chooseInfo.toArea},
+            {oneWayArea: ""},
+            {startDate: startDate},
+            {returnDate: returnDate},
+            {infantCount: this.chooseInfo.InfantCount},
+            {childCount: this.chooseInfo.ChildCount},
+            {adultCount: this.chooseInfo.AdultCount},
+            {startTime1: this.startInfo.startTime1},
+            {arriveTime1: this.startInfo.arriveTime1},
+            {startTime2: this.returnInfo.startTime2},
+            {arriveTime2: this.returnInfo.arriveTime2}
+            ];*/
+
+            let resList = [
+            {email: {email:email}},
+            {korName: {korName: korName}},
+            {engName: {engName:engName}},
+            ];
+
+            //기본 예약 정보
+            params.append('resList',
+                resList
+            );
+            //추가 승객 정보
+            /*params.append('addPas',
+            addAdult,
+                addChild,
+                addInfant
+            );*/
+
+            axios.post("/res/resPost", params)
                 .then(res => {
                     console.log(res)
                     console.log("예약자 정보 보내짐")

@@ -115,10 +115,9 @@ public class ResController {
 	
 	// 예약 내역 저장 Test
 		@PostMapping("/resPost")
-		public void Test(@RequestParam ResList resList,
-				@RequestParam HashMap<String, Object> addPas) {
+		public void Test(@RequestParam HashMap<Object, Object> resList) {
 			System.out.println(resList);
-			System.out.println(addPas);
+			//System.out.println(addPas);
 			
 			
 			//resRepository.save(resList);

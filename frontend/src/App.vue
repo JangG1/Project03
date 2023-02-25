@@ -77,11 +77,6 @@ export default {
             }
             return this.$store.state.isLogin;
         },
-        isLoading() {
-            
-            console.log("loading " + this.$store.state.isLoad);
-            return this.$store.state.isLoad;
-        },
 
     },
     methods: {
@@ -100,8 +95,7 @@ export default {
             if(this.$store.state.isLogin == true){
             axios.get('/api/kakao/info')
                 .then((response) => {
-                    this.userInfo = response.data
-                    console.log(response.data)
+                    this.userInfo = response.data                    
                     console.log("로그인 되었습니다.")
                     this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
                     this.$store.dispatch("loginSuccess");

@@ -149,7 +149,7 @@ export default createStore({
             commit("setReturnInfo", payload)
         },
         async setUserInfo({ commit }, payload) {            
-            let info = JSON.parse(payload)
+            let info = JSON.parse(payload)            
             let userInfo = {
                 lastName: info[0].name.substr(0,1),
                 firstName: info[0].name.substr(1,3),

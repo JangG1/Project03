@@ -1,7 +1,7 @@
 <template>
 <div class="">
     <div class="infoTitle">
-        <span class="title" style="font-size: 30px;">여행 예약 정보</span>
+        <span class="title" style="font-size: 30px;">여행 예약 정보</span>{{ addAdult }}
         <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
@@ -38,10 +38,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-                <span class="listRight">{{addAdult[index].korName.lastName}} {{addAdult[index].korName.firstName}}</span><br><br>
-                <span class="listRight">{{addAdult[index].engName.lastName}} {{addAdult[index].engName.firstName}}</span><br><br>
-                <span class="listRight">{{addAdult[index].gender.gender}}</span><br><br>
-                <span class="listRight">{{addAdult[index].birthday.birthday}}</span>
+                <span class="listRight">{{addAdult[index].korName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].engName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].gender}}</span><br><br>
+                <span class="listRight">{{addAdult[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -59,10 +59,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-                <span class="listRight">{{addChild[index].korName.lastName}} {{addChild[index].korName.firstName}}</span><br><br>
-                <span class="listRight">{{addChild[index].engName.lastName}} {{addChild[index].engName.firstName}}</span><br><br>
-                <span class="listRight">{{addChild[index].gender.gender}}</span><br><br>
-                <span class="listRight">{{addChild[index].birthday.birthday}}</span>
+                <span class="listRight">{{addChild[index].korName}} </span><br><br>
+                <span class="listRight">{{addChild[index].engName}} </span><br><br>
+                <span class="listRight">{{addChild[index].gender}}</span><br><br>
+                <span class="listRight">{{addChild[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -80,10 +80,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-                <span class="listRight">{{addInfant[index].korName.lastName}} {{addInfant[index].korName.firstName}}</span><br><br>
-                <span class="listRight">{{addInfant[index].engName.lastName}} {{addInfant[index].engName.firstName}}</span><br><br>
-                <span class="listRight">{{addInfant[index].gender.gender}}</span><br><br>
-                <span class="listRight">{{addInfant[index].birthday.birthday}}</span>
+                <span class="listRight">{{addInfant[index].korName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].engName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].gender}}</span><br><br>
+                <span class="listRight">{{addInfant[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -151,7 +151,8 @@
         </div>
     </div>
 
-    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
+    <button type="button" class="reserBtn" @click="submit2()">예약 하기</button>
+    <button type="button" class="reserBtn" @click="test()">test</button>
 </div>
 </template>
 
@@ -227,13 +228,59 @@ export default {
     },
     methods: {
         test() {
+            console.log("test")
+            const adultKorName = [];
+            const adultEngName = [];
+            const adultBirthday = [];
+            const adultGender = [];
 
+            const childKorName = [];
+            const childEngName = [];
+            const childBirthday = [];
+            const childGender = [];
+            
+            const infantKorName = [];
+            const infantEngName = [];
+            const infantBirthday = [];
+            const infantGender = [];
+
+            for (const i = 0; i < this.addAdult.length; i++) {
+                console.log(i)
+                adultKorName.push(this.addAdult[i].korName);
+                adultEngName.push(this.addAdult[i].engName);
+                adultBirthday.push(this.addAdult[i].birthday);
+                adultGender.push(this.addAdult[i].gender);
+            }
+
+            axios.post("/res/resPost/addPas", {
+                adultKorName: adultKorName,
+                adultEngName: adultEngName,
+                adultBirthday: adultBirthday,
+                adultGender: adultGender,
+
+                childKorName: childKorName,
+                childEngName: childEngName,
+                childBirthday: childBirthday,
+                childGender: childGender,
+
+                infantKorName: infantKorName,
+                infantEngName: infantEngName,
+                infantBirthday: infantBirthday,
+                infantGender: infantGender,
+                })
+                .then(res => {
+                    console.log(res)
+                    console.log("추가 승객 보내짐")
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log("추가 승객 안보내짐")
+                })
         },
         closeModal() {
             this.$emit('closeModal')
         },
-
-        /*submit() {
+        submit() {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
@@ -264,7 +311,15 @@ export default {
                 email = this.userInfo.email;
             }
 
-            let userInfo = [{korName:korName},{engName:engName},{gender:this.gender},{birthday:this.birthday}];
+            let userInfo = [{
+                korName: korName
+            }, {
+                engName: engName
+            }, {
+                gender: this.gender
+            }, {
+                birthday: this.birthday
+            }];
 
             axios.post("/res/resPost", {
                     email: email,
@@ -302,92 +357,10 @@ export default {
                     } else {
                         let usePoint = this.holdPoint - this.totalPoint;
                         this.$store.dispatch("holdPoint", usePoint);
-                        this.$store.dispatch("setUserInfo2", userInfo);    
-                        alert("예약이 완료 되었습니다.")                    
+                        this.$store.dispatch("setUserInfo2", userInfo);
+                        alert("예약이 완료 되었습니다.")
                         this.$router.push('Complete');
                     }
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("예약자 정보 안보내짐")
-                })
-        },*/
-        submit() {
-            const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
-            const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
-
-            let korName = this.korLastName + this.korFirstName;
-            let engName = this.engLastName + " " + this.engFirstName;
-
-            /*let addAdult = this.addAdult
-            let addChild = this.addChild
-            let addInfant = this.addInfant*/
-
-            if (this.chooseInfo.returnYear != " ") {
-                this.way = "왕복"
-            } else {
-                this.way = "편도";
-            }
-
-            let email = "";
-
-            if (this.$store.state.isLogin == false) {
-                email = this.passEmail1 + "@" + this.passEmail2;
-            } else if (this.$store.state.isLogin == true) {
-                email = this.userInfo.email;
-            }
-
-            //let userInfo = [{korName:korName},{engName:engName},{gender:this.gender},{birthday:this.birthday}];
-
-            var params = new URLSearchParams();
-
-            /*let resList = [
-            {email: email},
-            {korName: korName},
-            {engName: engName},
-            {gender: this.gender},
-            {birthday: this.birthday},
-            {seat: this.chooseInfo.seat},
-            {seatClass1: this.startInfo.seatClass1},
-            {seatClass2: this.returnInfo.seatClass2},
-            {way: this.way},
-            {flight1: this.startInfo.flight1},
-            {flight2: this.returnInfo.flight2},
-            {fromArea: this.chooseInfo.fromArea},
-            {toArea: this.chooseInfo.toArea},
-            {oneWayArea: ""},
-            {startDate: startDate},
-            {returnDate: returnDate},
-            {infantCount: this.chooseInfo.InfantCount},
-            {childCount: this.chooseInfo.ChildCount},
-            {adultCount: this.chooseInfo.AdultCount},
-            {startTime1: this.startInfo.startTime1},
-            {arriveTime1: this.startInfo.arriveTime1},
-            {startTime2: this.returnInfo.startTime2},
-            {arriveTime2: this.returnInfo.arriveTime2}
-            ];*/
-
-            let resList = [
-            {email: {email:email}},
-            {korName: {korName: korName}},
-            {engName: {engName:engName}},
-            ];
-
-            //기본 예약 정보
-            params.append('resList',
-                resList
-            );
-            //추가 승객 정보
-            /*params.append('addPas',
-            addAdult,
-                addChild,
-                addInfant
-            );*/
-
-            axios.post("/res/resPost", params)
-                .then(res => {
-                    console.log(res)
-                    console.log("예약자 정보 보내짐")
                 })
                 .catch(err => {
                     console.log(err)

@@ -1,43 +1,75 @@
 <template>
 <div class="">
     <span class="passTitle">예약자 정보</span>
+    <!--{{ typeof res }}-->
+    {{ res }}<br>
     <button class="passCloseBtn" @click="closeModal">X</button>
 </div>
 
 <div class="passCount1">승객수 :
-    <span class="passCount2"> (총 {{res.adultCount+res.childCount+res.infantCount}}명)</span>     
-    <span class="passCount2" v-if="res.infantCount > 0">, 소아 {{res.infantCount}}명</span>
-    <span class="passCount2" v-if="res.childCount > 0">, 유아 {{res.childCount}}명</span>
-    <span class="passCount2">성인 {{res.adultCount}}명</span>     
+    <span class="passCount2"> (총 {{user[0].adultCount+user[0].childCount+user[0].infantCount}}명)</span>
+    <span class="passCount2" v-if="user[0].infantCount > 0">, 소아 {{user[0].infantCount}}명</span>
+    <span class="passCount2" v-if="user[0].childCount > 0">, 유아 {{user[0].childCount}}명</span>
+    <span class="passCount2">성인 {{user[0].adultCount}}명</span>
 </div><br>
 
+<!-- 예약자 정보 -->
 <div class="passInfoList">
     <div class="passInfoTitle">
         승객 <span v-if="res.adultCount > 1">1</span>
     </div>
-    <div class="info">        
-        <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res.korName}} </span><br><br>
-        <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res.engName}} </span><br><br>
-        <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res.birthday}}</span><br><br>
-        <span class="listLeft">성별 :</span> <span class="listRight"> {{Gender(res.gender)}}</span><br><br>        
+    <div class="info">
+        <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{user[0].korName}} </span><br><br>
+        <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{user[0].engName}} </span><br><br>
+        <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{user[0].birthday}}</span><br><br>
+        <span class="listLeft">성별 :</span> <span class="listRight"> {{Gender(user[0].gender)}}</span><br><br>
     </div>
 </div>
 
-<span v-for="(pas,index) in res.addPassGender" :key="index">
-<div class="passInfoList">
-    <div class="passInfoTitle">
-        승객 {{ index + 2 }}
+<!-- 추가 승객 정보 (성인) -->
+<span v-for="(pas,index) in a" :key="index">
+    <div class="passInfoList" v-if="user[0].adultCount > 0">
+        <div class="passInfoTitle">
+            승객 {{ index + 2 }}
+        </div>
+        <div class="info">
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res.addPassKorName[index*2+1]}}{{res.addPassKorName[index*2]}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res.addPassEngName[index*2+1]}} {{res.addPassEngName[index*2]}} </span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res.addPassBirthday[index]}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{res.addPassGender[index]}}</span><br><br>
+        </div>
     </div>
-    <div class="info">        
-        <span class="listLeft">test 이름 :</span> <span class="listRight"> {{res.addPassKorName}}</span><br><br>
-        <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res.addPassKorName[index*2+1]}}{{res.addPassKorName[index*2]}}</span><br><br>
-        <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res.addPassEngName[index*2+1]}} {{res.addPassEngName[index*2]}} </span><br><br>
-        <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res.addPassBirthday[index]}}</span><br><br>
-        <span class="listLeft">성별 :</span> <span class="listRight"> {{res.addPassGender[index]}}</span><br><br>
-    </div>
-</div>
 </span>
 
+<!-- 추가 승객 정보 (유아) -->
+<span v-for="(pas,index) in a" :key="index">
+    <div class="passInfoList" v-if="user[0].childCount > 0">
+        <div class="passInfoTitle">
+            승객 {{ index + 2 }}
+        </div>
+        <div class="info">
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res.addPassKorName[index*2+1]}}{{res.addPassKorName[index*2]}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res.addPassEngName[index*2+1]}} {{res.addPassEngName[index*2]}} </span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res.addPassBirthday[index]}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{res.addPassGender[index]}}</span><br><br>
+        </div>
+    </div>
+</span>
+
+<!-- 추가 승객 정보 (소아) -->
+<span v-for="(pas,index) in a" :key="index">
+    <div class="passInfoList" v-if="user[0].infantCount > 1">
+        <div class="passInfoTitle">
+            승객 {{ index + 2 }}
+        </div>
+        <div class="info">
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res}}{{res}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res}} {{res}} </span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{res}}</span><br><br>
+        </div>
+    </div>
+</span>
 </template>
 
 <script>
@@ -47,25 +79,33 @@ export default {
     data() {
         return {
             res: [],
+            addAdult: [],
+            addChild: [],
+            addInfant: [],
         }
     },
     props: {
-
+        user: {
+            type: String,
+            default: ''
+        },
     },
     methods: {
         closeModal() {
             this.$emit('close')
         },
-        getData() {
+        getData2() {
             let res_no = this.$store.state.res_no + 1;
-            
-            axios.get('/res/' + res_no)
-                .then((response) => {
-                    this.$store.dispatch("setLoading", true);
-                    this.res = response.data
-                    this.$store.dispatch("setLoading", false);
+
+            axios.get('/res/addPas/' + res_no)
+                .then((res) => {
+                    this.res = res.data;
+                    this.addAdult = res.data.addAdult;
+                    this.addChild = res.data.addChild;
+                    this.addInfant = res.data.addInfant;
+                    console.log(res)
                 })
-            
+
         },
         Gender(value) {
             let gender = value
@@ -79,7 +119,7 @@ export default {
 
     },
     mounted() {
-        this.getData()
+        this.getData2();
     }
 }
 </script>
@@ -93,7 +133,7 @@ export default {
     font-size: 28px;
 }
 
-.passCount1{
+.passCount1 {
     margin-top: 30px;
     margin-left: 10px;
     font-weight: 900;
@@ -101,7 +141,7 @@ export default {
     color: rgba(35, 163, 163, 0.831);
 }
 
-.passCount2{
+.passCount2 {
     float: right;
 }
 
@@ -116,10 +156,10 @@ export default {
 
 .info {
     margin-top: 25px;
-    
+
 }
 
-.passInfoList{
+.passInfoList {
     border: 1px solid teal;
     border-radius: 4px;
     height: 300px;
@@ -127,7 +167,7 @@ export default {
     font-size: 20px;
 }
 
-.passInfoTitle{
+.passInfoTitle {
     color: white;
     background-color: teal;
     border-top-left-radius: 4px;
@@ -146,8 +186,8 @@ export default {
     padding-left: 20px;
 }
 
-.listRight{
-    font-weight: 900;    
+.listRight {
+    font-weight: 900;
     float: right;
     padding-right: 20px;
 }

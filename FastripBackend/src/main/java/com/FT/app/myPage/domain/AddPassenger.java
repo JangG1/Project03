@@ -1,4 +1,4 @@
-package com.FT.app.myPage.domain;
+/*package com.FT.app.myPage.domain;
 
 
 import java.sql.Timestamp;
@@ -74,4 +74,4 @@ public class AddPassenger {
 	}
 
 
-}
+}*/

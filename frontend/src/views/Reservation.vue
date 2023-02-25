@@ -4,7 +4,7 @@
     <div class="table-responsive">
         <!--예약자 정보 모달-->
         <span v-if="passengerView" class="passengerView">
-            <PassengerModal @close="passengerModal"></PassengerModal>
+            <PassengerModal @close="passengerModal" :user="user"></PassengerModal>
         </span>
         <!--예약 취소 모달--> 
         <span v-if="resCancelView" class="passengerView">
@@ -97,7 +97,8 @@ export default {
             week: ['일', '월', '화', '수', '목', '금', '토'],
             res: [],
             passengerView: false,
-            resCancelView: false
+            resCancelView: false,
+            user: [],
         }
     },
     methods: {
@@ -165,8 +166,9 @@ export default {
 
             //let email = "test@test.com";
             axios.get('/res/resList/' + email)
-                .then((response) => {
-                    this.res = response.data
+                .then((res) => {
+                    this.res = res.data
+                    this.user = res.data
                 })
         },
         passengerModal(value) { //예약자 정보 팝업
@@ -191,8 +193,7 @@ export default {
 
     },
     mounted() {
-        this.getData()
-
+        this.getData()        
     }
 }
 </script>

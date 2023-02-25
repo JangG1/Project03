@@ -45,6 +45,15 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String email;		
 	
+	@ElementCollection
+	private List<String> addAdult;
+	
+	@ElementCollection
+	private List<String> addChild;
+	
+	@ElementCollection
+	private List<String> addInfant;
+	
 	@Column(nullable = false, length = 50)
 	private String korName;
 
@@ -114,7 +123,7 @@ public class ResList {
 	@CreationTimestamp // 값을 비워두고 insert해도 시간이 자동으로 입력
 	private Timestamp res_date;
 
-	public AddPassenger orElseThrow(Object object) {
+	public ResList orElseThrow(Object object) {
 		return null;
 	}
 

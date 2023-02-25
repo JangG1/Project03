@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,13 +36,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FT.app.Repo.ResRepository;
-import com.FT.app.Repo.ResRepository2;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.User;
 import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.ResList;
-import com.FT.app.myPage.domain.AddPassenger;
 import com.FT.app.myPage.mapper.ResListMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -60,11 +59,11 @@ public class ResController {
 	@Autowired
 	private ResRepository resRepository;
 
-	@Autowired
-	private ResRepository2 resRepository2;
+	/*@Autowired
+	private ResRepository2 resRepository2;*/
 
 	// Test
-	@GetMapping("/JPATest")
+	/*@GetMapping("/JPATest")
 	public void JPATest() {
 		System.out.println("시작");			
 		
@@ -83,7 +82,7 @@ public class ResController {
 		resRepository2.save(resList2);
 		
 		System.out.println("종료");		
-	}
+	}*/
 	
 	// 예약 내역 전부 조회
 	@GetMapping("/all")
@@ -92,13 +91,39 @@ public class ResController {
 	}
 
 	// id(res_no) 기준으로 예약내역(승객 정보) 조회
-	@GetMapping("/{id}")
+	/*@GetMapping("/resList/{id}")
 	public ResList detail(@PathVariable int id) {
 		ResList resList = resRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("없는 정보 입니다.");
 		});
 		return resList;
-	}
+	}*/
+	
+	// id(res_no) 기준으로 예약내역(승객 정보) 조회
+	/*@GetMapping("/addPas/{id}")
+	public Map<String, String> getAddPasDetail(@PathVariable int id) {
+		AddPassenger addPasList = resRepository2.findById(id).orElseThrow(() -> {
+			return new IllegalArgumentException("없는 정보 입니다.");
+		});
+		System.out.println(addPasList.getAddAdult());
+		
+		System.out.println(addPasList.getClass().getName());  
+		  
+		Map<String, String> a = addPasList.getAddAdult();
+		
+		System.out.println(a.getClass().getName());		
+
+		  List<String> keyList = new ArrayList(a.keySet());
+		  List<String> valueList = new ArrayList(a.values());
+		  
+		  System.out.println(keyList);
+		  System.out.println(valueList);
+		  
+		  System.out.println(keyList.getClass().getName());
+		  System.out.println(valueList.getClass().getName());
+		  
+		return a;
+	}*/
 
 	// 로그인 email 기준 예약 내역 전부 조회
 	@GetMapping("/resList/{email}")
@@ -106,24 +131,23 @@ public class ResController {
 		return resRepository.findByEmail(email);
 	}
 
-//	// 예약 내역 저장
-//	@PostMapping("/resPost")
-//	public void Test(@RequestBody ResList resList) {
-//		System.out.println(resList);
-//		resRepository.save(resList);
-//	}
+	// 예약 내역 저장
+	@PostMapping("/resPost")
+	public void Test(@RequestBody ResList resList) {
+		System.out.println(resList);
+		resRepository.save(resList);
+	}
 	
-	// 예약 내역 저장 Test
-		@PostMapping("/resPost")
-		public void Test(@RequestParam HashMap<Object, Object> resList) {
-			System.out.println(resList);
-			//System.out.println(addPas);
-			
-			
-			//resRepository.save(resList);
-		}
-
 	@PostMapping("/resPost/addPas")
+	public void getResList2(@RequestBody String resList) throws IOException {
+
+		System.out.println(resList);
+		System.out.println(resList.getClass().getName());
+					
+		resRepository.save(resList);						
+	}
+	
+	/*@PostMapping("/resPost/addPas")
 	public void getResList(@RequestBody HashMap<String, Object> resList) throws IOException {
 
 		///////추가 승객 시작///////(정상작동 2/23 02:33)
@@ -144,8 +168,8 @@ public class ResController {
 		///////추가 승객 종료///////				
 					
 
-	}
-
+	}*/
+	
 	// id(res_no) 기준으로 예약내역(승객 정보) 삭제
 	@PostMapping("/remove/{id}")
 	public void detailDelete(@PathVariable int id) {

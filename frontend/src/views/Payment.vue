@@ -645,40 +645,20 @@ export default {
             //해당 인덱스 공란 경우 등록
             if (this.addAdult[value - 1] == undefined) {
                 this.addAdult.push({
-                    korName: {
-                        lastName: this.korLastName2,
-                        firstName: this.korFirstName2
-                    },
-                    engName: {
-                        lastName: this.engLastName2,
-                        firstName: this.engFirstName2
-                    },
-                    gender: {
-                        gender: genderSelected.value
-                    },
-                    birthday: {
-                        birthday: this.birthday2
-                    }
+                    korName: this.korLastName2 + this.korFirstName2,
+                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    gender: genderSelected.value,
+                    birthday: this.birthday2
                 })
             }
 
             //해당 인덱스 기존 정보가 입력된 경우 수정
             if (this.addAdult[value - 1] != undefined) {
                 this.addAdult.splice(value - 1, 1, {
-                    korName: {
-                        lastName: this.korLastName2,
-                        firstName: this.korFirstName2
-                    },
-                    engName: {
-                        lastName: this.engLastName2,
-                        firstName: this.engFirstName2
-                    },
-                    gender: {
-                        gender: genderSelected.value
-                    },
-                    birthday: {
-                        birthday: this.birthday2
-                    }
+                    korName: this.korLastName2 + this.korFirstName2,
+                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    gender: genderSelected.value,
+                    birthday: this.birthday2
                 })
             }
 
@@ -733,40 +713,20 @@ export default {
             //해당 인덱스 공란 경우 등록
             if (this.addChild[value - 1] == undefined) {
                 this.addChild.push({
-                    korName: {
-                        lastName: this.korLastName2,
-                        firstName: this.korFirstName2
-                    },
-                    engName: {
-                        lastName: this.engLastName2,
-                        firstName: this.engFirstName2
-                    },
-                    gender: {
-                        gender: genderSelected.value
-                    },
-                    birthday: {
-                        birthday: this.birthday2
-                    }
+                    korName: this.korLastName2 + this.korFirstName2,
+                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    gender: genderSelected.value,
+                    birthday: this.birthday2
                 })
             }
 
             //해당 인덱스 기존 정보가 입력된 경우 수정
             if (this.addChild[value - 1] != undefined) {
                 this.addChild.splice(value - 1, 1, {
-                    korName: {
-                        lastName: this.korLastName2,
-                        firstName: this.korFirstName2
-                    },
-                    engName: {
-                        lastName: this.engLastName2,
-                        firstName: this.engFirstName2
-                    },
-                    gender: {
-                        gender: genderSelected.value
-                    },
-                    birthday: {
-                        birthday: this.birthday2
-                    }
+                    korName: this.korLastName2 + this.korFirstName2,
+                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    gender: genderSelected.value,
+                    birthday: this.birthday2
                 })
             }
 
@@ -821,40 +781,20 @@ export default {
             //해당 인덱스 공란 경우 등록
             if (this.addInfant[value - 1] == undefined) {
                 this.addInfant.push({
-                    korName: {
-                        lastName: this.korLastName2,
-                        firstName: this.korFirstName2
-                    },
-                    engName: {
-                        lastName: this.engLastName2,
-                        firstName: this.engFirstName2
-                    },
-                    gender: {
-                        gender: genderSelected.value
-                    },
-                    birthday: {
-                        birthday: this.birthday2
-                    }
+                    korName: this.korLastName2 + this.korFirstName2,
+                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    gender: genderSelected.value,
+                    birthday: this.birthday2
                 })
             }
 
             //해당 인덱스 기존 정보가 입력된 경우 수정
             if (this.addInfant[value - 1] != undefined) {
                 this.addInfant.splice(value - 1, 1, {
-                    korName: {
-                        lastName: this.korLastName2,
-                        firstName: this.korFirstName2
-                    },
-                    engName: {
-                        lastName: this.engLastName2,
-                        firstName: this.engFirstName2
-                    },
-                    gender: {
-                        gender: genderSelected.value
-                    },
-                    birthday: {
-                        birthday: this.birthday2
-                    }
+                    korName: this.korLastName2 + this.korFirstName2,
+                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    gender: genderSelected.value,
+                    birthday: this.birthday2
                 })
             }
 
@@ -865,7 +805,7 @@ export default {
             this.engFirstName2 = "";
             this.birthday2 = "";
             genderSelected = false;
-            
+
             this.addPas3 = (value) ? false : true
 
             if (this.arrow == "▼") {

@@ -16,7 +16,7 @@
 <!-- 예약자 정보 -->
 <div class="passInfoList">
     <div class="passInfoTitle">
-        승객 <span v-if="res.adultCount > 1">1</span>
+        승객 [예약자]<span v-if="res.adultCount > 1">1</span>{{ res }}
     </div>
     <div class="info">
         <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{user[0].korName}} </span><br><br>
@@ -28,7 +28,7 @@
 
 <!-- 추가 승객 정보 (성인) -->
 <span v-for="(pas,index) in a" :key="index">
-    <div class="passInfoList" v-if="user[0].adultCount > 0">
+    <div class="passInfoList" v-if="user[0].adultCount > 1">
         <div class="passInfoTitle">
             승객 {{ index + 2 }}
         </div>

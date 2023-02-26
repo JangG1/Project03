@@ -35,17 +35,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.FT.app.Repo.AddPasRepository;
 import com.FT.app.Repo.ResRepository;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.User;
 import com.FT.app.domain.Way;
+import com.FT.app.myPage.domain.AddPassenger;
 import com.FT.app.myPage.domain.ResList;
 import com.FT.app.myPage.mapper.ResListMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -59,8 +62,8 @@ public class ResController {
 	@Autowired
 	private ResRepository resRepository;
 
-	/*@Autowired
-	private ResRepository2 resRepository2;*/
+	@Autowired
+	private AddPasRepository addPasRepository;
 
 	// Test
 	/*@GetMapping("/JPATest")
@@ -99,31 +102,30 @@ public class ResController {
 		return resList;
 	}*/
 	
-	// id(res_no) 기준으로 예약내역(승객 정보) 조회
-	/*@GetMapping("/addPas/{id}")
-	public Map<String, String> getAddPasDetail(@PathVariable int id) {
-		AddPassenger addPasList = resRepository2.findById(id).orElseThrow(() -> {
+	// id(res_no) 기준으로 추가 승객 예약내역 조회
+	@GetMapping("/addPas/{id}")
+	public AddPassenger getAddPasDetail(@PathVariable int id) {
+		AddPassenger addPasList = addPasRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("없는 정보 입니다.");
 		});
-		System.out.println(addPasList.getAddAdult());
 		
-		System.out.println(addPasList.getClass().getName());  
-		  
-		Map<String, String> a = addPasList.getAddAdult();
+		System.out.println(addPasList);
 		
-		System.out.println(a.getClass().getName());		
+		JsonParser parser = new JsonParser();
+		JsonObject obj = (JsonObject)parser.parse(addPasList.toString());
 
-		  List<String> keyList = new ArrayList(a.keySet());
-		  List<String> valueList = new ArrayList(a.values());
-		  
-		  System.out.println(keyList);
-		  System.out.println(valueList);
-		  
-		  System.out.println(keyList.getClass().getName());
-		  System.out.println(valueList.getClass().getName());
-		  
-		return a;
-	}*/
+		//json -> hashmap으로 변환
+		//Gson : java Object > JSON, JSON > java Object로 변환을 도와주는 라이브러리
+		Gson gson =new Gson();
+		Map map =new HashMap();
+		map = (Map)gson.fromJson(obj, map.getClass());
+		
+		
+		System.out.println(obj);
+		System.out.println(map);
+		 
+		return addPasList;
+	}
 
 	// 로그인 email 기준 예약 내역 전부 조회
 	@GetMapping("/resList/{email}")
@@ -133,22 +135,22 @@ public class ResController {
 
 	// 예약 내역 저장
 	@PostMapping("/resPost")
-	public void Test(@RequestBody ResList resList) {
+	public void addResList(@RequestBody ResList resList) {
 		System.out.println(resList);
 		resRepository.save(resList);
 	}
 	
-	@PostMapping("/resPost/addPas")
+	/*@PostMapping("/resPost/addPas")
 	public void getResList2(@RequestBody String resList) throws IOException {
 
 		System.out.println(resList);
 		System.out.println(resList.getClass().getName());
 					
-		resRepository.save(resList);						
-	}
+		//resRepository.save(resList);						
+	}*/
 	
-	/*@PostMapping("/resPost/addPas")
-	public void getResList(@RequestBody HashMap<String, Object> resList) throws IOException {
+	@PostMapping("/resPost/addPas")
+	public void addPasList(@RequestBody HashMap<String, Object> resList) throws IOException {
 
 		///////추가 승객 시작///////(정상작동 2/23 02:33)
 		String addAdultInfo = resList.get("addAdult").toString();
@@ -164,11 +166,11 @@ public class ResController {
 		addChild.put("addChild", addChildInfo);
 		addInfant.put("addInfant", addInfantInfo);			
 		
-		resRepository2.save(addPas);
+		addPasRepository.save(addPas);
 		///////추가 승객 종료///////				
 					
 
-	}*/
+	}
 	
 	// id(res_no) 기준으로 예약내역(승객 정보) 삭제
 	@PostMapping("/remove/{id}")

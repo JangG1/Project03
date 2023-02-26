@@ -151,7 +151,7 @@
         </div>
     </div>
 
-    <button type="button" class="reserBtn" @click="submit2()">예약 하기</button>
+    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
     <button type="button" class="reserBtn" @click="test()">test</button>
 </div>
 </template>
@@ -244,12 +244,28 @@ export default {
             const infantBirthday = [];
             const infantGender = [];
 
-            for (const i = 0; i < this.addAdult.length; i++) {
+            for (let i = 0; i < this.addAdult.length; i++) {
                 console.log(i)
                 adultKorName.push(this.addAdult[i].korName);
                 adultEngName.push(this.addAdult[i].engName);
                 adultBirthday.push(this.addAdult[i].birthday);
                 adultGender.push(this.addAdult[i].gender);
+            }
+
+            for (let i = 0; i < this.addChild.length; i++) {
+                console.log(i)
+                adultKorName.push(this.addChild[i].korName);
+                adultEngName.push(this.addChild[i].engName);
+                adultBirthday.push(this.addChild[i].birthday);
+                adultGender.push(this.addChild[i].gender);
+            }
+
+            for (let i = 0; i < this.addInfant.length; i++) {
+                console.log(i)
+                adultKorName.push(this.addInfant[i].korName);
+                adultEngName.push(this.addInfant[i].engName);
+                adultBirthday.push(this.addInfant[i].birthday);
+                adultGender.push(this.addInfant[i].gender);
             }
 
             axios.post("/res/resPost/addPas", {
@@ -406,6 +422,7 @@ export default {
             this.$store.dispatch("addAdult", addAdult);
             this.$store.dispatch("addChild", addChild);
             this.$store.dispatch("addInfant", addInfant);
+            alert("예약이 완료 되었습니다.")
             this.$router.push('Complete');
         },
     },

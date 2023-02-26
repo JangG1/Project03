@@ -26,7 +26,7 @@
     <span v-for="(pas,index) in chooseInfo.AdultCount - 1" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [성인] 승객 정보 {{ index + 2 }}
+                [성인] 승객 정보 {{ index + 2 }}{{ addAdult }}
             </div>
             <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -35,10 +35,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="comInfoRight">
-                <span class="listRight">{{addAdult[index].korName.lastName}} {{addAdult[index].korName.firstName}}</span><br><br>
-                <span class="listRight">{{addAdult[index].engName.lastName}} {{addAdult[index].engName.firstName}}</span><br><br>
-                <span class="listRight">{{addAdult[index].gender.gender}}</span><br><br>
-                <span class="listRight">{{addAdult[index].birthday.birthday}}</span>
+                <span class="listRight">{{addAdult[index].korName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].engName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].gender}}</span><br><br>
+                <span class="listRight">{{addAdult[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -56,10 +56,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="comInfoRight">
-                <span class="listRight">{{addChild[index].korName.lastName}} {{addChild[index].korName.firstName}}</span><br><br>
-                <span class="listRight">{{addChild[index].engName.lastName}} {{addChild[index].engName.firstName}}</span><br><br>
-                <span class="listRight">{{addChild[index].gender.gender}}</span><br><br>
-                <span class="listRight">{{addChild[index].birthday.birthday}}</span>
+                <span class="listRight">{{addChild[index].korName}}</span><br><br>
+                <span class="listRight">{{addChild[index].engName}}</span><br><br>
+                <span class="listRight">{{addChild[index].gender}}</span><br><br>
+                <span class="listRight">{{addChild[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -77,10 +77,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="comInfoRight">
-                <span class="listRight">{{addInfant[index].korName.lastName}} {{addInfant[index].korName.firstName}}</span><br><br>
-                <span class="listRight">{{addInfant[index].engName.lastName}} {{addInfant[index].engName.firstName}}</span><br><br>
-                <span class="listRight">{{addInfant[index].gender.gender}}</span><br><br>
-                <span class="listRight">{{addInfant[index].birthday.birthday}}</span>
+                <span class="listRight">{{addInfant[index].korName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].engName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].gender}}</span><br><br>
+                <span class="listRight">{{addInfant[index].birthday}}</span>
             </div>
         </div>
     </span>

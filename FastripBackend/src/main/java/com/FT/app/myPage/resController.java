@@ -21,7 +21,6 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -104,27 +103,41 @@ public class ResController {
 	
 	// id(res_no) 기준으로 추가 승객 예약내역 조회
 	@GetMapping("/addPas/{id}")
-	public AddPassenger getAddPasDetail(@PathVariable int id) {
+	public Map getAddPasDetail(@PathVariable int id) {
 		AddPassenger addPasList = addPasRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("없는 정보 입니다.");
 		});
-		
-		System.out.println(addPasList);
-		
-		JsonParser parser = new JsonParser();
-		JsonObject obj = (JsonObject)parser.parse(addPasList.toString());
+	    
+		//AddPassenger -> String 형변환
+		String addAdultInfo = addPasList.getAddAdult().toString();
+		String addChildInfo = addPasList.getAddChild().toString();
+		String addInfantInfo = addPasList.getAddInfant().toString();
 
-		//json -> hashmap으로 변환
-		//Gson : java Object > JSON, JSON > java Object로 변환을 도와주는 라이브러리
+	    // 데이터중 특수문자 및 공백으로 인해 com.google.gson.stream.MalformedJsonException 발생
+	    String tempStr = addAdultInfo.replace("", " ");
+
+	    // 한글, 영어, 일부 특수문자를 제외한 문자 제거
+	    String match = "[^\uAC00-\uD7A3xfe0-9a-zA-Z~!@#$%^&*()_+|<>?:{}]";
+	    tempStr = tempStr.replaceAll(match, "");
+		
+		//String -> JsonObject 형변환
+		JsonParser parser = new JsonParser();
+		JsonObject obj1 = (JsonObject)parser.parse(addAdultInfo);
+		JsonObject obj2 = (JsonObject)parser.parse(addChildInfo);
+		JsonObject obj3 = (JsonObject)parser.parse(addInfantInfo);
+		
+		// 하나의 JsonObject로 모든 승객 정보(성인, 유아, 소아) 추가
+		JsonObject allMemberList = new JsonObject();
+		allMemberList.add("adult",obj1);
+		allMemberList.add("child",obj2);
+		allMemberList.add("infant",obj3);		
+	    
+		//JsonObject -> Hashmap 형변환
 		Gson gson =new Gson();
-		Map map =new HashMap();
-		map = (Map)gson.fromJson(obj, map.getClass());
-		
-		
-		System.out.println(obj);
-		System.out.println(map);
+		Map allMemberMap =new HashMap();		
+		allMemberMap = (Map)gson.fromJson(allMemberList, allMemberMap.getClass());
 		 
-		return addPasList;
+		return allMemberMap;
 	}
 
 	// 로그인 email 기준 예약 내역 전부 조회

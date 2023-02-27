@@ -1,8 +1,6 @@
 <template>
 <div class="">
     <span class="passTitle">예약자 정보</span>
-    <!--{{ typeof res }}-->
-    {{ res }}<br>
     <button class="passCloseBtn" @click="closeModal">X</button>
 </div>
 
@@ -16,7 +14,7 @@
 <!-- 예약자 정보 -->
 <div class="passInfoList">
     <div class="passInfoTitle">
-        승객 [예약자]<span v-if="res.adultCount > 1">1</span>{{ res }}
+        승객 [예약자]<span v-if="res.adultCount > 1">1</span>{{ res.addAdult }}
     </div>
     <div class="info">
         <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{user[0].korName}} </span><br><br>
@@ -27,46 +25,46 @@
 </div>
 
 <!-- 추가 승객 정보 (성인) -->
-<span v-for="(pas,index) in a" :key="index">
+<span v-for="(pas,index) in addAdult" :key="index">
     <div class="passInfoList" v-if="user[0].adultCount > 1">
         <div class="passInfoTitle">
             승객 {{ index + 2 }}
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res.addPassKorName[index*2+1]}}{{res.addPassKorName[index*2]}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res.addPassEngName[index*2+1]}} {{res.addPassEngName[index*2]}} </span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res.addPassBirthday[index]}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{res.addPassGender[index]}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addAdult[index].korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addAdult[index].engName}} </span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addAdult[index].birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addAdult[index].gender}}</span><br><br>
         </div>
     </div>
 </span>
 
 <!-- 추가 승객 정보 (유아) -->
-<span v-for="(pas,index) in a" :key="index">
+<span v-for="(pas,index) in addChild" :key="index">
     <div class="passInfoList" v-if="user[0].childCount > 0">
         <div class="passInfoTitle">
             승객 {{ index + 2 }}
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res.addPassKorName[index*2+1]}}{{res.addPassKorName[index*2]}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res.addPassEngName[index*2+1]}} {{res.addPassEngName[index*2]}} </span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res.addPassBirthday[index]}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{res.addPassGender[index]}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addChild[index].korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addChild[index].engName}} </span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addChild[index].birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addChild[index].gender}}</span><br><br>
         </div>
     </div>
 </span>
 
 <!-- 추가 승객 정보 (소아) -->
-<span v-for="(pas,index) in a" :key="index">
-    <div class="passInfoList" v-if="user[0].infantCount > 1">
+<span v-for="(pas,index) in addInfant" :key="index">
+    <div class="passInfoList" v-if="user[0].infantCount > 0">
         <div class="passInfoTitle">
             승객 {{ index + 2 }}
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res}}{{res}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res}} {{res}} </span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{res}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addInfant[index].korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addInfant[index].engName}} </span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addInfant[index].birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addInfant[index].gender}}</span><br><br>
         </div>
     </div>
 </span>
@@ -100,10 +98,9 @@ export default {
             axios.get('/res/addPas/' + res_no)
                 .then((res) => {
                     this.res = res.data;
-                    this.addAdult = res.data.addAdult;
-                    this.addChild = res.data.addChild;
-                    this.addInfant = res.data.addInfant;
-                    console.log(res)
+                    this.addAdult = res.data.adult.addAdult;
+                    this.addChild = res.data.child.addChild;
+                    this.addInfant = res.data.infant.addInfant;
                 })
 
         },

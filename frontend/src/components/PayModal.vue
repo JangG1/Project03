@@ -301,7 +301,7 @@ export default {
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
             let korName = this.korLastName + this.korFirstName;
-            let engName = this.engLastName + " " + this.engFirstName;
+            let engName = this.engLastName + this.engFirstName;
 
             let addAdult = this.addAdult
             let addChild = this.addChild
@@ -390,7 +390,7 @@ export default {
             let addInfant = this.addInfant
 
             let korName = this.korLastName + this.korFirstName;
-            let engName = this.engLastName + " " + this.engFirstName;
+            let engName = this.engLastName + this.engFirstName;
 
             let userInfo = [{
                 korName: korName

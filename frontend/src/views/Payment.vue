@@ -646,7 +646,7 @@ export default {
             if (this.addAdult[value - 1] == undefined) {
                 this.addAdult.push({
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    engName: this.engLastName2 + this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -656,7 +656,7 @@ export default {
             if (this.addAdult[value - 1] != undefined) {
                 this.addAdult.splice(value - 1, 1, {
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    engName: this.engLastName2 + this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -714,7 +714,7 @@ export default {
             if (this.addChild[value - 1] == undefined) {
                 this.addChild.push({
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    engName: this.engLastName2 + this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -724,7 +724,7 @@ export default {
             if (this.addChild[value - 1] != undefined) {
                 this.addChild.splice(value - 1, 1, {
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    engName: this.engLastName2 + this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -782,7 +782,7 @@ export default {
             if (this.addInfant[value - 1] == undefined) {
                 this.addInfant.push({
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    engName: this.engLastName2 + this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -792,7 +792,7 @@ export default {
             if (this.addInfant[value - 1] != undefined) {
                 this.addInfant.splice(value - 1, 1, {
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + " " + this.engFirstName2,
+                    engName: this.engLastName2 + this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })

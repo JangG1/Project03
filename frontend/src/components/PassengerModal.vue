@@ -1,6 +1,6 @@
 <template>
 <div class="">
-    <span class="passTitle">예약자 정보</span>{{ addAdult }}<br>{{res}}
+    <span class="passTitle">예약자 정보</span><br>
     <button class="passCloseBtn" @click="closeModal">X</button>
 </div>
 
@@ -29,7 +29,7 @@
 <span v-for="(pas,index) in addAdult" :key="index">
     <div class="passInfoList" v-if="user[0].adultCount > 1">
         <div class="passInfoTitle">
-            승객 {{ index + 2 }}
+            승객 [성인] {{ index + 2 }}
         </div>
         <div class="info">
             <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addAdult[index].korName}}</span><br><br>
@@ -44,7 +44,7 @@
 <span v-for="(pas,index) in addChild" :key="index">
     <div class="passInfoList" v-if="user[0].childCount > 0">
         <div class="passInfoTitle">
-            승객 {{ index + 2 }}
+            승객 [유아] {{ index + 1 }}
         </div>
         <div class="info">
             <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addChild[index].korName}}</span><br><br>
@@ -59,7 +59,7 @@
 <span v-for="(pas,index) in addInfant" :key="index">
     <div class="passInfoList" v-if="user[0].infantCount > 0">
         <div class="passInfoTitle">
-            승객 {{ index + 2 }}
+            승객 [소아] {{ index + 1 }}
         </div>
         <div class="info">
             <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addInfant[index].korName}}</span><br><br>

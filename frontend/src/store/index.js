@@ -136,16 +136,13 @@ export default createStore({
             commit("offLoad");
         }
         },
-        chooseInfo({ commit }, payload) {            
-            console.log(payload)
+        chooseInfo({ commit }, payload) {        
             commit("setChooseInfo", payload)
         },
-        startInfo({ commit }, payload) {            
-            console.log(payload)
+        startInfo({ commit }, payload) {        
             commit("setStartInfo", payload)
         },
-        returnInfo({ commit }, payload) {            
-            console.log(payload)
+        returnInfo({ commit }, payload) {       
             commit("setReturnInfo", payload)
         },
         async setUserInfo({ commit }, payload) {            
@@ -175,7 +172,6 @@ export default createStore({
             commit('setConsent2', payload)
         },
         async res_no({ commit }, payload) {
-            console.log(payload)
             commit('setResNo', payload)
         },
         async holdPoint({ commit }, payload) {

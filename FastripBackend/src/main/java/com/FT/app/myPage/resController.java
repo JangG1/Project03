@@ -46,7 +46,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonArray;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.hibernate.Session;
@@ -67,52 +69,36 @@ public class ResController {
 	public List<ResList> all() {
 		return resRepository.findAll();
 	}
-
+	
 	// id(res_no) 기준으로 추가 승객 예약내역 조회
 	@GetMapping("/addPas/{id}")
 	public Map getAddPasDetail(@PathVariable int id) {
 		AddPassenger addPasList = addPasRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("없는 정보 입니다.");
 		});
-		
-		System.out.println(addPasList);
-		System.out.println(addPasList.getClass().getName());
-		
+	    
 		//AddPassenger -> String 형변환
-		String addAdultInfo =  addPasList.getAddAdult().get("addAdult");
-		String addChildInfo = addPasList.getAddChild().get("addChild");
-		String addInfantInfo =  addPasList.getAddInfant().get("addInfant");
-		
-		System.out.println(addAdultInfo);
-		System.out.println(addChildInfo);
-		System.out.println(addInfantInfo);
+		String addAdultInfo = addPasList.getAddAdult().toString();
+		String addChildInfo = addPasList.getAddChild().toString();
+		String addInfantInfo = addPasList.getAddInfant().toString();
 		
 		//String -> JsonObject 형변환
 		JsonParser parser = new JsonParser();
-		JsonObject obj1 = (JsonObject)parser.parse(addAdultInfo.toString());
-		JsonObject obj2 = (JsonObject)parser.parse(addChildInfo.toString());
-		JsonObject obj3 = (JsonObject)parser.parse(addInfantInfo.toString());
-		
-		System.out.println("===========================");
-		System.out.println(obj1);
-		System.out.println(obj1.getClass().getName());
+		JsonObject obj1 = (JsonObject)parser.parse(addAdultInfo);
+		JsonObject obj2 = (JsonObject)parser.parse(addChildInfo);
+		JsonObject obj3 = (JsonObject)parser.parse(addInfantInfo);
 		
 		// 하나의 JsonObject로 모든 승객 정보(성인, 유아, 소아) 추가
 		JsonObject allMemberList = new JsonObject();
 		allMemberList.add("adult",obj1);
 		allMemberList.add("child",obj2);
 		allMemberList.add("infant",obj3);		
-		
-		System.out.println(allMemberList.getClass().getName());
-		
 	    
 		//JsonObject -> Hashmap 형변환
 		Gson gson =new Gson();
 		Map allMemberMap =new HashMap();		
 		allMemberMap = (Map)gson.fromJson(allMemberList, allMemberMap.getClass());
 		 
-		
-		System.out.println(allMemberMap);
 		return allMemberMap;
 	}
 

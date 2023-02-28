@@ -47,8 +47,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.hibernate.Session;
@@ -63,44 +61,12 @@ public class ResController {
 
 	@Autowired
 	private AddPasRepository addPasRepository;
-
-	// Test
-	/*@GetMapping("/JPATest")
-	public void JPATest() {
-		System.out.println("시작");			
-		
-		AddPassenger resList2 = new AddPassenger();
-
-		System.out.println(resList2);
-		
-		//추가 승객
-		Map<String, String> addAdult = resList2.getAddAdult();
-		Map<String, String> addChild = resList2.getAddChild();
-		Map<String, String> addInfant = resList2.getAddInfant();
-		addAdult.put("addAdult", "김민지");
-		addChild.put("addChild", "팜하니");
-		addInfant.put("addInfant", "강해린");				
-		
-		resRepository2.save(resList2);
-		
-		System.out.println("종료");		
-	}*/
 	
 	// 예약 내역 전부 조회
 	@GetMapping("/all")
 	public List<ResList> all() {
 		return resRepository.findAll();
 	}
-
-	// id(res_no) 기준으로 예약내역(승객 정보) 조회
-	/*@GetMapping("/resList/{id}")
-	public ResList detail(@PathVariable int id) {
-		ResList resList = resRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("없는 정보 입니다.");
-		});
-		return resList;
-	}*/
-
 
 	// id(res_no) 기준으로 추가 승객 예약내역 조회
 	@GetMapping("/addPas/{id}")
@@ -110,32 +76,41 @@ public class ResController {
 		});
 		
 		System.out.println(addPasList);
+		System.out.println(addPasList.getClass().getName());
 		
 		//AddPassenger -> String 형변환
 		String addAdultInfo =  addPasList.getAddAdult().get("addAdult");
 		String addChildInfo = addPasList.getAddChild().get("addChild");
 		String addInfantInfo =  addPasList.getAddInfant().get("addInfant");
 		
+		System.out.println(addAdultInfo);
+		System.out.println(addChildInfo);
+		System.out.println(addInfantInfo);
+		
 		//String -> JsonObject 형변환
 		JsonParser parser = new JsonParser();
-		JsonObject obj1 = (JsonObject)parser.parse(addAdultInfo);
-		JsonObject obj2 = (JsonObject)parser.parse(addChildInfo);
-		JsonObject obj3 = (JsonObject)parser.parse(addInfantInfo);
+		JsonObject obj1 = (JsonObject)parser.parse(addAdultInfo.toString());
+		JsonObject obj2 = (JsonObject)parser.parse(addChildInfo.toString());
+		JsonObject obj3 = (JsonObject)parser.parse(addInfantInfo.toString());
+		
+		System.out.println("===========================");
+		System.out.println(obj1);
+		System.out.println(obj1.getClass().getName());
 		
 		// 하나의 JsonObject로 모든 승객 정보(성인, 유아, 소아) 추가
 		JsonObject allMemberList = new JsonObject();
 		allMemberList.add("adult",obj1);
 		allMemberList.add("child",obj2);
 		allMemberList.add("infant",obj3);		
+		
+		System.out.println(allMemberList.getClass().getName());
+		
 	    
 		//JsonObject -> Hashmap 형변환
 		Gson gson =new Gson();
 		Map allMemberMap =new HashMap();		
 		allMemberMap = (Map)gson.fromJson(allMemberList, allMemberMap.getClass());
 		 
-		Gson gsonBuilder = new GsonBuilder()
-		        .setLenient()
-		        .create();
 		
 		System.out.println(allMemberMap);
 		return allMemberMap;
@@ -154,7 +129,7 @@ public class ResController {
 		resRepository.save(resList);
 	}
 	
-	@PostMapping("/resPost/addPas")
+	@PostMapping("/resPost/addPas")//추가 승객(성인, 유아, 소아) 정보 저장
 	public void addPasList(@RequestBody HashMap<String, Object> resList) throws IOException {
 		///////추가 승객 시작///////(정상작동 2/23 02:33)
 		String addAdultInfo = resList.get("addAdult").toString();
@@ -181,15 +156,36 @@ public class ResController {
 		addPasRepository.deleteById(id);
 		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
 	}
+	
 
-	// 다중 삭제
-	@PostMapping("/remove")
-	public void selectAllDelete(@RequestBody String id) {
+	// Test
+	/*@GetMapping("/JPATest")
+	public void JPATest() {
+		System.out.println("시작");			
+		
+		AddPassenger resList2 = new AddPassenger();
 
-		// resRepository.deleteById(id);
-		System.out.println("test : " + id);
+		System.out.println(resList2);
+		
+		//추가 승객
+		Map<String, String> addAdult = resList2.getAddAdult();
+		Map<String, String> addChild = resList2.getAddChild();
+		Map<String, String> addInfant = resList2.getAddInfant();
+		addAdult.put("addAdult", "김민지");
+		addChild.put("addChild", "팜하니");
+		addInfant.put("addInfant", "강해린");				
+		
+		resRepository2.save(resList2);
+		
+		System.out.println("종료");		
+	}*/
 
-		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
-	}
-
+	// id(res_no) 기준으로 예약내역(승객 정보) 조회
+	/*@GetMapping("/resList/{id}")
+	public ResList detail(@PathVariable int id) {
+		ResList resList = resRepository.findById(id).orElseThrow(() -> {
+			return new IllegalArgumentException("없는 정보 입니다.");
+		});
+		return resList;
+	}*/
 }

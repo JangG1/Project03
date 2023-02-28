@@ -1,20 +1,21 @@
 <template>
 <div class="">
-    <span class="passTitle">예약자 정보</span>{{ addAdult }}
+    <span class="passTitle">예약자 정보</span>{{ addAdult }}<br>{{res}}
     <button class="passCloseBtn" @click="closeModal">X</button>
 </div>
 
 <div class="passCount1">승객수 :
-    <span class="passCount2"> (총 {{user[0].adultCount+user[0].childCount+user[0].infantCount}}명)</span>
-    <span class="passCount2" v-if="user[0].infantCount > 0">, 소아 {{user[0].infantCount}}명</span>
-    <span class="passCount2" v-if="user[0].childCount > 0">, 유아 {{user[0].childCount}}명</span>
-    <span class="passCount2">성인 {{user[0].adultCount}}명</span>
-</div><br>
+    <span class="passCount2"> (총 {{user[pasIndex].adultCount+user[pasIndex].childCount+user[pasIndex].infantCount}}명)</span>
+    <span class="passCount2" v-if="user[pasIndex].infantCount > 0">, 소아 {{user[pasIndex].infantCount}}명</span>
+    <span class="passCount2" v-if="user[pasIndex].childCount > 0">, 유아 {{user[pasIndex].childCount}}명</span>
+    <span class="passCount2">성인 {{user[pasIndex].adultCount}}명</span>
+</div>
+<br>
 
 <!-- 예약자 정보 -->
 <div class="passInfoList">
     <div class="passInfoTitle">
-        승객 [예약자]<span v-if="res.adultCount > 1">1</span>{{ res.addAdult }}
+        승객 [예약자]<span v-if="res.adultCount > 1">1</span>
     </div>
     <div class="info">
         <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{user[0].korName}} </span><br><br>
@@ -80,6 +81,8 @@ export default {
             addAdult: [],
             addChild: [],
             addInfant: [],
+            pasIndex: this.$store.state.res_no - 1, 
+            res_no: this.$store.state.res_no,
         }
     },
     props: {
@@ -92,15 +95,15 @@ export default {
         closeModal() {
             this.$emit('close')
         },
-        getData2() {
-            let res_no = this.$store.state.res_no + 1;
-
-            axios.get('/res/addPas/' + res_no)
+        getData2() {            
+            axios.get('/res/addPas/' + this.res_no)
                 .then((res) => {
                     this.res = res.data;
                     this.addAdult = res.data.adult.addAdult;
                     this.addChild = res.data.child.addChild;
                     this.addInfant = res.data.infant.addInfant;
+                    console.log(res)
+                    console.log(this.addAdult)
                 })
 
         },

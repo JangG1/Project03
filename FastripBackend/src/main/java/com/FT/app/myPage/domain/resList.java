@@ -45,15 +45,6 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String email;		
 	
-	/*@ElementCollection
-	private List<String> addAdult;
-	
-	@ElementCollection
-	private List<String> addChild;
-	
-	@ElementCollection
-	private List<String> addInfant;*/
-	
 	@Column(nullable = false, length = 50)
 	private String korName;
 

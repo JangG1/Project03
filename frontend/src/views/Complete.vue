@@ -1,7 +1,7 @@
 <template>
 <div>
     <div>
-        <span class="comTitle">예약이 완료되었습니다.</span><br>{{ userInfo2 }}
+        <span class="comTitle">예약이 완료되었습니다.</span><br>
     </div>
 
     <div class="comInfoList">

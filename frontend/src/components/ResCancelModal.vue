@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             res: [],
-            resNo: this.$store.state.res_no + 1
+            resNo: this.$store.state.res_no
         }
     },
     props: {},

@@ -151,7 +151,7 @@
         </div>
     </div>
 
-    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>    
+    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
 </div>
 </template>
 
@@ -225,7 +225,7 @@ export default {
         },
 
     },
-    methods: {        
+    methods: {
         closeModal() {
             this.$emit('closeModal')
         },
@@ -233,13 +233,7 @@ export default {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
-            let korName = this.korLastName + this.korFirstName;            
-
-            let infantCount = this.chooseInfo.InfantCount
-            let childCount = this.chooseInfo.ChildCount
-            let adultCount = this.chooseInfo.AdultCount
-
-            let trigger = adultCount + childCount + infantCount;
+            let korName = this.korLastName + this.korFirstName;
 
             if (this.chooseInfo.returnYear != " ") {
                 this.way = "왕복"
@@ -254,18 +248,6 @@ export default {
             } else if (this.$store.state.isLogin == true) {
                 email = this.userInfo.email;
             }
-
-            let userInfo = [{
-                korName: korName
-            }, {
-                engLastName: this.engLastName
-            }, {
-                engFirstName: this.engFirstName
-            }, {
-                gender: this.gender
-            }, {
-                birthday: this.birthday
-            }];
 
             axios.post("/res/resPost", {
                     email: email,
@@ -295,16 +277,8 @@ export default {
                 })
                 .then(res => {
                     console.log(res)
-                    console.log("예약자 정보 보내짐")
-                    if (trigger > 1) {
-                        this.submit2();
-                    } else {
-                        let usePoint = this.holdPoint - this.totalPoint;
-                        this.$store.dispatch("holdPoint", usePoint);
-                        this.$store.dispatch("setUserInfo2", userInfo);
-                        alert("예약이 완료 되었습니다.")
-                        this.$router.push('Complete');
-                    }
+                    console.log("예약자 정보 보내짐")                                                                          
+                    this.submit2();
                 })
                 .catch(err => {
                     console.log(err)

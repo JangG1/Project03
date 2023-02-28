@@ -191,7 +191,7 @@
 
             </div>
             <div class="passInfo3">
-                <span class="insertTip"><span class="asterisk"> *</span>모든 항목은 공백을 포함하지 않습니다.</span>
+                <span class="insertTip"><span class="asterisk"> *</span> 모든 항목은 공백을 포함하지 않습니다.</span>
                 <button type="button" @click="addPassInfo1(pas)" class="passCheckBtn" id="">확인</button>
             </div>
 
@@ -249,6 +249,7 @@
 
                 </div>
                 <div class="passInfo3">
+                    <span class="insertTip"><span class="asterisk"> *</span> 모든 항목은 공백을 포함하지 않습니다.</span>
                     <button type="button" @click="addPassInfo2(pas)" class="passCheckBtn" id="">확인</button>
                 </div>
             </div>
@@ -305,7 +306,8 @@
                     </div>
 
                 </div>
-                <div class="passInfo3">                    
+                <div class="passInfo3">
+                    <span class="insertTip"><span class="asterisk"> *</span> 모든 항목은 공백을 포함하지 않습니다.</span>
                     <button type="button" @click="addPassInfo3(pas)" class="passCheckBtn" id="">확인</button>
                 </div>
             </div>
@@ -363,6 +365,7 @@
 
                 </div>
                 <div class="passInfo3">
+                    <span class="insertTip"><span class="asterisk"> *</span> 모든 항목은 공백을 포함하지 않습니다.</span>
                     <button type="button" @click="addPassInfo4(pas)" class="passCheckBtn" id="">확인</button>
                 </div>
             </div>
@@ -646,13 +649,6 @@ export default {
         addPassInfo2(value) { // 추가 승객(성인)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            
-            if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
-                    return true
-                }
-            }
-
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
             } else if (this.korFirstName2 == "") {
@@ -665,10 +661,13 @@ export default {
                 alert("성별을 확인해 주세요.");
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
-            } else {
-                this.addPassInfo2Push(value);
             }
 
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    return this.addPassInfo2Push(value);
+                }            
+            }
         },
         addPassInfo2Push(value) {
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
@@ -721,11 +720,6 @@ export default {
         addPassInfo3(value) { // 추가 승객(유아)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
-                    return true
-                }
-            }
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -739,8 +733,12 @@ export default {
                 alert("성별을 확인해 주세요.");
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
-            } else {
-                this.addPassInfo3Push(value);
+            } 
+            
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    return this.addPassInfo3Push(value);
+                }            
             }
 
         },
@@ -797,12 +795,6 @@ export default {
         addPassInfo4(value) { // 추가 승객(소아)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-            if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
-                    return true
-                }
-            }
-            
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
             } else if (this.korFirstName2 == "") {
@@ -815,8 +807,13 @@ export default {
                 alert("성별을 확인해 주세요.");
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
-            } else {
-                this.addPassInfo4Push(value);
+            }
+            
+                        
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    return this.addPassInfo4Push(value);
+                }            
             }
 
         },
@@ -1624,7 +1621,7 @@ h4 {
     border-top: none;
 }
 
-.insertTip{    
+.insertTip {
     float: right;
     margin-right: 23%;
     margin-top: 1%;

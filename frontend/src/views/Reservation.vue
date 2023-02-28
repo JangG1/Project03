@@ -23,7 +23,7 @@
         <table v-if="res != ''" class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col">삭제Test</th>
+                    <th scope="col">예약 취소</th>
                     <th scope="col">예약 번호</th>
                     <th scope="col">예약자 정보</th>
                     <th scope="col">예약 날짜</th>
@@ -173,13 +173,13 @@ export default {
         },
         passengerModal(value) { //예약자 정보 팝업
             this.passengerView = (this.passengerView) ? false : true
-            this.$store.dispatch("res_no", value - 1);
+            this.$store.dispatch("res_no", value);
 
         },
         resDelModal(value){//예약 취소 팝업
             console.log(value)
             this.resCancelView = (this.resCancelView) ? false : true
-            this.$store.dispatch("res_no", value - 1);
+            this.$store.dispatch("res_no", value);
         },
         Gender(value) { //성별 컨버트
             let gender = value

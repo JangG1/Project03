@@ -1,7 +1,7 @@
 <template>
 <div>
     <div>
-        <span class="comTitle">예약이 완료되었습니다.</span><br>
+        <span class="comTitle">예약이 완료되었습니다.</span><br>{{ userInfo2 }}
     </div>
 
     <div class="comInfoList">
@@ -16,9 +16,9 @@
         </div>
         <div class="comInfoRight">
             <span class="listRight">{{userInfo2[0].korName}}</span><br><br>
-            <span class="listRight">{{userInfo2[1].engName}}</span><br><br>
-            <span class="listRight">{{userInfo2[3].birthday}}</span><br><br>
-            <span class="listRight">{{userInfo2[2].gender}}</span>
+            <span class="listRight">{{userInfo2[1].engLastName}} {{userInfo2[2].engFirstName}}</span><br><br>
+            <span class="listRight">{{userInfo2[4].birthday}}</span><br><br>
+            <span class="listRight">{{userInfo2[3].gender}}</span>
         </div>
     </div>
 
@@ -26,7 +26,7 @@
     <span v-for="(pas,index) in chooseInfo.AdultCount - 1" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [성인] 승객 정보 {{ index + 2 }}{{ addAdult }}
+                [성인] 승객 정보 {{ index + 2 }}
             </div>
             <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -36,7 +36,7 @@
             </div>
             <div class="comInfoRight">
                 <span class="listRight">{{addAdult[index].korName}}</span><br><br>
-                <span class="listRight">{{addAdult[index].engName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].engLastName}} {{addAdult[index].engFirstName}}</span><br><br>
                 <span class="listRight">{{addAdult[index].gender}}</span><br><br>
                 <span class="listRight">{{addAdult[index].birthday}}</span>
             </div>
@@ -57,7 +57,7 @@
             </div>
             <div class="comInfoRight">
                 <span class="listRight">{{addChild[index].korName}}</span><br><br>
-                <span class="listRight">{{addChild[index].engName}}</span><br><br>
+                <span class="listRight">{{addChild[index].engLastName}} {{addChild[index].engFirstName}}</span><br><br>
                 <span class="listRight">{{addChild[index].gender}}</span><br><br>
                 <span class="listRight">{{addChild[index].birthday}}</span>
             </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="comInfoRight">
                 <span class="listRight">{{addInfant[index].korName}}</span><br><br>
-                <span class="listRight">{{addInfant[index].engName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].engLastName}} {{addInfant[index].engFirstName}}</span><br><br>
                 <span class="listRight">{{addInfant[index].gender}}</span><br><br>
                 <span class="listRight">{{addInfant[index].birthday}}</span>
             </div>

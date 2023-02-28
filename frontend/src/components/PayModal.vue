@@ -1,7 +1,7 @@
 <template>
 <div class="">
     <div class="infoTitle">
-        <span class="title" style="font-size: 30px;">여행 예약 정보</span>{{ addAdult }}
+        <span class="title" style="font-size: 30px;">여행 예약 정보</span>
         <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
@@ -17,7 +17,7 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-                <span class="listRight">{{korLastName}} {{korFirstName}}</span><br><br>
+                <span class="listRight">{{korLastName+korFirstName}}</span><br><br>
                 <span class="listRight">{{engLastName}} {{engFirstName}}</span><br><br>
                 <span class="listRight">{{birthday}}</span><br><br>
                 <span class="listRight">{{gender}}</span>
@@ -39,7 +39,7 @@
             </div>
             <div class="infoRight">
                 <span class="listRight">{{addAdult[index].korName}}</span><br><br>
-                <span class="listRight">{{addAdult[index].engName}}</span><br><br>
+                <span class="listRight">{{addAdult[index].engLastName}} {{addAdult[index].engFirstName}}</span><br><br>
                 <span class="listRight">{{addAdult[index].gender}}</span><br><br>
                 <span class="listRight">{{addAdult[index].birthday}}</span>
             </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="infoRight">
                 <span class="listRight">{{addChild[index].korName}} </span><br><br>
-                <span class="listRight">{{addChild[index].engName}} </span><br><br>
+                <span class="listRight">{{addChild[index].engLastName}} {{addChild[index].engFirstName}}</span><br><br>
                 <span class="listRight">{{addChild[index].gender}}</span><br><br>
                 <span class="listRight">{{addChild[index].birthday}}</span>
             </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="infoRight">
                 <span class="listRight">{{addInfant[index].korName}}</span><br><br>
-                <span class="listRight">{{addInfant[index].engName}}</span><br><br>
+                <span class="listRight">{{addInfant[index].engLastName}} {{addInfant[index].engFirstName}}</span><br><br>
                 <span class="listRight">{{addInfant[index].gender}}</span><br><br>
                 <span class="listRight">{{addInfant[index].birthday}}</span>
             </div>
@@ -106,7 +106,7 @@
                 {{startInfo.startTime1}} ~ {{startInfo.arriveTime1}}</span><br><br>
             <span class="listRight" v-if="chooseInfo.InfantCount > 0">, 소아 {{chooseInfo.InfantCount}}명</span>
             <span class="listRight" v-if="chooseInfo.ChildCount > 0">, 유아 {{chooseInfo.ChildCount}}명</span>
-            <span class="listRight">성인 {{chooseInfo.AdultCount}} 명 </span>
+            <span class="listRight">성인 {{chooseInfo.AdultCount}}명</span>
             <br><br>
             <span class="listRight">{{chooseInfo.seat}} {{startInfo.seatClass1}}</span>
         </div>
@@ -151,8 +151,7 @@
         </div>
     </div>
 
-    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
-    <button type="button" class="reserBtn" @click="test()">test</button>
+    <button type="button" class="reserBtn" @click="submit()">예약 하기</button>    
 </div>
 </template>
 
@@ -226,73 +225,7 @@ export default {
         },
 
     },
-    methods: {
-        test() {
-            console.log("test")
-            const adultKorName = [];
-            const adultEngName = [];
-            const adultBirthday = [];
-            const adultGender = [];
-
-            const childKorName = [];
-            const childEngName = [];
-            const childBirthday = [];
-            const childGender = [];
-            
-            const infantKorName = [];
-            const infantEngName = [];
-            const infantBirthday = [];
-            const infantGender = [];
-
-            for (let i = 0; i < this.addAdult.length; i++) {
-                console.log(i)
-                adultKorName.push(this.addAdult[i].korName);
-                adultEngName.push(this.addAdult[i].engName);
-                adultBirthday.push(this.addAdult[i].birthday);
-                adultGender.push(this.addAdult[i].gender);
-            }
-
-            for (let i = 0; i < this.addChild.length; i++) {
-                console.log(i)
-                adultKorName.push(this.addChild[i].korName);
-                adultEngName.push(this.addChild[i].engName);
-                adultBirthday.push(this.addChild[i].birthday);
-                adultGender.push(this.addChild[i].gender);
-            }
-
-            for (let i = 0; i < this.addInfant.length; i++) {
-                console.log(i)
-                adultKorName.push(this.addInfant[i].korName);
-                adultEngName.push(this.addInfant[i].engName);
-                adultBirthday.push(this.addInfant[i].birthday);
-                adultGender.push(this.addInfant[i].gender);
-            }
-
-            axios.post("/res/resPost/addPas", {
-                adultKorName: adultKorName,
-                adultEngName: adultEngName,
-                adultBirthday: adultBirthday,
-                adultGender: adultGender,
-
-                childKorName: childKorName,
-                childEngName: childEngName,
-                childBirthday: childBirthday,
-                childGender: childGender,
-
-                infantKorName: infantKorName,
-                infantEngName: infantEngName,
-                infantBirthday: infantBirthday,
-                infantGender: infantGender,
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("추가 승객 보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("추가 승객 안보내짐")
-                })
-        },
+    methods: {        
         closeModal() {
             this.$emit('closeModal')
         },
@@ -300,12 +233,7 @@ export default {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
-            let korName = this.korLastName + this.korFirstName;
-            let engName = this.engLastName + this.engFirstName;
-
-            let addAdult = this.addAdult
-            let addChild = this.addChild
-            let addInfant = this.addInfant
+            let korName = this.korLastName + this.korFirstName;            
 
             let infantCount = this.chooseInfo.InfantCount
             let childCount = this.chooseInfo.ChildCount
@@ -330,7 +258,9 @@ export default {
             let userInfo = [{
                 korName: korName
             }, {
-                engName: engName
+                engLastName: this.engLastName
+            }, {
+                engFirstName: this.engFirstName
             }, {
                 gender: this.gender
             }, {
@@ -340,12 +270,10 @@ export default {
             axios.post("/res/resPost", {
                     email: email,
                     korName: korName,
-                    engName: engName,
+                    engLastName: this.engLastName,
+                    engFirstName: this.engFirstName,
                     gender: this.gender,
                     birthday: this.birthday,
-                    addAdult: addAdult,
-                    addChild: addChild,
-                    addInfant: addInfant,
                     seat: this.chooseInfo.seat,
                     seatClass1: this.startInfo.seatClass1,
                     seatClass2: this.returnInfo.seatClass2,
@@ -390,12 +318,13 @@ export default {
             let addInfant = this.addInfant
 
             let korName = this.korLastName + this.korFirstName;
-            let engName = this.engLastName + this.engFirstName;
 
             let userInfo = [{
                 korName: korName
             }, {
-                engName: engName
+                engLastName: this.engLastName
+            }, {
+                engFirstName: this.engFirstName
             }, {
                 gender: this.gender
             }, {
@@ -485,14 +414,14 @@ export default {
     font-weight: 900;
     color: #999;
     float: left;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 .infoRight {
     font-size: 20px;
     font-weight: 900;
     float: right;
-    margin-right: 40px;
+    margin-right: 20px;
 }
 
 .listLeft {

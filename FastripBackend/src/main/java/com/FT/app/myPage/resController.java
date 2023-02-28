@@ -42,12 +42,12 @@ import com.FT.app.domain.User;
 import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.AddPassenger;
 import com.FT.app.myPage.domain.ResList;
-import com.FT.app.myPage.mapper.ResListMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonParser;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -100,25 +100,21 @@ public class ResController {
 		});
 		return resList;
 	}*/
-	
+
+
 	// id(res_no) 기준으로 추가 승객 예약내역 조회
 	@GetMapping("/addPas/{id}")
 	public Map getAddPasDetail(@PathVariable int id) {
 		AddPassenger addPasList = addPasRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("없는 정보 입니다.");
 		});
-	    
+		
+		System.out.println(addPasList);
+		
 		//AddPassenger -> String 형변환
-		String addAdultInfo = addPasList.getAddAdult().toString();
-		String addChildInfo = addPasList.getAddChild().toString();
-		String addInfantInfo = addPasList.getAddInfant().toString();
-
-	    // 데이터중 특수문자 및 공백으로 인해 com.google.gson.stream.MalformedJsonException 발생
-	    String tempStr = addAdultInfo.replace("", " ");
-
-	    // 한글, 영어, 일부 특수문자를 제외한 문자 제거
-	    String match = "[^\uAC00-\uD7A3xfe0-9a-zA-Z~!@#$%^&*()_+|<>?:{}]";
-	    tempStr = tempStr.replaceAll(match, "");
+		String addAdultInfo =  addPasList.getAddAdult().get("addAdult");
+		String addChildInfo = addPasList.getAddChild().get("addChild");
+		String addInfantInfo =  addPasList.getAddInfant().get("addInfant");
 		
 		//String -> JsonObject 형변환
 		JsonParser parser = new JsonParser();
@@ -137,6 +133,11 @@ public class ResController {
 		Map allMemberMap =new HashMap();		
 		allMemberMap = (Map)gson.fromJson(allMemberList, allMemberMap.getClass());
 		 
+		Gson gsonBuilder = new GsonBuilder()
+		        .setLenient()
+		        .create();
+		
+		System.out.println(allMemberMap);
 		return allMemberMap;
 	}
 
@@ -153,18 +154,8 @@ public class ResController {
 		resRepository.save(resList);
 	}
 	
-	/*@PostMapping("/resPost/addPas")
-	public void getResList2(@RequestBody String resList) throws IOException {
-
-		System.out.println(resList);
-		System.out.println(resList.getClass().getName());
-					
-		//resRepository.save(resList);						
-	}*/
-	
 	@PostMapping("/resPost/addPas")
 	public void addPasList(@RequestBody HashMap<String, Object> resList) throws IOException {
-
 		///////추가 승객 시작///////(정상작동 2/23 02:33)
 		String addAdultInfo = resList.get("addAdult").toString();
 		String addChildInfo = resList.get("addChild").toString();
@@ -180,15 +171,14 @@ public class ResController {
 		addInfant.put("addInfant", addInfantInfo);			
 		
 		addPasRepository.save(addPas);
-		///////추가 승객 종료///////				
-					
-
+		///////추가 승객 종료///////									
 	}
 	
-	// id(res_no) 기준으로 예약내역(승객 정보) 삭제
+	// id(res_no) 기준으로 예약내역(승객 정보), 추가 승객 정보 삭제
 	@PostMapping("/remove/{id}")
 	public void detailDelete(@PathVariable int id) {
 		resRepository.deleteById(id);
+		addPasRepository.deleteById(id);
 		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
 	}
 

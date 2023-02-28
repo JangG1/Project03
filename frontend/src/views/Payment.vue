@@ -128,16 +128,16 @@
                 <div class="passInfo1-1">
                     <h5>승객 성<span class="asterisk"> *</span></h5><br>
                     <!--회원-->
-                    <input type="text" v-if="isLogin()" v-model="korLastName1" class="passText">
+                    <input type="text" v-if="isLogin()" @keyup="LastNameTest" v-model="korLastName1" class="passText">
                     <!--비회원-->
-                    <input type="text" v-if="!isLogin()" placeholder="예) 홍" v-model="korLastName1" class="passText">
+                    <input type="text" v-if="!isLogin()" @keyup="LastNameTest" placeholder="예) 홍" v-model="korLastName1" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>승객 이름<span class="asterisk"> *</span></h5><br>
                     <!--회원-->
-                    <input type="text" v-if="isLogin()" v-model="korFirstName1" class="passText">
+                    <input type="text" v-if="isLogin()" @keyup="FirstNameTest" v-model="korFirstName1" class="passText">
                     <!--비회원-->
-                    <input type="text" v-if="!isLogin()" placeholder="예) 길동" v-model="korFirstName1" class="passText">
+                    <input type="text" v-if="!isLogin()" @keyup="FirstNameTest" placeholder="예) 길동" v-model="korFirstName1" class="passText">
                 </div>
             </div>
 
@@ -145,12 +145,12 @@
                 <div class="passInfo1-1">
                     <h5>영문 성<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName1" class="passText">
+                    <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName1" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName1" class="passText">
+                    <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName1" class="passText">
                 </div>
             </div>
 
@@ -178,8 +178,8 @@
             <div class="passInfo2">
                 <div class="passInfo2-1">
                     <h5>성별<span class="asterisk"> *</span></h5><br>
-                    <input type="button" value="남자" class="maleBtn" id="maleBtn1" @click="Gender2" disabled='disabled' autofocus>
-                    <input type="button" value="여자" class="femaleBtn" id="femaleBtn1" @click="Gender3" disabled='disabled' autofocus>
+                    <input type="button" value="남자" class="maleBtn" id="maleBtn1" @click="Gender2">
+                    <input type="button" value="여자" class="femaleBtn" id="femaleBtn1" @click="Gender3">
                 </div>
                 <div class="passInfo2-2">
                     <h5>생년 월일 (MMDD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
@@ -191,6 +191,7 @@
 
             </div>
             <div class="passInfo3">
+                <span class="insertTip"><span class="asterisk"> *</span>모든 항목은 공백을 포함하지 않습니다.</span>
                 <button type="button" @click="addPassInfo1(pas)" class="passCheckBtn" id="">확인</button>
             </div>
 
@@ -223,12 +224,12 @@
                     <div class="passInfo1-1">
                         <h5>영문 성<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                        <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
                     </div>
                     <div class="passInfo1-2">
                         <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName2" class="passText">
+                        <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
                     </div>
                 </div>
 
@@ -280,12 +281,12 @@
                     <div class="passInfo1-1">
                         <h5>영문 성<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                        <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
                     </div>
                     <div class="passInfo1-2">
                         <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName2" class="passText">
+                        <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
                     </div>
                 </div>
 
@@ -304,7 +305,7 @@
                     </div>
 
                 </div>
-                <div class="passInfo3">
+                <div class="passInfo3">                    
                     <button type="button" @click="addPassInfo3(pas)" class="passCheckBtn" id="">확인</button>
                 </div>
             </div>
@@ -337,12 +338,12 @@
                     <div class="passInfo1-1">
                         <h5>영문 성<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="engLastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                        <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
                     </div>
                     <div class="passInfo1-2">
                         <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="engFirstNameTest" placeholder="예) GIL DONG" v-model="engFirstName2" class="passText">
+                        <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
                     </div>
                 </div>
 
@@ -539,8 +540,26 @@ export default {
             console.log(this.addInfant);
             console.log("===================")
         },
+        // 공백 사용 못 하게
+        noSpaceForm() {
+            var str_space = /\s/; // 공백 체크
+
+            if (str_space == true) { // 공백 체크
+
+                alert("해당 항목에는 공백을 사용할 수 없습니다.\n\n공백 제거됩니다.");
+                //obj.focus();
+                //obj.value = obj.value.replace(' ', ''); // 공백제거
+                return false;
+            }
+        },
         showPassInfo1() {
             this.passInfo = (this.passInfo) ? false : true
+
+            if (this.arrow == "▼") {
+                this.arrow = "▲"
+            } else {
+                this.arrow = "▼"
+            }
         },
         showPassInfo2(value) {
             //승객 정보 입력란 초기화
@@ -597,9 +616,15 @@ export default {
             return this.addPas3 = value;
         },
         addPassInfo1() {
-            this.addPas1 = true;
-            if (this.chooseInfo.AdultCount == 1) {
-                this.addPas2 = true;
+
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    this.addPas1 = true;
+                    if (this.chooseInfo.AdultCount == 1) {
+                        this.addPas2 = true;
+                    }
+                    return this.passInfo = false;
+                }
             }
 
             //비회원 예약시 이메일 누락시 경고            
@@ -617,16 +642,22 @@ export default {
                 this.arrow = "▼"
             }
 
-            return this.passInfo = false;
         },
         addPassInfo2(value) { // 추가 승객(성인)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    return true
+                }
+            }
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
             } else if (this.korFirstName2 == "") {
                 alert("이름을 확인해 주세요");
-            } else if (this.engLastName2 == null) {
+            } else if (this.engLastName2 == "") {
                 alert("영문 성을 확인해 주세요.");
             } else if (this.engFirstName2 == null) {
                 alert("영문 이름을 확인해 주세요");
@@ -646,7 +677,8 @@ export default {
             if (this.addAdult[value - 1] == undefined) {
                 this.addAdult.push({
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + this.engFirstName2,
+                    engLastName: this.engLastName2,
+                    engFirstName: this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -656,7 +688,8 @@ export default {
             if (this.addAdult[value - 1] != undefined) {
                 this.addAdult.splice(value - 1, 1, {
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + this.engFirstName2,
+                    engLastName: this.engLastName2,
+                    engFirstName: this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -684,10 +717,15 @@ export default {
             }
 
             return this.addPas1 = value + 1; // 인원 최대값 이전까지 1씩 증가
-
         },
         addPassInfo3(value) { // 추가 승객(유아)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    return true
+                }
+            }
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -714,7 +752,8 @@ export default {
             if (this.addChild[value - 1] == undefined) {
                 this.addChild.push({
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + this.engFirstName2,
+                    engLastName: this.engLastName2,
+                    engFirstName: this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -724,7 +763,8 @@ export default {
             if (this.addChild[value - 1] != undefined) {
                 this.addChild.splice(value - 1, 1, {
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + this.engFirstName2,
+                    engLastName: this.engLastName2,
+                    engFirstName: this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -757,6 +797,12 @@ export default {
         addPassInfo4(value) { // 추가 승객(소아)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    return true
+                }
+            }
+            
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
             } else if (this.korFirstName2 == "") {
@@ -782,7 +828,8 @@ export default {
             if (this.addInfant[value - 1] == undefined) {
                 this.addInfant.push({
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + this.engFirstName2,
+                    engLastName: this.engLastName2,
+                    engFirstName: this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -792,7 +839,8 @@ export default {
             if (this.addInfant[value - 1] != undefined) {
                 this.addInfant.splice(value - 1, 1, {
                     korName: this.korLastName2 + this.korFirstName2,
-                    engName: this.engLastName2 + this.engFirstName2,
+                    engLastName: this.engLastName2,
+                    engFirstName: this.engFirstName2,
                     gender: genderSelected.value,
                     birthday: this.birthday2
                 })
@@ -847,8 +895,25 @@ export default {
             let price = (value * 0.5) * this.chooseInfo.InfantCount;
             return "(-50%)" + price.toString().replace(regexp, ",") + " 원";
         },
-        engLastNameTest() {
-            if (this.engLastName1 == null) {
+        LastNameTest() {
+            var str_space = /\s/; // 공백 체크
+
+            if (str_space.exec(this.korLastName1)) { // 공백 체크
+                alert("승객 성 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.engLastName1)) { // 공백 체크
+                alert("영문 성 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.korLastName2)) { // 공백 체크
+                alert("승객 성 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.engLastName2)) { // 공백 체크
+                alert("영문 성 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.birthday1)) { // 공백 체크
+                alert("생일 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (this.engLastName1 == null) {
                 alert("영문 성을 확인해주세요")
             } else if (/^[A-Z]*$/.test(this.engLastName1)) {
                 return true
@@ -857,8 +922,25 @@ export default {
                 this.engLastName1 = ""
             }
         },
-        engFirstNameTest() {
-            if (this.engFirstName1 == null) {
+        FirstNameTest() {
+            var str_space = /\s/; // 공백 체크
+
+            if (str_space.exec(this.korFirstName1)) { // 공백 체크
+                alert("승객 이름 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.engFirstName1)) { // 공백 체크
+                alert("영어 이름 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.korFirstName2)) { // 공백 체크
+                alert("승객 이름 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.engFirstName2)) { // 공백 체크
+                alert("영어 이름 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.birthday2)) { // 공백 체크
+                alert("생일 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (this.engFirstName1 == null) {
                 alert("영문 이름을 확인해주세요")
             } else if (/^[A-Z\s]*$/.test(this.engFirstName1)) {
                 return true
@@ -931,54 +1013,50 @@ export default {
         Gender1() {
             if (this.gender1 == "male") {
                 let target = document.getElementById('maleBtn1');
-                target.disabled = false;
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 target.value = "남자" + "  ✔"
-                return this.gender1 = "남자"
+                this.gender1 = "남자"
             } else if (this.gender1 == "female") {
                 let target = document.getElementById('femaleBtn1');
-                target.disabled = false;
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 target.value = "여자" + "  ✔"
-                return this.gender1 = "여자"
-            } else { //비회원
-                let target1 = document.getElementById('maleBtn1');
-                let target2 = document.getElementById('femaleBtn1');
-                target1.disabled = false;
-                target2.disabled = false;
-
-                target1.addEventListener('click', function () {
-                    target1.style.color = "teal"
-                    target1.style.border = "3px solid teal"
-                    target1.value = "남자" + "  ✔"
-
-                    target2.style.color = "#999"
-                    target2.style.border = "3px solid #999"
-                    target2.value = "여자"
-                });
-
-                target2.addEventListener('click', function () {
-                    target2.style.color = "teal"
-                    target2.style.border = "3px solid teal"
-                    target2.value = "여자" + "  ✔"
-
-                    target1.style.color = "#999"
-                    target1.style.border = "3px solid #999"
-                    target1.value = "남자"
-                });
+                this.gender1 = "여자"
             }
         },
         Gender2() {
             let t1 = document.getElementById('maleBtn1').value.substring(0, 2);
 
             this.gender1 = t1;
+
+            let target1 = document.getElementById('maleBtn1');
+            let target2 = document.getElementById('femaleBtn1');
+
+            target1.style.color = "teal"
+            target1.style.border = "3px solid teal"
+            target1.value = "남자" + "  ✔"
+
+            target2.style.color = "#999"
+            target2.style.border = "3px solid #999"
+            target2.value = "여자"
+
         },
         Gender3() {
             let t2 = document.getElementById('femaleBtn1').value.substring(0, 2);
 
             this.gender1 = t2;
+
+            let target1 = document.getElementById('maleBtn1');
+            let target2 = document.getElementById('femaleBtn1');
+            target2.style.color = "teal"
+            target2.style.border = "3px solid teal"
+            target2.value = "여자" + "  ✔"
+
+            target1.style.color = "#999"
+            target1.style.border = "3px solid #999"
+            target1.value = "남자"
+
         },
         Fare(value) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -1041,6 +1119,7 @@ export default {
     },
     mounted() {
         this.Gender1()
+        this.noSpaceForm()
     }
 }
 </script>
@@ -1543,7 +1622,12 @@ h4 {
     width: 100%;
     border: 1px solid;
     border-top: none;
+}
 
+.insertTip{    
+    float: right;
+    margin-right: 23%;
+    margin-top: 1%;
 }
 
 .passCheckBtn {

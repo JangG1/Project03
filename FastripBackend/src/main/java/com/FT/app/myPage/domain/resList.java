@@ -58,7 +58,10 @@ public class ResList {
 	private String korName;
 
 	@Column(nullable = false, length = 50)
-	private String engName;
+	private String engLastName;
+	
+	@Column(nullable = false, length = 50)
+	private String engFirstName;
 
 	@Column(nullable = false, length = 50)
 	private String gender;

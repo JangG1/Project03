@@ -536,25 +536,6 @@ export default {
     },
     props: {},
     methods: {
-        test() {
-            console.log("===================")
-            console.log(this.addAdult);
-            console.log(this.addChild);
-            console.log(this.addInfant);
-            console.log("===================")
-        },
-        // 공백 사용 못 하게
-        noSpaceForm() {
-            var str_space = /\s/; // 공백 체크
-
-            if (str_space == true) { // 공백 체크
-
-                alert("해당 항목에는 공백을 사용할 수 없습니다.\n\n공백 제거됩니다.");
-                //obj.focus();
-                //obj.value = obj.value.replace(' ', ''); // 공백제거
-                return false;
-            }
-        },
         showPassInfo1() {
             this.passInfo = (this.passInfo) ? false : true
 
@@ -1116,13 +1097,49 @@ export default {
     },
     mounted() {
         this.Gender1()
-        this.noSpaceForm()
     }
 }
 </script>
 
 <style>
 .PayModalView {
+    content: url(@/assets/Logo2.png);
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18%;
+    height: 13%;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 10px lightgrey;
+
+}
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 800px) {
+    .PayModalView {
+        content: url(@/assets/Logo2.png);
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 10px lightgrey;
+    }
+}
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 1150px) {
+    .PayModalView {
+    content: none;
     padding: 20px;
     position: fixed;
     top: 50%;
@@ -1153,6 +1170,7 @@ export default {
     -webkit-margin-bottom-collapse: 10px;
     background-color: white;
     /*스크롤바 트랙 색상*/
+}
 }
 
 .IATAModalView {

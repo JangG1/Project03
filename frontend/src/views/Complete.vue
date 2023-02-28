@@ -221,6 +221,216 @@ export default {
 .comTitle {
     color: teal;
     font-weight: 900;
+    font-size: 30px;
+    text-align: center;
+    display: block;
+    padding: 100px 0;
+}
+
+.comInfoList, 
+.comAreaList{
+    content: url(@/assets/Logo2.png);
+    width: 0%;
+    height: 0%;
+}
+
+.comPayList {
+    content: url(@/assets/Logo2.png);
+    width: 40%;
+    height: 50%;
+    margin-left: 30%;    
+    margin-bottom: 30%;
+}
+
+.comBtn {
+    text-align: center;    
+}
+
+.comBtn1,
+.comBtn2 {
+    width: 12%;
+    padding: 1.5%;
+    margin: 2%;
+    color: white;
+    background-color: teal;
+    border: none;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.topBtn,
+a:hover,
+a:visited,
+a:active {
+    color: white;
+}
+
+.Footer {
+    border-top: 1px solid white;
+}
+
+.FootLeft {
+    color: white;
+}
+
+.FootLeft p{
+    color: white;
+}
+
+.footLogo {
+    width: 0%;
+    height: 0%;
+}
+
+
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 850px) {
+    .comTitle {
+    color: teal;
+    font-weight: 900;
+    font-size: 40px;
+    text-align: center;
+    display: block;
+    padding: 100px 0;
+}
+
+.comInfoList {
+    content: none;
+    border: 2px solid teal;
+    border-radius: 4px;
+    height: 320px;
+    margin-bottom: 60px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.comInfoTitle {
+    width: 100%;
+    color: white;
+    background-color: teal;
+    font-weight: 900;
+    font-size: 24px;
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.comInfoLeft {
+    font-size: 20px;
+    font-weight: 900;
+    color: #999;
+    float: left;
+    margin-left: 40px;
+}
+
+.comInfoRight {
+    font-size: 20px;
+    font-weight: 900;
+    margin-right: 40px;
+}
+
+.listRight {
+    float: right;
+}
+
+.comAreaList {
+    content: none;
+    border: 2px solid teal;
+    border-radius: 4px;
+    height: 380px;
+    margin-bottom: 40px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.comPayList {
+    content: none;
+    border: 2px solid teal;
+    border-radius: 4px;
+    height: 190px;
+    margin-bottom: 40px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.comPayTitle {
+    width: 100%;
+    color: white;
+    background-color: teal;
+    font-weight: 900;
+    font-size: 24px;
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.comBtn {
+    text-align: center;
+}
+
+.comBtn1,
+.comBtn2 {
+    width: 12%;
+    padding: 1.5%;
+    margin: 2%;
+    color: white;
+    background-color: teal;
+    border: none;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.topBtn,
+a:hover,
+a:visited,
+a:active {
+    color: white;
+}
+
+.Footer {
+    border-top: 1px solid;
+}
+
+.FootLeft {
+    float: left;
+    margin-left: 20%;
+    margin-top: 30px;
+    font-size: 40px;
+    padding-bottom: 50px;
+    color:black;
+}
+
+
+.FootLeft p{
+    color: #999;
+}
+
+.footLogo {
+    width: 100px;
+    height: 70px;    
+}
+
+.FootRight {
+    float: right;
+    margin-right: 280px;
+    margin-top: 60px;
+}
+
+}
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 1220px) {
+.comTitle {
+    color: teal;
+    font-weight: 900;
     font-size: 60px;
     text-align: center;
     display: block;
@@ -228,6 +438,7 @@ export default {
 }
 
 .comInfoList {
+    content: none;
     border: 2px solid teal;
     border-radius: 4px;
     height: 340px;
@@ -267,6 +478,7 @@ export default {
 }
 
 .comAreaList {
+    content: none;
     border: 2px solid teal;
     border-radius: 4px;
     height: 400px;
@@ -277,6 +489,7 @@ export default {
 }
 
 .comPayList {
+    content: none;
     border: 2px solid teal;
     border-radius: 4px;
     height: 205px;
@@ -327,7 +540,7 @@ a:active {
 
 .FootLeft {
     float: left;
-    margin-left: 280px;
+    margin-left: 17%;
     margin-top: 30px;
     font-size: 40px;
     padding-bottom: 50px;
@@ -342,5 +555,6 @@ a:active {
     float: right;
     margin-right: 280px;
     margin-top: 60px;
+}
 }
 </style>

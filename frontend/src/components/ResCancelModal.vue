@@ -6,7 +6,7 @@
 <div class="resDelBody">
     <div class="resDelText">
         <h4>예약 번호 
-        <span class="flightNum">[ Fastrip - {{ resNo }} ] </span></h4><br>
+        <span class="flightNum">[ Fastrip - {{ res_no }} ] </span></h4><br>
         <h3>예약을 취소하시겠습니까?</h3>
     </div>
     <button class="resDelBtn1" @click="resCancel">예</button>
@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             res: [],
-            resNo: this.$store.state.res_no
+            res_no: this.$store.state.res_no
         }
     },
     props: {},
@@ -30,9 +30,8 @@ export default {
             this.$emit('close')
         },
         resCancel() {
-            let res_no = this.$store.state.res_no + 1;
 
-            axios.post("/res/remove/" + res_no)
+            axios.post("/res/remove/" + this.res_no)
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")

@@ -1195,6 +1195,8 @@ export default {
     height: 2px;
 }
 
+/* 화면 축소 전 후 */
+
 @media (min-width: 2050px) {
     .pStep {
         float: right;
@@ -1225,6 +1227,8 @@ export default {
     height: 1px;
     overflow: hidden;
 }
+
+/* 화면 축소 전 후 */
 
 @media (min-width: 1870px) {
     .pRight {

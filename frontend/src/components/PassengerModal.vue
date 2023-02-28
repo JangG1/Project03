@@ -125,6 +125,7 @@ export default {
 </script>
 
 <style>
+
 .passTitle {
     margin-top: 2%;
     margin-left: 2%;
@@ -133,12 +134,8 @@ export default {
     font-size: 28px;
 }
 
-.passCount1 {
-    margin-top: 30px;
-    margin-left: 10px;
-    font-weight: 900;
-    font-size: 20px;
-    color: rgba(35, 163, 163, 0.831);
+.passCount1 {    
+    display: none;
 }
 
 .passCount2 {
@@ -190,5 +187,92 @@ export default {
     font-weight: 900;
     float: right;
     padding-right: 20px;
+}
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 1220px) {
+    
+.passCount1 {
+    margin-top: 30px;
+    margin-left: 10px;
+    font-weight: 900;
+    font-size: 18px;
+    color: rgba(35, 163, 163, 0.831);
+    display: block;
+}
+
+}
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 1320px) {
+.passTitle {
+    margin-top: 2%;
+    margin-left: 2%;
+    color: teal;
+    font-weight: 900;
+    font-size: 28px;
+}
+
+.passCount1 {
+    margin-top: 30px;
+    margin-left: 10px;
+    font-weight: 900;
+    font-size: 20px;
+    color: rgba(35, 163, 163, 0.831);
+    display: block;
+}
+
+.passCount2 {
+    float: right;
+}
+
+.passCloseBtn {
+    color: teal;
+    font-weight: 900;
+    font-size: 22px;
+    float: right;
+    border: 1px solid white;
+    background-color: white;
+}
+
+.info {
+    margin-top: 25px;
+
+}
+
+.passInfoList {
+    border: 1px solid teal;
+    border-radius: 4px;
+    height: 300px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.passInfoTitle {
+    color: white;
+    background-color: teal;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    font-weight: 900;
+    font-size: 20px;
+    height: 45px;
+    padding: 8px 0;
+    padding-left: 20px;
+}
+
+.listLeft {
+    font-weight: 900;
+    color: #999;
+    float: left;
+    padding-left: 20px;
+}
+
+.listRight {
+    font-weight: 900;
+    float: right;
+    padding-right: 20px;
+}
 }
 </style>

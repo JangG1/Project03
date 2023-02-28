@@ -246,7 +246,26 @@ export default {
     /*스크롤바 트랙 색상*/
 }
 
-.passengerView {
+.passengerView {    
+    content: url(@/assets/Logo2.png);    
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 15%;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 10px lightgrey;
+    overflow: auto;
+}
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 850px) {
+    .passengerView {       
+        content: none; 
     padding: 20px;
     position: fixed;
     top: 50%;
@@ -276,6 +295,8 @@ export default {
     border-radius: 10px;
     border: 0.1px solid teal;
     /*스크롤바 트랙 색상*/
+}
+
 }
 
 tr {

@@ -3,7 +3,6 @@
     <div class="spinner"></div>
 </div>
 <div>
-
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- 로고 -->

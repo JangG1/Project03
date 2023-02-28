@@ -1077,6 +1077,8 @@ a:active {
     border: 2.5px solid teal;
 }
 
+/* 화면 축소 전 후 */
+
 @media (min-width: 1450px) {
     .NoticeModalView {
         left: 60%
@@ -1105,6 +1107,8 @@ a:active {
     }
 
 }
+
+/* 화면 축소 전 후 */
 
 @media (min-width: 1900px) {
     .NoticeModalView {
@@ -1137,6 +1141,8 @@ a:active {
     }
     
 }
+
+/* 화면 축소 전 후 */
 
 @media (min-width: 1600px) {
     .container3 h2 {
@@ -1171,6 +1177,8 @@ a:active {
         margin-bottom: 220px;
     }
 }
+
+/* 화면 축소 전 후 */
 
 @media (min-width: 2000px) {
 

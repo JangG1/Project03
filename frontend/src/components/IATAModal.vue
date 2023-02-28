@@ -168,6 +168,8 @@ export default {
 
 }
 
+/* 화면 축소 전 후 */
+
 @media (min-width: 2050px) {
     .rightbox h4 {
         margin-top: 60px;

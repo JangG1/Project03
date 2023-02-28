@@ -13,11 +13,6 @@ const routes = [
     component: () => import("@/components/LoginModal.vue"),
   },
   {
-    path: "/Callback",
-    name: "Callback",
-    component: () => import("@/views/Callback.vue"),
-  },
-  {
     path: '/Reservation',
     name: 'Reservation',
     component: () => import('../views/Reservation.vue')

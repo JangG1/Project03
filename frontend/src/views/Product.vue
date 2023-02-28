@@ -209,6 +209,8 @@ export default {
     margin-right: 11%;
 }
 
+/* 화면 축소 전 후 */
+
 @media (min-width: 1500px) {
 
 .image-album {
@@ -221,6 +223,8 @@ export default {
 }
 
 }
+
+/* 화면 축소 전 후 */
 
 @media (min-width: 1900px) {
 

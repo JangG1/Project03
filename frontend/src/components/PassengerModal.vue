@@ -1,10 +1,10 @@
 <template>
 <div class="">
-    <span class="passTitle">예약자 정보</span><br>
+    <span class="passTitle">예약자 정보</span>{{ res1 }}
     <button class="passCloseBtn" @click="closeModal">X</button>
 </div>
 
-<span v-for="(pas,index) in addAdult" :key="index">
+<span v-for="(pas,index) in addAdult.length" :key="index">
 <div class="passCount1">승객수 :
     <span class="passCount2"> (총 {{ res1[index].adultCount + res1[index].childCount + res1[index].infantCount}}명)</span>
     <span class="passCount2" v-if="res1[index].infantCount > 0">, 소아 {{res1[index].infantCount}}명</span>
@@ -15,7 +15,7 @@
 <br>
 
 <!-- 예약자 정보 -->
-<span v-for="(pas,index) in addAdult" :key="index">
+<span v-for="(pas,index) in addAdult.length" :key="index">
 <div class="passInfoList">
     <div class="passInfoTitle">
         승객 [예약자]<span v-if="res1.adultCount > 1">1</span>

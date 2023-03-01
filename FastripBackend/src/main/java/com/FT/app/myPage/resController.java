@@ -105,6 +105,9 @@ public class ResController {
 	// 로그인 email 기준 예약 내역 전부 조회
 	@GetMapping("/resList/{email}")
 	public List<ResList> getResList(@PathVariable("email") String email) {
+		//List<ResList> a = resRepository.findByEmail(email);
+		//예외처리 구현 필요
+		
 		return resRepository.findByEmail(email);
 	}
 

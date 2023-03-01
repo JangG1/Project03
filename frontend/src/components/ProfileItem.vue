@@ -10,7 +10,7 @@ export default {
   props: {
     profile: {
       type: String,
-      default: require("@/assets/weblogin1.png"),
+      default: require("@/assets/person2.png"),
     },
     email: {
       type: String,
@@ -27,9 +27,8 @@ export default {
 
 <style scoped>
   #profile > img {
-    width: 48px;
-    height: 48px;
-    margin-right: 30px;
+    width: 50px;
+    height: 50px;    
     border-radius: 10px;
     border: none;
     cursor: pointer;

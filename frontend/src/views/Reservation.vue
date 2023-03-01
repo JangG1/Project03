@@ -15,7 +15,7 @@
             <img src="../assets/magnifier.jpg"><br>
             <span v-if="this.$store.state.isLogin == true">예약 내역 없음.</span><br>
             <div v-if="this.$store.state.isLogin == false">
-            <input type="text" v-model="emailValue" class="emailTextBar" placeholder="이메일을 입력해주세요.">
+            <input type="text" v-model="emailValue" class="emailTextBar" @keyup.enter="getData(emailValue)" placeholder="이메일을 입력해주세요.">
             <input type="button" class="emailGetData" @click="getData(emailValue)" value="비회원 조회하기">
             </div>
         </div>
@@ -102,31 +102,6 @@ export default {
         }
     },
     methods: {
-        dropMenu() {
-            let click = document.getElementById("dropResDel");
-            console.log(click)
-            if(click.style.display === "none"){
-                click.style.display = "block";
- 
-            }else{
-                click.style.display = "none";
- 
-            }
-        },
-        test(value) {
-            console.log(value)
-        },
-        test2(value) {
-            axios.post("/res/remove/" + value)
-                .then(res => {
-                    console.log(res)
-                    console.log("보내짐")
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-        },
         resDate1(value) { //협정 세계시(UTC) 시간 차이로 인한 시간 재정의
             let resDate = new Date(value);
 
@@ -162,13 +137,17 @@ export default {
                 email = this.$store.state.userInfo.email;
             } else if (this.$store.state.isLogin == false){
                 email = value;
+                
             }
-
+            //ft5698@nate.com
             //let email = "test@test.com";
             axios.get('/res/resList/' + email)
                 .then((res) => {
                     this.res = res.data
                     this.user = res.data
+                })
+                .catch(err => {
+                    console.log(err)                    
                 })
         },
         passengerModal(value) { //예약자 정보 팝업

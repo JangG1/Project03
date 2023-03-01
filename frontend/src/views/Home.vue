@@ -624,39 +624,39 @@ a:active {
 }
 
 .container2 h2 {
-    color: rgba(253, 217, 34, 0.959);
+    color: rgba(238, 203, 30, 0.959);
     font-size: 80px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container2 h3 {
-    color: rgba(253, 217, 34, 0.959);
+    color: rgba(238, 203, 30, 0.959);
     font-size: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container2 h4 {
-    color: rgba(253, 217, 34, 0.959);
+    color: rgba(238, 203, 30, 0.959);
     font-size: 20px;
     margin-bottom: 240px;
     cursor: pointer;
 }
 
 .container3 h2 {
-    color: rgb(201, 223, 239);
+    color: rgb(219, 230, 237);
     font-size: 60px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container3 h3 {
-    color: rgb(201, 223, 239);
+    color: rgb(219, 230, 237);
     font-size: 30px;    
     margin-left: 50px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container3 h4 {
-    color: rgb(201, 223, 239);
+    color: rgb(219, 230, 237);
     margin-left: 100px;
     margin-bottom: 240px;    
 }
@@ -703,7 +703,7 @@ a:active {
     border-radius: 15px;
     border: 1px solid #999;
     width: 98%;
-    height: 800px;
+    height: 780px;
     margin-left: 1%;
     margin-right: 1%;
 }
@@ -740,7 +740,7 @@ a:active {
 
 .refer {
     text-align: center;
-    margin-top: 3.5%;
+    margin-top: 2.5%;
     margin-bottom: 2%;
     font-size: 30px;
 

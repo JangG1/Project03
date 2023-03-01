@@ -31,7 +31,7 @@
     </div>
 
     <div v-if="!isLogin">
-        <LoginModal @closeModal="loginModal = false" :loginModal="loginModal" />
+        <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
 
     <hr>
@@ -140,13 +140,18 @@ export default {
 
 .profileBox {
     display: flex;
-    margin-top: 46px;
-    margin-right: 2%;
+    margin-top: 46px;    
 }
 
 .nav-link {
     margin-top: 40px;
     margin-left: 15px;
+}
+
+.loginBtn{
+    margin-right: 10px;    
+    width: 30px;
+    height: 30px;
 }
 
 .logoutBtn {
@@ -156,7 +161,8 @@ export default {
     cursor: pointer;
     padding: 10px 20px 10px 20px;
     border: 3px solid rgb(193, 188, 188);
-
+    margin-left: 5px;
+    margin-right: 20px;
 }
 
 .layerPopup {
@@ -193,6 +199,20 @@ export default {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+    .loginModal{
+        content: url("@/assets/Logo2.png");    
+        width: 200px;
+        height: 200px;
+    }
+
+@media (min-width: 1000px) {
+    .loginModal{
+        content: none;
+        width: 500px;
+        height: 550px;
     }
 }
 </style>

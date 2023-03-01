@@ -7,6 +7,7 @@
 
     <div class="carousel-inner" id="top">
         <span class="">
+
             <!--배너1-->
             <div class="carousel-item active">
                 <!--배너 좌우 이동 버튼-->
@@ -15,9 +16,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지1-->
-                <svg class="banner" viewBox="0 80 830 315">
-                    <image href="../assets/bannerImage/1.jpg" />
-                </svg>
+                <img class="banner" src="../assets/bannerImage/1.jpg">
                 <div class="container1">
                     <div class="carousel-caption">
                         <h2>Fastrip</h2>
@@ -25,6 +24,7 @@
                     </div>
                 </div>
             </div>
+
             <!--배너2-->
             <div class="carousel-item">
                 <!--배너 좌우 이동 버튼-->
@@ -33,9 +33,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지2-->
-                <svg class="banner" viewBox="0 30 820 315">
-                    <image href="../assets/bannerImage/2.jpg" />
-                </svg>
+                <img class="banner" src="../assets/bannerImage/2.jpg">
                 <div class="container2">
                     <div class="carousel-caption">
                         <h2>Budapest</h2>
@@ -45,6 +43,7 @@
                     </div>
                 </div>
             </div>
+
             <!--배너3-->
             <div class="carousel-item">
                 <!--배너 좌우 이동 버튼-->
@@ -53,9 +52,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지3-->
-                <svg class="banner" viewBox="50 60 820 315">
-                    <image href="../assets/bannerImage/3.jpg" />
-                </svg>
+                <img class="banner" src="../assets/bannerImage/3.jpg">
                 <div class="container3">
                     <div class="carousel-caption">
                         <h2>Hokkaido, Biei</h2>
@@ -65,6 +62,7 @@
                     </div>
                 </div>
             </div>
+            
             <!--배너4-->
             <div class="carousel-item">
                 <!--배너 좌우 이동 버튼-->
@@ -72,10 +70,8 @@
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
-                <!--배너 이미지3-->
-                <svg class="banner" viewBox="0 40 850 315">
-                    <image href="../assets/bannerImage/4.jpg" />
-                </svg>
+                <!--배너 이미지4-->
+                <img class="banner" src="../assets/bannerImage/4.jpg">
                 <div class="container4">
                     <div class="carousel-caption">
                         <h2>Fastrip</h2>
@@ -710,6 +706,10 @@ a:active {
     height: 800px;
     margin-left: 1%;
     margin-right: 1%;
+}
+
+.bannerImg{
+    border: 10px solid #999;
 }
 
 .carousel-control-prev {

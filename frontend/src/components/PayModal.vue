@@ -5,7 +5,8 @@
         <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
-    <span>
+
+    <!-- <span>
         <div class="infoList">
             <div class="title2">
                 승객 정보 <span v-if="chooseInfo.AdultCount > 1">1</span>
@@ -23,13 +24,15 @@
                 <span class="listRight">{{gender}}</span>
             </div>
         </div>
-    </span>
+    </span> -->
 
     <!--추가 승객 정보(성인)-->
-    <span v-for="(pas,index) in parseInt(chooseInfo.AdultCount) - 1" :key="index">
+    <span v-for="(pas,index) in parseInt(chooseInfo.AdultCount)" :key="index">
         <div class="infoList">
             <div class="title2">
-                [성인] 승객 정보 {{ index + 2 }}
+                [성인] 승객
+                <span v-if="index == 0">[예약자]</span>
+                <span v-if="index > 0">{{ index + 1 }}</span>
             </div>
             <div class="infoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -233,8 +236,6 @@ export default {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
-            let korName = this.korLastName + this.korFirstName;
-
             if (this.chooseInfo.returnYear != " ") {
                 this.way = "왕복"
             } else {
@@ -251,11 +252,6 @@ export default {
 
             axios.post("/res/resPost", {
                     email: email,
-                    korName: korName,
-                    engLastName: this.engLastName,
-                    engFirstName: this.engFirstName,
-                    gender: this.gender,
-                    birthday: this.birthday,
                     seat: this.chooseInfo.seat,
                     seatClass1: this.startInfo.seatClass1,
                     seatClass2: this.returnInfo.seatClass2,
@@ -277,7 +273,7 @@ export default {
                 })
                 .then(res => {
                     console.log(res)
-                    console.log("예약자 정보 보내짐")                                                                          
+                    console.log("예약자 정보 보내짐")
                     this.submit2();
                 })
                 .catch(err => {

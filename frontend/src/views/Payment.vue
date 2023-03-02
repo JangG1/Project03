@@ -600,17 +600,6 @@ export default {
             return this.addPas3 = value;
         },
         addPassInfo1() {
-
-            if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
-                    this.addPas1 = true;
-                    if (this.chooseInfo.AdultCount == 1) {
-                        this.addPas2 = true;
-                    }
-                    return this.passInfo = false;
-                }
-            }
-
             //비회원 예약시 이메일 누락시 경고            
             if (this.$store.state.isLogin == false) {
                 if (this.passEmail1 == null || this.passEmail2 == null) {
@@ -626,6 +615,29 @@ export default {
                 this.arrow = "▼"
             }
 
+
+            if (this.LastNameTest() == true) {
+                if (this.FirstNameTest() == true) {
+                    this.addPas1 = true;
+                    if (this.chooseInfo.AdultCount == 1) {
+                        this.addPas2 = true;
+                    }
+                    this.passInfo = false;
+                }
+            }
+
+            //예약자 정보 추가
+            if (this.addAdult[0] == undefined) {
+                this.addAdult.push({
+                    korName: this.korLastName1 + this.korFirstName1,
+                    engLastName: this.engLastName1,
+                    engFirstName: this.engFirstName1,
+                    gender: this.gender1,
+                    birthday: this.birthday1
+                })
+            }
+
+            console.log(this.addAdult)
         },
         addPassInfo2(value) { // 추가 승객(성인)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
@@ -647,14 +659,14 @@ export default {
             if (this.LastNameTest() == true) {
                 if (this.FirstNameTest() == true) {
                     return this.addPassInfo2Push(value);
-                }            
+                }
             }
         },
         addPassInfo2Push(value) {
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             //해당 인덱스 공란 경우 등록
-            if (this.addAdult[value - 1] == undefined) {
+            if (this.addAdult[value] == undefined) {
                 this.addAdult.push({
                     korName: this.korLastName2 + this.korFirstName2,
                     engLastName: this.engLastName2,
@@ -665,8 +677,8 @@ export default {
             }
 
             //해당 인덱스 기존 정보가 입력된 경우 수정
-            if (this.addAdult[value - 1] != undefined) {
-                this.addAdult.splice(value - 1, 1, {
+            if (this.addAdult[value] != undefined) {
+                this.addAdult.splice(value, 1, {
                     korName: this.korLastName2 + this.korFirstName2,
                     engLastName: this.engLastName2,
                     engFirstName: this.engFirstName2,
@@ -701,7 +713,6 @@ export default {
         addPassInfo3(value) { // 추가 승객(유아)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
-
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
             } else if (this.korFirstName2 == "") {
@@ -714,12 +725,12 @@ export default {
                 alert("성별을 확인해 주세요.");
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
-            } 
-            
+            }
+
             if (this.LastNameTest() == true) {
                 if (this.FirstNameTest() == true) {
                     return this.addPassInfo3Push(value);
-                }            
+                }
             }
 
         },
@@ -789,12 +800,11 @@ export default {
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
             }
-            
-                        
+
             if (this.LastNameTest() == true) {
                 if (this.FirstNameTest() == true) {
                     return this.addPassInfo4Push(value);
-                }            
+                }
             }
 
         },
@@ -1122,16 +1132,16 @@ export default {
 @media (min-width: 800px) {
     .PayModalView {
         content: url(@/assets/Logo2.png);
-    padding: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30%;
-    height: 30%;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 2px 2px 10px lightgrey;
+        padding: 20px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30%;
+        height: 30%;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 2px 2px 10px lightgrey;
     }
 }
 
@@ -1139,38 +1149,38 @@ export default {
 
 @media (min-width: 1150px) {
     .PayModalView {
-    content: none;
-    padding: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40%;
-    height: 60%;
-    text-align: center;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 2px 2px 10px lightgrey;
-    overflow: auto;
-}
+        content: none;
+        padding: 20px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40%;
+        height: 60%;
+        text-align: center;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 2px 2px 10px lightgrey;
+        overflow: auto;
+    }
 
-.PayModalView::-webkit-scrollbar {
-    width: 20px;
-    /*스크롤바의 너비*/
-}
+    .PayModalView::-webkit-scrollbar {
+        width: 20px;
+        /*스크롤바의 너비*/
+    }
 
-.PayModalView::-webkit-scrollbar-thumb {
-    background-color: teal;
-    border-radius: 10px;
-    /*스크롤바의 색상*/
-}
+    .PayModalView::-webkit-scrollbar-thumb {
+        background-color: teal;
+        border-radius: 10px;
+        /*스크롤바의 색상*/
+    }
 
-.PayModalView::-webkit-scrollbar-track {
-    margin-top: 10px;
-    -webkit-margin-bottom-collapse: 10px;
-    background-color: white;
-    /*스크롤바 트랙 색상*/
-}
+    .PayModalView::-webkit-scrollbar-track {
+        margin-top: 10px;
+        -webkit-margin-bottom-collapse: 10px;
+        background-color: white;
+        /*스크롤바 트랙 색상*/
+    }
 }
 
 .IATAModalView {

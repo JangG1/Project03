@@ -4,29 +4,13 @@
         <span class="comTitle">예약이 완료되었습니다.</span><br>
     </div>
 
-    <div class="comInfoList">
-        <div class="comInfoTitle">
-            승객 정보 [예약자] <span v-if="chooseInfo.AdultCount > 1">1</span>
-        </div>
-        <div class="comInfoLeft">
-            <span class="listLeft">한글 이름</span><br><br>
-            <span class="listLeft">영어 이름</span><br><br>
-            <span class="listLeft">생년 월일</span><br><br>
-            <span class="listLeft">성별</span>
-        </div>
-        <div class="comInfoRight">
-            <span class="listRight">{{userInfo2[0].korName}}</span><br><br>
-            <span class="listRight">{{userInfo2[1].engLastName}} {{userInfo2[2].engFirstName}}</span><br><br>
-            <span class="listRight">{{userInfo2[4].birthday}}</span><br><br>
-            <span class="listRight">{{userInfo2[3].gender}}</span>
-        </div>
-    </div>
-
-    <!--추가 승객 정보(성인)-->
-    <span v-for="(pas,index) in chooseInfo.AdultCount - 1" :key="index">
+    <!-- 승객 정보(성인) -->
+    <span v-for="(pas,index) in chooseInfo.AdultCount" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [성인] 승객 정보 {{ index + 2 }}
+                [성인] 승객
+                <span v-if="index == 0">[예약자]</span>
+                <span v-if="index > 0">{{ index + 1 }}</span>
             </div>
             <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -43,11 +27,11 @@
         </div>
     </span>
 
-    <!-- 추가 승객 정보(유아) -->
+    <!-- 승객 정보(유아) -->
     <span v-for="(pas,index) in parseInt(chooseInfo.ChildCount)" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [유아] 승객 정보 {{ index + 1 }}
+                [유아] 승객 {{ index + 1 }}
             </div>
             <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -64,11 +48,11 @@
         </div>
     </span>
 
-    <!-- 추가 승객 정보(소아)-->
+    <!-- 승객 정보(소아) -->
     <span v-for="(pas,index) in parseInt(chooseInfo.InfantCount)" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [소아] 승객 정보 {{ index + 1 }}
+                [소아] 승객 {{ index + 1 }}
             </div>
             <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -227,8 +211,8 @@ export default {
     padding: 100px 0;
 }
 
-.comInfoList, 
-.comAreaList{
+.comInfoList,
+.comAreaList {
     content: url(@/assets/Logo2.png);
     width: 0%;
     height: 0%;
@@ -238,12 +222,12 @@ export default {
     content: url(@/assets/Logo2.png);
     width: 40%;
     height: 50%;
-    margin-left: 30%;    
+    margin-left: 30%;
     margin-bottom: 30%;
 }
 
 .comBtn {
-    text-align: center;    
+    text-align: center;
 }
 
 .comBtn1,
@@ -274,7 +258,7 @@ a:active {
     color: white;
 }
 
-.FootLeft p{
+.FootLeft p {
     color: white;
 }
 
@@ -283,278 +267,275 @@ a:active {
     height: 0%;
 }
 
-
-
 /* 화면 축소 전 후 */
 
 @media (min-width: 850px) {
     .comTitle {
-    color: teal;
-    font-weight: 900;
-    font-size: 40px;
-    text-align: center;
-    display: block;
-    padding: 100px 0;
-}
+        color: teal;
+        font-weight: 900;
+        font-size: 40px;
+        text-align: center;
+        display: block;
+        padding: 100px 0;
+    }
 
-.comInfoList {
-    content: none;
-    border: 2px solid teal;
-    border-radius: 4px;
-    height: 320px;
-    margin-bottom: 60px;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-}
+    .comInfoList {
+        content: none;
+        border: 2px solid teal;
+        border-radius: 4px;
+        height: 320px;
+        margin-bottom: 60px;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
 
-.comInfoTitle {
-    width: 100%;
-    color: white;
-    background-color: teal;
-    font-weight: 900;
-    font-size: 24px;
-    text-align: center;
-    padding: 10px 0;
-    margin-bottom: 20px;
-}
+    .comInfoTitle {
+        width: 100%;
+        color: white;
+        background-color: teal;
+        font-weight: 900;
+        font-size: 24px;
+        text-align: center;
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
 
-.comInfoLeft {
-    font-size: 20px;
-    font-weight: 900;
-    color: #999;
-    float: left;
-    margin-left: 40px;
-}
+    .comInfoLeft {
+        font-size: 20px;
+        font-weight: 900;
+        color: #999;
+        float: left;
+        margin-left: 40px;
+    }
 
-.comInfoRight {
-    font-size: 20px;
-    font-weight: 900;
-    margin-right: 40px;
-}
+    .comInfoRight {
+        font-size: 20px;
+        font-weight: 900;
+        margin-right: 40px;
+    }
 
-.listRight {
-    float: right;
-}
+    .listRight {
+        float: right;
+    }
 
-.comAreaList {
-    content: none;
-    border: 2px solid teal;
-    border-radius: 4px;
-    height: 380px;
-    margin-bottom: 40px;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-}
+    .comAreaList {
+        content: none;
+        border: 2px solid teal;
+        border-radius: 4px;
+        height: 380px;
+        margin-bottom: 40px;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
 
-.comPayList {
-    content: none;
-    border: 2px solid teal;
-    border-radius: 4px;
-    height: 190px;
-    margin-bottom: 40px;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-}
+    .comPayList {
+        content: none;
+        border: 2px solid teal;
+        border-radius: 4px;
+        height: 190px;
+        margin-bottom: 40px;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
 
-.comPayTitle {
-    width: 100%;
-    color: white;
-    background-color: teal;
-    font-weight: 900;
-    font-size: 24px;
-    text-align: center;
-    padding: 10px 0;
-    margin-bottom: 20px;
-}
+    .comPayTitle {
+        width: 100%;
+        color: white;
+        background-color: teal;
+        font-weight: 900;
+        font-size: 24px;
+        text-align: center;
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
 
-.comBtn {
-    text-align: center;
-}
+    .comBtn {
+        text-align: center;
+    }
 
-.comBtn1,
-.comBtn2 {
-    width: 12%;
-    padding: 1.5%;
-    margin: 2%;
-    color: white;
-    background-color: teal;
-    border: none;
-    border-radius: 8px;
-    font-size: 24px;
-    font-weight: 900;
-}
+    .comBtn1,
+    .comBtn2 {
+        width: 12%;
+        padding: 1.5%;
+        margin: 2%;
+        color: white;
+        background-color: teal;
+        border: none;
+        border-radius: 8px;
+        font-size: 24px;
+        font-weight: 900;
+    }
 
-.topBtn,
-a:hover,
-a:visited,
-a:active {
-    color: white;
-}
+    .topBtn,
+    a:hover,
+    a:visited,
+    a:active {
+        color: white;
+    }
 
-.Footer {
-    border-top: 1px solid;
-}
+    .Footer {
+        border-top: 1px solid;
+    }
 
-.FootLeft {
-    float: left;
-    margin-left: 20%;
-    margin-top: 30px;
-    font-size: 40px;
-    padding-bottom: 50px;
-    color:black;
-}
+    .FootLeft {
+        float: left;
+        margin-left: 20%;
+        margin-top: 30px;
+        font-size: 40px;
+        padding-bottom: 50px;
+        color: black;
+    }
 
+    .FootLeft p {
+        color: #999;
+    }
 
-.FootLeft p{
-    color: #999;
-}
+    .footLogo {
+        width: 100px;
+        height: 70px;
+    }
 
-.footLogo {
-    width: 100px;
-    height: 70px;    
-}
-
-.FootRight {
-    float: right;
-    margin-right: 280px;
-    margin-top: 60px;
-}
+    .FootRight {
+        float: right;
+        margin-right: 280px;
+        margin-top: 60px;
+    }
 
 }
 
 /* 화면 축소 전 후 */
 
 @media (min-width: 1220px) {
-.comTitle {
-    color: teal;
-    font-weight: 900;
-    font-size: 60px;
-    text-align: center;
-    display: block;
-    padding: 100px 0;
-}
+    .comTitle {
+        color: teal;
+        font-weight: 900;
+        font-size: 60px;
+        text-align: center;
+        display: block;
+        padding: 100px 0;
+    }
 
-.comInfoList {
-    content: none;
-    border: 2px solid teal;
-    border-radius: 4px;
-    height: 340px;
-    margin-bottom: 60px;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-}
+    .comInfoList {
+        content: none;
+        border: 2px solid teal;
+        border-radius: 4px;
+        height: 340px;
+        margin-bottom: 60px;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
 
-.comInfoTitle {
-    width: 100%;
-    color: white;
-    background-color: teal;
-    font-weight: 900;
-    font-size: 24px;
-    text-align: center;
-    padding: 10px 0;
-    margin-bottom: 20px;
-}
+    .comInfoTitle {
+        width: 100%;
+        color: white;
+        background-color: teal;
+        font-weight: 900;
+        font-size: 24px;
+        text-align: center;
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
 
-.comInfoLeft {
-    font-size: 22px;
-    font-weight: 900;
-    color: #999;
-    float: left;
-    margin-left: 40px;
-}
+    .comInfoLeft {
+        font-size: 22px;
+        font-weight: 900;
+        color: #999;
+        float: left;
+        margin-left: 40px;
+    }
 
-.comInfoRight {
-    font-size: 22px;
-    font-weight: 900;
-    margin-right: 40px;
-}
+    .comInfoRight {
+        font-size: 22px;
+        font-weight: 900;
+        margin-right: 40px;
+    }
 
-.listRight {
-    float: right;
-}
+    .listRight {
+        float: right;
+    }
 
-.comAreaList {
-    content: none;
-    border: 2px solid teal;
-    border-radius: 4px;
-    height: 400px;
-    margin-bottom: 40px;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-}
+    .comAreaList {
+        content: none;
+        border: 2px solid teal;
+        border-radius: 4px;
+        height: 400px;
+        margin-bottom: 40px;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
 
-.comPayList {
-    content: none;
-    border: 2px solid teal;
-    border-radius: 4px;
-    height: 205px;
-    margin-bottom: 40px;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-}
+    .comPayList {
+        content: none;
+        border: 2px solid teal;
+        border-radius: 4px;
+        height: 205px;
+        margin-bottom: 40px;
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
 
-.comPayTitle {
-    width: 100%;
-    color: white;
-    background-color: teal;
-    font-weight: 900;
-    font-size: 24px;
-    text-align: center;
-    padding: 10px 0;
-    margin-bottom: 20px;
-}
+    .comPayTitle {
+        width: 100%;
+        color: white;
+        background-color: teal;
+        font-weight: 900;
+        font-size: 24px;
+        text-align: center;
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
 
-.comBtn {
-    text-align: center;
-}
+    .comBtn {
+        text-align: center;
+    }
 
-.comBtn1,
-.comBtn2 {
-    width: 12%;
-    padding: 1.5%;
-    margin: 2%;
-    color: white;
-    background-color: teal;
-    border: none;
-    border-radius: 8px;
-    font-size: 24px;
-    font-weight: 900;
-}
+    .comBtn1,
+    .comBtn2 {
+        width: 12%;
+        padding: 1.5%;
+        margin: 2%;
+        color: white;
+        background-color: teal;
+        border: none;
+        border-radius: 8px;
+        font-size: 24px;
+        font-weight: 900;
+    }
 
-.topBtn,
-a:hover,
-a:visited,
-a:active {
-    color: rgb(77, 77, 77);
-}
+    .topBtn,
+    a:hover,
+    a:visited,
+    a:active {
+        color: rgb(77, 77, 77);
+    }
 
-.Footer {
-    border-top: 1px solid;
-}
+    .Footer {
+        border-top: 1px solid;
+    }
 
-.FootLeft {
-    float: left;
-    margin-left: 17%;
-    margin-top: 30px;
-    font-size: 40px;
-    padding-bottom: 50px;
-}
+    .FootLeft {
+        float: left;
+        margin-left: 17%;
+        margin-top: 30px;
+        font-size: 40px;
+        padding-bottom: 50px;
+    }
 
-.footLogo {
-    width: 100px;
-    height: 70px;
-}
+    .footLogo {
+        width: 100px;
+        height: 70px;
+    }
 
-.FootRight {
-    float: right;
-    margin-right: 280px;
-    margin-top: 60px;
-}
+    .FootRight {
+        float: right;
+        margin-right: 280px;
+        margin-top: 60px;
+    }
 }
 </style>

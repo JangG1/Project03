@@ -1,10 +1,11 @@
 <template>
 <div class="">
-    <span class="passTitle">예약자 정보</span>{{ res1 }}
+    <span class="passTitle">예약자 정보</span>
     <button class="passCloseBtn" @click="closeModal">X</button>
 </div>
 
-<span v-for="(pas,index) in addAdult.length" :key="index">
+<!-- 총 승객수 -->
+<span v-for="(pas,index) in res1" :key="index">
 <div class="passCount1">승객수 :
     <span class="passCount2"> (총 {{ res1[index].adultCount + res1[index].childCount + res1[index].infantCount}}명)</span>
     <span class="passCount2" v-if="res1[index].infantCount > 0">, 소아 {{res1[index].infantCount}}명</span>
@@ -14,26 +15,13 @@
 </span>
 <br>
 
-<!-- 예약자 정보 -->
-<span v-for="(pas,index) in addAdult.length" :key="index">
-<div class="passInfoList">
-    <div class="passInfoTitle">
-        승객 [예약자]<span v-if="res1.adultCount > 1">1</span>
-    </div>
-    <div class="info">
-        <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{res1[index].korName}} </span><br><br>
-        <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{res1[index].engLastName}} {{res1[index].engFirstName}} </span><br><br>
-        <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{res1[index].birthday}}</span><br><br>
-        <span class="listLeft">성별 :</span> <span class="listRight"> {{Gender(res1[index].gender)}}</span><br><br>
-    </div>
-</div>
-</span>
-
-<!-- 추가 승객 정보 (성인) -->
+<!-- 승객 정보 (성인) -->
 <span v-for="(pas,index) in addAdult" :key="index">
     <div class="passInfoList" v-if="user[0].adultCount > 1">
         <div class="passInfoTitle">
-            승객 [성인] {{ index + 2 }}
+            승객 [성인] 
+            <span v-if="index == 0">[예약자]</span>
+            <span v-if="index > 0">{{ index + 1 }}</span>
         </div>
         <div class="info">
             <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addAdult[index].korName}}</span><br><br>
@@ -44,7 +32,7 @@
     </div>
 </span>
 
-<!-- 추가 승객 정보 (유아) -->
+<!-- 승객 정보 (유아) -->
 <span v-for="(pas,index) in addChild" :key="index">
     <div class="passInfoList" v-if="user[0].childCount > 0">
         <div class="passInfoTitle">
@@ -59,7 +47,7 @@
     </div>
 </span>
 
-<!-- 추가 승객 정보 (소아) -->
+<!-- 승객 정보 (소아) -->
 <span v-for="(pas,index) in addInfant" :key="index">
     <div class="passInfoList" v-if="user[0].infantCount > 0">
         <div class="passInfoTitle">

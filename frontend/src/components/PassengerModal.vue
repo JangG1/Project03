@@ -5,14 +5,12 @@
 </div>
 
 <!-- 총 승객수 -->
-<span v-for="(pas,index) in res1" :key="index">
 <div class="passCount1">승객수 :
-    <span class="passCount2"> (총 {{ res1[index].adultCount + res1[index].childCount + res1[index].infantCount}}명)</span>
-    <span class="passCount2" v-if="res1[index].infantCount > 0">, 소아 {{res1[index].infantCount}}명</span>
-    <span class="passCount2" v-if="res1[index].childCount > 0">, 유아 {{res1[index].childCount}}명</span>
-    <span class="passCount2">성인 {{ res1[index].adultCount }}명</span>
+    <span class="passCount2"> (총 {{ addAdult.length + addChild.length + addInfant.length }}명)</span>     
+    <span class="passCount2" v-if="addInfant.length > 0">, 소아 {{addInfant.length}}명</span>
+    <span class="passCount2" v-if="addChild.length > 0">, 유아 {{addChild.length}}명</span>
+    <span class="passCount2">성인 {{addAdult.length}}명</span>     
 </div>
-</span>
 <br>
 
 <!-- 승객 정보 (성인) -->

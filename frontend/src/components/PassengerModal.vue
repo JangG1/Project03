@@ -6,19 +6,19 @@
 
 <!-- 총 승객수 -->
 <div class="passCount1">승객수 :
-    <span class="passCount2"> (총 {{ addAdult.length + addChild.length + addInfant.length }}명)</span>     
+    <span class="passCount2"> (총 {{ addAdult.length + addChild.length + addInfant.length }}명)</span>
     <span class="passCount2" v-if="addInfant.length > 0">, 소아 {{addInfant.length}}명</span>
     <span class="passCount2" v-if="addChild.length > 0">, 유아 {{addChild.length}}명</span>
-    <span class="passCount2">성인 {{addAdult.length}}명</span>     
+    <span class="passCount2">성인 {{addAdult.length}}명</span>
 </div>
 <br>
 
 <!-- 승객 정보 (성인) -->
 <span v-for="(pas,index) in addAdult" :key="index">
-    <div class="passInfoList" v-if="user[0].adultCount > 1">
+    <div class="passInfoList">
         <div class="passInfoTitle">
-            승객 [성인] 
-            <span v-if="index == 0">[예약자]</span>
+            성인
+            <span v-if="index == 0">1 [예약자]</span>
             <span v-if="index > 0">{{ index + 1 }}</span>
         </div>
         <div class="info">
@@ -32,9 +32,9 @@
 
 <!-- 승객 정보 (유아) -->
 <span v-for="(pas,index) in addChild" :key="index">
-    <div class="passInfoList" v-if="user[0].childCount > 0">
+    <div class="passInfoList">
         <div class="passInfoTitle">
-            승객 [유아] {{ index + 1 }}
+            유아 {{ index + 1 }}
         </div>
         <div class="info">
             <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addChild[index].korName}}</span><br><br>
@@ -47,9 +47,9 @@
 
 <!-- 승객 정보 (소아) -->
 <span v-for="(pas,index) in addInfant" :key="index">
-    <div class="passInfoList" v-if="user[0].infantCount > 0">
+    <div class="passInfoList">
         <div class="passInfoTitle">
-            승객 [소아] {{ index + 1 }}
+            소아 {{ index + 1 }}
         </div>
         <div class="info">
             <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addInfant[index].korName}}</span><br><br>
@@ -87,14 +87,16 @@ export default {
             this.$emit('close')
         },
         getData() {
-           let email = this.$store.state.userInfo.email;
-
-           axios.get('/res/resList/' + email)
+            let email = this.$store.state.userInfo.email;
+            this.$store.dispatch("setLoading", true);
+            axios.get('/res/resList/' + email)
                 .then((res) => {
                     this.res1 = res.data
                 })
+            this.$store.dispatch("setLoading", false);
         },
         getData2() {
+            this.$store.dispatch("setLoading", true);
             axios.get('/res/addPas/' + this.res_no)
                 .then((res) => {
                     this.res2 = res.data;
@@ -104,7 +106,7 @@ export default {
                     console.log(res)
                     console.log(this.addAdult)
                 })
-
+            this.$store.dispatch("setLoading", false);
         },
         Gender(value) {
             let gender = value

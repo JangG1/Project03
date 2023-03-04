@@ -1,21 +1,21 @@
 <template>
-<div class="layerPopup" v-show="isLoading">
-    <div class="spinner"></div>
-</div>
 <div>
     <!-- 네비게이션 바-->
     <div class="navBar">
-        <!-- 로고 -->
+        <!-- Fastrip 로고 -->
         <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo2.png" class="logo"></router-link>
-        <!-- 예약버튼 -->
+        
+        <!-- 예약 조회 버튼 -->
         <ul class="nav">
-            <router-link to="/Reservation" class="nav-link px-2 link-secondary" >예약</router-link>
+            <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
         </ul>
 
+        <!-- Test 페이지 버튼 -->
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <router-link to="/Test" class="nav-link px-2 link-secondary">Test</router-link>
         </ul>
 
+        <!-- 로그인 썸네일 -->
         <div class="profileBox">
             <!--로그인-->
             <div class="email" v-if="isLogin">{{ this.$store.state.userInfo.email }} 님</div>
@@ -30,15 +30,21 @@
 
     </div>
 
+    <!-- 로그인 모달 -->
     <div v-if="!isLogin">
         <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
 
     <hr>
 
-    <Home v-if="$route.name !== 'Arrival'"></Home>
-    <router-view></router-view>
+    <!-- <Home v-if="$route.name !== 'Arrival'"></Home>     -->
 
+    <!-- 로딩화면 -->
+    <div class="layerPopup" v-show="isLoading">
+        <div class="spinner"></div>
+    </div>
+
+    <router-view></router-view>
 </div>
 </template>
 
@@ -71,12 +77,15 @@ export default {
             return value = this.$store.state.userInfo.email;
         },
         isLogin() {
-            if(this.$store.state.isLogin == true){
+            if (this.$store.state.isLogin == true) {
                 //console.log("로그인 되었습니다.")
             }
             return this.$store.state.isLogin;
         },
-
+        isLoading() {
+            console.log("loading " + this.$store.state.isLoad);
+            return this.$store.state.isLoad;
+        },
     },
     methods: {
         logout() {
@@ -91,17 +100,17 @@ export default {
             this.$router.push('/')
         },
         getUserInfo() {
-            if(this.$store.state.isLogin == true){
-            axios.get('/api/kakao/info')
-                .then((response) => {
-                    this.userInfo = response.data                
-                    this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
-                    //this.$store.dispatch("loginSuccess");
-                })
+            if (this.$store.state.isLogin == true) {
+                axios.get('/api/kakao/info')
+                    .then((response) => {
+                        this.userInfo = response.data
+                        this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
+                        //this.$store.dispatch("loginSuccess");
+                    })
             }
         },
     },
-    
+
     mounted() {
         this.getUserInfo();
     },
@@ -140,7 +149,7 @@ export default {
 
 .profileBox {
     display: flex;
-    margin-top: 46px;    
+    margin-top: 46px;
 }
 
 .nav-link {
@@ -148,8 +157,8 @@ export default {
     margin-left: 15px;
 }
 
-.loginBtn{
-    margin-right: 10px;    
+.loginBtn {
+    margin-right: 10px;
     width: 30px;
     height: 30px;
 }
@@ -202,14 +211,14 @@ export default {
     }
 }
 
-    .loginModal{
-        content: url("@/assets/Logo2.png");    
-        width: 200px;
-        height: 200px;
-    }
+.loginModal {
+    content: url("@/assets/Logo2.png");
+    width: 200px;
+    height: 200px;
+}
 
 @media (min-width: 1000px) {
-    .loginModal{
+    .loginModal {
         content: none;
         width: 500px;
         height: 550px;

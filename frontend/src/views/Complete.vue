@@ -8,8 +8,8 @@
     <span v-for="(pas,index) in chooseInfo.AdultCount" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [성인] 승객
-                <span v-if="index == 0">[예약자]</span>
+                성인
+                <span v-if="index == 0">1 [예약자]</span>
                 <span v-if="index > 0">{{ index + 1 }}</span>
             </div>
             <div class="comInfoLeft">
@@ -31,7 +31,7 @@
     <span v-for="(pas,index) in parseInt(chooseInfo.ChildCount)" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [유아] 승객 {{ index + 1 }}
+                유아 {{ index + 1 }}
             </div>
             <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -52,7 +52,7 @@
     <span v-for="(pas,index) in parseInt(chooseInfo.InfantCount)" :key="index">
         <div class="comInfoList">
             <div class="comInfoTitle">
-                [소아] 승객 {{ index + 1 }}
+                소아 {{ index + 1 }}
             </div>
             <div class="comInfoLeft">
                 <span class="listLeft">한글 이름</span><br><br>

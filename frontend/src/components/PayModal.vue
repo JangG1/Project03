@@ -6,32 +6,12 @@
     </div>
     <br>
 
-    <!-- <span>
-        <div class="infoList">
-            <div class="title2">
-                승객 정보 <span v-if="chooseInfo.AdultCount > 1">1</span>
-            </div>
-            <div class="infoLeft">
-                <span class="listLeft">한글 이름</span><br><br>
-                <span class="listLeft">영어 이름</span><br><br>
-                <span class="listLeft">생년 월일</span><br><br>
-                <span class="listLeft">성별</span>
-            </div>
-            <div class="infoRight">
-                <span class="listRight">{{korLastName+korFirstName}}</span><br><br>
-                <span class="listRight">{{engLastName}} {{engFirstName}}</span><br><br>
-                <span class="listRight">{{birthday}}</span><br><br>
-                <span class="listRight">{{gender}}</span>
-            </div>
-        </div>
-    </span> -->
-
-    <!--추가 승객 정보(성인)-->
+    <!-- 승객 정보(성인) -->
     <span v-for="(pas,index) in parseInt(chooseInfo.AdultCount)" :key="index">
         <div class="infoList">
             <div class="title2">
-                [성인] 승객
-                <span v-if="index == 0">[예약자]</span>
+                성인
+                <span v-if="index == 0">1 [예약자]</span>
                 <span v-if="index > 0">{{ index + 1 }}</span>
             </div>
             <div class="infoLeft">
@@ -49,11 +29,11 @@
         </div>
     </span>
 
-    <!-- 추가 승객 정보(유아) -->
+    <!-- 승객 정보(유아) -->
     <span v-for="(pas,index) in parseInt(chooseInfo.ChildCount)" :key="index">
         <div class="infoList">
             <div class="title2">
-                [유아] 승객 정보 {{ index + 1 }}
+                유아 {{ index + 1 }}
             </div>
             <div class="infoLeft">
                 <span class="listLeft">한글 이름</span><br><br>
@@ -70,11 +50,11 @@
         </div>
     </span>
 
-    <!-- 추가 승객 정보(소아)-->
+    <!-- 승객 정보(소아) -->
     <span v-for="(pas,index) in parseInt(chooseInfo.InfantCount)" :key="index">
         <div class="infoList">
             <div class="title2">
-                [소아] 승객 정보 {{ index + 1 }}
+                소아 {{ index + 1 }}
             </div>
             <div class="infoLeft">
                 <span class="listLeft">한글 이름</span><br><br>

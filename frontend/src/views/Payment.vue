@@ -637,7 +637,6 @@ export default {
                 })
             }
 
-            console.log(this.addAdult)
         },
         addPassInfo2(value) { // 추가 승객(성인)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');

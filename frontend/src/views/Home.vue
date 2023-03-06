@@ -485,10 +485,10 @@ export default {
                 this.startDay = this.oneWay.getDate();
                 this.startWeek = this.week[this.oneWay.getDay()];
 
-                this.returnYear = " ";
-                this.returnMonth = " ";
-                this.returnDay = " ";
-                this.returnWeek = " ";
+                this.returnYear = '';
+                this.returnMonth = '';
+                this.returnDay = '';
+                this.returnWeek = '';
             }
 
             if (this.selectDate1 == false && this.selectDate2 == false) {
@@ -518,7 +518,7 @@ export default {
                 fromArea = this.toImgName
                 toArea = this.fromImgName
             }
-
+            
             chooseInfo = {
                 fromArea: fromArea,
                     toArea: toArea,

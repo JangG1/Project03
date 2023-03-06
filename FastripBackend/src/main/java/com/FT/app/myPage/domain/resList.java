@@ -45,21 +45,6 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String email;		
 	
-	/*@Column(nullable = false, length = 50)
-	private String korName;
-
-	@Column(nullable = false, length = 50)
-	private String engLastName;
-	
-	@Column(nullable = false, length = 50)
-	private String engFirstName;
-
-	@Column(nullable = false, length = 50)
-	private String gender;
-	
-	@Column(nullable = false, length = 50)
-	private String birthday;*/
-	
 	@Enumerated(EnumType.STRING)
 	private Seat seat; //Enum 사용 (일반석, 이코노미, 비즈니스)
 	

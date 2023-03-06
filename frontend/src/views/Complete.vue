@@ -91,8 +91,7 @@
             <span class="listRight">{{ chooseInfo.seat }} {{ startInfo.seatClass1 }}</span>
         </div>
     </div>
-
-    <div class="comAreaList" v-if="returnYear != ' '">
+    <div class="comAreaList" v-if="chooseInfo.returnYear">
         <div class="comInfoTitle">
             오는편
         </div>

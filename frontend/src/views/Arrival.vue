@@ -8,6 +8,7 @@
     </div>
     <div class="arrInfo">
         <button type="button">
+            <!-- 출발지 -> 도착지 -->
             <div class="info1">
                 {{chooseInfo.fromArea}} &nbsp;
                 <img src="../assets/arrow2.jpg"> &nbsp;
@@ -16,10 +17,13 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="arrInfoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
+                <!-- 출발일 -->
                 <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
-                <span v-if="chooseInfo.returnYear"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
+                <!-- 도착일 -->
+                <span> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
+            <!-- 승객 수 -->
             <div class="info3">
                 <img class="arrInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 성인 {{chooseInfo.AdultCount}}명
@@ -132,13 +136,13 @@ export default {
     props: {},
     methods: {
         getUserInfo() {
-            if(this.$store.state.isLogin == true){
-            axios.get('/api/kakao/info')
-                .then((response) => {
-                    this.userInfo = response.data
-                    console.log(this.userInfo)
-                    this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
-                })
+            if (this.$store.state.isLogin == true) {
+                axios.get('/api/kakao/info')
+                    .then((response) => {
+                        this.userInfo = response.data
+                        console.log(this.userInfo)
+                        this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
+                    })
             }
         },
         AddComma(num) {

@@ -29,6 +29,7 @@
                 여행 일정
             </div>
             <button type="button">
+                <!-- 출발지 -> 도착지 -->
                 <div class="pInfo1">
                     {{chooseInfo.fromArea}} &nbsp;
                     <img src="../assets/arrow2.jpg"> &nbsp;
@@ -37,10 +38,13 @@
                 <img src="../assets/vertical.jpg" width="12" class="ver">
                 <div class="pInfo2">
                     <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
+                    <!-- 출발일 -->
                     <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
-                    <span v-if="returnYear != ' '"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
+                    <!-- 도착일 -->
+                    <span v-if="chooseInfo.returnYear"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
                 </div>
                 <img src="../assets/vertical.jpg" width="12" class="ver">
+                <!-- 승객 수 -->
                 <div class="pInfo3">
                     <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                     성인 {{chooseInfo.AdultCount}}명
@@ -82,8 +86,7 @@
     </div>
 
     <br>
-
-    <div class="pArriveInfo" v-if="returnYear != ''">
+    <div class="pArriveInfo" v-if="chooseInfo.returnYear">
         <button type="button">
             <div>
                 오는 편
@@ -128,16 +131,16 @@
                 <div class="passInfo1-1">
                     <h5>승객 성<span class="asterisk"> *</span></h5><br>
                     <!--회원-->
-                    <input type="text" v-if="isLogin()" @keyup="LastNameTest" v-model="korLastName1" class="passText">
+                    <input type="text" v-if="isLogin()" v-model="korLastName1" class="passText">
                     <!--비회원-->
-                    <input type="text" v-if="!isLogin()" @keyup="LastNameTest" placeholder="예) 홍" v-model="korLastName1" class="passText">
+                    <input type="text" v-if="!isLogin()" placeholder="예) 홍" v-model="korLastName1" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>승객 이름<span class="asterisk"> *</span></h5><br>
                     <!--회원-->
-                    <input type="text" v-if="isLogin()" @keyup="FirstNameTest" v-model="korFirstName1" class="passText">
+                    <input type="text" v-if="isLogin()" v-model="korFirstName1" class="passText">
                     <!--비회원-->
-                    <input type="text" v-if="!isLogin()" @keyup="FirstNameTest" placeholder="예) 길동" v-model="korFirstName1" class="passText">
+                    <input type="text" v-if="!isLogin()" placeholder="예) 길동" v-model="korFirstName1" class="passText">
                 </div>
             </div>
 
@@ -145,12 +148,12 @@
                 <div class="passInfo1-1">
                     <h5>영문 성<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName1" class="passText">
+                    <input type="text" @change="LastNameTest" placeholder="예) HONG" v-model="engLastName1" class="passText">
                 </div>
                 <div class="passInfo1-2">
                     <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                     <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                    <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName1" class="passText">
+                    <input type="text" @change="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName1" class="passText">
                 </div>
             </div>
 
@@ -224,12 +227,12 @@
                     <div class="passInfo1-1">
                         <h5>영문 성<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                        <input type="text" @change="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
                     </div>
                     <div class="passInfo1-2">
                         <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
+                        <input type="text" @change="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
                     </div>
                 </div>
 
@@ -282,12 +285,12 @@
                     <div class="passInfo1-1">
                         <h5>영문 성<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                        <input type="text" @change="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
                     </div>
                     <div class="passInfo1-2">
                         <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
+                        <input type="text" @change="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
                     </div>
                 </div>
 
@@ -340,12 +343,12 @@
                     <div class="passInfo1-1">
                         <h5>영문 성<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
+                        <input type="text" @change="LastNameTest" placeholder="예) HONG" v-model="engLastName2" class="passText">
                     </div>
                     <div class="passInfo1-2">
                         <h5>영문 이름<span class="asterisk"> *</span></h5><br>
                         <h5 id="hint">보기와 같이 정확하게 입력해주세요.</h5>
-                        <input type="text" @keyup="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
+                        <input type="text" @change="FirstNameTest" placeholder="예) GILDONG" v-model="engFirstName2" class="passText">
                     </div>
                 </div>
 
@@ -600,12 +603,13 @@ export default {
             return this.addPas3 = value;
         },
         addPassInfo1() {
+            var str_space = /\s/; // 공백 체크
+
             //비회원 예약시 이메일 누락시 경고            
             if (this.$store.state.isLogin == false) {
                 if (this.passEmail1 == null || this.passEmail2 == null) {
                     alert("이메일을 입력해주세요.")
-                } else {
-                    this.passInfo = false;
+                    return false
                 }
             }
 
@@ -615,14 +619,49 @@ export default {
                 this.arrow = "▼"
             }
 
+            //유효성 검사1
+            if (this.korLastName1 == null) {
+                alert("승객 성을 확인해 주세요.");
+                return false
+            } else if (this.korFirstName1 == null) {
+                alert("승객 이름을 확인해 주세요");
+                return false
+            } else if (this.engLastName1 == "") {
+                alert("영문 성을 확인해 주세요.");
+                return false
+            } else if (this.engFirstName1 == null) {
+                alert("영문 이름을 확인해 주세요");
+                return false
+            } else if (this.gender1 == null) {
+                alert("성별을 확인해 주세요.");
+                return false
+            } else if (this.birthday1 == null) {
+                alert("생년 월일을 확인해 주세요.");
+                return false
+            } else if (str_space.exec(this.engLastName1)) { // 공백 체크
+                alert("영문 성 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } else if (str_space.exec(this.engFirstName1)) { // 공백 체크
+                alert("영문 이름 항목에는 공백을 사용할 수 없습니다.");
+                return false
+            } 
 
-            if (this.LastNameTest() == true) {
+            //유효성 검사2-1
+            else if (this.LastNameTest() == false) {
+                if (this.FirstNameTest() == false) {
+                    console.log("ㄴㄴ")
+                    return false
+                }
+            }
+
+            //유효성 검사2-2
+            else if (this.LastNameTest() == true) {
                 if (this.FirstNameTest() == true) {
                     this.addPas1 = true;
                     if (this.chooseInfo.AdultCount == 1) {
                         this.addPas2 = true;
                     }
-                    this.passInfo = false;
+                    console.log("ㅇㅇ")
                 }
             }
 
@@ -637,22 +676,41 @@ export default {
                 })
             }
 
+            //기존 예약자 정보가 입력된 경우 수정
+            if (this.addAdult[0] != undefined) {
+                this.addAdult.splice(0, 1, {
+                    korName: this.korLastName1 + this.korFirstName1,
+                    engLastName: this.engLastName1,
+                    engFirstName: this.engFirstName1,
+                    gender: this.gender1,
+                    birthday: this.birthday1
+                })
+            }
+
+            console.log(this.addAdult)
+            return this.passInfo = false;
         },
         addPassInfo2(value) { // 추가 승객(성인)
             var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
+                return false
             } else if (this.korFirstName2 == "") {
                 alert("이름을 확인해 주세요");
+                return false
             } else if (this.engLastName2 == "") {
                 alert("영문 성을 확인해 주세요.");
+                return false
             } else if (this.engFirstName2 == null) {
                 alert("영문 이름을 확인해 주세요");
+                return false
             } else if (genderSelected == null) {
                 alert("성별을 확인해 주세요.");
+                return false
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
+                return false
             }
 
             if (this.LastNameTest() == true) {
@@ -692,7 +750,7 @@ export default {
             this.engLastName2 = "";
             this.engFirstName2 = "";
             this.birthday2 = "";
-            genderSelected = false;
+            genderSelected == false;
 
             this.addPas1 = (value + 1) ? false : true //성인 입력창
 
@@ -714,16 +772,22 @@ export default {
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
+                return false
             } else if (this.korFirstName2 == "") {
                 alert("이름을 확인해 주세요");
-            } else if (this.engLastName2 == null) {
+                return false
+            } else if (this.engLastName2 == "") {
                 alert("영문 성을 확인해 주세요.");
+                return false
             } else if (this.engFirstName2 == null) {
                 alert("영문 이름을 확인해 주세요");
+                return false
             } else if (genderSelected == null) {
                 alert("성별을 확인해 주세요.");
+                return false
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
+                return false
             }
 
             if (this.LastNameTest() == true) {
@@ -765,7 +829,7 @@ export default {
             this.engLastName2 = "";
             this.engFirstName2 = "";
             this.birthday2 = "";
-            genderSelected = false;
+            genderSelected == false;
 
             this.addPas2 = (value) ? false : true
 
@@ -788,16 +852,22 @@ export default {
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
+                return false
             } else if (this.korFirstName2 == "") {
                 alert("이름을 확인해 주세요");
-            } else if (this.engLastName2 == null) {
+                return false
+            } else if (this.engLastName2 == "") {
                 alert("영문 성을 확인해 주세요.");
+                return false
             } else if (this.engFirstName2 == null) {
                 alert("영문 이름을 확인해 주세요");
+                return false
             } else if (genderSelected == null) {
                 alert("성별을 확인해 주세요.");
+                return false
             } else if (this.birthday2 == null) {
                 alert("생년 월일을 확인해 주세요.");
+                return false
             }
 
             if (this.LastNameTest() == true) {
@@ -839,7 +909,7 @@ export default {
             this.engLastName2 = "";
             this.engFirstName2 = "";
             this.birthday2 = "";
-            genderSelected = false;
+            genderSelected == false;
 
             this.addPas3 = (value) ? false : true
 
@@ -900,14 +970,18 @@ export default {
             } else if (str_space.exec(this.birthday1)) { // 공백 체크
                 alert("생일 항목에는 공백을 사용할 수 없습니다.");
                 return false
-            } else if (this.engLastName1 == null) {
-                alert("영문 성을 확인해주세요")
-            } else if (/^[A-Z]*$/.test(this.engLastName1)) {
-                return true
-            } else {
-                alert("영어 대문자로 입력해 주세요.")
-                this.engLastName1 = ""
             }
+
+            if (this.engLastName1 == null) {
+                alert("영문 성을 확인해주세요")
+                return false
+            } else if (/^[A-Z\s]*$/.test(this.engLastName1) == false &&
+            /^[A-Z\s]*$/.test(this.engLastName2) == false ) { // 초기화
+                alert("영문 성을 대문자로 입력해 주세요.")
+                this.engLastName1 = ""
+                return false
+            }
+
         },
         FirstNameTest() {
             var str_space = /\s/; // 공백 체크
@@ -917,24 +991,30 @@ export default {
                 return false
             } else if (str_space.exec(this.engFirstName1)) { // 공백 체크
                 alert("영어 이름 항목에는 공백을 사용할 수 없습니다.");
+                this.engFirstName1 = ""
                 return false
             } else if (str_space.exec(this.korFirstName2)) { // 공백 체크
                 alert("승객 이름 항목에는 공백을 사용할 수 없습니다.");
                 return false
             } else if (str_space.exec(this.engFirstName2)) { // 공백 체크
                 alert("영어 이름 항목에는 공백을 사용할 수 없습니다.");
+                this.engFirstName2 = ""
                 return false
             } else if (str_space.exec(this.birthday2)) { // 공백 체크
                 alert("생일 항목에는 공백을 사용할 수 없습니다.");
                 return false
-            } else if (this.engFirstName1 == null) {
-                alert("영문 이름을 확인해주세요")
-            } else if (/^[A-Z\s]*$/.test(this.engFirstName1)) {
-                return true
-            } else {
-                alert("영어 대문자로 입력해 주세요.")
-                this.engFirstName1 = ""
             }
+
+            if (this.engFirstName1 == null) {
+                alert("영문 이름을 확인해주세요")
+                return false
+            } else if (/^[A-Z\s]*$/.test(this.engFirstName1) == false &&
+            /^[A-Z\s]*$/.test(this.engFirstName2) == false ) { // 초기화
+                alert("영문 이름을 대문자로 입력해 주세요.")
+                this.engFirstName1 = ""
+                return false
+            }
+
         },
         PointPayment() {
             this.PointPaymentInfo = true
@@ -945,7 +1025,6 @@ export default {
         },
         closeModal() {
             this.PayModalView = false;
-            console.log("후")
         },
         IATAModalPopUp() {
             this.IATAModalView = (this.IATAModalView) ? false : true
@@ -1079,22 +1158,43 @@ export default {
 
         PayModalPopUp() {
 
-            if (this.engLastName1 == null) {
-                alert("영문 성을 확인해주세요")
+            if (this.addAdult[0].korName == "" ||
+                this.addAdult[0].engFirstName == "" ||
+                this.addAdult[0].engLastName == "" ||
+                this.addAdult[0].birthday == "" ||
+                this.addAdult[0].gender == "") {
+                alert("승객 정보를 확인해주세요")
+                return false
             }
 
-            if (this.engFirstName1 == null) {
-                alert("영문 이름을 확인해주세요")
-            }
+            /*if (this.chooseInfo.AdultCount > 1 ||
+                this.chooseInfo.ChildCount > 0 ||
+                this.chooseInfo.InfantCount > 0) {
+                for (let i = 0; i <= this.addAdult.length; i++) {
+                    for (let i = 0; i <= this.addChild.length; i++) {
+                        for (let i = 0; i <= this.addInfant.length; i++) {
+                            if (this.korLastName2 == "" ||
+                                this.korFirstName2 == "" ||
+                                this.engLastName2 == "" ||
+                                this.engFirstName2 == "") {
+                                alert("승객 정보를 확인해주세요")
+                                return false
+                            }
+                        }
+                    }
+                }
+            }*/
 
             if (this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                 console.log("필수 체크 완료")
             } else {
                 alert("[확인 및 동의] 필수 동의 항목을 확인해주세요.")
+                return false
             }
 
             if (this.holdPoint < this.totalPoint) {
                 alert("포인트가 모자랍니다.")
+                return false
             } else if (this.holdPoint >= this.totalPoint) {
                 if (this.engLastName1 != null && this.engFirstName1 != null && this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                     this.PayModalView = true

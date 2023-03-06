@@ -8,6 +8,7 @@
     </div>
     <div class="info">
         <button type="button">
+            <!-- 출발지 -> 도착지 -->
             <div class="info1">
                 {{chooseInfo.fromArea}} &nbsp;
                 <img src="../assets/arrow2.jpg"> &nbsp;
@@ -16,10 +17,13 @@
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
+                <!--출발일-->
                 <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
-                <span v-if="chooseInfo.returnYear != chooseInfo.returnYearValue"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
+                <!--도착일-->
+                <span v-if="chooseInfo.returnYear"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
+            <!-- 승객 수 -->
             <div class="info3">
                 <img class="infoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
                 성인 {{chooseInfo.AdultCount}}명
@@ -100,7 +104,6 @@ export default {
             price: '',
             selectPrice: 0,
             seatPrice: 0,
-            returnYearValue: " ",
             chooseInfo: this.$store.state.chooseInfo,
         }
     },
@@ -108,9 +111,6 @@ export default {
 
     },
     methods: {
-        test() {
-            console.log(this.seatClass)
-        },
         AddComma(num) {
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
             return num.toString().replace(regexp, ",");
@@ -138,8 +138,6 @@ export default {
             this.seatClass = seatClass;
         },
         selectFlight(index) {
-            console.log(this.st[index].flight)
-
             let flight = this.st[index].flight;
 
             this.flight1 = flight;
@@ -163,7 +161,7 @@ export default {
 
             if (this.chooseInfo.returnYear == "") {
                 this.$router.push('Payment')
-            } else if (this.chooseInfo.returnYear != " ") {
+            } else if (this.chooseInfo.returnYear != "") {
                 this.$router.push('Arrival')
             }
 

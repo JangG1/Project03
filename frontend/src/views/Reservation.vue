@@ -50,7 +50,7 @@
                     <!-- 가는편/오는편 -->
                     <td>{{resDate2(res.startDate) + " " + res.startTime1 + " ~ " + res.arriveTime1}}</td>
                     <td v-if="res.way == '왕복'">{{resDate2(res.returnDate) + " " + res.startTime2}} ~ {{res.arriveTime2}}</td>
-                    <td v-if="res.way == '편도'">-</td>
+                    <td v-if="res.way == '편도'" class="oneWay">-</td>
                     <td>{{res.way}}</td>
                     <td>{{res.seat}}</td>
                     <td>{{res.fromArea + " → " + res.toArea + "(" + res.flight1 + ")"}}</td>
@@ -147,7 +147,8 @@ export default {
                     this.user = res.data
                 })
                 .catch(err => {
-                    console.log(err)                    
+                    console.log(err)                            
+                    console.log("ss")
                 })
         },
         passengerModal(value) { //예약자 정보 팝업
@@ -382,5 +383,10 @@ a:active {
 
 .emailTextBar:hover{    
     border: 3px solid teal;
+}
+
+.oneWay{
+    padding-left: 100px;
+    padding-right: 100px;
 }
 </style>

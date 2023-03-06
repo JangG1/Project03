@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <div class="areaList" v-if="chooseInfo.returnYear != ' '">
+    <div class="areaList" v-if="chooseInfo.returnYear">
         <div class="title2">
             오는편
         </div>
@@ -214,12 +214,17 @@ export default {
         },
         submit() {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
-            const returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
+            let returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
-            if (this.chooseInfo.returnYear != " ") {
+            if (this.chooseInfo.returnYear != "") {
                 this.way = "왕복"
             } else {
                 this.way = "편도";
+                returnDate = '';
+                this.returnInfo.seatClass2 = '';                
+                this.returnInfo.flight2 = '';                
+                this.returnInfo.startTime2 = '';
+                this.returnInfo.arriveTime2 = '';
             }
 
             let email = "";

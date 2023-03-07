@@ -23,18 +23,18 @@
         <table v-if="res != ''" class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col">예약 취소</th>
-                    <th scope="col">예약 번호</th>
-                    <th scope="col">예약자 정보</th>
-                    <th scope="col">예약 날짜</th>
-                    <th scope="col">가는 편</th>
-                    <th scope="col">오는 편</th>
-                    <th scope="col">왕복/편도</th>
-                    <th scope="col">좌석</th>
-                    <th scope="col">출발지 → 도착지 (항공편)</th>
-                    <th scope="col">등급</th>
-                    <th scope="col">도착지 → 출발지 (항공편)</th>
-                    <th scope="col">등급</th>
+                    <th class='fixedHeader' scope="col">예약 취소</th>
+                    <th class='fixedHeader' scope="col">예약 번호</th>
+                    <th class='fixedHeader' scope="col">예약자 정보</th>
+                    <th class='fixedHeader' scope="col">예약 날짜</th>
+                    <th class='fixedHeader' scope="col">가는 편</th>
+                    <th class='fixedHeader' scope="col">오는 편</th>
+                    <th class='fixedHeader' scope="col">왕복/편도</th>
+                    <th class='fixedHeader' scope="col">좌석</th>
+                    <th class='fixedHeader' scope="col">출발지 → 도착지 (항공편)</th>
+                    <th class='fixedHeader' scope="col">등급</th>
+                    <th class='fixedHeader' scope="col">도착지 → 출발지 (항공편)</th>
+                    <th class='fixedHeader' scope="col">등급</th>
                 </tr>
             </thead>
 
@@ -179,6 +179,10 @@ export default {
 </script>
 
 <style scoped>
+.fixedHeader {
+	position: sticky;
+	top: 0;
+}
 .res {
     padding-top: 100px;
 }

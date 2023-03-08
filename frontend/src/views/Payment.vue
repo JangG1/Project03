@@ -644,24 +644,22 @@ export default {
             } else if (str_space.exec(this.engFirstName1)) { // 공백 체크
                 alert("영문 이름 항목에는 공백을 사용할 수 없습니다.");
                 return false
-            } 
+            }
 
             //유효성 검사2-1
             else if (this.LastNameTest() == false) {
                 if (this.FirstNameTest() == false) {
-                    console.log("ㄴㄴ")
                     return false
                 }
             }
 
             //유효성 검사2-2
-            else if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
+            if (this.LastNameTest() != false) {
+                if (this.FirstNameTest() != false) {
                     this.addPas1 = true;
                     if (this.chooseInfo.AdultCount == 1) {
                         this.addPas2 = true;
                     }
-                    console.log("ㅇㅇ")
                 }
             }
 
@@ -688,6 +686,7 @@ export default {
             }
 
             console.log(this.addAdult)
+            this.addPas1 = true
             return this.passInfo = false;
         },
         addPassInfo2(value) { // 추가 승객(성인)
@@ -713,8 +712,8 @@ export default {
                 return false
             }
 
-            if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
+            if (this.LastNameTest() != false) {
+                if (this.FirstNameTest() != false) {
                     return this.addPassInfo2Push(value);
                 }
             }
@@ -790,8 +789,8 @@ export default {
                 return false
             }
 
-            if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
+            if (this.LastNameTest() != false) {
+                if (this.FirstNameTest() != false) {
                     return this.addPassInfo3Push(value);
                 }
             }
@@ -870,8 +869,8 @@ export default {
                 return false
             }
 
-            if (this.LastNameTest() == true) {
-                if (this.FirstNameTest() == true) {
+            if (this.LastNameTest() != false) {
+                if (this.FirstNameTest() != false) {
                     return this.addPassInfo4Push(value);
                 }
             }
@@ -976,7 +975,7 @@ export default {
                 alert("영문 성을 확인해주세요")
                 return false
             } else if (/^[A-Z\s]*$/.test(this.engLastName1) == false &&
-            /^[A-Z\s]*$/.test(this.engLastName2) == false ) { // 초기화
+                /^[A-Z\s]*$/.test(this.engLastName2) == false) { // 초기화
                 alert("영문 성을 대문자로 입력해 주세요.")
                 this.engLastName1 = ""
                 return false
@@ -1009,7 +1008,7 @@ export default {
                 alert("영문 이름을 확인해주세요")
                 return false
             } else if (/^[A-Z\s]*$/.test(this.engFirstName1) == false &&
-            /^[A-Z\s]*$/.test(this.engFirstName2) == false ) { // 초기화
+                /^[A-Z\s]*$/.test(this.engFirstName2) == false) { // 초기화
                 alert("영문 이름을 대문자로 입력해 주세요.")
                 this.engFirstName1 = ""
                 return false

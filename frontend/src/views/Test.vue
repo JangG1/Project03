@@ -1,23 +1,87 @@
 <template>
-    <div class="slider">
-        <input type="radio" name="slide" id="slide1" checked>
-        <input type="radio" name="slide" id="slide2">
-        <input type="radio" name="slide" id="slide3">
-        <input type="radio" name="slide" id="slide4">
-        <ul id="imgholder" class="imgs">
-            <li><img class="b1" src="@/assets/bannerImage/3.jpg" /></li>
-            <li><img class="b1" src="@/assets/bannerImage/2.jpg" /></li>
-            <li><img class="b3" src="@/assets/bannerImage/3.jpg" /></li>
-            <li><img class="b4" src="@/assets/bannerImage/4.jpg" /></li>
-        </ul>
-        <div class="bullets">
-            <label for="slide1">&nbsp;</label>
-            <label for="slide2">&nbsp;</label>
-            <label for="slide3">&nbsp;</label>
-            <label for="slide4">&nbsp;</label>
-        </div>
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+
+
+    <div class="carousel-inner" id="top">
+
+            <!--배너1-->
+            <div class="carousel-item active">
+                <!--배너 좌우 이동 버튼-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                </button>
+                <!--배너 이미지1-->
+                <img class="banner" src="../assets/bannerImage/1.jpg">
+                <div class="container1">
+                    <div class="carousel-caption">
+                        <h2>Fastrip</h2>
+                        <h3>Airline Ticketing</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!--배너2-->
+            <div class="carousel-item">
+                <!--배너 좌우 이동 버튼-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                </button>
+                <!--배너 이미지2-->
+                <img class="banner" src="../assets/bannerImage/2.jpg">
+                <div class="container2">
+                    <div class="carousel-caption">
+                        <h2>Budapest</h2>
+                        <h3>in Hungary</h3>
+                        <br>
+                        <h4 @click="ing">자세히 보기</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!--배너3-->
+            <div class="carousel-item">
+                <!--배너 좌우 이동 버튼-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                </button>
+                <!--배너 이미지3-->
+                <img class="banner" src="../assets/bannerImage/3.jpg">
+                <div class="container3">
+                    <div class="carousel-caption">
+                        <h2>Hokkaido, Biei</h2>
+                        <h3>in Japan</h3>
+                        <br>
+                        <h4 @click="ing">자세히 보기</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <!--배너4-->
+            <div class="carousel-item">
+                <!--배너 좌우 이동 버튼-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                </button>
+                <!--배너 이미지4-->
+                <img class="banner" src="../assets/bannerImage/4.jpg">
+                <div class="container4">
+                    <div class="carousel-caption">
+                        <h2>Fastrip</h2>
+                        <h3>The lowest-priced airline ticket!</h3>
+                        <br>
+                        <h4 @click="ing">자세히 보기</h4>
+                    </div>
+                </div>
+            </div>
+
+        
     </div>
-    =======================================================
+</div>
+    <!-- =======================================================
     <br>
     
     <button @click="redirect()">Kakao Login</button>
@@ -26,7 +90,7 @@
     <div v-if="isLogin()">로그인 상태</div><br>
     <div v-if="!isLogin()">로그아웃 상태</div>
     
-    <!---->
+
     <div v-if="$store.state.userInfo != null">
         name : {{$store.state.userInfo.lastName+$store.state.userInfo.firstName}}<br>
         email : {{$store.state.userInfo.email}} <br>
@@ -40,7 +104,7 @@
     ==========================================================<br>
     
     ==========================================================<br>
-    <input type="button" @click="test" value="test"><br>
+    <input type="button" @click="test" value="test"><br> -->
     </template>
     
     <script>

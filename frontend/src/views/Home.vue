@@ -6,7 +6,6 @@
     </div>
 
     <div class="carousel-inner" id="top">
-        <span class="">
 
             <!--배너1-->
             <div class="carousel-item active">
@@ -81,7 +80,6 @@
                     </div>
                 </div>
             </div>
-        </span>
 
         <!--항공 예약 박스-->
         <!--------------------------------------------------------------------------------->

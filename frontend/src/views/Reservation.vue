@@ -243,6 +243,7 @@ export default {
     background-color: white;
     box-shadow: 2px 2px 10px lightgrey;
     overflow: auto;
+    z-index: 1;
 }
 
 /* 화면 축소 전 후 */

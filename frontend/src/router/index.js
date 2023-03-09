@@ -8,6 +8,12 @@ const routes = [
     component: Home
   },
   {
+    path: '/Departure/:fromArea/:toArea/:seat/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount',
+    name: 'Departure',
+    component: () => import('../views/Departure.vue'),
+    props: true
+  },  
+  {
     path: "/LoginModal",
     name: "LoginModal",
     component: () => import("@/components/LoginModal.vue"),
@@ -20,7 +26,8 @@ const routes = [
   {
     path: '/Test',
     name: 'Test',
-    component: () => import('../views/Test.vue')
+    component: () => import('../views/Test.vue'),
+    props: true
   },
   {
     path: '/Departure',

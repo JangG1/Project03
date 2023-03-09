@@ -83,7 +83,7 @@ export default {
             return this.$store.state.isLogin;
         },
         isLoading() {
-            console.log("loading " + this.$store.state.isLoad);
+            //console.log("loading " + this.$store.state.isLoad);
             return this.$store.state.isLoad;
         },
     },
@@ -104,6 +104,7 @@ export default {
                 axios.get('/api/kakao/info')
                     .then((response) => {
                         this.userInfo = response.data
+                        console.log(this.userInfo)
                         this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
                         //this.$store.dispatch("loginSuccess");
                     })

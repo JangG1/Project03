@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -46,6 +47,7 @@ import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.User;
 import com.FT.app.login.API.KakaoAPI;
 import com.FT.app.login.service.UserService;
+import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -76,7 +78,8 @@ public class LoginController {
 		public String  getEmailList(@PathVariable("email") String email) {		
 			return userRepository.회원찾기(email);
 		}*/
-
+	
+	
 	// Kakao 로그아웃
 	@GetMapping("/kakao/logout/{access_token}")
 	public String kakaoLogout(@PathVariable("access_token") String access_token) {
@@ -99,20 +102,55 @@ public class LoginController {
 		return "로그아웃 되었습니다.";           
 	}          
   
+
+	//Test
+	/*@PostMapping("/auth/kakao/callback/test")
+	public void test(@RequestBody String code) {
+			System.out.println(code);
+			kakaoCallback(code);
+		}*/
+	
+	/*@GetMapping("/kakao/info/{email}")
+	public String  getEmailList(@PathVariable("email") String email) {		
+		return userRepository.회원찾기(email);
+	}*/
+	
+
+	
+	/*@GetMapping("/kakao/info/{email}")
+	public Optional<User> sendUserInfo(@PathVariable("email") User originUser) {
+		System.out.println("받음" + originUser);
+		System.out.println("email : " + originUser.getEmail());
+		
+		Optional<User> user = userRepository.findByEmail(originUser.getEmail());
+		System.out.println(user);
+		
+		return user;
+	}*/
+	
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakao/callback")
 	public @ResponseBody RedirectView kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println("인가 코드 : " + code);
 
 		KakaoAPI kakaoAPI = new KakaoAPI();
-		//KakaoAPI 인가 코드 전송 및 유저 정보 응답
 		String redNum = ""; //redNum = redirectNumber
 		
+		//KakaoAPI 인가 코드 전송 및 유저 정보 응답
 		User kakaoUser = (User) kakaoAPI.KakaoAPI(code,redNum);
+		System.out.println("kakaoUser" + kakaoUser);
 		
 		// 기존 회원 찾기(중복)
 		User originUser = userService.회원찾기(kakaoUser.getEmail());
 
+		// Test Start
+		
+		//System.out.println("보냄" + originUser);
+		
+		//sendUserInfo(originUser);
+		
+		// Test End
+		
 		// 기존 회원 아닐시 새로 등록
 		if (originUser.getEmail() == null) {
 			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
@@ -128,11 +166,23 @@ public class LoginController {
 		
 		// 프론트로 리다이렉트
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:8080/");
+		redirectView.setUrl("http://localhost:8080/Test/");
+		// 리다이렉트 시 User object 전달
+		redirectView.addStaticAttribute("email", kakaoUser.getEmail());
+		redirectView.addStaticAttribute("name", kakaoUser.getName());
+		redirectView.addStaticAttribute("profile", kakaoUser.getProfile());
+		redirectView.addStaticAttribute("gender", kakaoUser.getGender());
+		redirectView.addStaticAttribute("birthday", kakaoUser.getBirthday());
+		redirectView.addStaticAttribute("access_token", kakaoUser.getAccess_token());
+		redirectView.addStaticAttribute("refreshtoken", kakaoUser.getRefresh_token());
+		// 리다이렉트 url parameter 암호화
+		redirectView.setExposePathVariables(false);
+		redirectView.setExposeModelAttributes(true);
+		
 		return redirectView;
 	}
 
-	// Kakao User 정보 가져오기(도착지 선택 페이지에서 결제 페이지 넘어갈시 로그인이 필요한 경우)
+	// Kakao User 정보 가져오기(도착지 선택 페이지(Arrive)에서 결제 페이지 넘어갈시 로그인이 필요한 경우)
 	@GetMapping("/auth/kakao/callback2")
 	public @ResponseBody RedirectView kakaoCallback2(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println("인가 코드 : " + code);

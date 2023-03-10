@@ -101,32 +101,6 @@ public class LoginController {
 		System.out.println("로그아웃 id : " + response.getBody());
 		return "로그아웃 되었습니다.";           
 	}          
-  
-
-	//Test
-	/*@PostMapping("/auth/kakao/callback/test")
-	public void test(@RequestBody String code) {
-			System.out.println(code);
-			kakaoCallback(code);
-		}*/
-	
-	/*@GetMapping("/kakao/info/{email}")
-	public String  getEmailList(@PathVariable("email") String email) {		
-		return userRepository.회원찾기(email);
-	}*/
-	
-
-	
-	/*@GetMapping("/kakao/info/{email}")
-	public Optional<User> sendUserInfo(@PathVariable("email") User originUser) {
-		System.out.println("받음" + originUser);
-		System.out.println("email : " + originUser.getEmail());
-		
-		Optional<User> user = userRepository.findByEmail(originUser.getEmail());
-		System.out.println(user);
-		
-		return user;
-	}*/
 	
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakao/callback")

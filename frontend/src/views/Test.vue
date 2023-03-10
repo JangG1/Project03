@@ -21,7 +21,10 @@
 
 ==========================================================<br>
 <input type="button" @click="kakaoLoginTest" value="test"><br>
+🎈{{ $store.state.userInfo3 }}🎈<br>
 ==========================================================<br>
+{{ params }}<br>
+{{ this.$route.query }} <br>
 {{ this.$route.query.email }} <br>
 {{ this.$route.query.name }} <br>
 {{ this.$route.query.profile }} <br>
@@ -38,7 +41,7 @@ export default {
     name: "HelloWorld",
     data() {
         return {
-            props: '',
+            params: this.$route.query,
             holdPoint: this.$store.state.holdPoint,
             name: '',
             email: '',
@@ -58,27 +61,13 @@ export default {
     components: {},
     created() {},
     methods: {
-        kakaoLoginTest() {
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8080/Test&response_type=code";
+        test() {
+            history.pushState(null, "", `/Test`)
         },
-        kakaoLoginTest2() {
-            window.Kakao.Auth.login({
-                // persistAccessToken: true,
-                success: (auth) => {
-                    console.log(auth)
-                    console.log(auth.id_token)
-                    /*axios.post('/api/auth/kakao/callback/test',{
-                        code: auth.id_token
-                    })
-                        .then((response) => {
-                            console.log("성공")
-                            console.log(response.data)
-                        })*/
-                },
-                fail: (err) => {
-                    console.error(err)
-                }
-            })
+        setInfo(){
+            if(this.$route.query.email != null){
+            this.$store.dispatch("setUserInfo3", this.$route.query)
+            }
         },
         //카카오 로그인
         kakaoLogin() {
@@ -86,18 +75,6 @@ export default {
                 this.$store.dispatch("login")
                 window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
             }
-        },
-        test() {
-            axios.get('/api/auth/kakao/getInfo')
-                .then((response) => {
-                    console.log("성공")
-                    console.log(response.data)
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("안보내짐")
-                })
-
         },
         redirect() {
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
@@ -131,7 +108,8 @@ export default {
 
     },
     mounted() {
-        //this.getUserInfo();        
+        this.test();        
+        this.setInfo();
     },
 }
 </script>

@@ -11,6 +11,7 @@ export default createStore({
                 'returnInfo',
                 'userInfo', 
                 'userInfo2', 
+                'userInfo3', 
                 'engName',
                 'addAdult',
                 'addChild',
@@ -34,6 +35,7 @@ export default createStore({
         returnInfo: '',
         userInfo: '',
         userInfo2: '',
+        userInfo3: '',
         engName: '',
         access_token: '',
         refresh_token: '',
@@ -58,6 +60,9 @@ export default createStore({
     },
     setUserInfo(state, payload) {
         state.userInfo2 = payload
+    },
+    setUserInfo2(state, payload) {
+        state.userInfo3 = payload
     },
     setChooseInfo(state, payload){
         state.chooseInfo = payload
@@ -162,6 +167,10 @@ export default createStore({
         async setUserInfo2({ commit }, payload) {        
             console.log(payload)
             commit("setUserInfo", payload)
+        },
+        async setUserInfo3({ commit }, payload) {                    
+            console.log(payload)
+            commit("setUserInfo2", payload)
         },
         async consentBtn1({ commit }, payload) {
                 console.log(payload)

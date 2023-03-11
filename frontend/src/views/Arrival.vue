@@ -135,6 +135,14 @@ export default {
     },
     props: {},
     methods: {
+        hideParams() {
+            history.pushState(null, "", `/Arrival`)
+        },
+        setParamInfo(){
+            if(this.$route.query.email != null){
+            this.$store.dispatch("setUserInfo", this.$route.query)
+            }
+        },
         getUserInfo() {
             if (this.$store.state.isLogin == true) {
                 axios.get('/api/kakao/info')
@@ -217,7 +225,8 @@ export default {
 
     },
     mounted() {
-        this.getUserInfo();
+        this.hideParams();
+        this.setParamInfo();
     }
 }
 </script>

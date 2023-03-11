@@ -150,7 +150,7 @@ export default createStore({
         returnInfo({ commit }, payload) {       
             commit("setReturnInfo", payload)
         },
-        async setUserInfo({ commit }, payload) {            
+        /*async setUserInfo({ commit }, payload) {            
             let info = JSON.parse(payload)            
             let userInfo = {
                 lastName: info[0].name.substr(0,1),
@@ -163,14 +163,14 @@ export default createStore({
                 refresh_token: info[0].refresh_token
             }
             commit("loginSuccess", userInfo)
-        },
+        },*/
         async setUserInfo2({ commit }, payload) {        
             console.log(payload)
             commit("setUserInfo", payload)
         },
-        async setUserInfo3({ commit }, payload) {                    
+        async setUserInfo({ commit }, payload) {                    
             console.log(payload)
-            commit("setUserInfo2", payload)
+            commit("loginSuccess", payload)
         },
         async consentBtn1({ commit }, payload) {
                 console.log(payload)

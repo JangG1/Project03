@@ -10,7 +10,7 @@
 
 <!---->
 <div v-if="$store.state.userInfo != null">
-    name : {{$store.state.userInfo.lastName+$store.state.userInfo.firstName}}<br>
+    name : {{$store.state.userInfo.name}}<br>
     email : {{$store.state.userInfo.email}} <br>
     gender : {{$store.state.userInfo.gender}} <br>
     birth : {{$store.state.userInfo.birthday}} <br>
@@ -61,12 +61,12 @@ export default {
     components: {},
     created() {},
     methods: {
-        test() {
+        hideParams() {
             history.pushState(null, "", `/Test`)
         },
-        setInfo(){
+        setParamInfo(){
             if(this.$route.query.email != null){
-            this.$store.dispatch("setUserInfo3", this.$route.query)
+            this.$store.dispatch("setUserInfo", this.$route.query)
             }
         },
         //카카오 로그인
@@ -108,8 +108,8 @@ export default {
 
     },
     mounted() {
-        this.test();        
-        this.setInfo();
+        this.hideParams();        
+        this.setParamInfo();
     },
 }
 </script>

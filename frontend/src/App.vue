@@ -88,6 +88,14 @@ export default {
         },
     },
     methods: {
+        hideParams() {
+            history.pushState(null, "", `/Test`)
+        },
+        setParamInfo(){
+            if(this.$route.query.email != null){
+            this.$store.dispatch("setUserInfo", this.$route.query)
+            }
+        },
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
             alert("로그아웃 되었습니다.")
@@ -99,21 +107,11 @@ export default {
             this.$store.dispatch("logout");
             this.$router.push('/')
         },
-        getUserInfo() {
-            if (this.$store.state.isLogin == true) {
-                axios.get('/api/kakao/info')
-                    .then((response) => {
-                        this.userInfo = response.data
-                        console.log(this.userInfo)
-                        this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
-                        //this.$store.dispatch("loginSuccess");
-                    })
-            }
-        },
     },
 
     mounted() {
-        this.getUserInfo();
+        this.hideParams();
+        this.setParamInfo();
     },
 };
 </script>

@@ -9,9 +9,7 @@ export default createStore({
                 'chooseInfo',
                 'startInfo',
                 'returnInfo',
-                'userInfo', 
-                'userInfo2', 
-                'userInfo3', 
+                'userInfo',
                 'engName',
                 'addAdult',
                 'addChild',
@@ -34,8 +32,6 @@ export default createStore({
         startInfo: '',
         returnInfo: '',
         userInfo: '',
-        userInfo2: '',
-        userInfo3: '',
         engName: '',
         access_token: '',
         refresh_token: '',
@@ -57,12 +53,6 @@ export default createStore({
     },
     offLoad(state) {
         state.isLoad = false;
-    },
-    setUserInfo(state, payload) {
-        state.userInfo2 = payload
-    },
-    setUserInfo2(state, payload) {
-        state.userInfo3 = payload
     },
     setChooseInfo(state, payload){
         state.chooseInfo = payload
@@ -164,10 +154,10 @@ export default createStore({
             }
             commit("loginSuccess", userInfo)
         },*/
-        async setUserInfo2({ commit }, payload) {        
+        /*async setUserInfo2({ commit }, payload) {        
             console.log(payload)
             commit("setUserInfo", payload)
-        },
+        },*/
         async setUserInfo({ commit }, payload) {                    
             console.log(payload)
             commit("loginSuccess", payload)

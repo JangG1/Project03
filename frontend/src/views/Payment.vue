@@ -11,16 +11,16 @@
         <div class="pRight">
             <div class="pPayInfo">
                 <h5>항공 운송료 </h5><br>
-                <span>운임</span><span class="price">{{Fare(returnInfo.totalPrice)}}</span><br>
-                <span>유류할증료</span><span class="price">{{Fuel(returnInfo.totalPrice)}}</span><br>
-                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(returnInfo.totalPrice)}}</span><br>
+                <span>운임</span><span class="price">{{Fare(returnInfo?.totalPrice)}}</span><br>
+                <span>유류할증료</span><span class="price">{{Fuel(returnInfo?.totalPrice)}}</span><br>
+                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(returnInfo?.totalPrice)}}</span><br>
                 <hr>
-                <span>성인</span> {{chooseInfo.AdultCount}} 명<span class="price">{{Format1(returnInfo.totalPrice)}}</span><br>
-                <span v-if="chooseInfo.ChildCount >= 1">유아 {{chooseInfo.ChildCount}} 명<span class="price">{{Format2(returnInfo.totalPrice)}}</span></span><br>
-                <span v-if="chooseInfo.InfantCount >= 1">소아 {{chooseInfo.InfantCount}} 명<span class="price">{{Format3(returnInfo.totalPrice)}}</span></span><br>
+                <span>성인</span> {{chooseInfo?.AdultCount}} 명<span class="price">{{Format1(returnInfo?.totalPrice)}}</span><br>
+                <span v-if="chooseInfo.ChildCount >= 1">유아 {{chooseInfo?.ChildCount}} 명<span class="price">{{Format2(returnInfo?.totalPrice)}}</span></span><br>
+                <span v-if="chooseInfo.InfantCount >= 1">소아 {{chooseInfo?.InfantCount}} 명<span class="price">{{Format3(returnInfo?.totalPrice)}}</span></span><br>
             </div>
             <div class="pTotalPrice">
-                <span class="pTotal">총액</span><span class="price">{{AddComma1(returnInfo.totalPrice)}} 원</span>
+                <span class="pTotal">총액</span><span class="price">{{AddComma1(returnInfo?.totalPrice)}} 원</span>
             </div>
         </div>
 
@@ -31,28 +31,28 @@
             <button type="button">
                 <!-- 출발지 -> 도착지 -->
                 <div class="pInfo1">
-                    {{chooseInfo.fromArea}} &nbsp;
+                    {{chooseInfo?.fromArea}} &nbsp;
                     <img src="../assets/arrow2.jpg"> &nbsp;
-                    {{chooseInfo.toArea}}
+                    {{chooseInfo?.toArea}}
                 </div>
                 <img src="../assets/vertical.jpg" width="12" class="ver">
                 <div class="pInfo2">
                     <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
                     <!-- 출발일 -->
-                    <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
+                    <span>{{chooseInfo?.startYear}}-{{chooseInfo?.startMonth}}-{{chooseInfo?.startDay}}({{chooseInfo?.startWeek}})</span>
                     <!-- 도착일 -->
-                    <span v-if="chooseInfo.returnYear"> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
+                    <span v-if="chooseInfo?.returnYear"> ~ {{chooseInfo?.returnYear}}-{{chooseInfo?.returnMonth}}-{{chooseInfo?.returnDay}}({{chooseInfo?.returnWeek}})</span>
                 </div>
                 <img src="../assets/vertical.jpg" width="12" class="ver">
                 <!-- 승객 수 -->
                 <div class="pInfo3">
                     <img class="pInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                    성인 {{chooseInfo.AdultCount}}명
-                    <span v-if="chooseInfo.ChildCount > 0">
-                        , 유아 {{chooseInfo.ChildCount}}명
+                    성인 {{chooseInfo?.AdultCount}}명
+                    <span v-if="chooseInfo?.ChildCount > 0">
+                        , 유아 {{chooseInfo?.ChildCount}}명
                     </span>
-                    <span v-if="chooseInfo.InfantCount > 0">
-                        , 소아 {{chooseInfo.InfantCount}}명
+                    <span v-if="chooseInfo?.InfantCount > 0">
+                        , 소아 {{chooseInfo?.InfantCount}}명
                     </span>
                 </div>
             </button>
@@ -71,37 +71,37 @@
             </div>
             <span>│</span>
             <div class="pStartInfo1">
-                {{chooseInfo.fromArea}} &nbsp;
+                {{chooseInfo?.fromArea}} &nbsp;
                 →&nbsp;
-                {{chooseInfo.toArea}}
+                {{chooseInfo?.toArea}}
                 &nbsp;&nbsp;{{ flight1 }}
             </div>
             <span>│</span>
             <div class="pStartInfo2">
-                {{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})
-                {{startInfo.startTime1}} ~ {{startInfo.arriveTime1}} &nbsp; {{chooseInfo.seat}} {{startInfo.seatClass1}}
+                {{chooseInfo?.startYear}}-{{chooseInfo?.startMonth}}-{{chooseInfo?.startDay}}({{chooseInfo?.startWeek}})
+                {{startInfo?.startTime1}} ~ {{startInfo?.arriveTime1}} &nbsp; {{chooseInfo?.seat}} {{startInfo?.seatClass1}}
             </div>
 
         </button>
     </div>
 
     <br>
-    <div class="pArriveInfo" v-if="chooseInfo.returnYear">
+    <div class="pArriveInfo" v-if="chooseInfo?.returnYear">
         <button type="button">
             <div>
                 오는 편
             </div>
             <span>│</span>
             <div class="pArriveInfo1">
-                {{chooseInfo.toArea}} &nbsp;
+                {{chooseInfo?.toArea}} &nbsp;
                 →&nbsp;
-                {{chooseInfo.fromArea}}
+                {{chooseInfo?.fromArea}}
                 &nbsp;&nbsp; {{ flight2 }}
             </div>
             <span>│</span>
             <div class="pArriveInfo2">
-                {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})
-                {{returnInfo.startTime2}} ~ {{returnInfo.arriveTime2}} &nbsp; {{chooseInfo.seat}} {{returnInfo.seatClass2}}
+                {{chooseInfo?.returnYear}}-{{chooseInfo?.returnMonth}}-{{chooseInfo?.returnDay}}({{chooseInfo?.returnWeek}})
+                {{returnInfo?.startTime2}} ~ {{returnInfo?.arriveTime2}} &nbsp; {{chooseInfo?.seat}} {{returnInfo?.seatClass2}}
             </div>
 
         </button>
@@ -203,7 +203,7 @@
     </div>
 
     <!--추가 예약자 정보(성인)-->
-    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.AdultCount)-1" :key="index">
+    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo?.AdultCount)-1" :key="index">
         <div class="passengerTitle" @click="showPassInfo2(pas)">
             <span>
                 성인 {{ (pas + 1) }}
@@ -261,7 +261,7 @@
     </div>
 
     <!--추가 예약자 정보(유아)-->
-    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.ChildCount)" :key="index">
+    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo?.ChildCount)" :key="index">
         <div class="passengerTitle" @click="showPassInfo3(pas)">
             <span>
                 유아 {{ pas }}
@@ -319,7 +319,7 @@
     </div>
 
     <!--추가 예약자 정보(소아)-->
-    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo.InfantCount)" :key="index">
+    <div class="passengerBox" v-for="(pas, index) in parseInt(chooseInfo?.InfantCount)" :key="index">
         <div class="passengerTitle" @click="showPassInfo4(pas)">
             <span>
                 소아 {{ pas }}
@@ -476,7 +476,7 @@
 
 <div class="payFootNav">
     <div class="payFootNav1">예상 결제 금액</div>
-    <div class="payStartPrice">{{AddComma1(returnInfo.totalPrice)}} 원</div>
+    <div class="payStartPrice">{{AddComma1(returnInfo?.totalPrice)}} 원</div>
 
     <!-- <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button> -->
     <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>

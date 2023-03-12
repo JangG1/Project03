@@ -8,10 +8,10 @@
 <div class="image-album">
     <div class="images">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url">
-            <img class="image" :src="imageUrl.url" /><br>
-            <span id="prodCity">{{imageUrl.city}}</span><br>
-            <span id="prodWay">{{imageUrl.way}}</span><br>
-            <span id="prodPrice">{{"KRW " + AddComma(imageUrl.price)}}</span><br>
+            <img class="image" :src="imageUrl?.url" /><br>
+            <span id="prodCity">{{imageUrl?.city}}</span><br>
+            <span id="prodWay">{{imageUrl?.way}}</span><br>
+            <span id="prodPrice">{{"KRW " + AddComma(imageUrl?.price)}}</span><br>
             <button type="button" class="detailBtn" @click="ing">자세히 보기</button>
         </span>
 

@@ -6,10 +6,10 @@
 
 <!-- 총 승객수 -->
 <div class="passCount1">승객수 :
-    <span class="passCount2"> (총 {{ addAdult.length + addChild.length + addInfant.length }}명)</span>
-    <span class="passCount2" v-if="addInfant.length > 0">, 소아 {{addInfant.length}}명</span>
-    <span class="passCount2" v-if="addChild.length > 0">, 유아 {{addChild.length}}명</span>
-    <span class="passCount2">성인 {{addAdult.length}}명</span>
+    <span class="passCount2"> (총 {{ addAdult?.length + addChild?.length + addInfant?.length  ?? '로딩중'}}명)</span>
+    <span class="passCount2" v-if="addInfant?.length > 0">, 소아 {{addInfant.length  ?? '로딩중'}}명</span>
+    <span class="passCount2" v-if="addChild?.length > 0">, 유아 {{addChild.length  ?? '로딩중'}}명</span>
+    <span class="passCount2">성인 {{addAdult.length ?? '로딩중'}}명</span>
 </div>
 <br>
 
@@ -22,10 +22,10 @@
             <span v-if="index > 0">{{ index + 1 }}</span>
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addAdult[index].korName}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addAdult[index].engLastName}} {{addAdult[index].engFirstName}}</span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addAdult[index].birthday}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{addAdult[index].gender}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addAdult[index]?.korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addAdult[index]?.engLastName}} {{addAdult[index]?.engFirstName}}</span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addAdult[index]?.birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addAdult[index]?.gender}}</span><br><br>
         </div>
     </div>
 </span>
@@ -37,10 +37,10 @@
             유아 {{ index + 1 }}
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addChild[index].korName}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addChild[index].engLastName}} {{addChild[index].engFirstName}}</span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addChild[index].birthday}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{addChild[index].gender}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addChild[index]?.korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addChild[index]?.engLastName}} {{addChild[index]?.engFirstName}}</span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addChild[index]?.birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addChild[index]?.gender}}</span><br><br>
         </div>
     </div>
 </span>
@@ -52,10 +52,10 @@
             소아 {{ index + 1 }}
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addInfant[index].korName}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addInfant[index].engLastName}} {{addInfant[index].engFirstName}}</span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addInfant[index].birthday}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{addInfant[index].gender}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addInfant[index]?.korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addInfant[index]?.engLastName}} {{addInfant[index]?.engFirstName}}</span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addInfant[index]?.birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addInfant[index]?.gender}}</span><br><br>
         </div>
     </div>
 </span>
@@ -88,24 +88,27 @@ export default {
         },
         getData() {
             let email = this.$store.state.userInfo.email;
+
             this.$store.dispatch("setLoading", true);
+
             axios.get('/res/resList/' + email)
                 .then((res) => {
                     this.res1 = res.data
                 })
+
             this.$store.dispatch("setLoading", false);
         },
         getData2() {
             this.$store.dispatch("setLoading", true);
+
             axios.get('/res/addPas/' + this.res_no)
                 .then((res) => {
                     this.res2 = res.data;
-                    this.addAdult = res.data.adult.addAdult;
-                    this.addChild = res.data.child.addChild;
-                    this.addInfant = res.data.infant.addInfant;
-                    console.log(res)
-                    console.log(this.addAdult)
+                    this.addAdult = res.data.adult?.addAdult;
+                    this.addChild = res.data.child?.addChild;
+                    this.addInfant = res.data.infant?.addInfant;
                 })
+                
             this.$store.dispatch("setLoading", false);
         },
         Gender(value) {

@@ -10,28 +10,28 @@
         <button type="button">
             <!-- 출발지 -> 도착지 -->
             <div class="info1">
-                {{chooseInfo.fromArea}} &nbsp;
+                {{chooseInfo?.fromArea}} &nbsp;
                 <img src="../assets/arrow2.jpg"> &nbsp;
-                {{chooseInfo.toArea}}
+                {{chooseInfo?.toArea}}
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
                 <img class="arrInfoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
                 <!-- 출발일 -->
-                <span>{{chooseInfo.startYear}}-{{chooseInfo.startMonth}}-{{chooseInfo.startDay}}({{chooseInfo.startWeek}})</span>
+                <span>{{chooseInfo?.startYear}}-{{chooseInfo?.startMonth}}-{{chooseInfo?.startDay}}({{chooseInfo?.startWeek}})</span>
                 <!-- 도착일 -->
-                <span> ~ {{chooseInfo.returnYear}}-{{chooseInfo.returnMonth}}-{{chooseInfo.returnDay}}({{chooseInfo.returnWeek}})</span>
+                <span> ~ {{chooseInfo?.returnYear}}-{{chooseInfo?.returnMonth}}-{{chooseInfo?.returnDay}}({{chooseInfo?.returnWeek}})</span>
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <!-- 승객 수 -->
             <div class="info3">
                 <img class="arrInfoImg" src="../assets/person.png" width="20" height="20"> &nbsp;
-                성인 {{chooseInfo.AdultCount}}명
-                <span v-if="chooseInfo.ChildCount > 0">
-                    , 유아 {{chooseInfo.ChildCount}}명
+                성인 {{chooseInfo?.AdultCount}}명
+                <span v-if="chooseInfo?.ChildCount > 0">
+                    , 유아 {{chooseInfo?.ChildCount}}명
                 </span>
-                <span v-if="chooseInfo.InfantCount > 0">
-                    , 소아 {{chooseInfo.InfantCount}}명
+                <span v-if="chooseInfo?.InfantCount > 0">
+                    , 소아 {{chooseInfo?.InfantCount}}명
                 </span>
             </div>
         </button>
@@ -44,13 +44,13 @@
             </div>
             <span>│</span>
             <div class="startInfo1">
-                {{chooseInfo.fromArea}} &nbsp;
+                {{chooseInfo?.fromArea}} &nbsp;
                 →&nbsp;
-                {{chooseInfo.toArea}}
+                {{chooseInfo?.toArea}}
             </div>
             <span>│</span>
             <div class="startInfo2">
-                {{chooseInfo.startDate}} {{startInfo.startTime1}} ~ {{startInfo.arriveTime1}} &nbsp; {{chooseInfo.seat}} {{startInfo.seatClass1}}
+                {{chooseInfo?.startDate}} {{startInfo?.startTime1}} ~ {{startInfo?.arriveTime1}} &nbsp; {{chooseInfo?.seat}} {{startInfo?.seatClass1}}
             </div>
 
         </button>
@@ -60,21 +60,21 @@
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
                 <h3>{{res.start}}</h3>
-                <span> {{ chooseInfo.fromArea }}</span>
+                <span> {{ chooseInfo?.fromArea }}</span>
                 <div class="flight">
                     <img src="@/assets/Logo.png" class="flightLogo">
-                    {{ res.flight }}
+                    {{ res?.flight }}
                 </div>
             </div>
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
             <div class="arriveTime">
                 <h3>{{res.arrive}} </h3>
-                <span>{{ chooseInfo.toArea }}</span>
+                <span>{{ chooseInfo?.toArea }}</span>
             </div>
         </div>
 
         <button type="button" class="seatSelect" @click="[selectStandard(index),selectFlight(index)]">
-            <h3>{{chooseInfo.seat}} {{res.standard}}
+            <h3>{{chooseInfo?.seat}} {{res?.standard}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
@@ -83,12 +83,12 @@
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
         <button type="button" class="seatSelect" @click="[selectFlex(index),selectFlight(index)]">
-            <h3>{{chooseInfo.seat}} {{res.flex}}
+            <h3>{{chooseInfo?.seat}} {{res?.flex}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="check">
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
                 </svg>
             </h3>
-            <span>{{AddComma(res.priceFlex)+ " 원"}}</span><br>
+            <span>{{AddComma(res?.priceFlex)+ " 원"}}</span><br>
             <span>{{Math.floor(Math.random()*(10 - 1) + 1)}}석</span>
         </button>
 

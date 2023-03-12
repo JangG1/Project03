@@ -41,25 +41,25 @@
             <tbody>
                 <tr v-for="res in res" :key="res">
                     <td>
-                        <button type="button" class="resDelBtn" @click="resDelModal(res.res_no)">취소</button>                                                                        
+                        <button type="button" class="resDelBtn" @click="resDelModal(res?.res_no)">취소</button>                                                                        
                     </td>
-                    <td>{{"Fastrip - " + res.res_no}}</td>
-                    <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerModal(res.res_no)"></td>
+                    <td>{{"Fastrip - " + res?.res_no}}</td>
+                    <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerModal(res?.res_no)"></td>
                     <!-- 예약날짜 -->
-                    <td>{{resDate1(res.res_date)}}</td>
+                    <td>{{resDate1(res?.res_date)}}</td>
                     <!-- 가는편/오는편 -->
-                    <td>{{resDate2(res.startDate) + " " + res.startTime1 + " ~ " + res.arriveTime1}}</td>
-                    <td v-if="res.way == '왕복'">{{resDate2(res.returnDate) + " " + res.startTime2}} ~ {{res.arriveTime2}}</td>
-                    <td v-if="res.way == '편도'" class="oneWay">-</td>
-                    <td>{{res.way}}</td>
-                    <td>{{res.seat}}</td>
-                    <td>{{res.fromArea + " → " + res.toArea + "(" + res.flight1 + ")"}}</td>
-                    <td>{{res.seatClass1}}</td>
-                    <td v-if="res.way == '왕복'">{{res.toArea + " → " + res.fromArea + "(" + res.flight2 + ")"}}</td>
-                    <td v-if="res.way == '편도'">{{res.oneWayArea}}
-                        <span v-if="res.way == '편도'">-</span>
+                    <td>{{resDate2(res?.startDate) + " " + res?.startTime1 + " ~ " + res?.arriveTime1}}</td>
+                    <td v-if="res?.way == '왕복'">{{resDate2(res?.returnDate) + " " + res?.startTime2}} ~ {{res?.arriveTime2}}</td>
+                    <td v-if="res?.way == '편도'" class="oneWay">-</td>
+                    <td>{{res?.way}}</td>
+                    <td>{{res?.seat}}</td>
+                    <td>{{res?.fromArea + " → " + res?.toArea + "(" + res?.flight1 + ")"}}</td>
+                    <td>{{res?.seatClass1}}</td>
+                    <td v-if="res?.way == '왕복'">{{res?.toArea + " → " + res?.fromArea + "(" + res?.flight2 + ")"}}</td>
+                    <td v-if="res?.way == '편도'">{{res?.oneWayArea}}
+                        <span v-if="res?.way == '편도'">-</span>
                     </td>
-                    <td>{{res.seatClass2}}<span v-if="res.way == '편도'">-</span></td>
+                    <td>{{res?.seatClass2}}<span v-if="res?.way == '편도'">-</span></td>
                 </tr>
             </tbody>
         </table>

@@ -79,7 +79,23 @@ public class LoginController {
 			return userRepository.회원찾기(email);
 		}*/
 	
-	
+	// Kakao 로그아웃
+		@GetMapping("/kakao/logout")
+		public String kakaoLogout2(){
+
+			RestTemplate rt = new RestTemplate();
+
+			// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+			HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
+
+			// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
+			ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/logout?client_id=${89675f71eb67437191dff96a64831fe8}&logout_redirect_uri=${http://localhost:8080/Test}", HttpMethod.POST,
+					kakaoProfileRequest, String.class);
+	 
+			System.out.println("로그아웃 id : " + response);
+			return "로그아웃 되었습니다.";           
+		}       
+		
 	// Kakao 로그아웃
 	@GetMapping("/kakao/logout/{access_token}")
 	public String kakaoLogout(@PathVariable("access_token") String access_token) {

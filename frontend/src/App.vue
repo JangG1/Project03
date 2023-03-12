@@ -70,12 +70,6 @@ export default {
                 return require("@/assets/weblogin1.png");
             return this.$store.state.userInfo.profile;
         },
-        getEmail(value) {
-            if (this.$store.state.userInfo == null) {
-                return value == null;
-            }
-            return value = this.$store.state.userInfo.email;
-        },
         isLogin() {
             if (this.$store.state.isLogin == true) {
                 //console.log("로그인 되었습니다.")
@@ -98,7 +92,6 @@ export default {
         },
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
-            alert("로그아웃 되었습니다.")
             axios.get('/api/kakao/logout/' + access_token)
                 .then((response) => {
                     alert(response.data)

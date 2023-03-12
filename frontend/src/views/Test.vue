@@ -16,12 +16,12 @@
     birth : {{$store.state.userInfo.birthday}} <br>
     profile : {{$store.state.userInfo.profile}} <br>
     access_token : {{$store.state.userInfo.access_token}} <br>
-    refresh_token : {{$store.state.userInfo.refresh_token}} <br>
+    refresh_token : {{$store.state.userInfo.refreshtoken}} <br>
 </div>
 
 ==========================================================<br>
-<input type="button" @click="kakaoLoginTest" value="test"><br>
-🎈{{ $store.state.userInfo3 }}🎈<br>
+<input type="button" @click="logout" value="test"><br>
+🎈{{ $store.state.userInfo }}🎈<br>
 ==========================================================<br>
 {{ params }}<br>
 {{ this.$route.query }} <br>
@@ -61,6 +61,12 @@ export default {
     components: {},
     created() {},
     methods: {
+        logout(){
+            axios.get('/api/kakao/logout')
+                .then((response) => {
+                    alert(response.data)
+                })
+        },
         hideParams() {
             history.pushState(null, "", `/Test`)
         },
@@ -90,7 +96,7 @@ export default {
                 })
 
         },
-        logout() {
+        logout2() {
             let access_token = this.$store.state.userInfo.access_token;
 
             axios.get('/api/kakao/logout/' + access_token)

@@ -1,6 +1,10 @@
 package com.FT.app.login;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -94,28 +98,48 @@ public class LoginController {
 	
 	// Kakao 로그아웃
 	@GetMapping("/kakao/logout/{access_token}")
-	public String kakaoLogout(@PathVariable("access_token") String access_token) {
+	public String kakaoLogout(@PathVariable("access_token") String access_token
+			, String email) {
 		System.out.println("Access Token : " + access_token);
 
+		System.out.println("email : " + email);
+		
 		RestTemplate rt = new RestTemplate();
 
 		// HttpHeader 오브젝트 생성
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Bearer " + access_token);
 
+		
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
 		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 
 		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		/*ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
-				kakaoProfileRequest, String.class); 		*/	
+		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
+				kakaoProfileRequest, String.class); 	
 		
 		// Kakao 연결끊기 시 사용
-		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/unlink", HttpMethod.POST,
-				kakaoProfileRequest, String.class);
+		/*ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/unlink", HttpMethod.POST,
+				kakaoProfileRequest, String.class);*/
 
 		System.out.println("로그아웃 id : " + response.getBody());	
-
+		
+		
+		
+		User originUser = userService.회원찾기(email);
+		  
+		long loginId = originUser.getLogin_id();
+		
+		System.out.println(loginId);
+		
+		//
+		/*String adminKey = "dcb1f5ed2a531e82a11219d121610451";
+		
+		HttpHeaders headers2 = new HttpHeaders();
+		headers2.add("Authorization", "KakaoAK" + adminKey);
+		headers2.add("target_id_type", "user_id");
+		headers2.add("target_id", logoutId);
+*/
 		
 		return "로그아웃 되었습니다.";           
 	}          
@@ -130,7 +154,7 @@ public class LoginController {
 		
 		//KakaoAPI 인가 코드 전송 및 유저 정보 응답
 		User kakaoUser = (User) kakaoAPI.KakaoAPI(code,redNum);
-		System.out.println("kakaoUser" + kakaoUser);
+		System.out.println("kakaoUser : " + kakaoUser);
 		
 		// 기존 회원 찾기(중복)
 		User originUser = userService.회원찾기(kakaoUser.getEmail());
@@ -142,13 +166,13 @@ public class LoginController {
 		}
 
 		System.out.println("자동 로그인을 진행합니다.");
-		System.out.println("id : " + kakaoUser.getId());
+		System.out.println("id : " + kakaoUser.getLogin_id());
 		
 		// 프론트로 리다이렉트
 		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
 		// 포워드 = 특정  URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:8080/Test");
+		redirectView.setUrl("http://localhost:8080");
 		// 리다이렉트 시 User object 전달
 		redirectView.addStaticAttribute("email", kakaoUser.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser.getName());

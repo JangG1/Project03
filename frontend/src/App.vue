@@ -4,7 +4,7 @@
     <div class="navBar">
         <!-- Fastrip 로고 -->
         <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo2.png" class="logo"></router-link>
-        
+
         <!-- 예약 조회 버튼 -->
         <ul class="nav">
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
@@ -85,20 +85,27 @@ export default {
         hideParams() {
             history.pushState(null, "", `/Test`)
         },
-        setParamInfo(){
-            if(this.$route.query.email != null){
-            this.$store.dispatch("setUserInfo", this.$route.query)
+        setParamInfo() {
+            if (this.$route.query.email != null) {
+                this.$store.dispatch("setUserInfo", this.$route.query)
             }
         },
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
-            axios.get('/api/kakao/logout/' + access_token)
+            let email = this.$store.state.userInfo.email;
+
+            axios.get('/api/kakao/logout/' + access_token, {
+                params: {
+                    email: email
+                }
+                })
                 .then((response) => {
                     alert(response.data)
                 })
 
             this.$store.dispatch("logout");
             this.$router.push('/')
+
         },
     },
 

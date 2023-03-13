@@ -59,8 +59,6 @@ public class KakaoAPI {
 		// jObejct1는 json 전체가 파싱됨
 		String access_token = jObject1.get("access_token").getAsString();
 		String refresh_token = jObject1.get("refresh_token").getAsString();
-
-		//System.out.println("!!Test!! : " + response.getBody());
 		
 		System.out.println("ACCESS TOKEN : " + access_token);
 		System.out.println("REFRESH TOKEN : " + refresh_token);
@@ -97,14 +95,18 @@ public class KakaoAPI {
 			e.printStackTrace();
 		}
 
+		System.out.println(kakaoProfile.getId());
+		
 		// KakaoProfile 정보 재정의
-		User kakaoUser = User.builder().email(kakaoProfile.getKakao_account().getEmail())
+		User kakaoUser = User.builder()				
+				.email(kakaoProfile.getKakao_account().getEmail())
 				.name(kakaoProfile.getProperties().getNickname()).password("Fastrip123") // 임시 비밀번호
 				.profile(kakaoProfile.getProperties().getProfile_image())
 				.gender(kakaoProfile.getKakao_account().getGender())
 				.birthday(kakaoProfile.getKakao_account().getBirthday())
 				.access_token(access_token)
 				.refresh_token(refresh_token)
+				.login_id(kakaoProfile.getId())
 				.login_date(formatedNow).build();
 
 

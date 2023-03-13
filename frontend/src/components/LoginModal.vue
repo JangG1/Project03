@@ -41,16 +41,20 @@ export default {
     methods: {
         //카카오 로그인
         kakaoLogin() {
-            if(!this.$store.state.isLogin){
-                this.$store.dispatch("login")
+            if(!this.$store.state.isLogin){                
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
+            }
+            if(this.$route.query.email != null){
+                this.$store.dispatch("login")
             }
         },
         //카카오 로그인(Arrive 페이지용)
         kakaoLogin2() {
-            if(!this.$store.state.isLogin){
-                this.$store.dispatch("login")
+            if(!this.$store.state.isLogin){             
             window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback2&response_type=code";
+            }
+            if(this.$route.query.email != null){
+                this.$store.dispatch("login")
             }
         },       
         logout() {

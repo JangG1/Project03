@@ -332,6 +332,14 @@ export default {
         ing() {
             alert('준비중입니다.')
         },
+        hideParams() {
+            history.pushState(null, "", `/`)
+        },
+        setParamInfo(){
+            if(this.$route.query.email != null){
+            this.$store.dispatch("setUserInfo", this.$route.query)
+            }
+        },
         NoticeModalPopUp() {
             this.NoticeModalView = (this.NoticeModalView) ? false : true
         },
@@ -545,7 +553,9 @@ export default {
     },
 
     mounted() {
-        this.getNoticeView()
+        this.getNoticeView();
+        this.hideParams();        
+        this.setParamInfo();
     }
 
 }

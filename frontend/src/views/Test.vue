@@ -64,7 +64,7 @@ export default {
         logout(){
             axios.get('/api/kakao/logout')
                 .then((response) => {
-                    alert(response.data)
+                    console.log(response.data)
                 })
         },
         hideParams() {

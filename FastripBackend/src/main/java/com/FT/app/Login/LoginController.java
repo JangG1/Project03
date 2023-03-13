@@ -1,5 +1,6 @@
 package com.FT.app.login;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.json.JSONParser;
@@ -46,6 +48,7 @@ import com.FT.app.Repo.UserRepository;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.User;
 import com.FT.app.login.API.KakaoAPI;
+import com.FT.app.login.API.KakaoLogout;
 import com.FT.app.login.service.UserService;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -78,24 +81,17 @@ public class LoginController {
 		public String  getEmailList(@PathVariable("email") String email) {		
 			return userRepository.회원찾기(email);
 		}*/
+
+	@GetMapping("/kakao/logout")
+	public String logout(HttpSession session) {
+		kakaoLogout((String)session.getAttribute("access_Token"));
+	    session.removeAttribute("access_Token");
+	    session.removeAttribute("userId");
+	    return "index";
+	}
+
+
 	
-	// Kakao 로그아웃
-		@GetMapping("/kakao/logout")
-		public String kakaoLogout2(){
-
-			RestTemplate rt = new RestTemplate();
-
-			// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-			HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
-
-			// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-			ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/logout?client_id=${89675f71eb67437191dff96a64831fe8}&logout_redirect_uri=${http://localhost:8080/Test}", HttpMethod.POST,
-					kakaoProfileRequest, String.class);
-	 
-			System.out.println("로그아웃 id : " + response);
-			return "로그아웃 되었습니다.";           
-		}       
-		
 	// Kakao 로그아웃
 	@GetMapping("/kakao/logout/{access_token}")
 	public String kakaoLogout(@PathVariable("access_token") String access_token) {
@@ -111,10 +107,16 @@ public class LoginController {
 		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 
 		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
+		/*ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
+				kakaoProfileRequest, String.class); 		*/	
+		
+		// Kakao 연결끊기 시 사용
+		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/unlink", HttpMethod.POST,
 				kakaoProfileRequest, String.class);
- 
-		System.out.println("로그아웃 id : " + response.getBody());
+
+		System.out.println("로그아웃 id : " + response.getBody());	
+
+		
 		return "로그아웃 되었습니다.";           
 	}          
 	
@@ -132,14 +134,6 @@ public class LoginController {
 		
 		// 기존 회원 찾기(중복)
 		User originUser = userService.회원찾기(kakaoUser.getEmail());
-
-		// Test Start
-		
-		//System.out.println("보냄" + originUser);
-		
-		//sendUserInfo(originUser);
-		
-		// Test End
 		
 		// 기존 회원 아닐시 새로 등록
 		if (originUser.getEmail() == null) {
@@ -150,13 +144,11 @@ public class LoginController {
 		System.out.println("자동 로그인을 진행합니다.");
 		System.out.println("id : " + kakaoUser.getId());
 		
-		// 로그인 처리
-//		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getEmail(),"Fastrip123"));
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
 		// 프론트로 리다이렉트
+		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
+		// 포워드 = 특정  URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:8080/Test/");
+		redirectView.setUrl("http://localhost:8080/Test");
 		// 리다이렉트 시 User object 전달
 		redirectView.addStaticAttribute("email", kakaoUser.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser.getName());

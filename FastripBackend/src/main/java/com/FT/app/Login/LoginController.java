@@ -85,16 +85,6 @@ public class LoginController {
 		public String  getEmailList(@PathVariable("email") String email) {		
 			return userRepository.회원찾기(email);
 		}*/
-
-	@GetMapping("/kakao/logout")
-	public String logout(HttpSession session) {
-		kakaoLogout((String)session.getAttribute("access_Token"));
-	    session.removeAttribute("access_Token");
-	    session.removeAttribute("userId");
-	    return "index";
-	}
-
-
 	
 	// Kakao 로그아웃
 	@GetMapping("/kakao/logout/{access_token}")
@@ -106,13 +96,25 @@ public class LoginController {
 		
 		RestTemplate rt = new RestTemplate();
 
+		User originUser = userService.회원찾기(email);
+		  
+		String loginId = originUser.getLogin_id().toString();
+		
+String adminKey = "dcb1f5ed2a531e82a11219d121610451";
+		
+		
 		// HttpHeader 오브젝트 생성
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Bearer " + access_token);
+		headers.add("Authorization", "KakaoAK " + adminKey);
 
+		// HttpBody 오브젝트 생성
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("target_id_type", "user_id");
+		params.add("target_id", loginId);
+	
 		
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(params, headers);
 
 		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
 		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
@@ -122,15 +124,9 @@ public class LoginController {
 		/*ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/unlink", HttpMethod.POST,
 				kakaoProfileRequest, String.class);*/
 
-		System.out.println("로그아웃 id : " + response.getBody());	
+		System.out.println("로그아웃 id : " + response.getBody());			
 		
-		
-		
-		User originUser = userService.회원찾기(email);
-		  
-		long loginId = originUser.getLogin_id();
-		
-		System.out.println(loginId);
+		System.out.println(response);
 		
 		//
 		/*String adminKey = "dcb1f5ed2a531e82a11219d121610451";

@@ -7,79 +7,65 @@
 
     <div class="carousel-inner" id="top">
 
-            <!--배너1-->
-            <div class="carousel-item active">
-                <!--배너 좌우 이동 버튼-->
-                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                </button>
-                <!--배너 이미지1-->
-                <img class="banner" src="../assets/bannerImage/1.jpg" >
-                <div class="container1">
-                    <div class="carousel-caption">
-                        <h2>Fastrip</h2>
-                        <h3>Airline Ticketing</h3>
-                    </div>
-                </div>
-            </div>
+        <!--배너 좌우 이동 버튼-->
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        </button>
 
-            <!--배너2-->
-            <div class="carousel-item">
-                <!--배너 좌우 이동 버튼-->
-                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                </button>
-                <!--배너 이미지2-->
-                <img class="banner" src="../assets/bannerImage/2.jpg" loading="lazy">
-                <div class="container2">
-                    <div class="carousel-caption">
-                        <h2>Budapest</h2>
-                        <h3>in Hungary</h3>
-                        <br>
-                        <h4 @click="ing">자세히 보기</h4>
-                    </div>
+        <!--배너1-->
+        <div class="carousel-item active">
+            <!--배너 이미지1-->
+            <img class="banner" src="../assets/bannerImage/1.jpg">
+            <div class="container1">
+                <div class="carousel-caption">
+                    <h2>Fastrip</h2>
+                    <h3>Airline Ticketing</h3>
                 </div>
             </div>
+        </div>
 
-            <!--배너3-->
-            <div class="carousel-item">
-                <!--배너 좌우 이동 버튼-->
-                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                </button>
-                <!--배너 이미지3-->
-                <img class="banner" src="../assets/bannerImage/3.jpg" loading="lazy">
-                <div class="container3">
-                    <div class="carousel-caption">
-                        <h2>Hokkaido, Biei</h2>
-                        <h3>in Japan</h3>
-                        <br>
-                        <h4 @click="ing">자세히 보기</h4>
-                    </div>
+        <!--배너2-->
+        <div class="carousel-item">
+            <!--배너 이미지2-->
+            <img class="banner" src="../assets/bannerImage/2.jpg" loading="lazy">
+            <div class="container2">
+                <div class="carousel-caption">
+                    <h2>Budapest</h2>
+                    <h3>in Hungary</h3>
+                    <br>
+                    <h4 @click="ing">자세히 보기</h4>
                 </div>
             </div>
-            
-            <!--배너4-->
-            <div class="carousel-item">
-                <!--배너 좌우 이동 버튼-->
-                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                </button>
-                <!--배너 이미지4-->
-                <img class="banner" src="../assets/bannerImage/4.jpg" loading="lazy">
-                <div class="container4">
-                    <div class="carousel-caption">
-                        <h2>Fastrip</h2>
-                        <h3>The lowest-priced airline ticket!</h3>
-                        <br>
-                        <h4 @click="ing">자세히 보기</h4>
-                    </div>
+        </div>
+
+        <!--배너3-->
+        <div class="carousel-item">
+            <!--배너 이미지3-->
+            <img class="banner" src="../assets/bannerImage/3.jpg" loading="lazy">
+            <div class="container3">
+                <div class="carousel-caption">
+                    <h2>Hokkaido, Biei</h2>
+                    <h3>in Japan</h3>
+                    <br>
+                    <h4 @click="ing">자세히 보기</h4>
                 </div>
             </div>
+        </div>
+
+        <!--배너4-->
+        <div class="carousel-item">
+            <!--배너 이미지4-->
+            <img class="banner" src="../assets/bannerImage/4.jpg" loading="lazy">
+            <div class="container4">
+                <div class="carousel-caption">
+                    <h2>Fastrip</h2>
+                    <h3>The lowest-priced airline ticket!</h3>
+                    <br>
+                    <h4 @click="ing">자세히 보기</h4>
+                </div>
+            </div>
+        </div>
 
         <!--항공 예약 박스-->
         <!--------------------------------------------------------------------------------->
@@ -92,17 +78,17 @@
                 <br>
                 <div class="FromTo">
                     <!--FromArea-->
-                    <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" loading="lazy"/>
-                    <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" loading="lazy"/>
+                    <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" loading="lazy" />
+                    <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" loading="lazy" />
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea"></FromArea>
                     </div>
                     <!--Area Change-->
-                    <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy"/>
+                    <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy" />
 
                     <!--ToArea-->
-                    <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" loading="lazy"/>
-                    <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" loading="lazy"/>
+                    <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" loading="lazy" />
+                    <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" loading="lazy" />
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
                         <ToArea @close="toAreaPopUp" @update-toArea="updateToArea"></ToArea>
                     </div>
@@ -193,7 +179,7 @@
 <div class="refer">
     <!--예약 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default">
-        <img src="../assets/magnifier.jpg" width="30" height="30" loading="lazy">        
+        <img src="../assets/magnifier.jpg" width="30" height="30" loading="lazy">
         <a href="/Reservation">예약 조회</a>
     </button>
     <!-- 버튼-->
@@ -232,7 +218,7 @@
             </div>
         </div>
         <div>
-            <img class="travelImg" src="../assets/travel1.jpg" loading="lazy"/>
+            <img class="travelImg" src="../assets/travel1.jpg" loading="lazy" />
         </div>
     </div>
 </div>
@@ -335,9 +321,9 @@ export default {
         hideParams() {
             history.pushState(null, "", `/`)
         },
-        setParamInfo(){
-            if(this.$route.query.email != null){
-            this.$store.dispatch("setUserInfo", this.$route.query)
+        setParamInfo() {
+            if (this.$route.query.email != null) {
+                this.$store.dispatch("setUserInfo", this.$route.query)
             }
         },
         NoticeModalPopUp() {
@@ -421,7 +407,7 @@ export default {
         },
         updateFromArea(image) {
             this.fromImgName = image;
-            this.fromAreaView = (this.fromAreaView) ? false : true            
+            this.fromAreaView = (this.fromAreaView) ? false : true
         },
 
         updateToArea(image) {
@@ -436,13 +422,13 @@ export default {
             let month1 = String(startDate1.getMonth() + 1).padStart(2, "0");
             let day1 = String(startDate1.getDate()).padStart(2, "0");
             let date1 = this.week[startDate1.getDay()];
-          
+
             let year2 = startDate2.getFullYear();
             let month2 = String(startDate2.getMonth() + 1).padStart(2, "0");
             let day2 = String(startDate2.getDate()).padStart(2, "0");
             let date2 = this.week[startDate2.getDay()];
-            
-            return year1 + "-" + month1 + "-" + day1 + "(" + date1 + ") ~ " +  year2 + "-" + month2 + "-" + day2 + "(" + date2 + ")"
+
+            return year1 + "-" + month1 + "-" + day1 + "(" + date1 + ") ~ " + year2 + "-" + month2 + "-" + day2 + "(" + date2 + ")"
         },
         Format2(value) {
             let startDate = new Date(value);
@@ -524,27 +510,27 @@ export default {
                 fromArea = this.toImgName
                 toArea = this.fromImgName
             }
-            
+
             chooseInfo = {
                 fromArea: fromArea,
-                    toArea: toArea,
-                    seat: seat,
-                    startYear: this.startYear,
-                    startMonth: this.startMonth,
-                    startDay: this.startDay,
-                    startWeek: this.startWeek,
-                    returnYear: this.returnYear,
-                    returnMonth: this.returnMonth,
-                    returnDay: this.returnDay,
-                    returnWeek: this.returnWeek,
-                    AdultCount: this.AdultCount,
-                    ChildCount: this.ChildCount,
-                    InfantCount: this.InfantCount
-                }
+                toArea: toArea,
+                seat: seat,
+                startYear: this.startYear,
+                startMonth: this.startMonth,
+                startDay: this.startDay,
+                startWeek: this.startWeek,
+                returnYear: this.returnYear,
+                returnMonth: this.returnMonth,
+                returnDay: this.returnDay,
+                returnWeek: this.returnWeek,
+                AdultCount: this.AdultCount,
+                ChildCount: this.ChildCount,
+                InfantCount: this.InfantCount
+            }
 
             this.$store.dispatch("chooseInfo", chooseInfo);
 
-            this.$router.push('Departure')           
+            this.$router.push('Departure')
 
         },
         top() {
@@ -554,7 +540,7 @@ export default {
 
     mounted() {
         this.getNoticeView();
-        this.hideParams();        
+        this.hideParams();
         this.setParamInfo();
     }
 
@@ -658,7 +644,7 @@ a:active {
 
 .container3 h3 {
     color: rgb(219, 230, 237);
-    font-size: 30px;    
+    font-size: 30px;
     margin-left: 50px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -666,7 +652,7 @@ a:active {
 .container3 h4 {
     color: rgb(219, 230, 237);
     margin-left: 100px;
-    margin-bottom: 240px;    
+    margin-bottom: 240px;
 }
 
 .container4 h2 {
@@ -716,7 +702,7 @@ a:active {
     margin-right: 1%;
 }
 
-.bannerImg{
+.bannerImg {
     border: 10px solid #999;
 }
 
@@ -1097,7 +1083,7 @@ a:active {
 .submit-btn:hover,
 #resPassenger:hover,
 #resRoundTrip:hover,
-#resOneWay:hover  {
+#resOneWay:hover {
     border: 2.5px solid teal;
 }
 
@@ -1127,7 +1113,7 @@ a:active {
 
     .container2 h4 {
         font-size: 20px;
-        margin-bottom: 200px;        
+        margin-bottom: 200px;
     }
 
 }
@@ -1148,9 +1134,9 @@ a:active {
         margin-bottom: 220px;
     }
 
-    .container2 h2 {        
+    .container2 h2 {
         font-size: 190px;
-        
+
     }
 
     .container2 h3 {
@@ -1163,7 +1149,7 @@ a:active {
         margin-bottom: 170px;
         margin-left: 10%;
     }
-    
+
 }
 
 /* 화면 축소 전 후 */
@@ -1173,7 +1159,7 @@ a:active {
         font-size: 80px;
         margin-left: 40%;
     }
-    
+
     .container3 h3 {
         font-size: 30px;
         margin-left: 57%;
@@ -1189,7 +1175,7 @@ a:active {
         font-size: 100px;
         margin-left: 70%;
     }
-    
+
     .container4 h3 {
         font-size: 20px;
         margin-left: 70%;

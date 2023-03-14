@@ -7,7 +7,7 @@
 <button class="NB" type="button" @click="next"></button>
 <div class="image-album">
     <div class="images">
-        <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url">
+        <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url" loading="lazy">
             <img class="image" :src="imageUrl?.url" loading="lazy"/><br>
             <span id="prodCity">{{imageUrl?.city}}</span><br>
             <span id="prodWay">{{imageUrl?.way}}</span><br>
@@ -25,6 +25,10 @@
 </template>
 
 <script>
+import data from "../components/Product.json";
+
+const imageUrls = data;
+
 export default {
     name: "imageSlider",
     data() {
@@ -34,56 +38,7 @@ export default {
             IMAGE_WIDTH: 0,
             images: null,
             userText: null,
-            imageUrls: [{
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec1.jpg?raw=true",
-                    city: '서울/인천 - 두바이',
-                    way: '일반석/왕복',
-                    price: 1168300
-                },
-                {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec2.jpg?raw=true",
-                    city: '서울/인천 - 후쿠오카',
-                    way: '일반석/왕복',
-                    price: 508800
-                },
-                {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec3.jpg?raw=true",
-                    city: '서울/인천 - 싱가포르',
-                    way: '일반석/왕복',
-                    price: 1471600
-                },
-                {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec4.jpg?raw=true",
-                    city: '서울/인천 - 바르셀로나',
-                    way: '일반석/왕복',
-                    price: 1626600
-                },
-                {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec5.jpg?raw=true",
-                    city: '서울/인천 - 치앙마이',
-                    way: '일반석/왕복',
-                    price: 913900
-                },
-                {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec6.jpg?raw=true",
-                    city: '서울/인천 - 부다페스트',
-                    way: '일반석/왕복',
-                    price: 1364500
-                },
-                {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec7.jpg?raw=true",
-                    city: '서울/인천 - 타이베이',
-                    way: '일반석/왕복',
-                    price: 548300
-                },
-                {
-                    url: "https://github.com/JangG1/Project03/blob/master/frontend/src/assets/rec8.jpg?raw=true",
-                    city: '서울/인천 - 텔아비브',
-                    way: '일반석/왕복',
-                    price: 1435300
-                },
-
-            ],
+            imageUrls: imageUrls,
         };
     },
     methods: {

@@ -16,7 +16,7 @@
 
     <div class="leftbox">
         <div class="leftbox1">
-            <img src="../assets/danger2.jpg" class="IATAImg">
+            <img src="../assets/danger2.jpg" class="IATAImg" loading="lazy">
         </div>
         <div>
             <h4>무기 및 폭발물 종류</h4>
@@ -25,7 +25,7 @@
     </div>
     <div class="leftbox">
         <div class="leftbox1">
-            <img src="../assets/danger3.jpg" class="IATAImg">
+            <img src="../assets/danger3.jpg" class="IATAImg" loading="lazy">
         </div>
         <div>
             <h4>리튬 배터리 장착 전자기기</h4>
@@ -47,7 +47,7 @@
 <div class="Dright">
     <div class="rightbox">
         <div class="rightbox2">
-            <img src="../assets/danger4.jpg" class="IATAImg">
+            <img src="../assets/danger4.jpg" class="IATAImg" loading="lazy">
         </div>
         <div>
             <h4>고압가스 용기</h4>
@@ -56,7 +56,7 @@
     </div>
     <div class="rightbox">
         <div class="rightbox2">
-            <img src="../assets/danger5.jpg" class="IATAImg">
+            <img src="../assets/danger5.jpg" class="IATAImg" loading="lazy">
         </div>
         <div>
             <h4>기타 위험 물질</h4>

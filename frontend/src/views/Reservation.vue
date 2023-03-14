@@ -68,7 +68,7 @@
     <!-- FOOTER -->
     <div class="Footer">
         <div class="FootLeft">
-            <img class="footLogo" src="../assets/Logo2.png">
+            <img class="footLogo" src="../assets/Logo2.png" loading="lazy">
             <span> Fastrip</span>
             <p>&copy; 2022 Company, Fastrip</p>
         </div>

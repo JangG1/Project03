@@ -70,17 +70,11 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
-	// 유저 정보 내역 전부 조회
-	@GetMapping("/kakao/info")
+	// 유저 정보 내역 전부 조회 (사용X)
+	/*@GetMapping("/kakao/info")
 	public List<User> all() {
 		return userRepository.findAll();
-	}
-	
-	//로그인 email 기준 예약 내역 전부 조회
-		/*@GetMapping("/kakao/info/{email}")
-		public String  getEmailList(@PathVariable("email") String email) {		
-			return userRepository.회원찾기(email);
-		}*/
+	}*/
 
 	@GetMapping("/kakao/logout")
 	public String logout(HttpSession session) {
@@ -89,8 +83,6 @@ public class LoginController {
 	    session.removeAttribute("userId");
 	    return "index";
 	}
-
-
 	
 	// Kakao 로그아웃
 	@GetMapping("/kakao/logout/{access_token}")
@@ -117,7 +109,6 @@ public class LoginController {
 
 		System.out.println("로그아웃 id : " + response.getBody());	
 
-		
 		return "로그아웃 되었습니다.";           
 	}          
 	

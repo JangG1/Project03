@@ -15,7 +15,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지1-->
-                <img class="banner" src="../assets/bannerImage/1.jpg">
+                <img class="banner" src="../assets/bannerImage/1.jpg" >
                 <div class="container1">
                     <div class="carousel-caption">
                         <h2>Fastrip</h2>
@@ -32,7 +32,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지2-->
-                <img class="banner" src="../assets/bannerImage/2.jpg">
+                <img class="banner" src="../assets/bannerImage/2.jpg" loading="lazy">
                 <div class="container2">
                     <div class="carousel-caption">
                         <h2>Budapest</h2>
@@ -51,7 +51,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지3-->
-                <img class="banner" src="../assets/bannerImage/3.jpg">
+                <img class="banner" src="../assets/bannerImage/3.jpg" loading="lazy">
                 <div class="container3">
                     <div class="carousel-caption">
                         <h2>Hokkaido, Biei</h2>
@@ -70,7 +70,7 @@
                 <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                 </button>
                 <!--배너 이미지4-->
-                <img class="banner" src="../assets/bannerImage/4.jpg">
+                <img class="banner" src="../assets/bannerImage/4.jpg" loading="lazy">
                 <div class="container4">
                     <div class="carousel-caption">
                         <h2>Fastrip</h2>
@@ -92,17 +92,17 @@
                 <br>
                 <div class="FromTo">
                     <!--FromArea-->
-                    <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
-                    <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
+                    <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" loading="lazy"/>
+                    <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" loading="lazy"/>
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
                         <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea"></FromArea>
                     </div>
                     <!--Area Change-->
-                    <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" />
+                    <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy"/>
 
                     <!--ToArea-->
-                    <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" />
-                    <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" />
+                    <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" loading="lazy"/>
+                    <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" loading="lazy"/>
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
                         <ToArea @close="toAreaPopUp" @update-toArea="updateToArea"></ToArea>
                     </div>
@@ -193,16 +193,16 @@
 <div class="refer">
     <!--예약 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default">
-        <img src="../assets/magnifier.jpg" width="30" height="30">        
+        <img src="../assets/magnifier.jpg" width="30" height="30" loading="lazy">        
         <a href="/Reservation">예약 조회</a>
     </button>
     <!-- 버튼-->
-    <img src="../assets/vertical.jpg" width="20" height="40">
+    <img src="../assets/vertical.jpg" width="20" height="40" loading="lazy">
     <button type="button" class="btn btn-lg btn-default" id="checkIn" @click="ing">
         <img src="../assets/check.png" width="30" height="30">
         <a href="">체크인</a>
     </button>
-    <img src="../assets/vertical.jpg" width="20" height="40">
+    <img src="../assets/vertical.jpg" width="20" height="40" loading="lazy">
     <!--항공편 조회 버튼-->
     <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;
         <a href="">✈ &nbsp; 항공편 현황</a>
@@ -232,7 +232,7 @@
             </div>
         </div>
         <div>
-            <img class="travelImg" src="../assets/travel1.jpg" />
+            <img class="travelImg" src="../assets/travel1.jpg" loading="lazy"/>
         </div>
     </div>
 </div>
@@ -260,7 +260,7 @@
 <!-- FOOTER -->
 <footer class="Footer">
     <div class="FootLeft">
-        <img class="footLogo" src="../assets/Logo2.png">
+        <img class="footLogo" src="../assets/Logo2.png" loading="lazy">
         <span> Fastrip</span>
         <p>&copy; 2022 Company, Fastrip</p>
     </div>

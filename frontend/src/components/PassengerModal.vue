@@ -22,10 +22,10 @@
             <span v-if="index > 0">{{ index + 1 }}</span>
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addAdult[index]?.korName}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addAdult[index]?.engLastName}} {{addAdult[index]?.engFirstName}}</span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addAdult[index]?.birthday}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{addAdult[index]?.gender}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addAdult?.[index].korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addAdult?.[index].engLastName}} {{addAdult?.[index].engFirstName}}</span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addAdult?.[index].birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addAdult?.[index].gender}}</span><br><br>
         </div>
     </div>
 </span>
@@ -37,10 +37,10 @@
             유아 {{ index + 1 }}
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addChild[index]?.korName}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addChild[index]?.engLastName}} {{addChild[index]?.engFirstName}}</span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addChild[index]?.birthday}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{addChild[index]?.gender}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addChild?.[index].korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addChild?.[index].engLastName}} {{addChild?.[index].engFirstName}}</span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addChild?.[index].birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addChild?.[index].gender}}</span><br><br>
         </div>
     </div>
 </span>
@@ -52,10 +52,10 @@
             소아 {{ index + 1 }}
         </div>
         <div class="info">
-            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addInfant[index]?.korName}}</span><br><br>
-            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addInfant[index]?.engLastName}} {{addInfant[index]?.engFirstName}}</span><br><br>
-            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addInfant[index]?.birthday}}</span><br><br>
-            <span class="listLeft">성별 :</span> <span class="listRight"> {{addInfant[index]?.gender}}</span><br><br>
+            <span class="listLeft">한글 이름 :</span> <span class="listRight"> {{addInfant?.[index].korName}}</span><br><br>
+            <span class="listLeft">영어 이름 :</span> <span class="listRight"> {{addInfant?.[index].engLastName}} {{addInfant?.[index].engFirstName}}</span><br><br>
+            <span class="listLeft">생년 월일 :</span> <span class="listRight"> {{addInfant?.[index].birthday}}</span><br><br>
+            <span class="listLeft">성별 :</span> <span class="listRight"> {{addInfant?.[index].gender}}</span><br><br>
         </div>
     </div>
 </span>

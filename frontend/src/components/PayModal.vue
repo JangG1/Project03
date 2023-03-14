@@ -21,10 +21,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-                <span class="listRight">{{addAdult[index]?.korName}}</span><br><br>
-                <span class="listRight">{{addAdult[index]?.engLastName}} {{addAdult[index]?.engFirstName}}</span><br><br>
-                <span class="listRight">{{addAdult[index]?.gender}}</span><br><br>
-                <span class="listRight">{{addAdult[index]?.birthday}}</span>
+                <span class="listRight">{{addAdult?.[index].korName}}</span><br><br>
+                <span class="listRight">{{addAdult?.[index].engLastName}} {{addAdult?.[index].engFirstName}}</span><br><br>
+                <span class="listRight">{{addAdult?.[index].gender}}</span><br><br>
+                <span class="listRight">{{addAdult?.[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -42,10 +42,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-                <span class="listRight">{{addChild[index]?.korName}} </span><br><br>
-                <span class="listRight">{{addChild[index]?.engLastName}} {{addChild[index]?.engFirstName}}</span><br><br>
-                <span class="listRight">{{addChild[index]?.gender}}</span><br><br>
-                <span class="listRight">{{addChild[index]?.birthday}}</span>
+                <span class="listRight">{{addChild?.[index].korName}}</span><br><br>
+                <span class="listRight">{{addChild?.[index].engLastName}} {{addChild?.[index].engFirstName}}</span><br><br>
+                <span class="listRight">{{addChild?.[index].gender}}</span><br><br>
+                <span class="listRight">{{addChild?.[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -63,10 +63,10 @@
                 <span class="listLeft">성별</span>
             </div>
             <div class="infoRight">
-                <span class="listRight">{{addInfant[index]?.korName}}</span><br><br>
-                <span class="listRight">{{addInfant[index]?.engLastName}} {{addInfant[index]?.engFirstName}}</span><br><br>
-                <span class="listRight">{{addInfant[index]?.gender}}</span><br><br>
-                <span class="listRight">{{addInfant[index]?.birthday}}</span>
+                <span class="listRight">{{addInfant?.[index].korName}}</span><br><br>
+                <span class="listRight">{{addInfant?.[index].engLastName}} {{addInfant?.[index].engFirstName}}</span><br><br>
+                <span class="listRight">{{addInfant?.[index].gender}}</span><br><br>
+                <span class="listRight">{{addInfant?.[index].birthday}}</span>
             </div>
         </div>
     </span>
@@ -86,7 +86,7 @@
             <span class="listRight">{{startInfo?.flight1}}</span><br><br>
             <span class="listRight">{{chooseInfo?.fromArea}} &nbsp;→&nbsp; {{chooseInfo?.toArea}}</span><br><br>
             <span class="listRight">{{chooseInfo?.startYear}}-{{chooseInfo?.startMonth}}-{{chooseInfo?.startDay}}({{chooseInfo.startWeek}})
-                {{startInfo.startTime1}} ~ {{startInfo?.arriveTime1}}</span><br><br>
+                {{startInfo?.startTime1}} ~ {{startInfo?.arriveTime1}}</span><br><br>
             <span class="listRight" v-if="chooseInfo?.InfantCount > 0">, 소아 {{chooseInfo?.InfantCount}}명</span>
             <span class="listRight" v-if="chooseInfo?.ChildCount > 0">, 유아 {{chooseInfo?.ChildCount}}명</span>
             <span class="listRight">성인 {{chooseInfo?.AdultCount}}명</span>

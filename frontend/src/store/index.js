@@ -159,6 +159,7 @@ export default createStore({
             commit("setUserInfo", payload)
         },*/
         async setUserInfo({ commit }, payload) {                                
+            console.log(payload)
             commit("loginSuccess", payload)
         },
         async consentBtn1({ commit }, payload) {

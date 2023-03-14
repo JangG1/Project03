@@ -421,7 +421,7 @@ export default {
         },
         updateFromArea(image) {
             this.fromImgName = image;
-            this.fromAreaView = (this.fromAreaView) ? false : true
+            this.fromAreaView = (this.fromAreaView) ? false : true            
         },
 
         updateToArea(image) {
@@ -1062,12 +1062,28 @@ a:active {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
-    height: 40%;
-    text-align: center;
+    height: 55%;
     border-radius: 15px;
-    background-color: rgb(246, 246, 246);
+    background-color: rgb(250, 250, 250);
     box-shadow: 2px 2px 10px lightgrey;
-    z-index: 5
+    z-index: 5;
+    overflow: auto;
+}
+
+.toAreaView::-webkit-scrollbar {
+    width: 20px;
+    /*스크롤바의 너비*/
+}
+
+.toAreaView::-webkit-scrollbar-thumb {
+    background-color: teal;
+    border-radius: 10px;
+    /*스크롤바의 색상*/
+}
+
+.toAreaView::-webkit-scrollbar-track {
+    background-color: white;
+    /*스크롤바 트랙 색상*/
 }
 
 .fromBtn:hover,

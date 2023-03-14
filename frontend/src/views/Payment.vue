@@ -603,7 +603,7 @@ export default {
             return this.addPas3 = value;
         },
         addPassInfo1() {
-            var str_space = /\s/; // 공백 체크
+            let str_space = /\s/; // 공백 체크
 
             //비회원 예약시 이메일 누락시 경고            
             if (this.$store.state.isLogin == false) {
@@ -690,7 +690,7 @@ export default {
             return this.passInfo = false;
         },
         addPassInfo2(value) { // 추가 승객(성인)
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+            let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -719,7 +719,7 @@ export default {
             }
         },
         addPassInfo2Push(value) {
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+            let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             //해당 인덱스 공란 경우 등록
             if (this.addAdult[value] == undefined) {
@@ -767,7 +767,7 @@ export default {
             return this.addPas1 = value + 1; // 인원 최대값 이전까지 1씩 증가
         },
         addPassInfo3(value) { // 추가 승객(유아)
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+            let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -798,7 +798,7 @@ export default {
         },
         addPassInfo3Push(value) {
             console.log(" 유아입력 " + value)
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+            let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             //해당 인덱스 공란 경우 등록
             if (this.addChild[value - 1] == undefined) {
@@ -847,7 +847,7 @@ export default {
 
         },
         addPassInfo4(value) { // 추가 승객(소아)
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+            let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             if (this.korLastName2 == "") {
                 alert("성을 확인해 주세요.");
@@ -878,7 +878,7 @@ export default {
         },
         addPassInfo4Push(value) {
             console.log(" 소아입력 " + value)
-            var genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
+            let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             //해당 인덱스 공란 경우 등록
             if (this.addInfant[value - 1] == undefined) {
@@ -937,22 +937,22 @@ export default {
             }
         },
         Format1(value) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
             let price = value * this.chooseInfo.AdultCount;
             return price.toString().replace(regexp, ",") + " 원";
         },
         Format2(value) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
             let price = (value * 0.8) * this.chooseInfo.ChildCount;
             return "(-20%)" + price.toString().replace(regexp, ",") + " 원";
         },
         Format3(value) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
             let price = (value * 0.5) * this.chooseInfo.InfantCount;
             return "(-50%)" + price.toString().replace(regexp, ",") + " 원";
         },
         LastNameTest() {
-            var str_space = /\s/; // 공백 체크
+            let str_space = /\s/; // 공백 체크
 
             if (str_space.exec(this.korLastName1)) { // 공백 체크
                 alert("승객 성 항목에는 공백을 사용할 수 없습니다.");
@@ -983,7 +983,7 @@ export default {
 
         },
         FirstNameTest() {
-            var str_space = /\s/; // 공백 체크
+            let str_space = /\s/; // 공백 체크
 
             if (str_space.exec(this.korFirstName1)) { // 공백 체크
                 alert("승객 이름 항목에는 공백을 사용할 수 없습니다.");
@@ -1029,7 +1029,7 @@ export default {
             this.IATAModalView = (this.IATAModalView) ? false : true
         },
         AddComma1(num) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
             let price = num * this.chooseInfo.AdultCount;
 
             if (this.chooseInfo.ChildCount >= 1 && this.chooseInfo.InfantCount >= 1) {
@@ -1051,7 +1051,7 @@ export default {
             return price.toString().replace(regexp, ",");
         },
         AddComma2(num) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
 
             return num.toString().replace(regexp, ",");
         },
@@ -1124,17 +1124,17 @@ export default {
 
         },
         Fare(value) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
             let Fare = Math.floor(parseInt(value) * 0.7) + " 원";
             return Fare.toString().replace(regexp, ",");
         },
         Fuel(value) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
             let Fuel = Math.floor(parseInt(value) * 0.2) + " 원";
             return Fuel.toString().replace(regexp, ",");
         },
         Tax(value) {
-            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
             let Tax = Math.floor(parseInt(value) * 0.1) + " 원";
             return Tax.toString().replace(regexp, ",");
         },

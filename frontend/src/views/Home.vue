@@ -676,12 +676,12 @@ a:active {
 }
 
 .carousel-caption {
-    margin-left: 630px;
+    margin-left: 35%;
     color: white;
 }
 
 .carousel-indicators {
-    margin-left: 935px;
+    margin-left: 35%;
     color: rgba(213, 181, 22, 0.959);
 }
 
@@ -689,8 +689,7 @@ a:active {
     color: black;
     background-color: white;
     border-radius: 4px;
-    width: 70px;
-    height: 40px;
+    width: 15%;    
 }
 
 .banner {
@@ -716,7 +715,7 @@ a:active {
     /* 각도 */
     transform: rotate(225deg);
     top: 50%;
-    left: 710px;
+    left: 40%;
 }
 
 .carousel-control-next {
@@ -734,15 +733,14 @@ a:active {
 
 .refer {
     text-align: center;
-    margin-top: 2.5%;
-    margin-bottom: 2%;
+    margin-top: 3%;    
     font-size: 30px;
 
 }
 
 .refer button {
-    width: 400px;
-    font-weight: 900;
+    width: 20%;
+    font-weight: 900;    
 }
 
 .recommendProduct {
@@ -751,8 +749,8 @@ a:active {
 }
 
 .travelImg {
-    width: 800px;
-    height: 600px;
+    width: 40%;
+    height: 40%;
     margin-left: 29%;
     margin-bottom: 10%;
 }
@@ -801,7 +799,7 @@ a:active {
 }
 
 .footLogo {
-    width: 100px;
+    width: 40%;
     height: 70px;
 }
 
@@ -816,8 +814,8 @@ a:active {
 }
 
 .resForm {
-    width: 650px;
-    height: 750px;
+    width: 35%;
+    height: 92%;
     box-shadow: 7px 7px 15px 0px rgb(107, 138, 138), 8px 8px 16px -10px rgb(82, 96, 96);
     border: 2px solid rgb(193, 188, 188);
     border-radius: 20px;
@@ -891,8 +889,8 @@ a:active {
 }
 
 .submit-btn {
-    width: 300px;
-    height: 50px;
+    width: 60%;
+    height: 7%;
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
     font-size: 24px;
@@ -907,7 +905,7 @@ a:active {
 }
 
 .res-area-select {
-    height: 430px;
+    height: 60%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.612) 0%, rgb(237, 237, 237) 100%);
     border-radius: 50px;
     border: 1px solid rgb(193, 188, 188);
@@ -916,7 +914,7 @@ a:active {
 
 #resRoundTrip,
 #resOneWay {
-    width: 85px;
+    width: 15%;
     display: inline;
     margin: 6px;
     font-size: 24px;
@@ -932,8 +930,8 @@ a:active {
 }
 
 .ppg-refresh {
-    width: 50px;
-    height: 40px;
+    width: 9%;
+    height: 9%;
     margin: 0rem 1rem 0rem 1rem;
     vertical-align: middle;
     cursor: pointer;
@@ -941,15 +939,10 @@ a:active {
     border-radius: 18px;
 }
 
-#resFrom,
-#resTo {
-    width: 100px;
-}
-
 #resPassenger,
 #inputState {
-    width: 565px;
-    height: 70px;
+    width: 90%;
+    height: 10%;
     background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);
 }
 
@@ -967,14 +960,14 @@ a:active {
 }
 
 .bi {
-    width: 15.5px;
-    height: 15.5px;
+    width: 10%;
+    height: 100%;
     float: left;
     margin-left: 12px;
 }
 
 .datePicker {
-    width: 450px;
+    width: 80%;
     border-radius: 20px;
     color: #999;
     box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
@@ -987,7 +980,7 @@ a:active {
 }
 
 .selectDate1 {
-    width: 450px;
+    width: 80%;
     height: 16.2%;
     border: 1px solid rgb(193, 188, 188);
     border-radius: 20px;
@@ -1003,6 +996,7 @@ a:active {
 }
 
 .selectDate2 {
+    
     height: 96%;
     color: #999;
     border: 1px solid rgb(193, 188, 188);

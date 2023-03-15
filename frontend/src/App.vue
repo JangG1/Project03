@@ -119,7 +119,7 @@ export default {
 <style>
 #app {
     font-family: "NanumBarunGothicBold";
-    white-space: nowrap;
+    white-space: nowrap;    
 }
 
 @font-face {

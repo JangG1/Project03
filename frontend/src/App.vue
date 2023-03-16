@@ -119,7 +119,7 @@ export default {
 <style>
 #app {
     font-family: "NanumBarunGothicBold";
-    white-space: nowrap;    
+    white-space: nowrap;            
 }
 
 @font-face {
@@ -149,6 +149,7 @@ export default {
 .profileBox {
     display: flex;
     margin-top: 46px;
+    margin-right: 20px;
 }
 
 .nav-link {

@@ -4,11 +4,12 @@
 </div>
 <!--슬라이드 좌우 버튼-->
 <button class="PB" type="button" @click="prev"></button>
+<button v-if="nextBtn2" class="NB" type="button" @click="next"></button>
 <button class="NB" type="button" @click="next"></button>
 <div class="image-album">
     <div class="images">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url" loading="lazy">
-            <img class="image" :src="imageUrl?.url" loading="lazy"/><br>
+            <img class="image" :src="imageUrl?.url" loading="lazy" /><br>
             <span id="prodCity">{{imageUrl?.city}}</span><br>
             <span id="prodWay">{{imageUrl?.way}}</span><br>
             <span id="prodPrice">{{"KRW " + AddComma(imageUrl?.price)}}</span><br>
@@ -39,11 +40,21 @@ export default {
             images: null,
             userText: null,
             imageUrls: imageUrls,
+            nextBtn2: false,
         };
     },
     methods: {
         ing() {
             alert("준비중입니다.")
+        },
+        productToggel() {
+            window.onresize = function () {
+                var innerWidth = window.innerWidth;
+                if (innerWidth >= 1920) {
+                    location.reload();
+                    this.nextBtn2 = true;
+                }
+            }
         },
         prev() {
             if (this.curPos > 0) {
@@ -75,6 +86,7 @@ export default {
     mounted() {
         this.IMAGE_WIDTH = this.getImageWidth;
         this.images = document.querySelector(".images");
+        this.productToggel();
     },
 };
 </script>
@@ -123,7 +135,7 @@ export default {
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20%;    
+    margin-bottom: 20%;
 }
 
 .image {
@@ -168,14 +180,14 @@ export default {
 
 @media (min-width: 1500px) {
 
-.image-album {
-    width: 970px;
-    max-width: 1000px;
-    overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20%;
-}
+    .image-album {
+        width: 970px;
+        max-width: 1000px;
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20%;
+    }
 
 }
 

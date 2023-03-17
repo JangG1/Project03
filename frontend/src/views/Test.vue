@@ -1,201 +1,149 @@
 <template>
-=======================================================
-<br>
-
-<button @click="redirect()">Kakao Login</button>
-<button type="button" @click="logout">로그아웃</button>
-
-<div v-if="isLogin()">로그인 상태</div><br>
-<div v-if="!isLogin()">로그아웃 상태</div>
-
-<!---->
-<div v-if="$store.state.userInfo != null">
-    name : {{$store.state.userInfo.name}}<br>
-    email : {{$store.state.userInfo.email}} <br>
-    gender : {{$store.state.userInfo.gender}} <br>
-    birth : {{$store.state.userInfo.birthday}} <br>
-    profile : {{$store.state.userInfo.profile}} <br>
-    access_token : {{$store.state.userInfo.access_token}} <br>
-    refresh_token : {{$store.state.userInfo.refreshtoken}} <br>
+<div class="slide_wrapper ">
+    <ul class="slides flex">
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+    </ul>
 </div>
 
-==========================================================<br>
-<input type="button" @click="logout" value="test"><br>
-🎈{{ $store.state.userInfo }}🎈<br>
-==========================================================<br>
-{{ params }}<br>
-{{ this.$route.query }} <br>
-{{ this.$route.query.email }} <br>
-{{ this.$route.query.name }} <br>
-{{ this.$route.query.profile }} <br>
-{{ this.$route.query.gender }} <br>
-{{ this.$route.query.birthday }} <br>
-{{ this.$route.query.access_token }} <br>
-{{ this.$route.query.refreshtoken }} <br>
+<div class="controls">
+        <button type="button" class="prev" @click="prev"><i class="fas fa-chevron-left"></i></button>
+        <button type="button" class="next" @click="next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+<div class="ha"></div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: "HelloWorld",
     data() {
         return {
-            params: this.$route.query,
-            holdPoint: this.$store.state.holdPoint,
-            name: '',
-            email: '',
-            gender: '',
-            birthday: '',
-            userInfo: {},
-            res: {},
-            code: "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code",
-            profile: '',
-            arr: [],
-            testname: '',
-            testgender: '',
-            testbirthday: '',
-            testview: false,
+            currentcIdx: 0
         }
     },
-    components: {},
-    created() {},
     methods: {
-        logout(){
-            axios.get('/api/kakao/logout')
-                .then((response) => {
-                    console.log(response.data)
-                })
-        },
-        hideParams() {
-            history.pushState(null, "", `/Test`)
-        },
-        setParamInfo(){
-            if(this.$route.query.email != null){
-            this.$store.dispatch("setUserInfo", this.$route.query)
+        prev() {
+            let slide = document.querySelectorAll('.slides li'),
+                slideCount = slide.length
+
+            if (this.currentIdx > 0) {
+                this.moveSlide(this.currentIdx - 1);
+            } else {
+                this.moveSlide(slideCount - 3);
             }
         },
-        //카카오 로그인
-        kakaoLogin() {
-            if (!this.$store.state.isLogin) {
-                this.$store.dispatch("login")
-                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
+        next() {
+            let slide = document.querySelectorAll('.slides li'),
+                slideCount = slide.length
+
+            if (this.currentIdx < slideCount - 3) {
+                this.moveSlide(this.currentIdx + 1);
+            } else {
+                this.moveSlide(0);
             }
-        },
-        redirect() {
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
-        },
-        getUserInfo() {
-
-            axios.get('/api/kakao/info')
-                .then((response) => {
-                    this.userInfo = response.data
-                    console.log(this.userInfo)
-                    this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
-                    this.$store.dispatch("loginSuccess");
-                })
 
         },
-        logout2() {
-            let access_token = this.$store.state.userInfo.access_token;
+        moveSlide(num) {
+            let slides = document.querySelector('.slides'),
+                slide = document.querySelectorAll('.slides li'),
+                slideCount = slide.length,
+                slideWidth = 300,
+                slideMargin = 30
 
-            axios.get('/api/kakao/logout/' + access_token)
-                .then((response) => {
-                    alert(response.data)
-                })
+            slides.style.width =
+                (slideWidth + slideMargin) * slideCount - slideMargin + 'px';
 
-            this.$store.dispatch("logout");
+            slides.style.left = -num * 330 + 'px';
 
-            //window.location.href = "/";
+            this.currentIdx = num;
         },
-        isLogin() {
-            return this.$store.state.isLogin;
-        },
-
     },
     mounted() {
-        this.hideParams();        
-        this.setParamInfo();
+        this.slide();
     },
 }
 </script>
 
 <style>
-.b1,
-.b2,
-.b3,
-.b4 {
-    border: 1px solid;
-    border-radius: 4px;
-    width: 1800px;
-    margin-left: 3%;
-    margin-right: 3%;
+
+
+li {
+    list-style: none;
 }
 
-ul.imgs li {
-    position: absolute;
-    left: 640px;
-    transition-delay: 1s;
-    /* 새 슬라이드가 이동해 오는 동안 이전 슬라이드 이미지가 배경이 보이도록 지연 */
+.flex {
+    display: flex;
 }
 
-.bullets {
+.flex-jc-c {
+    justify-content: center;
+}
+
+.con {
+    max-width: 1200px;
+    margin: 0 auto;
+    border: solid red;
+}
+
+.article-board-box {
+    position: relative;
+    border: solid red;
+}
+
+.slide_wrapper {
+    border: solid red;
+    position: relative;
+    width: 960px;
+    margin: 0 auto;
+    height: 300px;
+    overflow: hidden
+}
+
+.slides {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 80px;
+    left: 0;
+    top: 0;
+    transition: left 0.5s ease-out;
+}
+
+.slides li:not(:last-child) {
+    justify-content: flex-start;
+    margin-right: 30px;
+}
+
+.controls {
+    text-align: center;
+}
+
+.controls span {
     z-index: 2;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.bullets label {
-    display: inline-block;
-    border: 2px solid rgba(154, 154, 154, 0.55);
-    border-radius: 4px;
-    background-color: #fff;
-    width: 25px;
-    height: 10px;
-    margin-left: 3%;
-    margin-right: 3%;
+.prev {
+    right: calc(100% - 40px);
+    width: 30px;
+    height: 30px;    
 }
 
-/* 현재 선택된 불릿 배경 흰색으로 구분 표시 */
-.slider input[type=radio]:nth-child(1):checked~.bullets>label:nth-child(1) {
-    background-color: rgba(154, 154, 154, 0.55);
+.controls>.next {
+    left: calc(100% - 40px);
+    width: 30px;
+    height: 30px;
 }
 
-.slider input[type=radio]:nth-child(2):checked~.bullets>label:nth-child(2) {
-    background-color: rgba(154, 154, 154, 0.55);
-}
-
-.slider input[type=radio]:nth-child(3):checked~.bullets>label:nth-child(3) {
-    background-color: rgba(154, 154, 154, 0.55);
-}
-
-.slider input[type=radio]:nth-child(4):checked~.bullets>label:nth-child(4) {
-    background-color: rgba(154, 154, 154, 0.55);
-}
-
-.slider input[type=radio]:nth-child(1):checked~ul.imgs>li:nth-child(1) {
-    left: 0;
-    transition: 0.5s;
-    z-index: 1;
-}
-
-.slider input[type=radio]:nth-child(2):checked~ul.imgs>li:nth-child(2) {
-    left: 0;
-    transition: 0.5s;
-    z-index: 1;
-}
-
-.slider input[type=radio]:nth-child(3):checked~ul.imgs>li:nth-child(3) {
-    left: 0;
-    transition: 0.5s;
-    z-index: 1;
-}
-
-.slider input[type=radio]:nth-child(4):checked~ul.imgs>li:nth-child(4) {
-    left: 0;
-    transition: 0.5s;
-    z-index: 1;
+.ha {
+    width: 50px;
 }
 </style>

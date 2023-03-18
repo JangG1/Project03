@@ -1,16 +1,14 @@
 <template>
 <div class="slide_wrapper ">
     <ul class="slides flex">
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
-        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec1.jpg" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec2.jpg" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec3.jpg" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec4.jpg" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec5.jpg" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec6.jpg" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec7.jpg" alt=""></li>
+        <li class="slidesImg"><img src="../assets/rec8.jpg" alt=""></li>
     </ul>
 </div>
 
@@ -145,5 +143,10 @@ li {
 
 .ha {
     width: 50px;
+}
+
+.slidesImg{
+    width: 80%;
+    height: 50%;
 }
 </style>

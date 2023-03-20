@@ -225,7 +225,7 @@ export default {
         margin-left: 70px;
         font-size: 20px;
         font-weight: 900;
-        color: teal;
+        color: white;
         cursor: pointer;
     }
 

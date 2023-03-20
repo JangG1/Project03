@@ -192,13 +192,13 @@ export default {
     font-weight: 900;
     color: #999;
     text-align: center;
-    padding-top: 13%;
+    padding: 200px 0;
 }
 
 .resBlank img {
     width: 60px;
     height: 60px;
-    margin-bottom: 10px;
+    
 }
 
 .table-responsive {

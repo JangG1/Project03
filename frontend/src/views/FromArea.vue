@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import AOS from 'aos';
+import "aos/dist/aos.css";
 import data from "@/components/FromArea.json";
 
 const FromAreas = data;
@@ -37,7 +39,9 @@ export default {
             fromButton: false,
         };
     },
-
+    created() {
+        AOS.init();
+    },
     methods: {
         searchGroup(event) {
             const len = this.FromAreas.length;
@@ -49,11 +53,10 @@ export default {
                 ) {
                     document.querySelectorAll(".group-item")[i].style.display = "none";
                 } else {
-                    document.querySelectorAll(".group-item")[i].style.display = "flex";                    
+                    document.querySelectorAll(".group-item")[i].style.display = "flex";
                 }
             }
 
-            
         },
         select(event) {
             let temp = event.target.value;
@@ -84,7 +87,7 @@ export default {
     margin-left: 2%;
 }
 
-.areaSearchTitle h3{
+.areaSearchTitle h3 {
     float: left;
 }
 
@@ -110,7 +113,7 @@ export default {
 }
 
 .group-list li {
-    display: flex;
+    display: contents;
 }
 
 .group-item {
@@ -134,7 +137,7 @@ export default {
     color: teal;
     border: 3px solid teal;
     background-color: white;
-    margin-top: 200px;        
+    margin-top: 200px;
 }
 
 .fromSearchBar {

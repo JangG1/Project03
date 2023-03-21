@@ -1,15 +1,16 @@
 <template>
-    <div class="rec">
+    <div class="rec" data-aos="fade-down" data-aos-delay="250"  data-aos-easing="ease-out" data-aos-duration="2000">
     지금 떠나기 좋은 여행
 </div>
 
 
 <!--좌우 슬라이드 버튼-->
+<div data-aos="flip-down"  data-aos-duration="2000">
 <button type="button" class="prev" @click="prev"><i class="fas fa-chevron-left"></i></button>
 <button type="button" class="next" @click="next"><i class="fas fa-chevron-right"></i></button>
-
+</div>
 <!--추천 여행지 박스-->
-<div class="slide_wrapper">
+<div class="slide_wrapper" data-aos="flip-down"  data-aos-duration="2000">
     <ul class="slides flex">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url" loading="lazy">
             <li><img class="slidesImg" :src="imageUrl?.url"></li>
@@ -28,6 +29,8 @@
 
 <script>
 import data from "../components/Product.json";
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 const imageUrls = data;
 
@@ -38,6 +41,9 @@ export default {
             currentcIdx: 0,
             imageUrls: imageUrls,
         }
+    },
+    created() {
+        AOS.init();
     },
     methods: {
         ing() {
@@ -67,13 +73,13 @@ export default {
             let slides = document.querySelector('.slides'),
                 slide = document.querySelectorAll('.slides li'),
                 slideCount = slide.length,
-                slideWidth = 230,
-                slideMargin = 30
+                slideWidth = 300,
+                slideMargin = 20
 
             slides.style.width =
                 (slideWidth + slideMargin) * slideCount - slideMargin + 'px';
 
-            slides.style.left = -num * 330 + 'px';
+            slides.style.left = -num * 336 + 'px';
 
             this.currentIdx = num;
         },
@@ -120,7 +126,9 @@ export default {
     }
 
     .flex {
-        display: flex;
+        display: flex;    
+        padding: 0;
+        margin: 0;
     }
 
     .flex-jc-c {
@@ -238,7 +246,7 @@ export default {
 
     .slide_wrapper {
         position: relative;
-        width: 69%;
+        width: 70%;
         height: 700px;
         overflow: hidden;
         margin-top: 10%;
@@ -252,8 +260,8 @@ export default {
 
     .prodBox {
         border-radius: 20px;
-        margin: 12px;
-        width: 300px;
+        margin: 18px;
+        width: 298px;
         height: 650px;
         background-color: rgba(255, 255, 255, 0.379);
     }
@@ -303,5 +311,9 @@ export default {
         transform: rotate(45deg);
     }
 
+    .flex{
+        padding: 0;
+        margin: 0;
+    }
 }
 </style>

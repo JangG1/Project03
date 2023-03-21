@@ -42,6 +42,9 @@
 </template>
 
 <script>
+import AOS from 'aos';
+import "aos/dist/aos.css";
+
 export default {
     name: 'HelloWorld',
     props: [
@@ -54,6 +57,9 @@ export default {
             InfantCount: 0,
             count: [],
         }
+    },
+    created() {
+        AOS.init();
     },
     methods: {
         AdultPlus() {

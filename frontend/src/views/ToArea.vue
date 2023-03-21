@@ -112,7 +112,7 @@
     }
     
     .group-list li {
-        display: flex;               
+        display: contents;
     }
     
     .group-item {

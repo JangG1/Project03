@@ -7,6 +7,7 @@
 
     <div class="carousel-inner" id="top" data-aos="fade-down" data-aos-duration="2000">
 
+
         <!--배너 좌우 이동 버튼-->
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
         </button>
@@ -81,7 +82,7 @@
                     <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200"  data-aos="fade" data-aos-duration="2000"/>
                     <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200"  data-aos="fade" data-aos-duration="2000"/>
                     <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
-                        <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea"></FromArea>
+                        <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea" data-aos="fade-down" data-aos-duration="2000"></FromArea>
                     </div>
                     <!--Area Change-->
                     <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy" />
@@ -90,7 +91,7 @@
                     <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000"/>
                     <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000"/>
                     <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
-                        <ToArea @close="toAreaPopUp" @update-toArea="updateToArea"></ToArea>
+                        <ToArea @close="toAreaPopUp" @update-toArea="updateToArea" data-aos="fade-down" data-aos-duration="2000"></ToArea>
                     </div>
                 </div>
                 <br>
@@ -211,13 +212,13 @@
     <div class="">
         <div class="">
             <br>            
-            <div class="travelTip" data-aos="fade-down" data-aos-delay="250" data-aos-easing="linear" data-aos-duration="2000">
+            <div class="travelTip" data-aos="fade-down" data-aos-delay="150" data-aos-easing="linear" data-aos-duration="2000">
                 <h1>복잡한 여행을 Easy하게!</h1><br>
                 <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
                 <a @click="ing">자세히 보기</a>
             </div>
         </div>
-        <div data-aos="fade-up" data-aos-delay="250"  data-aos-easing="linear" data-aos-duration="2000">
+        <div data-aos="fade-up" data-aos-delay="150"  data-aos-easing="linear" data-aos-duration="2000">
             <img class="travelImg" src="../assets/travel1.jpg" loading="lazy" />
         </div>
     </div>
@@ -225,10 +226,10 @@
 
 <!--여행 도우미-->
 <div class="part4" id="part4">
-    <div class="side" data-aos="fade-right" data-aos-delay="250"  data-aos-easing="ease-out" data-aos-duration="2000">
+    <div class="side" data-aos="fade-right" data-aos-delay="150"  data-aos-easing="ease-out" data-aos-duration="2000">
         <h2>여행의 완성을 위한 경험</h2>
     </div>
-    <div class="sideTip" data-aos="fade-right" data-aos-delay="250"  data-aos-easing="ease-out" data-aos-duration="2000">
+    <div class="sideTip" data-aos="fade-right" data-aos-delay="150"  data-aos-easing="ease-out" data-aos-duration="2000">
         <div class="sideTip1">
             <a @click="ing">🔍&nbsp; 예약 조회</a>
             <a @click="ing">🏦&nbsp; 호텔</a>
@@ -543,26 +544,12 @@ export default {
             this.$router.push('Departure')
 
         },
-        scroll() {
-            //let mainText = document.querySelector("travelTip");
-
-            window.addEventListener("scroll", function () {
-                let value = window.scrollY;
-                console.log("scrollY", value)
-
-                if (value > 2000) {
-                    this.show = false;
-                }
-            })
-
-        }
     },
 
     mounted() {
         this.getNoticeView();
         this.hideParams();
         this.setParamInfo();
-        this.scroll();
     }
 
 }

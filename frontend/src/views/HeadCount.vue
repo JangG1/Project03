@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container" >
     <div class="row">
         <div class="col-xs-12">
             <h3>승객 선택</h3>

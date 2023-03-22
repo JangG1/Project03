@@ -1,5 +1,6 @@
 <template>
-<div class="">
+    <div data-aos="fade-up" data-aos-duration="2000">
+<div>
     <span class="passTitle">예약자 정보</span>
     <button class="passCloseBtn" @click="closeModal">X</button>
 </div>
@@ -59,6 +60,7 @@
         </div>
     </div>
 </span>
+</div>
 </template>
 
 <script>

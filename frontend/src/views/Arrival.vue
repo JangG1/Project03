@@ -1,5 +1,5 @@
 <template>
-<div>
+<div data-aos="fade-up" data-aos-delay="300" data-aos-easing="ease-out">
     <div class="step">
         <div>① 검색</div> &nbsp; <div class="step2">❷ 항공편</div> &nbsp; <div>③ 결제</div>
     </div>
@@ -112,6 +112,8 @@
 import arrivalTime from '../components/arrivalTime.json';
 import LoginModal from "@/components/LoginModal.vue";
 import axios from 'axios';
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 const at = arrivalTime;
 
@@ -133,7 +135,9 @@ export default {
             loginCheck: this.$store.state.isLogin
         }
     },
-    props: {},
+    created() {
+        AOS.init();
+    },
     methods: {
         hideParams() {
             history.pushState(null, "", `/Arrival`)

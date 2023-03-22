@@ -1,5 +1,5 @@
 <template>
-<div>
+<div data-aos="fade-up" data-aos-delay="300" data-aos-easing="ease-out">
     <div class="step">
         <div>① 검색</div> &nbsp; <div class="step2">❷ 항공편</div> &nbsp; <div>③ 결제</div>
     </div>
@@ -88,14 +88,13 @@
 
 <script>
 import startTime from '../components/startTime.json';
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 const st = startTime;
 
 export default {
     name: 'HelloWorld',
-    components: {
-
-    },
     data() {
         return {
             st,
@@ -107,8 +106,8 @@ export default {
             chooseInfo: this.$store.state.chooseInfo,
         }
     },
-    props: {
-
+    created() {
+        AOS.init();
     },
     methods: {
         AddComma(num) {

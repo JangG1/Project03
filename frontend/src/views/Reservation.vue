@@ -1,5 +1,5 @@
 <template>
-<div class="res">
+<div class="res" data-aos="fade-right" data-aos-delay="300" data-aos-easing="ease-out">
     <div class="resTitle">예약 조회</div>
     <div class="table-responsive">
         <!--예약자 정보 모달-->
@@ -64,7 +64,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
     <!-- FOOTER -->
     <div class="Footer">
         <div class="FootLeft">
@@ -77,13 +77,14 @@
             <a class="topBtn" href="#top">✈ Top</a>
         </div>
     </div>
-</div>
 </template>
 
 <script>
 import axios from 'axios'
 import PassengerModal from "@/components/PassengerModal";
 import ResCancelModal from "@/components/ResCancelModal";
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 export default {
     name: 'HelloWorld',
@@ -100,6 +101,9 @@ export default {
             resCancelView: false,
             user: [],
         }
+    },
+    created() {
+        AOS.init();
     },
     methods: {
         resDate1(value) { //협정 세계시(UTC) 시간 차이로 인한 시간 재정의

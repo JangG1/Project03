@@ -383,12 +383,7 @@
         유의사항 <span class="arrow">{{arrow}}</span>
     </div>
     <div class="note1" v-if="noteInfo">
-        <li>
-            예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
-        </li>
-        <li>
-            입력하신 회원번호로 탑승 마일리지가 적립되며, 마일리지 적립율은 항공사에 따라 다를 수 있습니다.
-        </li>
+        <span class="asterisk">*</span> 예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다.
     </div>
 </button>
 
@@ -412,11 +407,7 @@
         <button type="button" class="IATAList" @click="IATAModalPopUp()">보기</button>
     </h4>
     <span>
-        고객 안전을 위하여 항공기 내부로 반입이 금지된 폭발성, 인화성, 유독성 물질 및 무기로 사용될 수 있는 품목에 대한 안내 사항 입니다.
-    </span>
-</div>
-<div class="consent" v-if="consentInfo">
-    <span>
+        고객 안전을 위하여 항공기 내부로 반입이 금지된 폭발성, 인화성, 유독성 물질 및 무기로 사용될 수 있는 품목에 대한 안내 사항 입니다.<br>
         예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다. 성명 입력 안내
     </span>
 </div>
@@ -527,6 +518,7 @@ export default {
             gender2: document.getElementById('maleBtn2'),
             autofocus: true,
             PayModalView: false,
+            IATAModalView: false,
             PointPaymentInfo: false,
             holdPoint: this.$store.state.holdPoint,
             name: '',
@@ -535,6 +527,7 @@ export default {
             addAdult: [],
             addChild: [],
             addInfant: [],
+            
         }
     },
     props: {},
@@ -1826,6 +1819,7 @@ h4 {
     color: teal;
     background-color: white;
     border: 2.5px solid teal;
+    border-radius: 4px;
     padding: 8px;
     width: 120px;
 }
@@ -1836,6 +1830,7 @@ h4 {
     color: white;
     background-color: teal;
     border: none;
+    border-radius: 4px;
     padding: 10px;
 }
 
@@ -1864,6 +1859,7 @@ h4 {
 .pay,
 .pointPay {
     border: 1px solid black;
+    border-radius: 4px;
     width: 30%;
     text-align: center;
     padding: 20px 0;
@@ -1881,6 +1877,7 @@ h4 {
 .pointPay {
     padding-top: 28px;
     color: black;
+    border: 2px solid teal;
 }
 
 .pay1,

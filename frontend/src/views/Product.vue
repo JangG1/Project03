@@ -1,16 +1,16 @@
 <template>
-    <div class="rec" data-aos="fade-down" data-aos-delay="250"  data-aos-easing="ease-out" data-aos-duration="2000">
-    지금 떠나기 좋은 여행
+<div class="rec" data-aos="fade-down" data-aos-delay="250" data-aos-easing="ease-out" data-aos-duration="2000">
+    <div>지금 떠나기 좋은 여행</div>
+    <div class="rec2">Recommended travel destinations</div>
 </div>
-
 
 <!--좌우 슬라이드 버튼-->
-<div data-aos="flip-down"  data-aos-duration="2000">
-<button type="button" class="prev" @click="prev"><i class="fas fa-chevron-left"></i></button>
-<button type="button" class="next" @click="next"><i class="fas fa-chevron-right"></i></button>
+<div data-aos="flip-down" data-aos-duration="2000">
+    <button type="button" class="prev" @click="prev"><i class="fas fa-chevron-left"></i></button>
+    <button type="button" class="next" @click="next"><i class="fas fa-chevron-right"></i></button>
 </div>
 <!--추천 여행지 박스-->
-<div class="slide_wrapper" data-aos="flip-down"  data-aos-duration="2000">
+<div class="slide_wrapper" data-aos="flip-down" data-aos-duration="2000">
     <ul class="slides flex">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url" loading="lazy">
             <li><img class="slidesImg" :src="imageUrl?.url"></li>
@@ -91,133 +91,138 @@ export default {
 </script>
 
 <style>
-.rec {
+.rec {    
     color: white;
     text-align: center;
-    font-size: 60px;
-    margin-top: 10%;
+    font-size: 60px;    
+    padding-top: 10%;
     margin-bottom: 10%;
 }
 
-    .moreBox{
-        text-align: center;
-    }
+.rec2{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 24px;
+}
 
-    .moreLogo {
-        width: 80x;
-        height: 80px;
-        margin-top: 180px;
-        margin-left: 30px;
-        margin-bottom: 20px;        
-        background-color: rgba(255, 255, 255, 0);
-    }
+.moreBox {
+    text-align: center;
+}
 
-    .moreText{        
-        margin-left: 30px;
-        font-size: 20px;
-        font-weight: 900;
-        color: white;
-        cursor: pointer;
-    }
+.moreLogo {
+    width: 80x;
+    height: 80px;
+    margin-top: 180px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0);
+}
 
-    li {
-        list-style: none;
-        padding-bottom: 5%;
-    }
+.moreText {
+    margin-left: 30px;
+    font-size: 20px;
+    font-weight: 900;
+    color: white;
+    cursor: pointer;
+}
 
-    .flex {
-        display: flex;    
-        padding: 0;
-        margin: 0;
-    }
+li {
+    list-style: none;
+    padding-bottom: 5%;
+}
 
-    .flex-jc-c {
-        justify-content: center;
-    }
+.flex {
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
 
-    .slidesImg {
-        width: 98%;
-        height: 280px;        
-        border-radius: 8px;
-        border-top-left-radius: 20px;
-    }
+.flex-jc-c {
+    justify-content: center;
+}
 
-    .slide_wrapper {
-        position: relative;
-        width: 68%;
-        height: 700px;
-        overflow: hidden;        
-        
-    }
+.slidesImg {
+    width: 98%;
+    height: 280px;
+    border-radius: 8px;
+    border-top-left-radius: 20px;
+}
 
-    .slides {
-        position: absolute;
-        transition: left 0.5s ease-out;
-    }
+.slide_wrapper {
+    position: relative;
+    width: 68%;
+    height: 700px;
+    overflow: hidden;
 
-    .prodBox {
-        border-radius: 20px;
-        margin: 12px;
-        width: 205px;
-        height: 450px;
-        background-color: rgba(255, 255, 255, 0.379);
-    }
+}
 
-    #prodCity,
-    #prodWay,
-    #prodPrice {
-        font-size: 16px;
-        font-family: 'NanumBarunGothicBold';
-        color: rgb(240, 239, 239);
-        margin-left: 7%;
-    }
+.slides {
+    position: absolute;
+    transition: left 0.5s ease-out;
+}
 
-    .detailBtn {
-        border: 1px solid rgba(193, 188, 188, 0.58);
-        border-radius: 4px;
-        font-size: 14px;
-        color: white;
-        margin-left: 7%;
-        width: 115px;
-        background-color: rgba(255, 255, 255, 0.436);
-    }
+.prodBox {
+    border-radius: 20px;
+    margin: 12px;
+    width: 205px;
+    height: 450px;
+    background-color: rgba(255, 255, 255, 0.379);
+}
 
-    .prev {
-        float: left;
-        margin-left: 12%;
-        margin-top: 15%;
-        width: 50px;
-        height: 50px;
-        border: none;
-        background-color: rgba(255, 255, 255, 0);
-        border-top: 10px solid rgb(232, 232, 232);
-        border-right: 10px solid rgb(232, 232, 232);
-        transform: rotate(225deg);
-    }
+#prodCity,
+#prodWay,
+#prodPrice {
+    font-size: 16px;
+    font-family: 'NanumBarunGothicBold';
+    color: rgb(240, 239, 239);
+    margin-left: 7%;
+}
 
-    .next {
-        float: right;
-        margin-right: 12%;
-        margin-top: 15%;
-        width: 50px;
-        height: 50px;
-        border: none;
-        background-color: rgba(255, 255, 255, 0);
-        border-top: 10px solid rgb(232, 232, 232);
-        border-right: 10px solid rgb(232, 232, 232);
-        transform: rotate(45deg);
-    }
+.detailBtn {
+    border: 1px solid rgba(193, 188, 188, 0.58);
+    border-radius: 4px;
+    font-size: 14px;
+    color: white;
+    margin-left: 7%;
+    width: 115px;
+    background-color: rgba(255, 255, 255, 0.436);
+}
+
+.prev {
+    float: left;
+    margin-left: 12%;
+    margin-top: 15%;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    border-top: 10px solid rgb(232, 232, 232);
+    border-right: 10px solid rgb(232, 232, 232);
+    transform: rotate(225deg);
+}
+
+.next {
+    float: right;
+    margin-right: 12%;
+    margin-top: 15%;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    border-top: 10px solid rgb(232, 232, 232);
+    border-right: 10px solid rgb(232, 232, 232);
+    transform: rotate(45deg);
+}
 
 @media (min-width: 1900px) {
     .rec {
-    color: white;
-    text-align: center;
-    font-size: 60px;
-    margin-top: 10%;
-    margin-bottom: 10%;
-}
+        color: white;
+        text-align: center;
+        font-size: 60px;
+        padding-top: 10%;
+        margin-bottom: 10%;
+    }
 
-    .moreBox{
+    .moreBox {
         text-align: center;
     }
 
@@ -229,7 +234,7 @@ export default {
         margin-bottom: 20px;
     }
 
-    .moreText{        
+    .moreText {
         margin-left: 70px;
         font-size: 20px;
         font-weight: 900;
@@ -262,8 +267,8 @@ export default {
         border-radius: 20px;
         margin: 18px;
         width: 298px;
-        height: 650px;
-        background-color: rgba(255, 255, 255, 0.379);
+        height: 640px;
+        background-color: rgba(255, 255, 255, 0.461);
     }
 
     #prodCity,
@@ -281,6 +286,7 @@ export default {
         font-size: 18px;
         color: white;
         margin-left: 7%;
+        margin-top: 10px;
         width: 115px;
         background-color: rgba(255, 255, 255, 0.436);
     }
@@ -311,7 +317,7 @@ export default {
         transform: rotate(45deg);
     }
 
-    .flex{
+    .flex {
         padding: 0;
         margin: 0;
     }

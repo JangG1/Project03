@@ -1,205 +1,234 @@
 <template>
-<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <!--공지 모달-->
-    <div v-if="NoticeModalView == true" class="NoticeModalView" :class="{ active : NoticeModalView }">
-        <NoticeModal @noticeView="noticeView" @move="move" @close="NoticeModalPopUp"></NoticeModal>
+<div class="part1">
+<!----- 네비게이션 바 시작---------------------------------------------------->
+    <div class="homeNavigation">
+    <div class="homeNavBar">
+            <a class="homeLogoLink" href="/">Fastrip</a>
+        <div class="homeSubLink">
+            <a href="/">Home</a>
+            <a href="#part2">Dentinations</a>
+            <a href="/Reservation">Reservation</a>
+            <a href="/Test">Test</a>
+        </div>
+        <!-- 로그인 썸네일 -->
+        <!--로그인-->
+        <div class="homeLoginBtn" @click="loginModal = true">
+            <ProfileItem :profile="getProfile" :email="getEmail" />
+            <div class="homeLoginText" v-if="!isLogin">Login</div>
+        </div>
+        <!--로그아웃-->
+        <div class="homeLogoutBtn" @click="logout" v-if="isLogin">
+            Logout
+        </div>
     </div>
+    <!-- 로그인 모달 -->
+    <div v-if="!isLogin">
+        <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
+    </div>
+</div>
 
-    <div class="carousel-inner" id="top" data-aos="fade-down" data-aos-duration="2000">
+<!----- 네비게이션 바 종료 ---------------------------------------------------->
 
-
-        <!--배너 좌우 이동 버튼-->
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        </button>
-
-        <!--배너1-->
-        <div class="carousel-item active">
-            <!--배너 이미지1-->
-            <img class="banner" src="../assets/bannerImage/1.jpg">
-            <div class="container1">
-                <div class="carousel-caption">
-                    <h2>Fastrip</h2>
-                    <h3>Airline Ticketing</h3>
-                </div>
-            </div>
+        <!--공지 모달-->
+        <div v-if="NoticeModalView == true" class="NoticeModalView" :class="{ active : NoticeModalView }">
+            <NoticeModal @noticeView="noticeView" @move="move" @close="NoticeModalPopUp"></NoticeModal>
         </div>
 
-        <!--배너2-->
-        <div class="carousel-item">
-            <!--배너 이미지2-->
-            <img class="banner" src="../assets/bannerImage/2.jpg" loading="lazy">
-            <div class="container2">
-                <div class="carousel-caption">
-                    <h2>Budapest</h2>
-                    <h3>in Hungary</h3>
-                    <br>
-                    <h4 @click="ing">자세히 보기</h4>
-                </div>
-            </div>
-        </div>
+<!----- 배너&예약박스 시작 ---------------------------------------------------->
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 
-        <!--배너3-->
-        <div class="carousel-item">
-            <!--배너 이미지3-->
-            <img class="banner" src="../assets/bannerImage/3.jpg" loading="lazy">
-            <div class="container3">
-                <div class="carousel-caption">
-                    <h2>Hokkaido, Biei</h2>
-                    <h3>in Japan</h3>
-                    <br>
-                    <h4 @click="ing">자세히 보기</h4>
-                </div>
-            </div>
-        </div>
+        <div class="carousel-inner" id="top" data-aos="fade-down" data-aos-duration="2000">
 
-        <!--배너4-->
-        <div class="carousel-item">
-            <!--배너 이미지4-->
-            <img class="banner" src="../assets/bannerImage/4.jpg" loading="lazy">
-            <div class="container4">
-                <div class="carousel-caption">
-                    <h2>Fastrip</h2>
-                    <h3>The lowest-priced airline ticket!</h3>
-                    <br>
-                    <h4 @click="ing">자세히 보기</h4>
-                </div>
-            </div>
-        </div>
-
-        <!--항공 예약 박스-->
-        <!--------------------------------------------------------------------------------->
-
-        <div class="resForm">
-            <div class="res-area-select">
-                <button type="button" @click="toggleRoundTrip" class="btn-field" id="resRoundTrip">왕복</button>
-                <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
-                <br>
-                <br>
-                <div class="FromTo">
-                    <!--FromArea-->
-                    <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200"  data-aos="fade" data-aos-duration="2000"/>
-                    <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200"  data-aos="fade" data-aos-duration="2000"/>
-                    <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
-                        <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea" data-aos="fade-down" data-aos-duration="2000"></FromArea>
-                    </div>
-                    <!--Area Change-->
-                    <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy" />
-
-                    <!--ToArea-->
-                    <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000"/>
-                    <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000"/>
-                    <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
-                        <ToArea @close="toAreaPopUp" @update-toArea="updateToArea" data-aos="fade-down" data-aos-duration="2000"></ToArea>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <hr>
-
-                <!--여행 날짜 선택-->
-
-                <!--왕복 날짜 선택-->
-                <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos="flip-down" data-aos-delay="100" modelAuto range>
-                    <template #month="{ value }">
-                        {{ value + 1 + "월"}}
-                    </template>
-                    <template #month-overlay="{ value }">
-                        {{ value + 1 + "월"}}
-                    </template>
-                </Datepicker>
-                <div type="button" class="selectDate1" v-if="selectDate1">
-                    <div class="selectDate2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
-                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                        </svg>
-                        {{Format1(bothWay)}}
-                    </div>
-                </div>
-
-                <!--편도 날짜 선택-->
-                <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder=" 가는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos-delay="100" data-aos="flip-down">
-                    <template #month="{ value }">
-                        {{ value + 1 + "월"}}
-                    </template>
-                    <template #month-overlay="{ value }">
-                        {{ value + 1 + "월"}}
-                    </template>
-                </Datepicker>
-                <div type="button" class="selectDate1" v-if="selectDate2">
-                    <div class="selectDate2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
-                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                        </svg>
-                        {{Format2(oneWay)}}
-                    </div>
-                </div>
-
-            </div>
-
-            <!--승객수 팝업-->
-            <button type="button" class="btn-field" id="resPassenger" @click="popUp">
-                <div class="count1">승객 수 </div>
-                <div class="countImg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                    </svg>
-                </div>
-                <div class="count2">
-                    <span class="adultCount">성인{{AdultCount}}명</span>
-                    <span v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</span>
-                    <span v-if="InfantCount > 0" class="infantCount">, 유아{{InfantCount}}명</span>
-                </div>
+            <!--배너 좌우 이동 버튼-->
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
             </button>
 
-            <div class="popup-view" :class="{ active : popupView }">
-                <HeadCount @close-popup="popUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
+            <!--배너1-->
+            <div class="carousel-item active">
+                <!--배너 이미지1-->
+                <!-- <img class="banner" src="../assets/bannerImage/1.jpg"> -->
+                <div class="mainBanner"></div>
+                <div class="container1">
+                    <div class="carousel-caption">
+                        <h2>Fastrip</h2>
+                        <h3>Airline Ticketing</h3>
+                    </div>
+                </div>
             </div>
-            <div>
+
+            <!--배너2-->
+            <div class="carousel-item">
+                <!--배너 이미지2-->
+                <img class="banner" src="../assets/bannerImage/2.jpg" loading="lazy">
+                <div class="container2">
+                    <div class="carousel-caption">
+                        <h2>Bern</h2>
+                        <h3>in Switzerland</h3>
+                        <br>
+                        <h4 @click="ing">자세히 보기</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!--배너3-->
+            <div class="carousel-item">
+                <!--배너 이미지3-->
+                <img class="banner" src="../assets/bannerImage/3.jpg" loading="lazy">
+                <div class="container3">
+                    <div class="carousel-caption">
+                        <h2>Chūbu, Fuji</h2>
+                        <h3>in Japan</h3>
+                        <br>
+                        <h4 @click="ing">자세히 보기</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!--배너4-->
+            <div class="carousel-item">
+                <!--배너 이미지4-->
+                <img class="banner" src="../assets/bannerImage/4.jpg" loading="lazy">
+                <div class="container4">
+                    <div class="carousel-caption">
+                        <h2>Fastrip</h2>
+                        <h3>The lowest-priced airline ticket!</h3>
+                        <br>
+                        <h4 @click="ing">자세히 보기</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!--항공 예약 박스-->
+            <!--------------------------------------------------------------------------------->
+
+            <div class="resForm">
+                <div class="res-area-select">
+                    <button type="button" @click="toggleRoundTrip" class="btn-field" id="resRoundTrip">왕복</button>
+                    <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
+                    <br>
+                    <br>
+                    <div class="FromTo">
+                        <!--FromArea-->
+                        <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
+                        <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
+                        <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
+                            <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea" data-aos="fade-down" data-aos-duration="2000"></FromArea>
+                        </div>
+                        <!--Area Change-->
+                        <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy" />
+
+                        <!--ToArea-->
+                        <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
+                        <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
+                        <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
+                            <ToArea @close="toAreaPopUp" @update-toArea="updateToArea" data-aos="fade-down" data-aos-duration="2000"></ToArea>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <hr>
+
+                    <!--여행 날짜 선택-->
+
+                    <!--왕복 날짜 선택-->
+                    <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos="flip-down" data-aos-delay="100" modelAuto range>
+                        <template #month="{ value }">
+                            {{ value + 1 + "월"}}
+                        </template>
+                        <template #month-overlay="{ value }">
+                            {{ value + 1 + "월"}}
+                        </template>
+                    </Datepicker>
+                    <div type="button" class="selectDate1" v-if="selectDate1">
+                        <div class="selectDate2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                            </svg>
+                            {{Format1(bothWay)}}
+                        </div>
+                    </div>
+
+                    <!--편도 날짜 선택-->
+                    <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder=" 가는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos-delay="100" data-aos="flip-down">
+                        <template #month="{ value }">
+                            {{ value + 1 + "월"}}
+                        </template>
+                        <template #month-overlay="{ value }">
+                            {{ value + 1 + "월"}}
+                        </template>
+                    </Datepicker>
+                    <div type="button" class="selectDate1" v-if="selectDate2">
+                        <div class="selectDate2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                            </svg>
+                            {{Format2(oneWay)}}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--승객수 팝업-->
+                <button type="button" class="btn-field" id="resPassenger" @click="popUp">
+                    <div class="count1">승객 수 </div>
+                    <div class="countImg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+                    </div>
+                    <div class="count2">
+                        <span class="adultCount">성인{{AdultCount}}명</span>
+                        <span v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</span>
+                        <span v-if="InfantCount > 0" class="infantCount">, 유아{{InfantCount}}명</span>
+                    </div>
+                </button>
+
+                <div class="popup-view" :class="{ active : popupView }">
+                    <HeadCount @close-popup="popUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
+                </div>
+                <div>
+
+                </div>
+                <!--좌석 선택-->
+
+                <select id="inputState" class="form-select">
+                    <option selected>좌석 등급</option>
+                    <option>일반석</option>
+                    <option>이코노미</option>
+                    <option>비즈니스</option>
+                </select>
+
+                <input type="submit" @click="submit()" value="항공편 검색" class="submit-btn">
 
             </div>
-            <!--좌석 선택-->
-
-            <select id="inputState" class="form-select">
-                <option selected>좌석 등급</option>
-                <option>일반석</option>
-                <option>이코노미</option>
-                <option>비즈니스</option>
-            </select>
-
-            <input type="submit" @click="submit()" value="항공편 검색" class="submit-btn">
 
         </div>
+    </div>
+<!----- 배너&예약박스 종료 ---------------------------------------------------->
+
+    <!-- 조회버튼 -->
+    <div class="refer" data-aos="fade-down">
+        <!--예약 조회 버튼-->
+        <button type="button" class="btn btn-lg btn-default">            
+            <a href="/Reservation">✈ &nbsp; 예약 조회</a>
+        </button>
+        <!-- 버튼-->        
+        <span class="vertical">|</span>
+        <button type="button" class="btn btn-lg btn-default" id="checkIn" @click="ing">            
+            <a href="">✔ &nbsp; 체크인</a>
+        </button>
+        <span class="vertical">|</span>
+        <!--항공편 조회 버튼-->
+        <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;
+            <a href="">🕒 &nbsp; 항공편 현황</a>
+        </button>
 
     </div>
 </div>
-<!--------------------------------------------------------------------------------->
-
-<!-- 조회버튼 -->
-<div class="refer" data-aos="fade-down">
-    <!--예약 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default">
-        <img src="../assets/magnifier.jpg" width="30" height="30" loading="lazy">
-        <a href="/Reservation">예약 조회</a>
-    </button>
-    <!-- 버튼-->
-    <img src="../assets/vertical.jpg" width="20" height="40" loading="lazy">
-    <button type="button" class="btn btn-lg btn-default" id="checkIn" @click="ing">
-        <img src="../assets/check.png" width="30" height="30">
-        <a href="">체크인</a>
-    </button>
-    <img src="../assets/vertical.jpg" width="20" height="40" loading="lazy">
-    <!--항공편 조회 버튼-->
-    <button type="button" class="btn btn-lg btn-default" @click="ing">&nbsp;
-        <a href="">✈ &nbsp; 항공편 현황</a>
-    </button>
-
-</div>
-<br>
 
 <div class="part2" id="part2">
-    <hr>
 
     <!-- 추천 여행지 -->
     <Product></Product>
@@ -211,14 +240,14 @@
 <div class="recommendProduct" id="part3">
     <div class="">
         <div class="">
-            <br>            
-            <div class="travelTip" data-aos="fade-down" data-aos-delay="150" data-aos-easing="linear" data-aos-duration="2000">
+            <br>
+            <div class="travelTip" data-aos="fade-down" data-aos-delay="100" data-aos-easing="linear" data-aos-duration="2000">
                 <h1>복잡한 여행을 Easy하게!</h1><br>
                 <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
                 <a @click="ing">자세히 보기</a>
             </div>
         </div>
-        <div data-aos="fade-up" data-aos-delay="150"  data-aos-easing="linear" data-aos-duration="2000">
+        <div data-aos="fade-up" data-aos-delay="100" data-aos-easing="linear" data-aos-duration="2000">
             <img class="travelImg" src="../assets/travel1.jpg" loading="lazy" />
         </div>
     </div>
@@ -226,10 +255,10 @@
 
 <!--여행 도우미-->
 <div class="part4" id="part4">
-    <div class="side" data-aos="fade-right" data-aos-delay="150"  data-aos-easing="ease-out" data-aos-duration="2000">
+    <div class="side" data-aos="fade-right" data-aos-delay="150" data-aos-easing="ease-out" data-aos-duration="2000">
         <h2>여행의 완성을 위한 경험</h2>
     </div>
-    <div class="sideTip" data-aos="fade-right" data-aos-delay="150"  data-aos-easing="ease-out" data-aos-duration="2000">
+    <div class="sideTip" data-aos="fade-right" data-aos-delay="150" data-aos-easing="ease-out" data-aos-duration="2000">
         <div class="sideTip1">
             <a @click="ing">🔍&nbsp; 예약 조회</a>
             <a @click="ing">🏦&nbsp; 호텔</a>
@@ -260,6 +289,8 @@
 
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
+import ProfileItem from "@/components/ProfileItem.vue";
+import LoginModal from "@/components/LoginModal.vue";
 import HeadCount from './HeadCount.vue';
 import FromArea from './FromArea.vue';
 import ToArea from './ToArea.vue';
@@ -278,12 +309,14 @@ export default {
         FromArea,
         ToArea,
         Product,
-        NoticeModal
+        NoticeModal,
+        ProfileItem,
+        LoginModal,
     },
     props: [''],
     data() {
         return {
-            show: true,
+            loginModal: false,
             toBtn: "",
             fromBtn: "",
             bothWay: [],
@@ -321,9 +354,39 @@ export default {
     created() {
         AOS.init();
     },
+    computed: {
+        getProfile() {
+            if (this.$store.state.userInfo == null)
+                return require("@/assets/weblogin1.png");
+            return this.$store.state.userInfo.profile;
+        },
+        isLogin() {
+            if (this.$store.state.isLogin == true) {
+                //console.log("로그인 되었습니다.")
+            }
+            return this.$store.state.isLogin;
+        },
+    },
     methods: {
         ing() {
             alert('준비중입니다.')
+        },
+        logout() {
+            let access_token = this.$store.state.userInfo.access_token;
+            let email = this.$store.state.userInfo.email;
+
+            axios.get('/api/kakao/logout/' + access_token, {
+                params: {
+                    email: email
+                }
+                })
+                .then((response) => {
+                    alert(response.data)
+                })
+
+            this.$store.dispatch("logout");
+            this.$router.push('/')
+
         },
         hideParams() {
             history.pushState(null, "", `/`)
@@ -556,6 +619,69 @@ export default {
 </script>
 
 <style>
+.homeNavigation{
+    height: 130px;
+    background-color: rgba(22, 122, 122, 0.507);
+}
+
+.homeNavBar {
+    display: flex;            
+}
+
+.homeNavBar > a,
+.homeSubLink > a{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    font-weight: 900;
+    margin-top: 1.5%;
+    margin-left: 3%;
+}
+
+.homeLogoLink{
+    font-size: 40px;
+    padding-left: 1%;
+}
+
+.homeSubLink{    
+    margin-left: 40%;
+    margin-top: 2.5%;        
+}
+
+.homeSubLink > a{
+    padding: 20px;
+}
+
+.homenav{
+    font-weight: 900;    
+}
+
+.homeLoginBtn {
+    display: flex;
+    margin-top: 2.3%;
+    margin-left: 11%;
+}
+
+.homeLoginText{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 900;
+    margin-top: 10%;
+    margin-left: 20%;
+    cursor: pointer;
+    color: white;
+}
+
+.homeLogoutBtn{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    font-weight: 900;
+    padding: 10px 0;    
+    margin-top: 2.3%;
+    margin-left: 1%;
+    font-size: 18px;
+    cursor: pointer;
+}
+
 .slide-fade-enter-active {
     transition: all .3s ease;
 }
@@ -592,17 +718,22 @@ export default {
     width: 0px;
 }
 
+.part1 {
+    /* background-color: rgba(22, 122, 122, 0.507);     */
+    background: url("../assets/part2.jpg") fixed;
+    padding-bottom: 5%;
+}
+
 .part2 {
     background: url("../assets/part2.jpg") fixed;
-    margin-top: 5%;
+
     margin-bottom: 10%;
 }
 
 .part4 {
-    /*background-color: rgb(241, 233, 231);*/
     background: url("../assets/part4.jpg");
     padding-top: 10%;
-    padding-bottom: 33%;
+    padding-bottom: 25%;
 
 }
 
@@ -619,11 +750,17 @@ a {
     cursor: pointer;
 }
 
-.topBtn,
-a:hover,
-a:visited,
-a:active {
+.topBtn{
     color: rgb(77, 77, 77);
+} 
+
+.topBtn:hover{
+    color: rgb(77, 77, 77);
+} 
+
+.vertical{
+    color: white;
+    font-weight: 900;
 }
 
 .container1 h2 {
@@ -659,20 +796,20 @@ a:active {
 }
 
 .container3 h2 {
-    color: rgb(219, 230, 237);
+    color: rgb(249, 214, 250);
     font-size: 60px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container3 h3 {
-    color: rgb(219, 230, 237);
+    color: rgb(249, 214, 250);
     font-size: 30px;
     margin-left: 50px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .container3 h4 {
-    color: rgb(219, 230, 237);
+    color: rgb(249, 214, 250);
     margin-left: 100px;
     margin-bottom: 240px;
 }
@@ -707,13 +844,11 @@ a:active {
     color: rgba(213, 181, 22, 0.959);
 }
 
-.loginBtn {
-    color: black;
-    background-color: white;
-    border-radius: 4px;
-    width: 15%;
+.mainBanner{
+    background: rgba(255, 255, 255, 0.712);    
 }
 
+.mainBanner,
 .banner {
     border-radius: 15px;
     border: 1px solid #999;
@@ -757,11 +892,14 @@ a:active {
     text-align: center;
     margin-top: 3%;
     font-size: 30px;
+}
 
+.refer > button > a{
+    color: white;
 }
 
 .refer button {
-    width: 20%;
+    width: 18%;
     font-weight: 900;
 }
 
@@ -832,6 +970,7 @@ a:active {
 }
 
 .carousel-inner {
+    margin-top: 30px;
     height: 800px;
 }
 
@@ -1061,9 +1200,8 @@ a:active {
     visibility: visible;
 }
 
-#checkIn {
-    padding-left: 30px;
-    padding-right: 20px;
+#checkIn {    
+    padding-right: 50px;
 }
 
 .fromAreaView,
@@ -1159,19 +1297,16 @@ a:active {
     }
 
     .container2 h2 {
-        font-size: 190px;
-
+        font-size: 160px;
     }
 
     .container2 h3 {
-        font-size: 40px;
-        margin-left: 10%;
+        font-size: 40px;        
     }
 
     .container2 h4 {
         font-size: 30px;
-        margin-bottom: 170px;
-        margin-left: 10%;
+        margin-bottom: 170px;        
     }
 
 }
@@ -1181,18 +1316,18 @@ a:active {
 @media (min-width: 1600px) {
     .container3 h2 {
         font-size: 80px;
-        margin-left: 40%;
+        margin-left: 60%;
     }
 
     .container3 h3 {
         font-size: 30px;
-        margin-left: 57%;
+        margin-left: 85%;
     }
 
     .container3 h4 {
         font-size: 25px;
-        margin-left: 57%;
-        margin-bottom: 220px;
+        margin-left: 85%;
+        margin-bottom: 440px;
     }
 
     .container4 h2 {

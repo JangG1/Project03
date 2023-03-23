@@ -1,36 +1,36 @@
 <template>
-  <div id="profile">
-    <img :src="profile" alt="profile-logo" />
-  </div>
+<div>
+    <img class="profile" :src="profile" alt="profile-logo" />
+</div>
 </template>
 
 <script>
 export default {
-  name: "ProfileItem",
-  props: {
-    profile: {
-      type: String,
-      default: require("@/assets/person2.png"),
+    name: "ProfileItem",
+    props: {
+        profile: {
+            type: String,
+            default: require("@/assets/Logo3.png"),
+        },
+        email: {
+            type: String,
+            default: "로그인 요청드립니다.",
+        },
     },
-    email: {
-      type: String,
-      default: "로그인 요청드립니다.",
+    data() {
+        return {};
     },
-  },
-  data() {
-    return {};
-  },
-  methods: {},
-  computed: {},
+    methods: {},
+    computed: {},
 };
 </script>
 
 <style scoped>
-  #profile > img {
-    width: 50px;
-    height: 50px;    
+.profile {
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-  }
+}
 </style>

@@ -1,8 +1,11 @@
 <template>
-<div id="sec1" data-aos="fade-up" data-aos-delay="300"  data-aos-easing="ease-ou" data-aos-duration="2000">
-	<h1>웹 개발자 장지원입니다.</h1>
-</div>
+    <div></div>
 <!--
+<div id="sec1" data-aos="fade-up" data-aos-delay="300"  data-aos-easing="ease-ou" data-aos-duration="2000">
+
+<h1>웹 개발자 장지원입니다.</h1>
+</div>
+
 <div
  data-aos="fade-up"
  data-aos-offset="200"
@@ -14,7 +17,6 @@
  data-aos-anchor-placement="top-center"
 >   </div>
 -->
-
 </template>
 
 <script>
@@ -31,20 +33,22 @@ export default {
     created() {
         AOS.init();
     },
-    methods: {
-    }
+    methods: {}
 }
 </script>
 
 <style>
 .slide-fade-enter-active {
-  transition: all .3s ease;
+    transition: all .3s ease;
 }
+
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
-.slide-fade-enter, .slide-fade-leave-to{
-  transform: translateX(10px);
-  opacity: 0;
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
 }
 </style>

@@ -1,41 +1,43 @@
 <template>
-<div>
+<div class="navigation" v-if="this.$route.name !== 'Home'">
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- Fastrip 로고 -->
-        <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo2.png" class="logo"></router-link>
+        <!-- <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo2.png" class="logo"></router-link> -->
+        <a class="logoLink" href="/">Fastrip</a>
 
         <!-- 예약 조회 버튼 -->
-        <ul class="nav">
+        <!-- <ul class="nav">
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
-        </ul>
+        </ul> -->
 
-        <!-- Test 페이지 버튼 -->
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <router-link to="/Test" class="nav-link px-2 link-secondary">Test</router-link>
-        </ul>
-
+        <div class="subLink">
+        <a class="homeLink" href="/">Home</a>
+        <a href="#part2">Dentinations</a>
+        <a href="/Reservation">Reservation</a>
+        <a href="/Test">Test</a>
+        </div>
         <!-- 로그인 썸네일 -->
-        <div class="profileBox">
             <!--로그인-->
-            <div class="email" v-if="isLogin">{{ this.$store.state.userInfo.email }} 님</div>
+            <!-- <div class="email" v-if="isLogin">{{ this.$store.state.userInfo.email }} 님</div> -->
             <div class="loginBtn" @click="loginModal = true">
                 <ProfileItem :profile="getProfile" :email="getEmail" />
+                <div class="loginText" v-if="!isLogin">Login</div>
             </div>
             <!--로그아웃-->
             <div class="logoutBtn" @click="logout" v-if="isLogin">
-                로그아웃
+                Logout
             </div>
-        </div>
+
 
     </div>
-
+</div>
     <!-- 로그인 모달 -->
     <div v-if="!isLogin">
         <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
     </div>
 
-    <hr>
+
 
     <!-- <Home v-if="$route.name !== 'Arrival'"></Home>     -->
 
@@ -45,7 +47,6 @@
     </div>
 
     <router-view></router-view>
-</div>
 </template>
 
 <script>
@@ -128,28 +129,52 @@ export default {
     src: url('assets/fonts/NanumBarunGothic.woff')format('woff');
 }
 
+.navigation{
+    height: 130px;
+    background-color: rgba(22, 122, 122, 0.507);
+}
+
 .navBar {
-    display: flex;
+    display: flex;            
 }
 
-.logo {
-    width: 110px;
-    height: 70px;
-    margin-top: 26px;
-    margin-left: 1%;
+.navBar > a,
+.subLink > a{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    font-weight: 900;
+    margin-top: 1.5%;
+    margin-left: 3%;
 }
 
-.email {
+.logoLink{
+    font-size: 40px;
+    padding-left: 1%;
+}
+
+.subLink{    
+    margin-left: 40%;
+    margin-top: 2.5%;        
+}
+
+.subLink > a{
+    padding: 20px;
+}
+/* .email {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(95, 95, 95);
     padding: 3%;
     margin-right: 10px;
+} */
+
+.email {            
+    color: white;
+    padding: 3%;
+    margin-right: 10px;
 }
 
-.profileBox {
-    display: flex;
-    margin-top: 46px;
-    margin-right: 20px;
+.nav{
+    font-weight: 900;    
 }
 
 .nav-link {
@@ -158,21 +183,44 @@ export default {
 }
 
 .loginBtn {
-    margin-right: 10px;
-    width: 30px;
-    height: 30px;
+    display: flex;
+    margin-top: 2.3%;
+    margin-left: 11%;
 }
 
-.logoutBtn {
+.loginText{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 900;
+    margin-top: 10%;
+    margin-left: 20%;
+    cursor: pointer;
+    color: white;
+}
+
+.logoutBtn{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    font-weight: 900;
+    padding: 10px 0;    
+    margin-top: 2.3%;
+    margin-left: 1%;
+    font-size: 18px;
+}
+
+/* .logoutBtn {
     color: #999;
     border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
-    padding: 10px 20px 10px 20px;
+    height: 50px;
+    width: 100px;
+    padding: 10px 0;
     border: 3px solid rgb(193, 188, 188);
     margin-left: 5px;
     margin-right: 20px;
-}
+    text-align: center;    
+} */
 
 .layerPopup {
     position: fixed;

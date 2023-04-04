@@ -24,9 +24,9 @@ const routes = [
     component: () => import('../views/Reservation.vue')
   },
   {
-    path: '/Test',
-    name: 'Test',
-    component: () => import('../views/Test.vue'),
+    path: '/Contact',
+    name: 'Contact',
+    component: () => import('../views/Contact.vue'),
     props: true
   },
   {

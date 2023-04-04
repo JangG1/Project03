@@ -210,9 +210,14 @@ export default {
 }
 
 .text2-1,
-.text2-2,
 .text2-3{
     font-size: 19px;
+    color: white;
+}
+
+.text2-2{
+    font-size: 19px;
+    color: #999;
 }
 
 .text2-1:visited,

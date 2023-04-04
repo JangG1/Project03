@@ -1,6 +1,6 @@
 <template>
 <div>
-    <img class="profile" :src="profile" alt="profile-logo" />
+    <img class="profile" :src="profile"/>
 </div>
 </template>
 
@@ -11,11 +11,7 @@ export default {
         profile: {
             type: String,
             default: require("@/assets/Logo3.png"),
-        },
-        email: {
-            type: String,
-            default: "로그인 요청드립니다.",
-        },
+        }
     },
     data() {
         return {};
@@ -27,8 +23,8 @@ export default {
 
 <style scoped>
 .profile {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 10px;
     border: none;
     cursor: pointer;

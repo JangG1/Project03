@@ -146,35 +146,4 @@ public class ResController {
 		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
 	}
 	
-
-	// Test
-	/*@GetMapping("/JPATest")
-	public void JPATest() {
-		System.out.println("시작");			
-		
-		AddPassenger resList2 = new AddPassenger();
-
-		System.out.println(resList2);
-		
-		//추가 승객
-		Map<String, String> addAdult = resList2.getAddAdult();
-		Map<String, String> addChild = resList2.getAddChild();
-		Map<String, String> addInfant = resList2.getAddInfant();
-		addAdult.put("addAdult", "김민지");
-		addChild.put("addChild", "팜하니");
-		addInfant.put("addInfant", "강해린");				
-		
-		resRepository2.save(resList2);
-		
-		System.out.println("종료");		
-	}*/
-
-	// id(res_no) 기준으로 예약내역(승객 정보) 조회
-	/*@GetMapping("/resList/{id}")
-	public ResList detail(@PathVariable int id) {
-		ResList resList = resRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("없는 정보 입니다.");
-		});
-		return resList;
-	}*/
 }

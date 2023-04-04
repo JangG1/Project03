@@ -246,8 +246,8 @@
                         <span class="femaleRadioLabel">여자</span>
                     </div>
                     <div class="passInfo2-2" style="margin-left:267px">
-                        <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
-                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 01.01">
+                        <h5>생년 월일 (MMDD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 0101">
                     </div>
 
                 </div>
@@ -304,8 +304,8 @@
                         <span class="femaleRadioLabel">여자</span>
                     </div>
                     <div class="passInfo2-2" style="margin-left:267px">
-                        <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
-                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 01.01">
+                        <h5>생년 월일 (MMDD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 0101">
                     </div>
 
                 </div>
@@ -362,8 +362,8 @@
                         <span class="femaleRadioLabel">여자</span>
                     </div>
                     <div class="passInfo2-2" style="margin-left:267px">
-                        <h5>생년 월일 (MM.DD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
-                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 01.01">
+                        <h5>생년 월일 (MMDD) <span class="asterisk" disabled='disabled'> *</span></h5><br>
+                        <input type="text" class="passText" v-model="birthday2" placeholder="예) 0101">
                     </div>
 
                 </div>

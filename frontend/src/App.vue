@@ -13,15 +13,15 @@
 
         <div class="subLink">
         <a class="homeLink" href="/">Home</a>
-        <a href="#part2">Dentinations</a>
+        <a href="/">Destinations</a>
         <a href="/Reservation">Reservation</a>
-        <a href="/Test">Test</a>
+        <a href="/Contact">Contact</a>
         </div>
         <!-- 로그인 썸네일 -->
             <!--로그인-->
             <!-- <div class="email" v-if="isLogin">{{ this.$store.state.userInfo.email }} 님</div> -->
             <div class="loginBtn" @click="loginModal = true">
-                <ProfileItem :profile="getProfile" :email="getEmail" />
+                <ProfileItem :profile="getProfile"/>
                 <div class="loginText" v-if="!isLogin">Login</div>
             </div>
             <!--로그아웃-->
@@ -84,7 +84,7 @@ export default {
     },
     methods: {
         hideParams() {
-            history.pushState(null, "", `/Test`)
+            history.pushState(null, "", `/`)
         },
         setParamInfo() {
             if (this.$route.query.email != null) {
@@ -147,6 +147,11 @@ export default {
     margin-left: 3%;
 }
 
+.navBar > a:visited,
+.subLink > a:visited{
+    color: white;
+}
+
 .logoLink{
     font-size: 40px;
     padding-left: 1%;
@@ -160,6 +165,7 @@ export default {
 .subLink > a{
     padding: 20px;
 }
+
 /* .email {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgb(95, 95, 95);
@@ -185,7 +191,7 @@ export default {
 .loginBtn {
     display: flex;
     margin-top: 2.3%;
-    margin-left: 11%;
+    margin-left: 8%;
 }
 
 .loginText{
@@ -207,20 +213,6 @@ export default {
     margin-left: 1%;
     font-size: 18px;
 }
-
-/* .logoutBtn {
-    color: #999;
-    border: 1px solid black;
-    border-radius: 10px;
-    cursor: pointer;
-    height: 50px;
-    width: 100px;
-    padding: 10px 0;
-    border: 3px solid rgb(193, 188, 188);
-    margin-left: 5px;
-    margin-right: 20px;
-    text-align: center;    
-} */
 
 .layerPopup {
     position: fixed;

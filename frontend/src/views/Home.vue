@@ -1,43 +1,43 @@
 <template>
 <div class="part1">
-<!----- 네비게이션 바 시작---------------------------------------------------->
-    <div class="homeNavigation">
-    <div class="homeNavBar">
+    <!----- 네비게이션 바 시작---------------------------------------------------->
+    <div class="homeNavigation" id="top">
+        <div class="homeNavBar">
             <a class="homeLogoLink" href="/">Fastrip</a>
-        <div class="homeSubLink">
-            <a href="/">Home</a>
-            <a href="#part2">Dentinations</a>
-            <a href="/Reservation">Reservation</a>
-            <a href="/Test">Test</a>
+            <div class="homeSubLink">
+                <a href="/">Home</a>
+                <a href="#part2">Destinations</a>
+                <a href="/Reservation">Reservation</a>
+                <a href="/Contact">Contact</a>
+            </div>
+            <!-- 로그인 썸네일 -->
+            <!--로그인-->
+            <div class="homeLoginBtn" @click="loginModal = true">
+                <ProfileItem :profile="getProfile" :email="getEmail" />
+                <div class="homeLoginText" v-if="!isLogin">Login</div>
+            </div>
+            <!--로그아웃-->
+            <div class="homeLogoutBtn" @click="logout" v-if="isLogin">
+                Logout
+            </div>
         </div>
-        <!-- 로그인 썸네일 -->
-        <!--로그인-->
-        <div class="homeLoginBtn" @click="loginModal = true">
-            <ProfileItem :profile="getProfile" :email="getEmail" />
-            <div class="homeLoginText" v-if="!isLogin">Login</div>
-        </div>
-        <!--로그아웃-->
-        <div class="homeLogoutBtn" @click="logout" v-if="isLogin">
-            Logout
+        <!-- 로그인 모달 -->
+        <div v-if="!isLogin">
+            <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
         </div>
     </div>
-    <!-- 로그인 모달 -->
-    <div v-if="!isLogin">
-        <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
+
+    <!----- 네비게이션 바 종료 ---------------------------------------------------->
+
+    <!--공지 모달-->
+    <div v-if="NoticeModalView == true" class="NoticeModalView" :class="{ active : NoticeModalView }">
+        <NoticeModal @noticeView="noticeView" @move="move" @close="NoticeModalPopUp"></NoticeModal>
     </div>
-</div>
 
-<!----- 네비게이션 바 종료 ---------------------------------------------------->
-
-        <!--공지 모달-->
-        <div v-if="NoticeModalView == true" class="NoticeModalView" :class="{ active : NoticeModalView }">
-            <NoticeModal @noticeView="noticeView" @move="move" @close="NoticeModalPopUp"></NoticeModal>
-        </div>
-
-<!----- 배너&예약박스 시작 ---------------------------------------------------->
+    <!----- 배너&예약박스 시작 ---------------------------------------------------->
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 
-        <div class="carousel-inner" id="top" data-aos="fade-down" data-aos-duration="2000">
+        <div class="carousel-inner" data-aos="fade-down" data-aos-duration="2000">
 
             <!--배너 좌우 이동 버튼-->
             <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
@@ -206,17 +206,17 @@
 
         </div>
     </div>
-<!----- 배너&예약박스 종료 ---------------------------------------------------->
+    <!----- 배너&예약박스 종료 ---------------------------------------------------->
 
     <!-- 조회버튼 -->
     <div class="refer" data-aos="fade-down">
         <!--예약 조회 버튼-->
-        <button type="button" class="btn btn-lg btn-default">            
+        <button type="button" class="btn btn-lg btn-default">
             <a href="/Reservation">✈ &nbsp; 예약 조회</a>
         </button>
-        <!-- 버튼-->        
+        <!-- 버튼-->
         <span class="vertical">|</span>
-        <button type="button" class="btn btn-lg btn-default" id="checkIn" @click="ing">            
+        <button type="button" class="btn btn-lg btn-default" id="checkIn" @click="ing">
             <a href="">✔ &nbsp; 체크인</a>
         </button>
         <span class="vertical">|</span>
@@ -282,7 +282,7 @@
     </div>
 
     <div class="FootRight">
-        <a class="topBtn" href="#top">✈ Top</a>
+        <a class="focus" href="#top">✈ Top</a>
     </div>
 </footer>
 </template>
@@ -376,9 +376,9 @@ export default {
             let email = this.$store.state.userInfo.email;
 
             axios.get('/api/kakao/logout/' + access_token, {
-                params: {
-                    email: email
-                }
+                    params: {
+                        email: email
+                    }
                 })
                 .then((response) => {
                     alert(response.data)
@@ -619,17 +619,17 @@ export default {
 </script>
 
 <style>
-.homeNavigation{
+.homeNavigation {
     height: 130px;
     background-color: rgba(22, 122, 122, 0.507);
 }
 
 .homeNavBar {
-    display: flex;            
+    display: flex;
 }
 
-.homeNavBar > a,
-.homeSubLink > a{
+.homeNavBar>a,
+.homeSubLink>a {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: white;
     font-weight: 900;
@@ -637,31 +637,36 @@ export default {
     margin-left: 3%;
 }
 
-.homeLogoLink{
+.homeNavBar>a:visited,
+.homeSubLink>a:visited {
+    color: white;
+}
+
+.homeLogoLink {
     font-size: 40px;
     padding-left: 1%;
 }
 
-.homeSubLink{    
+.homeSubLink {
     margin-left: 40%;
-    margin-top: 2.5%;        
+    margin-top: 2.5%;
 }
 
-.homeSubLink > a{
+.homeSubLink>a {
     padding: 20px;
 }
 
-.homenav{
-    font-weight: 900;    
+.homenav {
+    font-weight: 900;
 }
 
 .homeLoginBtn {
     display: flex;
     margin-top: 2.3%;
-    margin-left: 11%;
+    margin-left: 8%;
 }
 
-.homeLoginText{
+.homeLoginText {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 18px;
     font-weight: 900;
@@ -671,51 +676,15 @@ export default {
     color: white;
 }
 
-.homeLogoutBtn{
+.homeLogoutBtn {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: white;
     font-weight: 900;
-    padding: 10px 0;    
+    padding: 10px 0;
     margin-top: 2.3%;
     margin-left: 1%;
     font-size: 18px;
     cursor: pointer;
-}
-
-.slide-fade-enter-active {
-    transition: all .3s ease;
-}
-
-.slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-
-.slide-fade-enter,
-.slide-fade-leave-to {
-    transform: translateX(10px);
-    opacity: 0;
-}
-
-.NoticeModalView {
-    padding: 20px;
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 780px;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 1px 1px 6px teal;
-    z-index: 10;
-}
-
-.NoticeModalView::before {
-    display: block;
-}
-
-.NoticeodalView::-webkit-scrollbar {
-    width: 0px;
 }
 
 .part1 {
@@ -750,15 +719,15 @@ a {
     cursor: pointer;
 }
 
-.topBtn{
+.topBtn {
     color: rgb(77, 77, 77);
-} 
+}
 
-.topBtn:hover{
+.topBtn:hover {
     color: rgb(77, 77, 77);
-} 
+}
 
-.vertical{
+.vertical {
     color: white;
     font-weight: 900;
 }
@@ -844,8 +813,8 @@ a {
     color: rgba(213, 181, 22, 0.959);
 }
 
-.mainBanner{
-    background: rgba(255, 255, 255, 0.712);    
+.mainBanner {
+    background: rgba(255, 255, 255, 0.712);
 }
 
 .mainBanner,
@@ -894,7 +863,7 @@ a {
     font-size: 30px;
 }
 
-.refer > button > a{
+.refer>button>a {
     color: white;
 }
 
@@ -967,6 +936,14 @@ a {
     float: right;
     margin-right: 280px;
     margin-top: 60px;
+}
+
+.FootRight>a {
+    color: black;
+}
+
+.FootRight>a:visited {
+    color: black;
 }
 
 .carousel-inner {
@@ -1200,7 +1177,7 @@ a {
     visibility: visible;
 }
 
-#checkIn {    
+#checkIn {
     padding-right: 50px;
 }
 
@@ -1249,12 +1226,27 @@ a {
     border: 2.5px solid teal;
 }
 
+@media (min-width: 1250px) {
+    .NoticeModalView {
+        left: 60%;
+        width: 600px;
+        height: 780px;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 1px 1px 6px teal;
+        overflow: auto;
+        z-index: 10;
+    }
+
+}
+
 /* 화면 축소 전 후 */
 
 @media (min-width: 1450px) {
-    .NoticeModalView {
-        left: 60%
-    }
 
     .container1 h2 {
         font-size: 150px;
@@ -1301,12 +1293,12 @@ a {
     }
 
     .container2 h3 {
-        font-size: 40px;        
+        font-size: 40px;
     }
 
     .container2 h4 {
         font-size: 30px;
-        margin-bottom: 170px;        
+        margin-bottom: 170px;
     }
 
 }

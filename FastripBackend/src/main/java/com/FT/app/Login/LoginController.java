@@ -140,7 +140,7 @@ public class LoginController {
 		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
 		// 포워드 = 특정  URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:8080");
+		redirectView.setUrl("http://localhost:9200");
 		// 리다이렉트 시 User object 전달
 		redirectView.addStaticAttribute("email", kakaoUser.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser.getName());
@@ -182,7 +182,7 @@ public class LoginController {
 
 		// 프론트로 리다이렉트 
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:8080/Arrival");
+		redirectView.setUrl("http://localhost:9200/Arrival");
 		// 리다이렉트 시 User object 전달
 		redirectView.addStaticAttribute("email", kakaoUser2.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser2.getName());

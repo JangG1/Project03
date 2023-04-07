@@ -236,6 +236,10 @@ export default {
 </script>
 
 <style>
+.blank{
+    height: 150px;
+}
+
 .arrBlank {
     height: 150px;
 }

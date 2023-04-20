@@ -7,12 +7,12 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/Departure/:fromArea/:toArea/:seat/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount',
-    name: 'Departure',
-    component: () => import('../views/Departure.vue'),
-    props: true
-  },  
+  // {
+  //   path: '/Departure/:fromArea/:toArea/:seat/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount',
+  //   name: 'Departure',
+  //   component: () => import('../views/Departure.vue'),
+  //   props: true
+  // },  
   {
     path: "/LoginModal",
     name: "LoginModal",
@@ -57,6 +57,12 @@ const routes = [
     path: '/Complete',
     name: 'Complete',
     component: () => import('@/views/Complete.vue'),
+    props: true
+  },
+  {
+    path: '/Test',
+    name: 'Test',
+    component: () => import('@/views/Test.vue'),
     props: true
   },
 ]

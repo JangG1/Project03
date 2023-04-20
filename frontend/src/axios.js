@@ -21,7 +21,7 @@ axios.interceptors.request.use(
 // Add a response interceptor
 axios.interceptors.response.use(
     function (response) {
-        // Do something with response data
+        // 응답 객체의 config 속성이 null이 아닌 경우에만 실행
         return response;
     },
     async function (error) {

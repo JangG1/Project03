@@ -150,8 +150,10 @@ export default createStore({
                 gender: info.gender,
                 birthday: info.birthday,
                 access_token: info.access_token,
-                refresh_token: info.refresh_token
+                refresh_token: info.refreshtoken
             }
+            console.log(payload)
+            console.log(userInfo)
             commit("loginSuccess", userInfo)
         },
         async consentBtn1({ commit }, payload) {

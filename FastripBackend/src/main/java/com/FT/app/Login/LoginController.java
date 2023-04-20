@@ -62,21 +62,19 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor // 의존성 주입 final 필요(02/07 Service 호출 시 NPE 발생)
-@RequestMapping("/api/*")
 public class LoginController {
 
 	private final UserRepository userRepository;
 
 	@Autowired
 	private UserService userService;
+	
+	@PostMapping("/axiosTest")
+	public void axiosTest(@RequestBody String test) {
+		System.out.println(test);
+	}
 
-	// 유저 정보 내역 전부 조회 (사용X)
-	/*@GetMapping("/kakao/info")
-	public List<User> all() {
-		return userRepository.findAll();
-	}*/
-
-	@GetMapping("/kakao/logout")
+	@PostMapping("/kakao/logout")
 	public String logout(HttpSession session) {
 		kakaoLogout((String)session.getAttribute("access_Token"));
 	    session.removeAttribute("access_Token");
@@ -140,7 +138,7 @@ public class LoginController {
 		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
 		// 포워드 = 특정  URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:9200");
+		redirectView.setUrl("http://fastrip.shop/");
 		// 리다이렉트 시 User object 전달
 		redirectView.addStaticAttribute("email", kakaoUser.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser.getName());
@@ -163,14 +161,14 @@ public class LoginController {
 
 		KakaoAPI kakaoAPI2 = new KakaoAPI();
 		//KakaoAPI 인가 코드 전송 및 유저 정보 응답		
-		System.out.println("1");
+
 		String redNum = "2"; //redNum = redirectNumber
 		
 		User kakaoUser2 = (User) kakaoAPI2.KakaoAPI(code, redNum); 
-		System.out.println("2" + kakaoUser2);
+
 		// 기존 회원 찾기(중복)
 		User originUser = userService.회원찾기(kakaoUser2.getEmail());
-		System.out.println("3");
+
 		// 기존 회원 아닐시 새로 등록
 		if (originUser.getEmail() == null) {
 			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
@@ -178,11 +176,10 @@ public class LoginController {
 		}
 
 		System.out.println("자동 로그인을 진행합니다.");
-		System.out.println("id : " + kakaoUser2.getId());
 
 		// 프론트로 리다이렉트 
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:9200/Arrival");
+		redirectView.setUrl("http://fastrip.shop/Arrival");
 		// 리다이렉트 시 User object 전달
 		redirectView.addStaticAttribute("email", kakaoUser2.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser2.getName());

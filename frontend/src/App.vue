@@ -11,7 +11,7 @@
             <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
         </ul> -->
 
-        <div class="subLink">
+        <div class="subLink">            
         <a class="homeLink" href="/">Home</a>
         <a href="/">Destinations</a>
         <a href="/Reservation">Reservation</a>
@@ -78,7 +78,6 @@ export default {
             return this.$store.state.isLogin;
         },
         isLoading() {
-            //console.log("loading " + this.$store.state.isLoad);
             return this.$store.state.isLoad;
         },
     },
@@ -95,7 +94,7 @@ export default {
             let access_token = this.$store.state.userInfo.access_token;
             let email = this.$store.state.userInfo.email;
 
-            axios.get('/api/kakao/logout/' + access_token, {
+            axios.get('http://192.168.56.1:8200/api/kakao/logout/' + access_token, {
                 params: {
                     email: email
                 }

@@ -6,7 +6,7 @@
         <span v-if="passengerView" class="passengerView">
             <PassengerModal @close="passengerModal" :user="user"></PassengerModal>
         </span>
-        <!--예약 취소 모달--> 
+        <!--예약 취소 모달-->
         <span v-if="resCancelView" class="passengerView">
             <ResCancelModal @close="resDelModal"></ResCancelModal>
         </span>
@@ -15,8 +15,8 @@
             <img src="../assets/magnifier.jpg"><br>
             <span v-if="this.$store.state.isLogin == true">예약 내역 없음.</span><br>
             <div v-if="this.$store.state.isLogin == false">
-            <input type="text" v-model="emailValue" class="emailTextBar" @keyup.enter="getData(emailValue)" placeholder="이메일을 입력해주세요.">
-            <input type="button" class="emailGetData" @click="getData(emailValue)" value="비회원 조회하기">
+                <input type="text" v-model="emailValue" class="emailTextBar" @keyup.enter="getData(emailValue)" placeholder="이메일을 입력해주세요.">
+                <input type="button" class="emailGetData" @click="getData(emailValue)" value="비회원 조회하기">
             </div>
         </div>
 
@@ -41,7 +41,7 @@
             <tbody>
                 <tr v-for="res in res" :key="res">
                     <td>
-                        <button type="button" class="resDelBtn" @click="resDelModal(res?.res_no)">취소</button>                                                                        
+                        <button type="button" class="resDelBtn" @click="resDelModal(res?.res_no)">취소</button>
                     </td>
                     <td>{{"Fastrip - " + res?.res_no}}</td>
                     <td><input type="button" class="passBtn" value="예약자 정보" @click="passengerModal(res?.res_no)"></td>
@@ -65,18 +65,18 @@
         </table>
     </div>
 </div>
-    <!-- FOOTER -->
-    <div class="Footer">
-        <div class="FootLeft">
-            <img class="footLogo" src="../assets/Logo2.png" loading="lazy">
-            <span> Fastrip</span>
-            <p>&copy; 2022 Company, Fastrip</p>
-        </div>
-
-        <div class="FootRight">
-            <a class="topBtn" href="#top">✈ Top</a>
-        </div>
+<!-- FOOTER -->
+<div class="Footer">
+    <div class="FootLeft">
+        <img class="footLogo" src="../assets/Logo2.png" loading="lazy">
+        <span> Fastrip</span>
+        <p>&copy; 2022 Company, Fastrip</p>
     </div>
+
+    <div class="FootRight">
+        <a class="topBtn" href="#top">✈ Top</a>
+    </div>
+</div>
 </template>
 
 <script>
@@ -105,6 +105,18 @@ export default {
     created() {
         AOS.init();
     },
+    computed: {
+
+        isLogin() {
+            if (this.$store.state.isLogin == true) {
+                //console.log("로그인 되었습니다.")
+            }
+            return this.$store.state.isLogin;
+        },
+        isLoading() {
+            return this.$store.state.isLoad;
+        },
+    },
     methods: {
         resDate1(value) { //협정 세계시(UTC) 시간 차이로 인한 시간 재정의
             let resDate = new Date(value);
@@ -128,7 +140,7 @@ export default {
 
             return year + "-" + month + "-" + day + "(" + date + ") "
         },
-        emailGetData(value){
+        emailGetData(value) {
             console.log("1 : " + value);
             this.getData(value);
         },
@@ -137,30 +149,30 @@ export default {
             //로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
             //로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
             let email = '';
-            if(this.$store.state.isLogin == true){
+            if (this.$store.state.isLogin == true) {
                 email = this.$store.state.userInfo.email;
-            } else if (this.$store.state.isLogin == false){
+            } else if (this.$store.state.isLogin == false) {
                 email = value;
-                
+
             }
-            //ft5698@nate.com
-            //let email = "test@test.com";
-            axios.get('/res/resList/' + email)
+            this.$store.dispatch("setLoading", true);
+            axios.get('http://192.168.56.1:8200/api/res/resList/' + email)
                 .then((res) => {
                     this.res = res.data
                     this.user = res.data
                 })
                 .catch(err => {
-                    console.log(err)                            
-                    console.log("ss")
+                    console.log(err)
+                    alert("예약된 정보가 없거나 이메일이 유효하지 않습니다.")
                 })
+            this.$store.dispatch("setLoading", false);
         },
         passengerModal(value) { //예약자 정보 팝업
             this.passengerView = (this.passengerView) ? false : true
             this.$store.dispatch("res_no", value);
 
         },
-        resDelModal(value){//예약 취소 팝업
+        resDelModal(value) { //예약 취소 팝업
             console.log(value)
             this.resCancelView = (this.resCancelView) ? false : true
             this.$store.dispatch("res_no", value);
@@ -177,16 +189,19 @@ export default {
 
     },
     mounted() {
-        this.getData()        
+        if (this.$store.state.isLogin === true) {
+            this.getData();
+        }
     }
 }
 </script>
 
 <style scoped>
 .fixedHeader {
-	position: sticky;
-	top: 0;
+    position: sticky;
+    top: 0;
 }
+
 .res {
     padding-top: 100px;
 }
@@ -202,7 +217,7 @@ export default {
 .resBlank img {
     width: 60px;
     height: 60px;
-    
+
 }
 
 .table-responsive {
@@ -234,8 +249,8 @@ export default {
     /*스크롤바 트랙 색상*/
 }
 
-.passengerView {    
-    content: url(@/assets/Logo2.png);    
+.passengerView {
+    content: url(@/assets/Logo2.png);
     padding: 20px;
     position: fixed;
     top: 50%;
@@ -253,38 +268,38 @@ export default {
 /* 화면 축소 전 후 */
 
 @media (min-width: 850px) {
-    .passengerView {       
-        content: none; 
-    padding: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 35%;
-    height: 38%;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 2px 2px 10px lightgrey;
-    overflow: auto;
-}
+    .passengerView {
+        content: none;
+        padding: 20px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 35%;
+        height: 38%;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 2px 2px 10px lightgrey;
+        overflow: auto;
+    }
 
-.passengerView::-webkit-scrollbar {
-    width: 15px;
+    .passengerView::-webkit-scrollbar {
+        width: 15px;
 
-}
+    }
 
-.passengerView::-webkit-scrollbar-thumb {
-    background-color: teal;
-    border-radius: 10px;
-    /*스크롤바의 색상*/
-}
+    .passengerView::-webkit-scrollbar-thumb {
+        background-color: teal;
+        border-radius: 10px;
+        /*스크롤바의 색상*/
+    }
 
-.passengerView::-webkit-scrollbar-track {
-    background-color: white;
-    border-radius: 10px;
-    border: 0.1px solid teal;
-    /*스크롤바 트랙 색상*/
-}
+    .passengerView::-webkit-scrollbar-track {
+        background-color: white;
+        border-radius: 10px;
+        border: 0.1px solid teal;
+        /*스크롤바 트랙 색상*/
+    }
 
 }
 
@@ -361,16 +376,16 @@ a:active {
     color: rgb(77, 77, 77);
 }
 
-.resDelBtn{
+.resDelBtn {
     color: white;
     font-weight: 900;
     background-color: teal;
-    border: none;        
+    border: none;
     border-radius: 4px;
     padding: 6px;
 }
 
-.emailGetData{    
+.emailGetData {
     border: 3px solid teal;
     border-radius: 4px;
     color: teal;
@@ -379,22 +394,22 @@ a:active {
     font-weight: 900;
 }
 
-.emailTextBar{
+.emailTextBar {
     width: 350px;
     margin-top: 50px;
     border: 3px solid 999;
     border-radius: 4px;
     color: #999;
     background-color: white;
-    padding: 10px;    
+    padding: 10px;
     margin-right: 15px;
 }
 
-.emailTextBar:hover{    
+.emailTextBar:hover {
     border: 3px solid teal;
 }
 
-.oneWay{
+.oneWay {
     padding-left: 100px;
     padding-right: 100px;
 }

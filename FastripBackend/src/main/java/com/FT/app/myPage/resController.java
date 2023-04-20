@@ -56,7 +56,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 @RestController
-@RequestMapping("/res/*")
 public class ResController {
 	@Autowired
 	private ResRepository resRepository;
@@ -65,13 +64,13 @@ public class ResController {
 	private AddPasRepository addPasRepository;
 	
 	// 예약 내역 전부 조회
-	@GetMapping("/all")
+	@GetMapping("/res/all")
 	public List<ResList> all() {
 		return resRepository.findAll();
 	}
 	
 	// id(res_no) 기준으로 추가 승객 예약내역 조회
-	@GetMapping("/addPas/{id}")
+	@GetMapping("/res/addPas/{id}")
 	public Map getAddPasDetail(@PathVariable int id) {
 		AddPassenger addPasList = addPasRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("없는 정보 입니다.");
@@ -103,7 +102,7 @@ public class ResController {
 	}
 
 	// 로그인 email 기준 예약 내역 전부 조회
-	@GetMapping("/resList/{email}")
+	@GetMapping("/res/resList/{email}")
 	public List<ResList> getResList(@PathVariable("email") String email) {
 		//List<ResList> a = resRepository.findByEmail(email);
 		//예외처리 구현 필요
@@ -112,13 +111,13 @@ public class ResController {
 	}
 
 	// 예약 내역 저장
-	@PostMapping("/resPost")
+	@PostMapping("/res/resPost")
 	public void addResList(@RequestBody ResList resList) {
 		System.out.println(resList);
 		resRepository.save(resList);
 	}
 	
-	@PostMapping("/resPost/addPas")//추가 승객(성인, 유아, 소아) 정보 저장
+	@PostMapping("/res/resPost/addPas")//추가 승객(성인, 유아, 소아) 정보 저장
 	public void addPasList(@RequestBody HashMap<String, Object> resList) throws IOException {
 		///////추가 승객 시작///////(정상작동 2/23 02:33)
 		String addAdultInfo = resList.get("addAdult").toString();
@@ -139,7 +138,7 @@ public class ResController {
 	}
 	
 	// id(res_no) 기준으로 예약내역(승객 정보), 추가 승객 정보 삭제
-	@PostMapping("/remove/{id}")
+	@PostMapping("/res/remove/{id}")
 	public void detailDelete(@PathVariable int id) {
 		resRepository.deleteById(id);
 		addPasRepository.deleteById(id);

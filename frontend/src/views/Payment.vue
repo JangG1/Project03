@@ -1867,7 +1867,6 @@ h4 {
     color: #999;
     cursor: pointer;
     margin-top: 2%;
-
 }
 
 .cardPay {

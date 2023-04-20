@@ -22,9 +22,9 @@
             </div>
             <div class="infoRight">
                 <span class="listRight">{{addAdult?.[index].korName}}</span><br><br>
-                <span class="listRight">{{addAdult?.[index].engLastName}} {{addAdult?.[index].engFirstName}}</span><br><br>
-                <span class="listRight">{{addAdult?.[index].gender}}</span><br><br>
-                <span class="listRight">{{addAdult?.[index].birthday}}</span>
+                <span class="listRight">{{addAdult?.[index].engLastName}} {{addAdult?.[index].engFirstName}}</span><br><br>                
+                <span class="listRight">{{addAdult?.[index].birthday}}</span><br><br>
+                <span class="listRight">{{addAdult?.[index].gender}}</span>
             </div>
         </div>
     </span>
@@ -208,11 +208,17 @@ export default {
         },
 
     },
+    computed: {
+        isLoading() {
+            return this.$store.state.isLoad;
+        },
+    },
     methods: {
         closeModal() {
             this.$emit('closeModal')
         },
         submit() {
+            this.$store.dispatch("setLoading", true);
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             let returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
@@ -221,8 +227,8 @@ export default {
             } else {
                 this.way = "편도";
                 returnDate = '';
-                this.returnInfo.seatClass2 = '';                
-                this.returnInfo.flight2 = '';                
+                this.returnInfo.seatClass2 = '';
+                this.returnInfo.flight2 = '';
                 this.returnInfo.startTime2 = '';
                 this.returnInfo.arriveTime2 = '';
             }
@@ -235,7 +241,7 @@ export default {
                 email = this.userInfo.email;
             }
 
-            axios.post("/res/resPost", {
+            axios.post("http://192.168.56.1:8200/api/res/resPost", {
                     email: email,
                     seat: this.chooseInfo.seat,
                     seatClass1: this.startInfo.seatClass1,
@@ -265,9 +271,10 @@ export default {
                     console.log(err)
                     console.log("예약자 정보 안보내짐")
                 })
+            this.$store.dispatch("setLoading", false);
         },
-        submit2() {
-
+        submit2() { //추가 승객
+            this.$store.dispatch("setLoading", true);
             let addAdult = this.addAdult
             let addChild = this.addChild
             let addInfant = this.addInfant
@@ -286,7 +293,7 @@ export default {
                 birthday: this.birthday
             }];
 
-            axios.post("/res/resPost/addPas", {
+            axios.post("http://192.168.56.1:8200/api/res/resPost/addPas", {
                     addAdult: addAdult,
                     addChild: addChild,
                     addInfant: addInfant,
@@ -307,6 +314,7 @@ export default {
             this.$store.dispatch("addChild", addChild);
             this.$store.dispatch("addInfant", addInfant);
             alert("예약이 완료 되었습니다.")
+            this.$store.dispatch("setLoading", false);
             this.$router.push('Complete');
         },
     },

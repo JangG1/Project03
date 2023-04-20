@@ -149,7 +149,7 @@ export default {
         },
         getUserInfo() {
             if (this.$store.state.isLogin == true) {
-                axios.get('/api/kakao/info')
+                axios.get('http://192.168.56.1:8200/api/kakao/info')
                     .then((response) => {
                         this.userInfo = response.data
                         console.log(this.userInfo)

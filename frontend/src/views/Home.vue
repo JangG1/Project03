@@ -47,8 +47,7 @@
 
             <!--배너1-->
             <div class="carousel-item active">
-                <!--배너 이미지1-->
-                <!-- <img class="banner" src="../assets/bannerImage/1.jpg"> -->
+                <!--배너 이미지1-->                
                 <div class="mainBanner"></div>
                 <div class="container1">
                     <div class="carousel-caption">
@@ -61,7 +60,7 @@
             <!--배너2-->
             <div class="carousel-item">
                 <!--배너 이미지2-->
-                <img class="banner" src="../assets/bannerImage/2.jpg" loading="lazy">
+                <img class="banner" src="../assets/bannerImage/2.jpg">
                 <div class="container2">
                     <div class="carousel-caption">
                         <h2>Bern</h2>
@@ -75,7 +74,7 @@
             <!--배너3-->
             <div class="carousel-item">
                 <!--배너 이미지3-->
-                <img class="banner" src="../assets/bannerImage/3.jpg" loading="lazy">
+                <img class="banner" src="../assets/bannerImage/3.jpg">
                 <div class="container3">
                     <div class="carousel-caption">
                         <h2>Chūbu, Fuji</h2>
@@ -89,7 +88,7 @@
             <!--배너4-->
             <div class="carousel-item">
                 <!--배너 이미지4-->
-                <img class="banner" src="../assets/bannerImage/4.jpg" loading="lazy">
+                <img class="banner" src="../assets/bannerImage/4.jpg">
                 <div class="container4">
                     <div class="carousel-caption">
                         <h2>Fastrip</h2>
@@ -332,7 +331,6 @@ export default {
             toAreaView: false,
             showModal: false, //true일 때 모달창 보여짐
             modalDatas: [], //모달에 보낼 데이터 배열
-            products: [],
             AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
@@ -375,7 +373,7 @@ export default {
             let access_token = this.$store.state.userInfo.access_token;
             let email = this.$store.state.userInfo.email;
 
-            axios.get('/api/kakao/logout/' + access_token, {
+            axios.get('http://192.168.56.1:8200/api/kakao/logout/' + access_token, {
                     params: {
                         email: email
                     }
@@ -463,12 +461,6 @@ export default {
         },
         toAreaPopUp() {
             this.toAreaView = (this.toAreaView) ? false : true
-        },
-        getData() {
-            axios.get('/prod/all')
-                .then((response) => {
-                    this.products = response.data
-                })
         },
         updateCount(AdultCount, ChildCount, InfantCount) {
             this.AdultCount = AdultCount;
@@ -806,6 +798,10 @@ a {
 .carousel-caption {
     margin-left: 33.5%;
     color: white;
+}
+
+.carousel-caption > h4{
+    cursor: pointer;
 }
 
 .carousel-indicators {

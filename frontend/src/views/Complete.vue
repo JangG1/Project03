@@ -20,9 +20,9 @@
             </div>
             <div class="comInfoRight">
                 <span class="listRight">{{addAdult[index]?.korName}}</span><br><br>
-                <span class="listRight">{{addAdult[index]?.engLastName}} {{addAdult[index]?.engFirstName}}</span><br><br>
-                <span class="listRight">{{addAdult[index]?.gender}}</span><br><br>
-                <span class="listRight">{{addAdult[index]?.birthday}}</span>
+                <span class="listRight">{{addAdult[index]?.engLastName}} {{addAdult[index]?.engFirstName}}</span><br><br>            
+                <span class="listRight">{{addAdult[index]?.birthday}}</span><br><br>
+                <span class="listRight">{{addAdult[index]?.gender}}</span>
             </div>
         </div>
     </span>

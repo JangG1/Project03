@@ -78,9 +78,8 @@ export default {
 <style>
 .noticeTitle {
     color: teal;
-    font-size: 25px;
-    font-weight: 900;
-    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 900;    
     text-align: center;
 }
 
@@ -89,7 +88,7 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50px;
+    height: 35px;    
     color: white;
     background: teal;
     font-weight: bold;
@@ -104,10 +103,10 @@ export default {
     color: white;
     background: teal;
     border: none;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 900;
     float: right;
-    margin-top: 2%;
+    margin-top: 1.9%;
     margin-right: 3%;
 }
 
@@ -115,7 +114,7 @@ export default {
     color: white;
     background: teal;
     border: none;
-    font-size: 16px;
+    font-size: 12px;
     float: right;
     margin-top: 2.2%;
     margin-right: 2%;
@@ -123,7 +122,7 @@ export default {
 
 .closeNoticeTodayCheck {
     float: right;
-    margin-top: 3%;
+    margin-top: 2.5%;
     margin-right: 1.5%;
 }
 
@@ -136,19 +135,19 @@ export default {
 }
 
 .noticeBody1-1 {
-    font-size: 25px;
+    font-size: 16px;
     font-weight: 900;
     color: rgba(0, 0, 0, 0.646);
 }
 
 .noticeBody1-2 {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 900;
     color: rgba(58, 58, 58, 0.646);
 }
 
 .noticeBody2 {
-    height: 500px;
+    height: 300px;
     margin-top: 4%;
     border: 1px solid teal;
     border-radius: 4px;
@@ -185,13 +184,10 @@ export default {
 .noticeBody2Btn3 {
     color: white;
     text-align: center;
-    padding: 35px;    
+    padding: 26px;    
     z-index: 10;
-    position: absolute;
-    height: 16%;
-    width: 50%;
-    margin-top: 2%;
-    margin-left: 2%;
+    position: absolute;    
+    width: 40%;
 }
 
 .noticeBody2Btn2 {
@@ -199,24 +195,24 @@ export default {
 }
 
 .text1 {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 900;    
 }
 
 .text2 {
-    font-size: 18px;
+    font-size: 12px;
     font-weight: 900;    
     cursor: pointer;
 }
 
 .text2-1,
 .text2-3{
-    font-size: 19px;
+    font-size: 12px;
     color: white;
 }
 
 .text2-2{
-    font-size: 19px;
+    font-size: 12px;
     color: #999;
 }
 

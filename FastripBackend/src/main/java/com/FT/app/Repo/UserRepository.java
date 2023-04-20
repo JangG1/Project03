@@ -11,5 +11,5 @@ import com.FT.app.myPage.domain.ResList;
 public interface UserRepository extends JpaRepository<User, Long> {
 	 
 	 Optional<User> findByEmail(String email);
-
+	 
 }

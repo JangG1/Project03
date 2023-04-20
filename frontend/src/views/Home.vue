@@ -6,7 +6,7 @@
             <a class="homeLogoLink" href="/">Fastrip</a>
             <div class="homeSubLink">
                 <a href="/">Home</a>
-                <!-- <a href="#part2">Destinations</a> -->
+                <a href="#part2">Destinations</a>
                 <a href="/Reservation">Reservation</a>
                 <a href="/Contact">Contact</a>
             </div>
@@ -612,7 +612,7 @@ export default {
 
 <style>
 .homeNavigation {
-    height: 130px;
+    height: 80px;
     background-color: rgba(22, 122, 122, 0.507);
 }
 
@@ -625,7 +625,7 @@ export default {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: white;
     font-weight: 900;
-    margin-top: 1.5%;
+    margin-top: 1%;
     margin-left: 3%;
 }
 
@@ -640,17 +640,18 @@ export default {
 }
 
 .homeLogoLink {
-    font-size: 40px;
+    font-size: 30px;
     padding-left: 1%;
 }
 
 .homeSubLink {
-    margin-left: 40%;
-    margin-top: 2.5%;
+    margin-left: 42%;
+    margin-top: 2%;
 }
 
 .homeSubLink>a {
-    padding: 20px;
+    font-size: 16px;
+    padding: 10px;
 }
 
 .homenav {
@@ -659,15 +660,15 @@ export default {
 
 .homeLoginBtn {
     display: flex;
-    margin-top: 2.3%;
-    margin-left: 8%;
+    margin-top: 1%;
+    margin-left: 6%;
 }
 
 .homeLoginText {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 900;
-    margin-top: 10%;
+    margin-top: 14%;
     margin-left: 20%;
     cursor: pointer;
     color: white;
@@ -808,6 +809,11 @@ a {
     cursor: pointer;
 }
 
+.carousel-inner {
+    margin-top: 16px;
+    height: 800px;
+}
+
 .carousel-indicators {
     margin-left: 35%;
     color: rgba(213, 181, 22, 0.959);
@@ -822,7 +828,7 @@ a {
     border-radius: 15px;
     border: 1px solid #999;
     width: 98%;
-    height: 780px;
+    height: 450px;
     margin-left: 1%;
     margin-right: 1%;
 }
@@ -840,7 +846,7 @@ a {
     border-right: 8px solid #999;
     /* 각도 */
     transform: rotate(225deg);
-    top: 50%;
+    top: 28%;
     left: 40%;
 }
 
@@ -853,7 +859,7 @@ a {
     border-right: 8px solid #999;
     /* 각도 */
     transform: rotate(45deg);
-    top: 50%;
+    top: 28%;
     right: 50px;
 }
 
@@ -944,11 +950,6 @@ a {
 
 .FootRight>a:visited {
     color: black;
-}
-
-.carousel-inner {
-    margin-top: 30px;
-    height: 800px;
 }
 
 .resForm {
@@ -1229,8 +1230,8 @@ a {
 @media (min-width: 1250px) {
     .NoticeModalView {
         left: 60%;
-        width: 600px;
-        height: 780px;
+        width: 400px;
+        height: 500px;
         padding: 20px;
         position: absolute;
         top: 50%;

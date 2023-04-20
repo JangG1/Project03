@@ -23,8 +23,9 @@ export default {
 
 <style scoped>
 .profile {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
+    margin-top: 8px;
     border-radius: 10px;
     border: none;
     cursor: pointer;

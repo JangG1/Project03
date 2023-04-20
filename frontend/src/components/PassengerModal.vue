@@ -93,7 +93,7 @@ export default {
 
             this.$store.dispatch("setLoading", true);
 
-            axios.get('http://192.168.56.1:8200/api/res/resList/' + email)
+            axios.get('http://58.225.45.251:8200/api/res/resList/' + email)
                 .then((res) => {
                     this.res1 = res.data
                 })
@@ -103,7 +103,7 @@ export default {
         getData2() {
             this.$store.dispatch("setLoading", true);
 
-            axios.get('http://192.168.56.1:8200/api/res/addPas/' + this.res_no)
+            axios.get('http://58.225.45.251:8200/api/res/addPas/' + this.res_no)
                 .then((res) => {
                     this.res2 = res.data;
                     this.addAdult = res.data.adult?.addAdult;

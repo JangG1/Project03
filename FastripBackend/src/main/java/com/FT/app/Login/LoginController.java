@@ -139,14 +139,29 @@ public class LoginController {
 		// 포워드 = 특정  URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://fastrip.shop/");
+		
+		Optional<User> totalUser =  userRepository.findByEmail("sanso317@naver.com");
+		
+		System.out.println(totalUser.get().getEmail());
+		
 		// 리다이렉트 시 User object 전달
-		redirectView.addStaticAttribute("email", kakaoUser.getEmail());
+		/*redirectView.addStaticAttribute("email", kakaoUser.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser.getName());
 		redirectView.addStaticAttribute("profile", kakaoUser.getProfile());
 		redirectView.addStaticAttribute("gender", kakaoUser.getGender());
 		redirectView.addStaticAttribute("birthday", kakaoUser.getBirthday());
 		redirectView.addStaticAttribute("access_token", kakaoUser.getAccess_token());
-		redirectView.addStaticAttribute("refreshtoken", kakaoUser.getRefresh_token());
+		redirectView.addStaticAttribute("refreshtoken", kakaoUser.getRefresh_token());*/
+
+		// 리다이렉트 시 로그인 email 기준 User object 전달
+		redirectView.addStaticAttribute("email", totalUser.get().getEmail());
+		redirectView.addStaticAttribute("name", totalUser.get().getName());
+		redirectView.addStaticAttribute("profile", totalUser.get().getProfile());
+		redirectView.addStaticAttribute("gender", totalUser.get().getGender());
+		redirectView.addStaticAttribute("birthday", totalUser.get().getBirthday());
+		redirectView.addStaticAttribute("access_token",totalUser.get().getAccess_token());
+		redirectView.addStaticAttribute("refreshtoken", totalUser.get().getRefresh_token());
+		
 		// 리다이렉트 url parameter 암호화
 		redirectView.setExposePathVariables(false);
 		redirectView.setExposeModelAttributes(true);
@@ -180,6 +195,7 @@ public class LoginController {
 		// 프론트로 리다이렉트 
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://fastrip.shop/Arrival");
+		
 		// 리다이렉트 시 User object 전달
 		redirectView.addStaticAttribute("email", kakaoUser2.getEmail());
 		redirectView.addStaticAttribute("name", kakaoUser2.getName());
@@ -188,6 +204,7 @@ public class LoginController {
 		redirectView.addStaticAttribute("birthday", kakaoUser2.getBirthday());
 		redirectView.addStaticAttribute("access_token", kakaoUser2.getAccess_token());
 		redirectView.addStaticAttribute("refreshtoken", kakaoUser2.getRefresh_token());
+		
 		// 리다이렉트 url parameter 암호화
 		redirectView.setExposePathVariables(false);
 		redirectView.setExposeModelAttributes(true);

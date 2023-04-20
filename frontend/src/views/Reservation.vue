@@ -156,7 +156,7 @@ export default {
 
             }
             this.$store.dispatch("setLoading", true);
-            axios.get('http://192.168.56.1:8200/api/res/resList/' + email)
+            axios.get('http://58.225.45.251:8200/api/res/resList/' + email)
                 .then((res) => {
                     this.res = res.data
                     this.user = res.data

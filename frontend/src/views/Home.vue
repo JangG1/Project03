@@ -6,7 +6,7 @@
             <a class="homeLogoLink" href="/">Fastrip</a>
             <div class="homeSubLink">
                 <a href="/">Home</a>
-                <a href="#part2">Destinations</a>
+                <!-- <a href="#part2">Destinations</a> -->
                 <a href="/Reservation">Reservation</a>
                 <a href="/Contact">Contact</a>
             </div>
@@ -373,7 +373,7 @@ export default {
             let access_token = this.$store.state.userInfo.access_token;
             let email = this.$store.state.userInfo.email;
 
-            axios.get('http://192.168.56.1:8200/api/kakao/logout/' + access_token, {
+            axios.get('http://58.225.45.251:8200/api/kakao/logout/' + access_token, {
                     params: {
                         email: email
                     }
@@ -634,6 +634,11 @@ export default {
     color: white;
 }
 
+.homeNavBar>a:hover,
+.homeSubLink>a:hover {
+    color: white;
+}
+
 .homeLogoLink {
     font-size: 40px;
     padding-left: 1%;
@@ -687,7 +692,6 @@ export default {
 
 .part2 {
     background: url("../assets/part2.jpg") fixed;
-
     margin-bottom: 10%;
 }
 

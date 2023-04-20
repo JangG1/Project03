@@ -42,7 +42,7 @@ export default {
         //카카오 로그인
         kakaoLogin() {
             if(!this.$store.state.isLogin){                
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://127.0.0.1:8200/api/auth/kakao/callback&response_type=code";
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback&response_type=code";
             }
             if(this.$route.query.email != null){
                 this.$store.dispatch("login")
@@ -51,7 +51,7 @@ export default {
         //카카오 로그인(Arrive 페이지용)
         kakaoLogin2() {
             if(!this.$store.state.isLogin){             
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://127.0.0.1:8200/api/auth/kakao/callback2&response_type=code";
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback2&response_type=code";
             }
             if(this.$route.query.email != null){
                 this.$store.dispatch("login")
@@ -60,7 +60,7 @@ export default {
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
 
-            axios.get('http://192.168.56.1:8200/api/kakao/logout/' + access_token)
+            axios.get('http://58.225.45.251:8200/api/kakao/logout/' + access_token)
                 .then((response) => {
                     alert(response.data)
                 })

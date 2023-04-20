@@ -103,9 +103,12 @@
         <button type="button" class="arrSubmitBtn2" @click="loginSubmit()">회원 결제 하기</button>
     </div>
 </div>
+
+ <!-- 로그인 모달 -->
 <div v-if="!isLogin">
-    <LoginModal @closeModal="loginModal = false" :loginModal="loginModal" />
+    <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
 </div>
+
 </template>
 
 <script>
@@ -142,14 +145,14 @@ export default {
         hideParams() {
             history.pushState(null, "", `/Arrival`)
         },
-        setParamInfo(){
-            if(this.$route.query.email != null){
-            this.$store.dispatch("setUserInfo", this.$route.query)
+        setParamInfo() {
+            if (this.$route.query.email != null) {
+                this.$store.dispatch("setUserInfo", this.$route.query)
             }
         },
         getUserInfo() {
             if (this.$store.state.isLogin == true) {
-                axios.get('http://192.168.56.1:8200/api/kakao/info')
+                axios.get('http://58.225.45.251:8200/api/kakao/info')
                     .then((response) => {
                         this.userInfo = response.data
                         console.log(this.userInfo)
@@ -236,7 +239,7 @@ export default {
 </script>
 
 <style>
-.blank{
+.blank {
     height: 150px;
 }
 
@@ -470,5 +473,13 @@ export default {
 .arrStartPrice {
     font-size: 20px;
     margin-left: 62%;
+}
+
+@media (min-width: 1000px) {
+    .loginModal {
+        content: none;
+        width: 500px;
+        height: 550px;
+    }
 }
 </style>

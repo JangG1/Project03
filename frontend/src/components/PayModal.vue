@@ -241,7 +241,7 @@ export default {
                 email = this.userInfo.email;
             }
 
-            axios.post("http://192.168.56.1:8200/api/res/resPost", {
+            axios.post("http://58.225.45.251:8200/api/res/resPost", {
                     email: email,
                     seat: this.chooseInfo.seat,
                     seatClass1: this.startInfo.seatClass1,
@@ -293,7 +293,7 @@ export default {
                 birthday: this.birthday
             }];
 
-            axios.post("http://192.168.56.1:8200/api/res/resPost/addPas", {
+            axios.post("http://58.225.45.251:8200/api/res/resPost/addPas", {
                     addAdult: addAdult,
                     addChild: addChild,
                     addInfant: addInfant,

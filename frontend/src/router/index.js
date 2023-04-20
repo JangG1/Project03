@@ -59,12 +59,6 @@ const routes = [
     component: () => import('@/views/Complete.vue'),
     props: true
   },
-  {
-    path: '/Test',
-    name: 'Test',
-    component: () => import('@/views/Test.vue'),
-    props: true
-  },
 ]
 
 const router = createRouter({

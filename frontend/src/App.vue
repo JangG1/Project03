@@ -94,7 +94,7 @@ export default {
             let access_token = this.$store.state.userInfo.access_token;
             let email = this.$store.state.userInfo.email;
 
-            axios.get('http://192.168.56.1:8200/api/kakao/logout/' + access_token, {
+            axios.get('http://58.225.45.251:8200/api/kakao/logout/' + access_token, {
                 params: {
                     email: email
                 }

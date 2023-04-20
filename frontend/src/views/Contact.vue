@@ -102,10 +102,10 @@ export default {
     },
     methods: {
         moveGit() {
-            location.href = "https://github.com/JangG1";
+            window.open("https://github.com/JangG1");
         },
         moveSns() {
-            location.href = "https://www.instagram.com/d_o_nii/";
+            window.open("https://www.instagram.com/d_o_nii/");
         },
     }
 }

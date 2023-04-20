@@ -31,7 +31,7 @@ export default {
         },
         resCancel() {
 
-            axios.post("http://192.168.56.1:8200/api/res/remove/" + this.res_no)
+            axios.post("http://58.225.45.251:8200/api/res/remove/" + this.res_no)
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")

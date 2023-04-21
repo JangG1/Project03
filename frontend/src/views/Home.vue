@@ -65,7 +65,6 @@
                     <div class="carousel-caption">
                         <h2>Bern</h2>
                         <h3>in Switzerland</h3>
-                        <br>
                         <h4 @click="ing">자세히 보기</h4>
                     </div>
                 </div>
@@ -78,8 +77,7 @@
                 <div class="container3">
                     <div class="carousel-caption">
                         <h2>Chūbu, Fuji</h2>
-                        <h3>in Japan</h3>
-                        <br>
+                        <h3>in Japan</h3>                        
                         <h4 @click="ing">자세히 보기</h4>
                     </div>
                 </div>
@@ -93,7 +91,6 @@
                     <div class="carousel-caption">
                         <h2>Fastrip</h2>
                         <h3>The lowest-priced airline ticket!</h3>
-                        <br>
                         <h4 @click="ing">자세히 보기</h4>
                     </div>
                 </div>
@@ -132,7 +129,7 @@
                     <!--여행 날짜 선택-->
 
                     <!--왕복 날짜 선택-->
-                    <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos="flip-down" data-aos-delay="100" modelAuto range>
+                    <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos="flip-down" data-aos-delay="100" modelAuto range>                        
                         <template #month="{ value }">
                             {{ value + 1 + "월"}}
                         </template>
@@ -142,9 +139,6 @@
                     </Datepicker>
                     <div type="button" class="selectDate1" v-if="selectDate1">
                         <div class="selectDate2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi">
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                            </svg>
                             {{Format1(bothWay)}}
                         </div>
                     </div>
@@ -160,9 +154,6 @@
                     </Datepicker>
                     <div type="button" class="selectDate1" v-if="selectDate2">
                         <div class="selectDate2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi">
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                            </svg>
                             {{Format2(oneWay)}}
                         </div>
                     </div>
@@ -173,7 +164,7 @@
                 <button type="button" class="btn-field" id="resPassenger" @click="popUp">
                     <div class="count1">승객 수 </div>
                     <div class="countImg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                         </svg>
                     </div>
@@ -184,7 +175,7 @@
                     </div>
                 </button>
 
-                <div class="popup-view" :class="{ active : popupView }">
+                <div class="countModal" :class="{ active : popupView }">
                     <HeadCount @close-popup="popUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
                 </div>
                 <div>
@@ -195,8 +186,8 @@
                 <select id="inputState" class="form-select">
                     <option selected>좌석 등급</option>
                     <option>일반석</option>
-                    <option>이코노미</option>
-                    <option>비즈니스</option>
+                    <option>프레스티지석</option>
+                    <option>일등석</option>
                 </select>
 
                 <input type="submit" @click="submit()" value="항공편 검색" class="submit-btn">
@@ -612,7 +603,7 @@ export default {
 
 <style>
 .homeNavigation {
-    height: 80px;
+    height: 75px;
     background-color: rgba(22, 122, 122, 0.507);
 }
 
@@ -660,16 +651,16 @@ export default {
 
 .homeLoginBtn {
     display: flex;
-    margin-top: 1%;
+    margin-top: 1.4%;
     margin-left: 6%;
 }
 
 .homeLoginText {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 900;
     margin-top: 14%;
-    margin-left: 20%;
+    margin-left: 24%;
     cursor: pointer;
     color: white;
 }
@@ -685,8 +676,7 @@ export default {
     cursor: pointer;
 }
 
-.part1 {
-    /* background-color: rgba(22, 122, 122, 0.507);     */
+.part1 {    
     background: url("../assets/part2.jpg") fixed;
     padding-bottom: 5%;
 }
@@ -699,7 +689,7 @@ export default {
 .part4 {
     background: url("../assets/part4.jpg");
     padding-top: 10%;
-    padding-bottom: 25%;
+    padding-bottom: 20%;
 
 }
 
@@ -716,245 +706,17 @@ a {
     cursor: pointer;
 }
 
-.topBtn {
-    color: rgb(77, 77, 77);
-}
-
-.topBtn:hover {
-    color: rgb(77, 77, 77);
-}
-
-.vertical {
-    color: white;
-    font-weight: 900;
-}
-
-.container1 h2 {
-    color: rgba(0, 128, 128, 0.445);
-    font-size: 100px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container1 h3 {
-    color: rgba(0, 128, 128, 0.445);
-    margin-bottom: 320px;
-    font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container2 h2 {
-    color: rgba(238, 203, 30, 0.959);
-    font-size: 80px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container2 h3 {
-    color: rgba(238, 203, 30, 0.959);
-    font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container2 h4 {
-    color: rgba(238, 203, 30, 0.959);
-    font-size: 20px;
-    margin-bottom: 240px;
-    cursor: pointer;
-}
-
-.container3 h2 {
-    color: rgb(249, 214, 250);
-    font-size: 60px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container3 h3 {
-    color: rgb(249, 214, 250);
-    font-size: 30px;
-    margin-left: 50px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container3 h4 {
-    color: rgb(249, 214, 250);
-    margin-left: 100px;
-    margin-bottom: 240px;
-}
-
-.container4 h2 {
-    color: rgb(234, 246, 255);
-    font-size: 80px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container4 h3 {
-    color: rgb(234, 246, 255);
-    font-size: 18px;
-    font-weight: 900;
-    margin-left: 50px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.container4 h4 {
-    color: rgb(234, 246, 255);
-    margin-left: 100px;
-    margin-bottom: 240px;
-}
-
-.carousel-caption {
-    margin-left: 33.5%;
-    color: white;
-}
-
-.carousel-caption > h4{
-    cursor: pointer;
-}
+/* 예약박스 & 배너 시작 */
+/* 예약박스 시작 */
 
 .carousel-inner {
-    margin-top: 16px;
-    height: 800px;
-}
-
-.carousel-indicators {
-    margin-left: 35%;
-    color: rgba(213, 181, 22, 0.959);
-}
-
-.mainBanner {
-    background: rgba(255, 255, 255, 0.712);
-}
-
-.mainBanner,
-.banner {
-    border-radius: 15px;
-    border: 1px solid #999;
-    width: 98%;
-    height: 450px;
-    margin-left: 1%;
-    margin-right: 1%;
-}
-
-.bannerImg {
-    border: 10px solid #999;
-}
-
-.carousel-control-prev {
-    /* 사이즈 */
-    width: 40px;
-    height: 40px;
-    border-top: 8px solid #999;
-    /* 선 두께 */
-    border-right: 8px solid #999;
-    /* 각도 */
-    transform: rotate(225deg);
-    top: 28%;
-    left: 40%;
-}
-
-.carousel-control-next {
-    /* 사이즈 */
-    width: 40px;
-    height: 40px;
-    /* 선 두께 */
-    border-top: 8px solid #999;
-    border-right: 8px solid #999;
-    /* 각도 */
-    transform: rotate(45deg);
-    top: 28%;
-    right: 50px;
-}
-
-.refer {
-    text-align: center;
-    margin-top: 3%;
-    font-size: 30px;
-}
-
-.refer>button>a {
-    color: white;
-}
-
-.refer button {
-    width: 18%;
-    font-weight: 900;
-}
-
-.recommendProduct {
-    margin-top: 10%;
-    margin-bottom: 3%;
-}
-
-.travelImg {
-    width: 40%;
-    height: 40%;
-    margin-left: 29%;
-    margin-bottom: 10%;
-}
-
-.travelTip {
-    text-align: center;
-    margin-bottom: 2%;
-}
-
-.side {
-    color: white;
-    margin-left: 5%;
-    margin-top: 10%;
-
-}
-
-.sideTip {
-    width: 650px;
-    height: 210px;
-    margin-left: 3%;
-    margin-top: 3%;
-    border: 4px solid white;
-    border-radius: 10px;
-    color: white;
-}
-
-.sideTip1 {
-    border-radius: 8px;
-    padding: 40px 100px;
-}
-
-.sideTip2 {
-    padding: 10px 60px;
-}
-
-.Footer {
-    border-top: 1px solid;
-}
-
-.FootLeft {
-    float: left;
-    margin-left: 280px;
-    margin-top: 30px;
-    font-size: 40px;
-    padding-bottom: 50px;
-}
-
-.footLogo {
-    width: 40%;
-    height: 70px;
-}
-
-.FootRight {
-    float: right;
-    margin-right: 280px;
-    margin-top: 60px;
-}
-
-.FootRight>a {
-    color: black;
-}
-
-.FootRight>a:visited {
-    color: black;
+    margin-top: 10px;
+    height: 470px;
 }
 
 .resForm {
-    width: 35%;
-    height: 92%;
+    width: 400px;
+    height: 460px;
     box-shadow: 7px 7px 15px 0px rgb(107, 138, 138), 8px 8px 16px -10px rgb(82, 96, 96);
     border: 2px solid rgb(193, 188, 188);
     border-radius: 20px;
@@ -963,93 +725,28 @@ a {
     margin-top: 0.5%;
     margin-left: 1.5%;
     position: absolute;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
 }
 
-.btn-field:not(#resRoundTrip, #resOneWay) {
-    border: 1px solid rgb(193, 188, 188);
-    border-radius: 20px;
-    font-size: 24px;
-    color: #999;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
-    margin-top: 30px;
-    cursor: pointer;
-    display: inline-block;
-    white-space: nowrap;
-
-}
-
-.adultCount {
-    display: inline-block;
-    white-space: nowrap;
-}
-
-.childCount {
-    white-space: nowrap;
-    display: inline-block;
-
-}
-
-.infantCount {
-    white-space: nowrap;
-    display: inline-block;
-
-}
-
-.countImg {
-    float: right;
-    margin-right: 3%;
-    color: #626262;
-}
-
-.count1 {
-    float: left;
-    margin-left: 7%;
-    margin-top: 0.5%;
-    font-size: 20px;
-    color: #626262;
-}
-
-.count2 {
-    float: right;
-    margin-right: 3%;
-    margin-top: 0.5%;
-    font-size: 20px;
-}
-
-.submit-btn {
-    width: 60%;
-    height: 7%;
-    border: 1px solid rgb(193, 188, 188);
-    border-radius: 20px;
-    font-size: 24px;
-    color: white;
-    background: rgb(13, 165, 165);
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    cursor: pointer;
-}
-
 .res-area-select {
-    height: 60%;
+    height: 46%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.612) 0%, rgb(237, 237, 237) 100%);
-    border-radius: 50px;
+    border-radius: 30px;
     border: 1px solid rgb(193, 188, 188);
-    padding: 30px;
+    padding: 10px;        
+}
+
+.FromTo{
+    margin-bottom: 10px;
 }
 
 #resRoundTrip,
-#resOneWay {
-    width: 10%;
-    padding-bottom: 4px;
+#resOneWay {      
     display: inline;
     margin-left: 5%;
     margin-right: 8%;
-    font-size: 22px;
+    font-size: 14px;
     border: none;
     color: #999;
     background: rgba(250, 250, 250, 0);
@@ -1067,130 +764,32 @@ a {
 }
 
 .ppg-refresh {
-    width: 9%;
-    height: 9%;
+    width: 10%;
+    height: 10%;
     margin: 0rem 1rem 0rem 1rem;
     vertical-align: middle;
     cursor: pointer;
     border: 4px solid rgb(225, 225, 225);
-    border-radius: 18px;
-}
-
-#resPassenger,
-#inputState {
-    width: 90%;
-    height: 10%;
-    color: #626262;
-    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);
-}
-
-#inputState {
-    padding-left: 50px;
-    font-size: 22px;
+    border-radius: 10px;
 }
 
 .fromBtn,
 .toBtn {
-    width: 40%;
-    height: 115px;
+    width: 37%;
+    height: 80px;
     border: 4px solid rgb(225, 225, 225);
     border-radius: 20px;
 }
 
-.bi {
-    width: 10%;
-    height: 100%;
-    float: left;
-    margin-left: 12px;
-}
-
-.form-select {
-    border: 1px solid rgb(193, 188, 188);
-    border-radius: 20px;
-    font-size: 24px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    cursor: pointer;
-}
-
-.datePicker {
-    width: 80%;
-    border-radius: 20px;
-    border: 1px solid rgb(193, 188, 188);
-    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 43px;
-    padding: 9px;
-}
-
-.selectDate1 {
-    width: 80%;
-    height: 16.2%;
-    border: 1px solid rgb(193, 188, 188);
-    border-radius: 20px;
-    color: red;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
-    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 43px;
-    padding: 9px;
-    font-size: 15px;
-}
-
-.selectDate2 {
-    height: 96%;
-    color: #999;
-    border: 1px solid rgb(193, 188, 188);
-    border-radius: 4px;
-    background-color: white;
-    margin-top: 2px;
-    text-align: center;
-    padding: 9px;
-}
-
-.popup-view {
-    opacity: 0;
-    display: none;
-    visibility: hidden;
-    position: fixed;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    height: 40%;
-    border-radius: 15px;
-    background-color: rgb(244, 244, 244);
-    box-shadow: 2px 2px 10px lightgrey;
-}
-
-.active {
-    opacity: 1;
-    display: block;
-    visibility: visible;
-}
-
-#checkIn {
-    padding-right: 50px;
-}
-
 .fromAreaView,
 .toAreaView {
-    padding: 20px;
+    padding: 10px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
-    height: 55%;
+    height: 60%;
     border-radius: 15px;
     background-color: rgb(250, 250, 250);
     box-shadow: 2px 2px 10px lightgrey;
@@ -1199,7 +798,7 @@ a {
 }
 
 .toAreaView::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
     /*스크롤바의 너비*/
 }
 
@@ -1227,7 +826,433 @@ a {
     border: 2.5px solid teal;
 }
 
-@media (min-width: 1250px) {
+
+.calendar {
+    width: 1%;
+    height: 1%;
+    float: left;
+    margin-left: 12px;
+}
+
+.dp__menu{
+    width: 35%;        
+    height: 50%;
+    margin-top: 30px;    
+}
+
+.dp__pointer {
+    width: 80%;        
+    height: 29px;            
+}
+
+.datePicker{
+    width: 78%;        
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgb(193, 188, 188);
+    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);    
+    margin-left: auto;
+    margin-right: auto;      
+    padding: 4px;    
+    z-index:2;
+}
+
+.selectDate1 {
+    width: 80%;    
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
+    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
+    margin-left: auto;
+    margin-right: auto;    
+    padding: 4px;
+    font-size: 11px;
+    z-index:1;
+}
+
+.selectDate2 {
+    height: 30px;
+    color: #999;
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 4px;
+    background-color: white;    
+    text-align: center;
+    padding: 9px;
+}
+
+
+#resPassenger{
+    width: 90%;
+    height: 10%;
+    color: #626262;
+    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 10px;
+    font-size: 10px;
+    color: #999;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
+    margin-top: 85px;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#inputState {
+    width: 90%;
+    height: 10%;
+    color: #626262;
+    background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 10px;    
+    color: #999;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 26px;
+    font-size: 14px;
+}
+
+.adultCount {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.childCount {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.infantCount {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.countImg {
+    float: right;    
+    margin-right: 3%;
+    color: #626262;
+}
+
+.count1 {
+    float: left;
+    margin-left: 7%;
+    margin-top: 0.5%;
+    font-size: 14px;
+    color: #626262;
+}
+
+.count2 {
+    float: right;
+    margin-right: 3%;
+    margin-top: 0.5%;
+    font-size: 14px;
+}
+
+.countModal {
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 40%;
+    border-radius: 15px;
+    background-color: rgb(244, 244, 244);
+    box-shadow: 2px 2px 10px lightgrey;
+}
+
+.form-select {
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 20px;    
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    width: 50%;
+    height: 8%;
+    border: 1px solid rgb(193, 188, 188);
+    border-radius: 10px;
+    font-size: 14px;
+    color: white;
+    background: rgb(13, 165, 165);
+    display: table;
+    margin-left: auto;
+    margin-right: auto;            
+}
+
+/* 예약박스 종료 */
+/* 배너 시작 */
+
+.container1 h2 {
+    color: rgba(0, 128, 128, 0.445);
+    font-size: 120px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container1 h3 {
+    color: rgba(0, 128, 128, 0.445);
+    margin-bottom: 100px;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container2 h2 {
+    color: rgba(238, 203, 30, 0.959);
+    font-size: 120px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container2 h3 {
+    color: rgba(238, 203, 30, 0.959);
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container2 h4 {
+    color: rgba(238, 203, 30, 0.959);
+    font-size: 15px;
+    margin-bottom: 70px;
+    cursor: pointer;
+}
+
+.container3 h2 {
+    color: rgb(249, 214, 250);
+    font-size: 60px;
+    margin-left: 58%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container3 h3 {
+    color: rgb(249, 214, 250);
+    font-size: 30px;
+    margin-left: 83%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container3 h4 {
+    color: rgb(249, 214, 250);
+    font-size: 15px;
+    margin-left: 88%;
+    margin-bottom: 240px;
+}
+
+.container4 h2 {
+    color: rgb(234, 246, 255);
+    font-size: 90px;
+    margin-left: 48%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container4 h3 {
+    color: rgb(234, 246, 255);
+    font-size: 17px;
+    margin-left: 52%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.container4 h4 {
+    color: rgb(234, 246, 255);
+    font-size: 15px;
+    margin-left: 54%;
+    margin-bottom: 80px;
+}
+
+.carousel-caption {
+    margin-left: 33.5%;
+    color: white;
+}
+
+.carousel-caption > h4{
+    cursor: pointer;
+}
+
+.carousel-indicators {
+    margin-left: 35%;
+    color: rgba(213, 181, 22, 0.959);
+}
+
+.mainBanner {
+    background: rgba(255, 255, 255, 0.712);
+}
+
+.mainBanner,
+.banner {
+    border-radius: 15px;
+    border: 1px solid #999;
+    width: 98%;
+    height: 462px;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.bannerImg {
+    border: 10px solid #999;
+}
+
+.carousel-control-prev {
+    /* 사이즈 */
+    width: 40px;
+    height: 40px;
+    border-top: 8px solid #999;
+    /* 선 두께 */
+    border-right: 8px solid #999;
+    /* 각도 */
+    transform: rotate(225deg);
+    top: 28%;
+    left: 460px;
+}
+
+.carousel-control-next {
+    /* 사이즈 */
+    width: 40px;
+    height: 40px;
+    /* 선 두께 */
+    border-top: 8px solid #999;
+    border-right: 8px solid #999;
+    /* 각도 */
+    transform: rotate(45deg);
+    top: 28%;
+    right: 50px;
+}
+
+/* 배너 종료 */
+/* 예약박스 & 배너 종료 */
+
+.vertical {
+    color: white;
+    font-weight: 900;
+}
+
+#checkIn {
+    padding-right: 50px;
+}
+
+.refer {
+    text-align: center;
+    margin-top: 2%;
+    font-size: 16px;
+}
+
+.refer>button>a {
+    font-size: 16px;
+    color: white;
+}
+
+.refer button {    
+    font-weight: 900;
+}
+
+.recommendProduct {
+    margin-top: 10%;
+    margin-bottom: 3%;
+}
+
+.travelImg {
+    width: 30%;
+    height: 40%;
+    margin-left: 36%;
+    margin-bottom: 10%;
+}
+
+.travelTip {    
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.travelTip>h1 {
+    font-size: 40px;    
+}
+
+.side {
+    color: white;
+    margin-left: 6%;
+    margin-top: 8%;
+}
+
+.side>h2{
+    font-size: 30px;
+}
+
+.sideTip {
+    width: 360px;
+    height: 115px;
+    margin-left: 4%;
+    margin-top: 2%;
+    border: 4px solid white;
+    border-radius: 10px;
+    color: white;
+}
+
+.sideTip1>a,
+.sideTip2>a {
+    font-size: 14px;
+}
+
+.sideTip1 {    
+    padding: 20px 0px;    
+}
+
+.Footer {
+    border-top: 1px solid;
+}
+
+.FootLeft {
+    float: left;
+    margin-left: 120px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 900;
+    padding-bottom: 50px;
+}
+
+.FootLeft>p {    
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.footLogo {
+    width: 35%;
+    height: 60px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.FootRight {
+    float: right;
+    margin-right: 150px;
+    margin-top: 80px;
+}
+
+.FootRight>a {
+    font-size: 16px;
+    color: black;
+}
+
+.FootRight>a:visited {
+    color: black;
+}
+
+.topBtn {
+    color: rgb(77, 77, 77);
+}
+
+.topBtn:hover {
+    color: rgb(77, 77, 77);
+}
+
+@media (min-width: 1100px) {
     .NoticeModalView {
         left: 60%;
         width: 400px;
@@ -1247,35 +1272,66 @@ a {
 
 /* 화면 축소 전 후 */
 
-@media (min-width: 1450px) {
+@media (max-width: 1100px) {
 
     .container1 h2 {
-        font-size: 150px;
+        font-size: 100px;
     }
 
     .container1 h3 {
-        font-size: 30px;
-        margin-bottom: 250px;
+        font-size: 20px;
+        margin-bottom: 100px;
     }
 
     .container2 h2 {
-        font-size: 120px;
+        font-size: 90px;
     }
 
     .container2 h3 {
-        font-size: 40px;
+        font-size: 20px;
     }
 
     .container2 h4 {
-        font-size: 20px;
-        margin-bottom: 200px;
+        font-size: 15px;
+        margin-bottom: 90px;
     }
 
+    .container3 h2 {
+        font-size: 50px;
+        margin-left: 38%;
+    }
+
+    .container3 h3 {
+        font-size: 25px;
+        margin-left: 70%;
+    }
+
+    .container3 h4 {
+        font-size: 15px;
+        margin-left: 70%;
+        margin-bottom: 250px;
+    }
+
+    .container4 h2 {
+        font-size: 70px;
+        margin-left: 30%;
+    }
+
+    .container4 h3 {
+        font-size: 15px;
+        margin-left: 30%;
+    }
+
+    .container4 h4 {
+        font-size: 10px;
+        margin-left: 30%;
+        margin-bottom: 80px;
+    }
 }
 
 /* 화면 축소 전 후 */
 
-@media (min-width: 1900px) {
+/*@media (min-width: 1900px) {
     .NoticeModalView {
         left: 70%
     }
@@ -1286,7 +1342,7 @@ a {
 
     .container1 h3 {
         font-size: 40px;
-        margin-bottom: 220px;
+        margin-bottom: 20px;
     }
 
     .container2 h2 {
@@ -1302,11 +1358,11 @@ a {
         margin-bottom: 170px;
     }
 
-}
+}*/
 
 /* 화면 축소 전 후 */
 
-@media (min-width: 1600px) {
+/*@media (min-width: 1600px) {
     .container3 h2 {
         font-size: 80px;
         margin-left: 60%;
@@ -1338,11 +1394,11 @@ a {
         margin-left: 75%;
         margin-bottom: 220px;
     }
-}
+}*/
 
 /* 화면 축소 전 후 */
 
-@media (min-width: 2000px) {
+/*@media (min-width: 2000px) {
 
     .container3 h2 {
         font-size: 100px;
@@ -1376,5 +1432,6 @@ a {
         margin-bottom: 200px;
     }
 
-}
+}*/
+
 </style>

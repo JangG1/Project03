@@ -7,9 +7,9 @@
         <div class="boxLeft">
             <div class="boxTitleLeft">
                 <img class="boxTitleImg1" src="@/assets/ticketImg1.png">
-                <div>
-                    <span class="boxTitleLeft1">Fastrip</span><br>
-                    <span class="boxTitleLeft2">Airline Ticketing</span>
+                <div class="boxTitleLeft1">
+                    <span class="boxTitleLeft1-1">Fastrip</span><br>
+                    <span class="boxTitleLeft1-2">Airline Ticketing</span>
                 </div>
                 <img class="boxTitleImg2" src="@/assets/ticketImg2.jpeg">
             </div>
@@ -113,45 +113,40 @@ export default {
 
 <style>
 .backImg {
-    background: url("../assets/bannerImage/contact.jpg") fixed;
-    height: 100%;
-    padding-top: 50px;
+    background: url("../assets/bannerImage/contact.jpg") fixed;        
 }
 
 .ctTitle {
-    margin-left: 680px;
-    margin-top: 50px;
+    margin-left: 480px;    
     color: white;
     font-weight: 900;
-    font-size: 160px;
+    font-size: 90px;    
 }
 
 .contBox {
     display: flex;
 }
 
-.boxRight {
-    background-color: rgba(255, 255, 255, 0.906);
-    border-top-right-radius: 60px;
-    border-bottom-right-radius: 60px;
-    width: 500px;
-    height: 530px;
-    margin-top: 20px;
-    margin-bottom: 300px;
-}
-
 .boxLeft {
     background-color: rgba(255, 255, 255, 0.906);
     border-top-left-radius: 60px;
     border-bottom-left-radius: 60px;
-    width: 1100px;
-    height: 530px;
-    margin-left: 200px;
-    margin-top: 20px;
+    width: 630px;
+    height: 340px;
+    margin-left: 170px;    
+}
+
+.boxRight {
+    background-color: rgba(255, 255, 255, 0.906);
+    border-top-right-radius: 60px;
+    border-bottom-right-radius: 60px;
+    width: 330px;
+    height: 340px;    
+    margin-bottom: 200px;    
 }
 
 .boxLeftBot {
-    height: 340px;
+    height: 210px;
     border-right: 10px dashed rgb(134, 134, 134);
     display: flex;
     margin-top: 10px;
@@ -162,8 +157,8 @@ export default {
     border-top-left-radius: 60px;
     color: white;
     background-color: rgba(0, 79, 151);
-    height: 180px;
-    padding-top: 35px;
+    height: 105px;
+    padding-top: 15px;
     border-right: 10px dashed rgb(134, 134, 134);
     background: linear-gradient(to left);
     display: flex;
@@ -174,52 +169,57 @@ export default {
     border-top-right-radius: 60px;
     color: white;
     background-color: rgba(0, 79, 151);
-    height: 180px;
+    height: 105px;
     padding-top: 30px;
 }
 
 .boxRightBot {
-    margin-top: 30px;
+    margin-top: 5px;
     display: flex;
 }
 
-.boxTitleLeft1 {
-    font-size: 60px;
-    margin-left: 160px;
+.boxTitleLeft1{
+    margin-top: 10px;
 }
 
-.boxTitleLeft2 {
+.boxTitleLeft1-1 {
     font-size: 20px;
-    margin-left: 160px;
+    margin-left: 60px;
+    
+}
+
+.boxTitleLeft1-2 {
+    font-size: 16px;    
+    margin-left: 60px;
 }
 
 .boxTitleRight1 {
-    font-size: 60px;
+    font-size: 20px;
     margin-left: 40px;
 }
 
 .boxTitleRight2 {
-    font-size: 20px;
-    margin-left: 55px;
+    font-size: 16px;
+    margin-left: 40px;
 }
 
 .boxTitleImg1 {
-    margin-left: 120px;
-    width: 300px;
-    height: 120px;
+    margin-left: 40px;
+    width: 200px;
+    height: 80px;
 }
 
 .boxTitleImg2 {
-    margin-left: 130px;
-    margin-bottom: 40px;
-    width: 120px;
-    height: 120px;
+    margin-left: 80px;        
+    width: 80px;
+    height: 80px;
 }
 
 .rBoxRight {
-    margin-left: 30px;
+    margin-left: 15px;
+    margin-top: 15px;
     text-align: left;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 900;
     color: rgb(65, 65, 65);
 }
@@ -230,22 +230,22 @@ export default {
 .rBoxBot1>img,
 .rBoxBot2>img,
 .rBoxBot3>img {
-    width: 30px;
+    width: 20px;
 }
 
 .rBoxBot {
     display: flex;
     font-weight: 900;
-    font-size: 24px;
+    font-size: 16px;
     color: #999;
     margin-left: 30px;
-    margin-top: 20px;
+    margin-top: 25px;
     text-align: center;
 }
 
 .rBoxBot2,
 .rBoxBot3 {
-    margin-left: 80px;
+    margin-left: 60px;
 }
 
 .rBoxBot2>img,
@@ -254,9 +254,10 @@ export default {
 }
 
 .rBoxLeft {
-    margin-left: 20px;
+    margin-left: 25px;
+    margin-top: 15px;
     font-weight: 900;
-    font-size: 24px;
+    font-size: 16px;
     color: rgb(91, 91, 91);
 }
 
@@ -267,31 +268,31 @@ export default {
 .lBox1 {
     color: #999;
     font-weight: 900;
-    font-size: 24px;
-    margin-top: 20px;
-    margin-left: 50px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
 .lBox2 {
     color: rgb(65, 65, 65);
     font-weight: 900;
-    font-size: 24px;
-    margin-top: 20px;
-    margin-left: 50px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
 .lBox3 {
     color: rgb(65, 65, 65);
     font-weight: 900;
-    font-size: 24px;
-    margin-top: 95px;
-    margin-left: 50px;
+    font-size: 16px;
+    margin-top: 60px;
+    margin-left: 20px;
 }
 
 .lBoxBot1,
 .lBoxBot2,
 .lBoxBot3 {
-    margin-left: 30px;
+    margin-left: 20px;
     color: #999;
     text-align: center;
 }
@@ -303,15 +304,15 @@ export default {
 
 
 .lBox4>img {
-    width: 60px;
-    height: 240px;
-    margin-top: 40px;
-    margin-left: 240px;    
+    width: 40px;
+    height: 150px;
+    margin-top: 20px;
+    margin-left: 110px;    
 }
 
 .lBox4-1,
 .lBox5-1 {
     color: #999;
-    margin-right: 80px;    
+    margin-right: 40px;    
 }
 </style>

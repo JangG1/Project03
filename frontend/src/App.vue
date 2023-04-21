@@ -3,13 +3,7 @@
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- Fastrip 로고 -->
-        <!-- <router-link v-bind:to="'/'" class="logoRouter"><img src="./assets/Logo2.png" class="logo"></router-link> -->
         <a class="logoLink" href="/">Fastrip</a>
-
-        <!-- 예약 조회 버튼 -->
-        <!-- <ul class="nav">
-            <router-link to="/Reservation" class="nav-link px-2 link-secondary">예약</router-link>
-        </ul> -->
 
         <div class="subLink">            
         <a class="homeLink" href="/">Home</a>
@@ -28,7 +22,6 @@
             <div class="logoutBtn" @click="logout" v-if="isLogin">
                 Logout
             </div>
-
 
     </div>
 </div>
@@ -128,89 +121,79 @@ export default {
     src: url('assets/fonts/NanumBarunGothic.woff')format('woff');
 }
 
-.navigation{
-    height: 130px;
-    background-color: rgba(22, 122, 122, 0.507);
+
+.navigation {
+    height: 75px;
+    background: linear-gradient(135deg, rgba(16, 99, 79, 0.963) 0%, rgba(146, 199, 179, 0.959) 100%);
 }
 
 .navBar {
-    display: flex;            
+    display: flex;
 }
 
-.navBar > a,
-.subLink > a{
+.navBar>a,
+.subLink>a {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: white;
     font-weight: 900;
-    margin-top: 1.5%;
+    margin-top: 1%;
     margin-left: 3%;
 }
 
-.navBar > a:visited,
-.subLink > a:visited{
+.navBar>a:visited,
+.subLink>a:visited {
     color: white;
 }
 
-.logoLink{
-    font-size: 40px;
+.navBar>a:hover,
+.subLink>a:hover {
+    color: white;
+}
+
+.logoLink {
+    font-size: 30px;
     padding-left: 1%;
 }
 
-.subLink{    
-    margin-left: 40%;
-    margin-top: 2.5%;        
+.subLink {
+    margin-left: 42%;
+    margin-top: 2%;
 }
 
-.subLink > a{
-    padding: 20px;
+.subLink>a {
+    font-size: 16px;
+    padding: 10px;
 }
 
-/* .email {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(95, 95, 95);
-    padding: 3%;
-    margin-right: 10px;
-} */
-
-.email {            
-    color: white;
-    padding: 3%;
-    margin-right: 10px;
-}
-
-.nav{
-    font-weight: 900;    
-}
-
-.nav-link {
-    margin-top: 40px;
-    margin-left: 15px;
+.nav {
+    font-weight: 900;
 }
 
 .loginBtn {
     display: flex;
-    margin-top: 2.3%;
-    margin-left: 8%;
+    margin-top: 1.4%;
+    margin-left: 6%;
 }
 
-.loginText{
+.loginText {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 900;
-    margin-top: 10%;
-    margin-left: 20%;
+    margin-top: 14%;
+    margin-left: 24%;
     cursor: pointer;
     color: white;
 }
 
-.logoutBtn{
+.logoutBtn {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: white;
     font-weight: 900;
-    padding: 10px 0;    
+    padding: 10px 0;
     margin-top: 2.3%;
     margin-left: 1%;
     font-size: 18px;
+    cursor: pointer;
 }
 
 .layerPopup {

@@ -79,7 +79,7 @@ export default {
             slides.style.width =
                 (slideWidth + slideMargin) * slideCount - slideMargin + 'px';
 
-            slides.style.left = -num * 336 + 'px';
+            slides.style.left = -num * 215 + 'px';
 
             this.currentIdx = num;
         },
@@ -127,7 +127,7 @@ export default {
 
 li {
     list-style: none;
-    padding-bottom: 5%;
+    padding-bottom: 1%;
 }
 
 .flex {
@@ -142,7 +142,7 @@ li {
 
 .slidesImg {
     width: 98%;
-    height: 280px;
+    height: 250px;
     border-radius: 8px;
     border-top-left-radius: 20px;
 }
@@ -163,15 +163,15 @@ li {
 .prodBox {
     border-radius: 20px;
     margin: 12px;
-    width: 205px;
-    height: 450px;
+    width: 190px;
+    height: 380px;
     background-color: rgba(255, 255, 255, 0.379);
 }
 
 #prodCity,
 #prodWay,
 #prodPrice {
-    font-size: 16px;
+    font-size: 12px;
     font-family: 'NanumBarunGothicBold';
     color: rgb(240, 239, 239);
     margin-left: 7%;
@@ -183,13 +183,14 @@ li {
     font-size: 14px;
     color: white;
     margin-left: 7%;
+    margin-top: 7%;
     width: 115px;
     background-color: rgba(255, 255, 255, 0.436);
 }
 
 .prev {
     float: left;
-    margin-left: 12%;
+    margin-left: 10%;
     margin-top: 15%;
     width: 50px;
     height: 50px;
@@ -202,7 +203,7 @@ li {
 
 .next {
     float: right;
-    margin-right: 12%;
+    margin-right: 14%;
     margin-top: 15%;
     width: 50px;
     height: 50px;
@@ -244,7 +245,7 @@ li {
 
     .slidesImg {
         width: 98%;
-        height: 420px;
+        height: 300px;
         border-radius: 8px;
         border-top-left-radius: 20px;
     }

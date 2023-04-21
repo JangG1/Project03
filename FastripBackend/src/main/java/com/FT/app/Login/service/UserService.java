@@ -50,6 +50,15 @@ public class UserService {
 	}
 
 
-	
+	@Transactional
+	public int 회원수정(User user) {
+		try {
+			userRepository.;
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+		
+	}
 
 }

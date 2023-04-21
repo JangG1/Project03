@@ -81,13 +81,13 @@ export default {
 
 <style>
 .areaSearchTitle {
-    font-weight: 900;
-    font-size: 24px;
-    margin-top: 2%;
-    margin-left: 2%;
+    margin-top: 3%;
+    margin-left: 3%;
 }
 
-.areaSearchTitle h3 {
+.areaSearchTitle>h3 {
+    font-weight: 900;
+    font-size: 20px;
     float: left;
 }
 
@@ -96,51 +96,52 @@ export default {
     background-color: rgb(250, 250, 250);
     color: #606060;
     float: right;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 900;
-    margin-right: 1%;
+    margin-right: 2%;
+}
+
+.fromSearchBar {
+    margin-top: 5%;
 }
 
 .search-input {
-    padding: 18px;
+    padding: 10px;
     padding-left: 18px;
     width: 95%;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 900;
     border: 2px solid teal;
     border-radius: 4px;
     box-shadow: 1px 1px 6px #999;
 }
 
-.group-list li {
+.group-list>li {
     display: contents;
 }
 
 .group-item {
     border: 1px solid;
     background-color: white;
+    font-size: 12px;
     font-weight: 600;
     color: #363636;
-    margin-left: 25px;
-    width: 95%;
+    margin-left: 22px;
+    width: 94%;
     box-shadow: 1px 1px 6px #999;
     padding: 20px;
     display: contents;
 }
 
 .fromButton {
-    width: 85px;
-    height: 50px;
-    font-size: 20px;
+    width: 60px;
+    height: 40px;
+    font-size: 14px;
     font-weight: 900;
     border-radius: 4px;
     color: teal;
     border: 3px solid teal;
     background-color: white;
-    margin-top: 200px;
-}
-
-.fromSearchBar {
-    margin-top: 8%;
+    margin-top: 120px;
 }
 </style>

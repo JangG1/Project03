@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-import axios from 'axios';
 import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
@@ -38,7 +37,6 @@ export default createStore({
         addAdult: '',
         addChild: '',
         addInfant: '',
-        OAuth: null,        
         isLogin: false,
         isLoginError: false,
         isLoad: false,
@@ -180,29 +178,7 @@ export default createStore({
         async addInfant({ commit }, payload) {
             commit('setAddInfant', payload)
         },
-        async getRefreshToken({ commit }) {
-            console.log("getRefreshToken call");
-            if (!Object.prototype.hasOwnProperty.call(localStorage, "access_token"))
-                return;
-            localStorage.setItem('access_token', "");
-
-            let config = {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('refresh_token')
-                }
-            }
-            await axios
-                .post("/api/token/refresh", config)
-                .then((res) => {
-                    console.log(res);
-                    commit('setAccessToken', res)
-                }).catch((err) => {
-                    console.log('refreshToken error : ', err.config);
-                    commit('logout')
-                });
-        },
     },
-    
   modules: {
   },
 })

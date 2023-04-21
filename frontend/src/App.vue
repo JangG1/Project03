@@ -190,9 +190,9 @@ export default {
     color: white;
     font-weight: 900;
     padding: 10px 0;
-    margin-top: 2.3%;
-    margin-left: 1%;
-    font-size: 18px;
+    margin-top: 1.4%;
+    margin-left: 1.2%;
+    font-size: 14px;
     cursor: pointer;
 }
 

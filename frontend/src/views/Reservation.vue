@@ -203,38 +203,34 @@ export default {
 }
 
 .res {
-    padding-top: 100px;
+    padding-top: 16px;
 }
 
 .resBlank {
-    font-size: 20px;
+    font-size: 10px;
     font-weight: 900;
     color: #999;
     text-align: center;
-    padding: 200px 0;
+    padding: 100px 0;
 }
 
 .resBlank img {
     width: 60px;
     height: 60px;
-
 }
 
 .table-responsive {
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10%;
-    height: 500px;
-    /* overflow: hidden; */
+    height: 380px;    
     background-color: white;
     border-radius: 6px;
-
     border: 2px solid teal;
 }
 
 .table-responsive::-webkit-scrollbar {
-    width: 15px;
-
+    width: 10px;
 }
 
 .table-responsive::-webkit-scrollbar-thumb {
@@ -303,33 +299,8 @@ export default {
 
 }
 
-tr {
-    text-align: center;
-    font-size: 20px;
-
-}
-
-th {
-    background-color: teal;
-    font-weight: 900;
-    color: white;
-    padding: 10px 0;
-}
-
-td {
-    padding: 20px;
-    font-size: 18px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-
-}
-
-thead {
-    font-weight: 900;
-
-}
-
 .resTitle {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 900;
     color: teal;
     margin-left: 10%;
@@ -342,7 +313,7 @@ thead {
     border-radius: 4px;
     background-color: teal;
     color: white;
-    padding: 6px;
+    padding: 4px;
 }
 
 .Footer {
@@ -375,16 +346,6 @@ a:visited,
 a:active {
     color: rgb(77, 77, 77);
 }
-
-.resDelBtn {
-    color: white;
-    font-weight: 900;
-    background-color: teal;
-    border: none;
-    border-radius: 4px;
-    padding: 6px;
-}
-
 .emailGetData {
     border: 3px solid teal;
     border-radius: 4px;
@@ -395,7 +356,7 @@ a:active {
 }
 
 .emailTextBar {
-    width: 350px;
+    width: 250px;
     margin-top: 50px;
     border: 3px solid 999;
     border-radius: 4px;
@@ -409,6 +370,38 @@ a:active {
     border: 3px solid teal;
 }
 
+.resDelBtn {
+    color: white;
+    font-weight: 900;
+    background-color: teal;
+    border: none;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 12px;
+}
+
+
+tr {
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: teal;
+    font-weight: 900;
+    color: white;
+    padding: 12px 0;
+}
+
+td {
+    padding: 16px;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+thead {
+    font-weight: 900;
+}
 .oneWay {
     padding-left: 100px;
     padding-right: 100px;

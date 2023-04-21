@@ -1,7 +1,7 @@
 <template>
 <div class="">
     <div class="infoTitle">
-        <span class="title" style="font-size: 30px;">여행 예약 정보</span>
+        <div class="title">여행 예약 정보</div>
         <button class="payCloseBtn" @click="closeModal">X</button>
     </div>
     <br>
@@ -323,41 +323,32 @@ export default {
 </script>
 
 <style>
-.infoTitle {
-    margin-top: 2%;
-    margin-left: 4%;
-    color: teal;
-    font-weight: 900;
+.infoTitle{
+    display: flex;
 }
 
-.payCloseBtn {
+.title {
+    margin-top: 2%;
+    margin-left: 140px;
     color: teal;
     font-weight: 900;
-    font-size: 22px;
-    float: right;
+    font-size: 20px;
+}
+
+.payCloseBtn {    
+    color: teal;
+    font-weight: 900;
+    font-size: 18px;
     border: 1px solid white;
     background-color: white;
-}
-
-.payModalCloseBtn {
-    float: right;
-    border: none;
-    font-size: 24px;
-    color: #999;
-    background-color: white;
-}
-
-.payList {
-    border: 1px solid teal;
-    border-radius: 4px;
-    height: 200px;
-    margin-bottom: 40px;
+    margin-left: 110px;
+    margin-top: 10px;
 }
 
 .infoList {
     border: 1px solid teal;
     border-radius: 4px;
-    height: 320px;
+    height: 210px;
     margin-top: 30px;
     margin-bottom: 20px;
 
@@ -366,14 +357,13 @@ export default {
 .areaList {
     border: 1px solid teal;
     border-radius: 4px;
-    height: 380px;
+    height: 250px;
     margin-top: 30px;
-    margin-bottom: 20px;
-
+    margin-bottom: 10px;
 }
 
 .infoLeft {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 900;
     color: #999;
     float: left;
@@ -381,7 +371,7 @@ export default {
 }
 
 .infoRight {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 900;
     float: right;
     margin-right: 20px;
@@ -400,20 +390,28 @@ export default {
     color: white;
     background-color: teal;
     font-weight: 900;
-    font-size: 24px;
+    font-size: 14px;
     text-align: center;
     padding: 10px 0;
     margin-bottom: 20px;
 }
 
+.payList {
+    border: 1px solid teal;
+    border-radius: 4px;
+    height: 135px;
+    margin-bottom: 30px;
+}
+
 .reserBtn {
-    width: 180px;
-    height: 50px;
-    font-size: 24px;
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
     font-weight: 900;
     color: white;
     border: 1px solid white;
     border-radius: 4px;
     background-color: teal;
+    margin-left: 125px;
 }
 </style>

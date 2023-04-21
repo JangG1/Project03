@@ -161,7 +161,7 @@
                 </div>
 
                 <!--승객수 팝업-->
-                <button type="button" class="btn-field" id="resPassenger" @click="popUp">
+                <button type="button" class="btn-field" id="resPassenger" @click="countModalPopUp">
                     <div class="count1">승객 수 </div>
                     <div class="countImg">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
@@ -175,8 +175,8 @@
                     </div>
                 </button>
 
-                <div class="countModal" :class="{ active : popupView }">
-                    <HeadCount @close-popup="popUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
+                <div v-if="countModal" class="countModal" :class="{ active : countModal }" >
+                    <HeadCount @close="countModalPopUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
                 </div>
                 <div>
 
@@ -311,7 +311,7 @@ export default {
             fromBtn: "",
             bothWay: [],
             oneWay: [],
-            popupView: false,
+            countModal: false,
             datePickerShow1: true,
             datePickerShow2: false,
             selectDate1: false,
@@ -334,7 +334,6 @@ export default {
             toBtn2: false,
             NoticeModalView: true,
             week: ['일', '월', '화', '수', '목', '금', '토'],
-
             startDate: [this.startYear, this.startMonth, this.startDay, this.startWeek],
             startYear: "",
             returnDate: [this.returnYear, this.returnMonth, this.returnDay, this.returnWeek],
@@ -443,9 +442,8 @@ export default {
             this.fromBtn2 = (this.fromBtn2) ? false : true
             this.toBtn2 = (this.toBtn2) ? false : true
         },
-        popUp() {
-            this.popupView = (this.popupView) ? false : true
-
+        countModalPopUp() {
+            this.countModal = (this.countModal) ? false : true
         },
         fromAreaPopUp() {
             this.fromAreaView = (this.fromAreaView) ? false : true
@@ -457,7 +455,7 @@ export default {
             this.AdultCount = AdultCount;
             this.ChildCount = ChildCount;
             this.InfantCount = InfantCount;
-            this.popupView = (this.popupView) ? false : true
+            this.countModal = (this.countModal) ? false : true
             console.log("Home : " + this.AdultCount)
             console.log("Home : " + this.ChildCount)
             console.log("Home : " + this.InfantCount)
@@ -602,6 +600,11 @@ export default {
 </script>
 
 <style>
+.loginModal{    
+    width: 25%;
+    height: 65%;
+}
+
 .homeNavigation {
     height: 75px;
     background-color: rgba(22, 122, 122, 0.507);
@@ -670,9 +673,9 @@ export default {
     color: white;
     font-weight: 900;
     padding: 10px 0;
-    margin-top: 2.3%;
-    margin-left: 1%;
-    font-size: 18px;
+    margin-top: 1.4%;
+    margin-left: 1.2%;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -835,18 +838,18 @@ a {
 }
 
 .dp__menu{
-    width: 35%;        
+    width: 25%;        
     height: 50%;
-    margin-top: 30px;    
+    margin-top: 7%;    
 }
 
 .dp__pointer {
-    width: 80%;        
+    width: 100%;        
     height: 29px;            
 }
 
 .datePicker{
-    width: 78%;        
+    width: 80%;        
     height: 40px;
     border-radius: 10px;
     border: 1px solid rgb(193, 188, 188);
@@ -951,17 +954,13 @@ a {
     font-size: 14px;
 }
 
-.countModal {
-    opacity: 0;
-    display: none;
-    visibility: hidden;
+.countModal {    
     position: fixed;
     z-index: 1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
-    height: 40%;
+    width: 60%;    
     border-radius: 15px;
     background-color: rgb(244, 244, 244);
     box-shadow: 2px 2px 10px lightgrey;
@@ -1110,7 +1109,7 @@ a {
     border-right: 8px solid #999;
     /* 각도 */
     transform: rotate(225deg);
-    top: 28%;
+    top: 48%;
     left: 460px;
 }
 
@@ -1123,7 +1122,7 @@ a {
     border-right: 8px solid #999;
     /* 각도 */
     transform: rotate(45deg);
-    top: 28%;
+    top: 48%;
     right: 50px;
 }
 

@@ -30,30 +30,10 @@ public class UserService {
 		return user;
 	}
 	
-	/*@Transactional(readOnly = true)
-	public User 토큰찾기(String accessToken) {		
-		User at = userRepository.findByAccessToken(accessToken).orElseGet(()->{
-			return new User();
-		});		
-		return at;
-	}*/
-	
 	@Transactional
 	public int 회원가입(User user) {
 		try {
 			userRepository.save(user);
-			return 1;
-		} catch (Exception e) {
-			return -1;
-		}
-		
-	}
-
-
-	@Transactional
-	public int 회원수정(User user) {
-		try {
-			userRepository.;
 			return 1;
 		} catch (Exception e) {
 			return -1;

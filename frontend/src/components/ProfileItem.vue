@@ -26,7 +26,7 @@ export default {
     width: 30px;
     height: 30px;
     margin-top: 6px;
-    border-radius: 10px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
 }

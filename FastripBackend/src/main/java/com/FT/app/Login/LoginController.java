@@ -152,17 +152,6 @@ public class LoginController {
 		redirectView.setUrl("http://fastrip.shop/");
 		
 		Optional<User> totalUser =  userRepository.findByEmail(kakaoUser.getEmail());
-		
-		System.out.println(totalUser.get().getEmail());
-		
-		// 리다이렉트 시 User object 전달
-		/*redirectView.addStaticAttribute("email", kakaoUser.getEmail());
-		redirectView.addStaticAttribute("name", kakaoUser.getName());
-		redirectView.addStaticAttribute("profile", kakaoUser.getProfile());
-		redirectView.addStaticAttribute("gender", kakaoUser.getGender());
-		redirectView.addStaticAttribute("birthday", kakaoUser.getBirthday());
-		redirectView.addStaticAttribute("access_token", kakaoUser.getAccess_token());
-		redirectView.addStaticAttribute("refreshtoken", kakaoUser.getRefresh_token());*/
 
 		// 리다이렉트 시 로그인 email 기준 User object 전달
 		redirectView.addStaticAttribute("email", totalUser.get().getEmail());
@@ -191,10 +180,24 @@ public class LoginController {
 		String redNum = "2"; //redNum = redirectNumber
 		
 		User kakaoUser2 = (User) kakaoAPI2.KakaoAPI(code, redNum); 
-
+ 
 		// 기존 회원 찾기(중복)
 		User originUser = userService.회원찾기(kakaoUser2.getEmail());
-
+		if (!originUser.getEmail().isEmpty()) {
+			System.out.println(originUser.getName() + "님 환영합니다");			
+			
+			// 현재날짜, 시간 구하기(로그인 시간)
+			LocalDateTime now = LocalDateTime.now();
+			String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
+			//기존 정보 업데이트(자주 바뀌는 정보)						
+			originUser.setProfile(kakaoUser2.getProfile());
+		    originUser.setAccess_token(kakaoUser2.getAccess_token());
+		    originUser.setRefresh_token(kakaoUser2.getRefresh_token());
+			originUser.setLogin_date(formatedNow);
+			
+		    userService.회원가입(originUser); // 기존 정보 수정 후 저장			
+		}
+		
 		// 기존 회원 아닐시 새로 등록
 		if (originUser.getEmail() == null) {
 			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");

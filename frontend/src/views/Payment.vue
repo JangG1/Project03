@@ -5,29 +5,12 @@
     </div>
 
     <div class="pInfo">
-        <div class="pBlank">
-            blank
-        </div>
-        <div class="pRight">
-            <div class="pPayInfo">
-                <h5>항공 운송료 </h5><br>
-                <span>운임</span><span class="price">{{Fare(returnInfo?.totalPrice)}}</span><br>
-                <span>유류할증료</span><span class="price">{{Fuel(returnInfo?.totalPrice)}}</span><br>
-                <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(returnInfo?.totalPrice)}}</span><br>
-                <hr>
-                <span>성인</span> {{chooseInfo?.AdultCount}} 명<span class="price">{{Format1(returnInfo?.totalPrice)}}</span><br>
-                <span v-if="chooseInfo.ChildCount >= 1">유아 {{chooseInfo?.ChildCount}} 명<span class="price">{{Format2(returnInfo?.totalPrice)}}</span></span><br>
-                <span v-if="chooseInfo.InfantCount >= 1">소아 {{chooseInfo?.InfantCount}} 명<span class="price">{{Format3(returnInfo?.totalPrice)}}</span></span><br>
-            </div>
-            <div class="pTotalPrice">
-                <span class="pTotal">총액</span><span class="price">{{AddComma1(returnInfo?.totalPrice)}} 원</span>
-            </div>
-        </div>
 
         <div class="pLeft">
             <div class="pSchedule">
                 여행 일정
             </div>
+            <br>
             <button type="button">
                 <!-- 출발지 -> 도착지 -->
                 <div class="pInfo1">
@@ -59,12 +42,25 @@
         </div>
     </div>
 
-    <br><br>
-
-    <div class="pStartInfoTitle">
-        여정 정보
+    <div class="pRight">
+        <div class="pPayInfo">
+            <h5>항공 운송료 </h5><br>
+            <span>운임</span><span class="price">{{Fare(returnInfo?.totalPrice)}}</span><br>
+            <span>유류할증료</span><span class="price">{{Fuel(returnInfo?.totalPrice)}}</span><br>
+            <span>세금, 수수료 및 기타 요금</span><span class="price">{{Tax(returnInfo?.totalPrice)}}</span><br>
+            <hr>
+            <span>성인</span> {{chooseInfo?.AdultCount}} 명<span class="price">{{Format1(returnInfo?.totalPrice)}}</span><br>
+            <span v-if="chooseInfo.ChildCount >= 1">유아 {{chooseInfo?.ChildCount}} 명<span class="price">{{Format2(returnInfo?.totalPrice)}}</span></span><br>
+            <span v-if="chooseInfo.InfantCount >= 1">소아 {{chooseInfo?.InfantCount}} 명<span class="price">{{Format3(returnInfo?.totalPrice)}}</span></span><br>
+            <hr>
+        </div>
+        <div class="pTotalPrice">
+            <span class="pTotal">총액</span><span class="price">{{AddComma1(returnInfo?.totalPrice)}} 원</span>
+        </div>
     </div>
+
     <div class="pStartInfo">
+
         <button type="button">
             <div>
                 가는 편
@@ -84,7 +80,6 @@
 
         </button>
     </div>
-
     <br>
     <div class="pArriveInfo" v-if="chooseInfo?.returnYear">
         <button type="button">
@@ -106,6 +101,7 @@
 
         </button>
     </div>
+
     <br><br>
     <!--승객 정보-->
     <br>
@@ -174,7 +170,7 @@
                 <div class="passInfo1-2-email"></div>
                 <h5 id="hint-email">
                     <img src="@/assets/email.jpg" class="hint-email-img">
-                    &nbsp; 비회원 예약시 이메일 입력으로 예약 조회가 가능합니다.
+                    &nbsp; <span class="hint-email-text">비회원 예약시 이메일 입력으로 예약 조회가 가능합니다.</span>
                 </h5>
             </div>
 
@@ -436,21 +432,21 @@
             신용/체크카드
         </div>
         <div class="pay" @click="ing">
-            <img src="@/assets/pay/naverPay.png" style="width: 55px; height: 40px; border-radius: 10px;">
+            <img src="@/assets/pay/naverPay.png" style="width: 35px; height: 30px; border-radius: 10px;">
             &nbsp; 네이버페이
         </div>
         <div class="pay" @click="ing">
-            <img src="@/assets/pay/samsungPay.png" style="width: 60px; height: 40px;">
+            <img src="@/assets/pay/samsungPay.png" style="width: 40px; height: 30px;">
             삼성페이
         </div>
     </div>
     <div class="pay2">
         <div class="pay" @click="ing">
-            <img src="@/assets/pay/kakaoPay.jpg" style="width: 60px; height: 40px; border-radius: 10px;">
+            <img src="@/assets/pay/kakaoPay.jpg" style="width: 35px; height: 30px; border-radius: 10px;">
             &nbsp; 카카오페이
         </div>
         <div class="pay" @click="ing">
-            <img src="@/assets/pay/payco.jpg" style="width: 80px; height: 40px;">
+            <img src="@/assets/pay/payco.jpg" style="width: 60px; height: 30px;">
             PAYCO
         </div>
         <div class="pointPay" @click="PointPayment">
@@ -467,9 +463,7 @@
 
 <div class="payFootNav">
     <div class="payFootNav1">예상 결제 금액</div>
-    <div class="payStartPrice">{{AddComma1(returnInfo?.totalPrice)}} 원</div>
-
-    <!-- <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button> -->
+    <div class="payStartPrice">{{AddComma1(returnInfo?.totalPrice)}} 원</div>    
     <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 
@@ -506,9 +500,9 @@ export default {
             documentInfo: true,
             noteInfo: true,
             arrow: "▲",
-            korLastName1: this.$store.state.userInfo?.lastName,
+            korLastName1: this.$store.state.userInfo.lastName,
             korLastName2: "",
-            korFirstName1: this.$store.state.userInfo?.firstName,
+            korFirstName1: this.$store.state.userInfo.firstName,
             korFirstName2: "",
             engLastName: this.engLastName1,
             engFirstName: this.engFirstName1,
@@ -527,7 +521,7 @@ export default {
             addAdult: [],
             addChild: [],
             addInfant: [],
-            
+
         }
     },
     props: {},
@@ -1159,24 +1153,6 @@ export default {
                 return false
             }
 
-            /*if (this.chooseInfo.AdultCount > 1 ||
-                this.chooseInfo.ChildCount > 0 ||
-                this.chooseInfo.InfantCount > 0) {
-                for (let i = 0; i <= this.addAdult.length; i++) {
-                    for (let i = 0; i <= this.addChild.length; i++) {
-                        for (let i = 0; i <= this.addInfant.length; i++) {
-                            if (this.korLastName2 == "" ||
-                                this.korFirstName2 == "" ||
-                                this.engLastName2 == "" ||
-                                this.engFirstName2 == "") {
-                                alert("승객 정보를 확인해주세요")
-                                return false
-                            }
-                        }
-                    }
-                }
-            }*/
-
             if (this.$store.state.consentBtn1 == "선택1" && this.$store.state.consentBtn2 == "선택2") {
                 console.log("필수 체크 완료")
             } else {
@@ -1203,76 +1179,101 @@ export default {
 </script>
 
 <style>
-.PayModalView {
+.PayModalView {    
+    padding: 20px;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    height: 70%;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 10px lightgrey;
+    overflow: auto;
+}
+
+.PayModalView::-webkit-scrollbar {
+    width: 10px;
+    /*스크롤바의 너비*/
+}
+
+.PayModalView::-webkit-scrollbar-thumb {
+    background-color: teal;
+    border-radius: 10px;
+    /*스크롤바의 색상*/
+}
+
+.PayModalView::-webkit-scrollbar-track {
+    background-color: white;
+    /*스크롤바 트랙 색상*/
+}
+
+/* 화면 축소 전 후 */
+
+@media (max-width: 700px) {
+    .PayModalView {
     content: url(@/assets/Logo2.png);
     padding: 20px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 18%;
-    height: 13%;
+    width: 25%;
+    height: 25%;
     border-radius: 15px;
     background-color: white;
     box-shadow: 2px 2px 10px lightgrey;
-
+}
 }
 
-/* 화면 축소 전 후 */
+.pRight {
+    width: 22%;
+    height: 310px;    
+    margin-left: 970px;
+    padding: 40px 0;
+    background-color: rgba(34, 168, 168, 0.712);
+    border-radius: 10px;
+    position: absolute;
+}
 
-@media (min-width: 800px) {
-    .PayModalView {
-        content: url(@/assets/Logo2.png);
+.pPayInfo {
+        border-left: none;
+        border-right: none;
+        width: 250px;
+        height: 210px;
+        padding-left: 7%;
+        font-size: 12px;
+        font-weight: 900;
+        color: white;
+    }
+
+    .pPayInfo h5 {
+        font-weight: 900;
+        font-size: 18px;
+    }
+
+    .pTotal {
+        font-weight: 900;
+        color: white;
+    }
+
+    .pTotalPrice {
+        width: 270px;
         padding: 20px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 30%;
-        height: 30%;
-        border-radius: 15px;
-        background-color: white;
-        box-shadow: 2px 2px 10px lightgrey;
-    }
-}
-
-/* 화면 축소 전 후 */
-
-@media (min-width: 1150px) {
-    .PayModalView {
-        content: none;
-        padding: 20px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 40%;
-        height: 60%;
-        text-align: center;
-        border-radius: 15px;
-        background-color: white;
-        box-shadow: 2px 2px 10px lightgrey;
-        overflow: auto;
+        padding-top: 20px;
+        font-size: 14px;
+        color: white;
+        font-weight: 900;
     }
 
-    .PayModalView::-webkit-scrollbar {
-        width: 20px;
-        /*스크롤바의 너비*/
+    .pPayInfo {
+        color: white;
     }
 
-    .PayModalView::-webkit-scrollbar-thumb {
-        background-color: teal;
-        border-radius: 10px;
-        /*스크롤바의 색상*/
+    .pTotalPrice {
+        color: white;
     }
-
-    .PayModalView::-webkit-scrollbar-track {
-        margin-top: 10px;
-        -webkit-margin-bottom-collapse: 10px;
-        background-color: white;
-        /*스크롤바 트랙 색상*/
-    }
-}
 
 .IATAModalView {
     position: fixed;
@@ -1305,101 +1306,15 @@ export default {
 
 .pStep {
     float: right;
-    margin-right: 5%;
-    font-size: 30px;
+    margin-right: 50px;
+    margin-bottom: 30px;
+    margin-top: 0.1%;
+    font-size: 20px;
     display: flex;
 }
 
 .pPayInfo hr {
     height: 2px;
-}
-
-/* 화면 축소 전 후 */
-
-@media (min-width: 2050px) {
-    .pStep {
-        float: right;
-        margin-right: 10%;
-        font-size: 30px;
-        display: flex;
-    }
-
-    .IATAModalView {
-        padding: 20px;
-        width: 50%;
-        height: 75%;
-        border-radius: 15px;
-        background-color: white;
-        box-shadow: 2px 2px 10px lightgrey;
-        overflow: hidden;
-    }
-
-    #hint {
-        font-size: 18px;
-        color: teal;
-    }
-
-}
-
-.pRight {
-    width: 1%;
-    height: 1px;
-    overflow: hidden;
-}
-
-/* 화면 축소 전 후 */
-
-@media (min-width: 1870px) {
-    .pRight {
-        width: 22.3%;
-        height: 470px;
-        float: right;
-        margin-right: 2.5%;
-        margin-top: 2%;
-        padding: 40px 0;
-        background-color: rgba(34, 168, 168, 0.712);
-        border-radius: 10px;
-    }
-
-    .pPayInfo {
-        border-left: none;
-        border-right: none;
-        width: 360px;
-        height: 300px;
-        padding-left: 7%;
-        font-size: 19px;
-        font-weight: 900;
-        color: white;
-    }
-
-    .pPayInfo h5 {
-        font-weight: 900;
-        font-size: 24px;
-    }
-
-    .pTotal {
-        font-weight: 900;
-        color: white;
-    }
-
-    .pTotalPrice {
-        border-top: 0.1px solid rgb(217, 217, 217);
-        width: 400px;
-        height: 80px;
-        padding: 30px;
-        padding-top: 40px;
-        font-size: 24px;
-        color: white;
-        font-weight: 900;
-    }
-
-    .pPayInfo {
-        color: white;
-    }
-
-    .pTotalPrice {
-        color: white;
-    }
 }
 
 .step3 {
@@ -1416,7 +1331,7 @@ h4 {
 }
 
 .ver {
-    margin-top: 25px;
+    margin-top: 17px;
     margin-left: 14px;
 }
 
@@ -1426,80 +1341,69 @@ h4 {
     margin-right: 30px;
 }
 
-.pBlank {
-    color: white;
-    font-size: 25px;
-    margin-left: 4.2%;
-    margin-bottom: 10px;
-}
-
 .pSchedule {
+    color: black;
     color: teal;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 900;
-    margin-left: 4.2%;
-    margin-bottom: 10px;
-    padding-top: 10px;
+    margin-top: 2.6%;
 }
 
 .pInfo {
-    margin-top: 10px;
-    margin-left: 5.5%;
+    margin-left: 3%;
+    width: 900px;
 }
 
 .pInfo button {
-    width: 1300px;
-    height: 100px;
+    width: 100%;
+    height: 75px;
     background-color: white;
-    font-size: 24px;
+    font-size: 14px;
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
-
+    float: left;
+    margin-bottom: 30px;
 }
 
 .pInfo button div {
-    padding: 30px;
+    padding: 22px;
 }
 
 .pInfoImg {
-    margin-left: 14px;
-    margin-bottom: 4px;
+    margin-left: 10px;    
 }
 
 .pInfo button:hover {
     border: 2px solid teal;
 }
 
-.pStartInfoTitle,
+.pInfo3{
+    margin-top: 3px;    
+}
+
 .consentInfoTitle {
     color: black;
     color: teal;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 900;
     padding: 10px;
     margin-left: 9%;
 }
 
-.pStartInfo {
-    margin-left: 8%;
-    width: 1200px;
-    display: flex;
-}
-
+.pStartInfo,
 .pArriveInfo {
-    margin-left: 8%;
-    width: 1200px;
-    display: flex;
+    margin-left: 5%;
+    width: 100px;
 }
 
 .pStartInfo button,
 .pArriveInfo button {
     color: white;
-    width: 100%;
-    height: 90px;
+    width: 850px;
+    height: 70px;
     background-color: rgba(34, 168, 168, 0.689);
-    font-size: 21px;
+    font-size: 16px;
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
@@ -1508,12 +1412,12 @@ h4 {
 
 .pStartInfo button div,
 .pArriveInfo button div {
-    padding: 30px;
+    padding: 21px;
 }
 
 .pStartInfo span,
 .pArriveInfo span {
-    padding-top: 22px;
+    padding-top: 12px;
     font-size: 30px;
 }
 
@@ -1522,7 +1426,7 @@ h4 {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 75px;
+    height: 55px;
     padding: 1rem;
     color: white;
     background: teal;
@@ -1530,8 +1434,8 @@ h4 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 20px;
-    box-shadow: 2px 2px 20px rgb(1, 83, 83);
+    font-size: 14px;
+    box-shadow: 2px 2px 7px rgb(1, 83, 83);
 }
 
 .payFootNav1 {
@@ -1540,8 +1444,8 @@ h4 {
 
 .paySubmitBtn {
     width: 15%;
-    height: 130%;
-    font-size: 25px;
+    height: 150%;
+    font-size: 16px;    
     border-radius: 4px;
     color: white;
     background: teal;
@@ -1549,7 +1453,7 @@ h4 {
 }
 
 .payStartPrice {
-    font-size: 20px;
+    font-size: 14px;
     margin-left: 65%;
 }
 
@@ -1567,7 +1471,6 @@ h4 {
 
 .asterisk {
     color: red;
-
 }
 
 .passengerInfo {
@@ -1577,7 +1480,7 @@ h4 {
 
 .passengerInfoTitle {
     color: teal;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 900;
     padding: 10px;
     margin-left: 9%;
@@ -1586,26 +1489,28 @@ h4 {
 .passengerInfoTitle h5 {
     color: rgb(78, 78, 78);
     padding-top: 10px;
+    font-size: 14px;
 }
 
 .pasNameHint {
     background-color: rgba(245, 245, 245, 0.555);
-    width: 1210px;
+    width: 900px;
+    height: 90px;
     margin-left: 8.5%;
-    padding: 40px 0;
+    padding: 30px 0;
     padding-left: 40px;
-    font-size: 20px;
-
+    font-size: 12px;
 }
 
 .passengerTitle {
     float: left;
-    font-size: 24px;
+    font-size: 16px;
     color: white;
     background: teal;
-    width: 1210px;
+    width: 900px;
+    height: 60px;
     padding-bottom: 25px;
-    padding-top: 25px;
+    padding-top: 20px;
     padding-left: 40px;
     text-align: left;
     margin-left: 8.5%;
@@ -1613,11 +1518,21 @@ h4 {
 }
 
 .passText {
-    width: 400px;
+    width: 250px;
+    height: 50px;
     float: left;
     padding: 20px;
     border: 2px solid teal;
     background-color: white;
+    font-size: 10px;
+}
+
+.passInfo1-1>h5,
+.passInfo1-2>h5,
+.passInfo1-1-email>h5,
+.passInfo2-1>h5,
+.passInfo2-2>h5 {
+    font-size: 12px;
 }
 
 .passText:hover {
@@ -1625,7 +1540,8 @@ h4 {
 }
 
 .passEmail {
-    width: 170px;
+    width: 130px;
+    height: 50px;
     float: left;
     padding: 20px;
     border: 2px solid teal;
@@ -1638,16 +1554,15 @@ h4 {
 
 .emailAtSign {
     color: teal;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 900;
-    margin-top: 20px;
-    padding: 10px;
+    padding: 8px;
 }
 
 .emailSelect,
 .emailText {
-    width: 220px;
-    height: 70px;
+    width: 160px;
+    height: 50px;
     padding: 20px;
     border: 2px solid teal;
     background-color: white;
@@ -1660,24 +1575,26 @@ h4 {
 }
 
 .passInfo {
-    width: 1210px;
+    width: 900px;
     border: none;
     margin-left: 8.5%;
-
 }
 
 .passInfo1,
 .passInfo1-email {
     width: 100%;
+    height: 20%;
     border: 1px solid;
-    padding-top: 80px;
+    padding-top: 60px;
     padding-left: 80px;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
     display: flex;
+    font-size: 13px;
 }
 
 .passInfo2 {
     width: 100%;
+    height: 20%;
     border: 1px solid;
     padding-top: 80px;
     padding-left: 80px;
@@ -1695,35 +1612,40 @@ h4 {
 }
 
 #hint-email {
-    margin-top: 65px;
+    margin-top: 50px;
+    margin-right: 60px;
     font-weight: 900;
     color: #505050;
 }
 
 .hint-email-img {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
+}
+
+.hint-email-text {
+    font-size: 14px;
 }
 
 .maleBtn,
 .femaleBtn {
-    width: 200px;
-    height: 70px;
+    width: 140px;
+    height: 50px;
     background: white;
     opacity: 0.6;
     transition: 0.3s;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .maleRadio,
 .femaleRadio {
-    width: 120px;
+    width: 60px;
     height: 20px;
 }
 
 .maleRadioLabel,
 .femaleRadioLabel {
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 900;
     color: teal;
 }
@@ -1734,12 +1656,13 @@ h4 {
 }
 
 .passInfo2-2 {
-    margin-left: 200px;
+    margin-left: 170px;
     position: relative;
 }
 
 .passInfo3 {
     width: 100%;
+    font-size: 12px;
     border: 1px solid;
     border-top: none;
 }
@@ -1751,20 +1674,20 @@ h4 {
 }
 
 .passCheckBtn {
-    width: 140px;
-    height: 55px;
+    width: 90px;
+    height: 40px;
     color: white;
     background-color: teal;
     border: none;
     border-radius: 4px;
     font-weight: 900;
     font-size: 20px;
-    margin-left: 970px;
-    margin-bottom: 50px;
+    margin-left: 740px;
+    margin-bottom: 30px;
 }
 
 .note {
-    width: 1222px;
+    width: 910px;
     border: none;
     margin-left: 8.2%;
     margin-bottom: 2%;
@@ -1773,7 +1696,6 @@ h4 {
 }
 
 .document {
-    width: 1222px;
     border: none;
     margin-left: 8.2%;
     margin-bottom: 2%;
@@ -1783,12 +1705,13 @@ h4 {
 
 .noteTitle,
 .documentTitle {
-    font-size: 24px;
+    font-size: 16px;
     color: white;
     background: teal;
-    width: 1210px;
+    width: 897.5px;
+    height: 60px;
     padding-bottom: 25px;
-    padding-top: 25px;
+    padding-top: 20px;
     padding-left: 40px;
     margin-top: 40px;
     text-align: left;
@@ -1797,22 +1720,30 @@ h4 {
 .note1,
 .document1 {
     border: 1px solid;
-    width: 100%;
+    width: 897.5px;
     text-align: left;
     padding: 20px;
-    font-size: 19px;
+    font-size: 14px;
+}
+
+.document1>h4 {
+    font-size: 18px;
 }
 
 .consent {
-    width: 1210px;
+    width: 900px;
     padding-bottom: 25px;
     padding-top: 25px;
     padding-left: 40px;
     text-align: left;
     border: 1px solid;
     margin-left: 8.5%;
-    font-size: 19px;
+    font-size: 14px;
     margin-bottom: 2%;
+}
+
+.consent>h4 {
+    font-size: 18px;
 }
 
 .consentBtn {
@@ -1821,7 +1752,9 @@ h4 {
     border: 2.5px solid teal;
     border-radius: 4px;
     padding: 8px;
-    width: 120px;
+    width: 70px;
+    height: 40px;
+    font-size: 16px;
 }
 
 .IATAList {
@@ -1836,7 +1769,7 @@ h4 {
 
 .paymentInfoTitle {
     color: teal;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 900;
     float: left;
     text-align: left;
@@ -1845,13 +1778,14 @@ h4 {
 }
 
 .payment {
-    width: 1210px;
-    height: 400px;
+    width: 900px;
+    height: 310px;
     border: 1px solid black;
     background: white;
     margin-bottom: 10%;
     margin-left: 8.5%;
     margin-top: 5.5%;
+    font-size: 12px;
     font-weight: 900;
 }
 
@@ -1861,6 +1795,7 @@ h4 {
     border: 1px solid black;
     border-radius: 4px;
     width: 30%;
+    height: 70px;
     text-align: center;
     padding: 20px 0;
     margin: 1%;
@@ -1870,11 +1805,11 @@ h4 {
 }
 
 .cardPay {
-    padding-top: 28px;
+    padding-top: 25px;
 }
 
 .pointPay {
-    padding-top: 28px;
+    padding-top: 25px;
     color: black;
     border: 2px solid teal;
 }
@@ -1887,16 +1822,17 @@ h4 {
 }
 
 .holdPoint {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 900;
     margin-left: 8%;
-    margin-top: 4%;
+    margin-top: 3%;
 }
 
 .addPoint {
-    width: 200px;
-    height: 50px;
+    width: 180px;
+    height: 40px;
     float: right;
+    font-size: 18px;
     margin-right: 80px;
     color: white;
     background-color: teal;

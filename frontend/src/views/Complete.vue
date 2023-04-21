@@ -20,7 +20,7 @@
             </div>
             <div class="comInfoRight">
                 <span class="listRight">{{addAdult[index]?.korName}}</span><br><br>
-                <span class="listRight">{{addAdult[index]?.engLastName}} {{addAdult[index]?.engFirstName}}</span><br><br>            
+                <span class="listRight">{{addAdult[index]?.engLastName}} {{addAdult[index]?.engFirstName}}</span><br><br>
                 <span class="listRight">{{addAdult[index]?.birthday}}</span><br><br>
                 <span class="listRight">{{addAdult[index]?.gender}}</span>
             </div>
@@ -207,7 +207,7 @@ export default {
     font-size: 30px;
     text-align: center;
     display: block;
-    padding: 100px 0;
+    padding: 60px 0;
 }
 
 .comInfoList,
@@ -231,14 +231,14 @@ export default {
 
 .comBtn1,
 .comBtn2 {
-    width: 12%;
-    padding: 1.5%;
+    width: 10%;
+    padding: 1%;
     margin: 2%;
     color: white;
     background-color: teal;
     border: none;
     border-radius: 8px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 900;
 }
 
@@ -250,43 +250,31 @@ a:active {
 }
 
 .Footer {
-    border-top: 1px solid white;
-}
-
-.FootLeft {
-    color: white;
-}
-
-.FootLeft p {
-    color: white;
-}
-
-.footLogo {
-    width: 0%;
-    height: 0%;
+    overflow: none;
 }
 
 /* 화면 축소 전 후 */
 
-@media (min-width: 850px) {
+@media (min-width: 600px) {
     .comTitle {
         color: teal;
         font-weight: 900;
         font-size: 40px;
         text-align: center;
         display: block;
-        padding: 100px 0;
+        padding: 80px 0;
     }
 
     .comInfoList {
         content: none;
         border: 2px solid teal;
         border-radius: 4px;
-        height: 320px;
+        height: 260px;
         margin-bottom: 60px;
         width: 60%;
         margin-left: 20%;
         margin-right: 20%;
+        font-size: 14px;
     }
 
     .comInfoTitle {
@@ -294,14 +282,14 @@ a:active {
         color: white;
         background-color: teal;
         font-weight: 900;
-        font-size: 24px;
+        font-size: 16px;
         text-align: center;
         padding: 10px 0;
         margin-bottom: 20px;
     }
 
     .comInfoLeft {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 900;
         color: #999;
         float: left;
@@ -309,7 +297,7 @@ a:active {
     }
 
     .comInfoRight {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 900;
         margin-right: 40px;
     }
@@ -322,7 +310,7 @@ a:active {
         content: none;
         border: 2px solid teal;
         border-radius: 4px;
-        height: 380px;
+        height: 310px;
         margin-bottom: 40px;
         width: 60%;
         margin-left: 20%;
@@ -333,7 +321,7 @@ a:active {
         content: none;
         border: 2px solid teal;
         border-radius: 4px;
-        height: 190px;
+        height: 170px;
         margin-bottom: 40px;
         width: 60%;
         margin-left: 20%;
@@ -345,7 +333,7 @@ a:active {
         color: white;
         background-color: teal;
         font-weight: 900;
-        font-size: 24px;
+        font-size: 16px;
         text-align: center;
         padding: 10px 0;
         margin-bottom: 20px;
@@ -357,22 +345,15 @@ a:active {
 
     .comBtn1,
     .comBtn2 {
-        width: 12%;
-        padding: 1.5%;
+        width: 10%;
+        padding: 1%;
         margin: 2%;
         color: white;
         background-color: teal;
         border: none;
         border-radius: 8px;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 900;
-    }
-
-    .topBtn,
-    a:hover,
-    a:visited,
-    a:active {
-        color: white;
     }
 
     .Footer {
@@ -381,160 +362,47 @@ a:active {
 
     .FootLeft {
         float: left;
-        margin-left: 20%;
-        margin-top: 30px;
-        font-size: 40px;
+        margin-left: 120px;
+        margin-top: 50px;
+        font-size: 20px;
+        font-weight: 900;
         padding-bottom: 50px;
+    }
+
+    .FootLeft>p {
+        font-size: 16px;
+        font-weight: 900;
+    }
+
+    .footLogo {
+        width: 35%;
+        height: 60px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .FootRight {
+        float: right;
+        margin-right: 150px;
+        margin-top: 80px;
+    }
+
+    .FootRight>a {
+        font-size: 16px;
         color: black;
     }
 
-    .FootLeft p {
-        color: #999;
+    .FootRight>a:visited {
+        color: black;
     }
 
-    .footLogo {
-        width: 100px;
-        height: 70px;
-    }
-
-    .FootRight {
-        float: right;
-        margin-right: 280px;
-        margin-top: 60px;
-    }
-
-}
-
-/* 화면 축소 전 후 */
-
-@media (min-width: 1220px) {
-    .comTitle {
-        color: teal;
-        font-weight: 900;
-        font-size: 60px;
-        text-align: center;
-        display: block;
-        padding: 100px 0;
-    }
-
-    .comInfoList {
-        content: none;
-        border: 2px solid teal;
-        border-radius: 4px;
-        height: 340px;
-        margin-bottom: 60px;
-        width: 60%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-
-    .comInfoTitle {
-        width: 100%;
-        color: white;
-        background-color: teal;
-        font-weight: 900;
-        font-size: 24px;
-        text-align: center;
-        padding: 10px 0;
-        margin-bottom: 20px;
-    }
-
-    .comInfoLeft {
-        font-size: 22px;
-        font-weight: 900;
-        color: #999;
-        float: left;
-        margin-left: 40px;
-    }
-
-    .comInfoRight {
-        font-size: 22px;
-        font-weight: 900;
-        margin-right: 40px;
-    }
-
-    .listRight {
-        float: right;
-    }
-
-    .comAreaList {
-        content: none;
-        border: 2px solid teal;
-        border-radius: 4px;
-        height: 400px;
-        margin-bottom: 40px;
-        width: 60%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-
-    .comPayList {
-        content: none;
-        border: 2px solid teal;
-        border-radius: 4px;
-        height: 205px;
-        margin-bottom: 40px;
-        width: 60%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-
-    .comPayTitle {
-        width: 100%;
-        color: white;
-        background-color: teal;
-        font-weight: 900;
-        font-size: 24px;
-        text-align: center;
-        padding: 10px 0;
-        margin-bottom: 20px;
-    }
-
-    .comBtn {
-        text-align: center;
-    }
-
-    .comBtn1,
-    .comBtn2 {
-        width: 12%;
-        padding: 1.5%;
-        margin: 2%;
-        color: white;
-        background-color: teal;
-        border: none;
-        border-radius: 8px;
-        font-size: 24px;
-        font-weight: 900;
-    }
-
-    .topBtn,
-    a:hover,
-    a:visited,
-    a:active {
+    .topBtn {
         color: rgb(77, 77, 77);
     }
 
-    .Footer {
-        border-top: 1px solid;
+    .topBtn:hover {
+        color: rgb(77, 77, 77);
     }
 
-    .FootLeft {
-        float: left;
-        margin-left: 17%;
-        margin-top: 30px;
-        font-size: 40px;
-        padding-bottom: 50px;
-    }
-
-    .footLogo {
-        width: 100px;
-        height: 70px;
-    }
-
-    .FootRight {
-        float: right;
-        margin-right: 280px;
-        margin-top: 60px;
-    }
 }
 </style>

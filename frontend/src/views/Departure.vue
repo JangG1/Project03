@@ -16,7 +16,7 @@
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
             <div class="info2">
-                <img class="infoImg" src="../assets/calendar.png" width="30" height="30"> &nbsp;
+                <img class="infoImg" src="../assets/calendar.png" width="25" height="25"> &nbsp;
                 <!--출발일-->
                 <span>{{chooseInfo?.startYear}}-{{chooseInfo?.startMonth}}-{{chooseInfo?.startDay}}({{chooseInfo?.startWeek}})</span>
                 <!--도착일-->
@@ -181,18 +181,19 @@ export default {
 .flight {
     margin-top: 15px;
     color: #999;
+    font-size: 2px;
 }
 
 .flightLogo {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
 }
 
 .step {
     float: right;
-    margin-right: 200px;
+    margin-right: 50px;
     margin-bottom: 30px;
-    font-size: 30px;
+    font-size: 20px;
     display: flex;
 }
 
@@ -200,37 +201,31 @@ export default {
     color: teal;
 }
 
-.caption {
-    display: flex;
-    margin-left: 11%;
-}
-
 .ver {
-    margin-top: 25px;
+    margin-top: 17px;
     margin-left: 14px;
 }
 
 .schedule {
     color: black;
     color: teal;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 900;
-    margin-left: 15%;
+    margin-left: 7%;
     margin-top: 2%;
 }
 
 .info {
     margin-left: auto;
     margin-right: auto;
-    width: 1380px;
-    margin-top: 20px;
+    width: 1000px;    
 }
 
 .info button {
     width: 100%;
-    height: 100px;
+    height: 80px;
     background-color: white;
-    font-size: 24px;
+    font-size: 14px;
     border: 0.5px solid #999;
     display: flex;
     box-shadow: 4px 4px 4px rgb(68, 68, 68);
@@ -239,62 +234,69 @@ export default {
 }
 
 .info button div {
-    padding: 30px;
-}
-
-.infoImg {
-    margin-left: 14px;
-    margin-bottom: 4px;
+    padding: 22px;
 }
 
 .info button:hover {
     border: 2px solid teal;
 }
 
+.info2{
+    margin-top: 0.3%;
+}
+
+.info3{
+    margin-top: 0.6%;
+}
+
 .day-seat-select {
-    width: 1500px;
+    width: 900px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     margin-top: 40px;
-
 }
 
 .day-seat-select button {
     width: 40%;
-    height: 180px;
+    height: 120px;
     background-color: white;
 }
 
 .timeSelect {
     width: 40%;
-    height: 180px;
+    height: 120px;
     border: 1px solid;
 }
 
 .startTime {
-    width: 100px;
+    width: 50px;
     float: left;
     margin-top: 8%;
     margin-left: 8%;
-
 }
 
 .arriveTime {
     float: right;
     margin-top: 8%;
-    margin-right: 5%;
+    margin-right: 8%;
+}
+
+.startTime>h3,
+.arriveTime>h3{
+    font-size: 20px;
 }
 
 .timeSelect span {
-    font-size: 20px;
+    font-size: 14px;
     color: #999;
 }
 
 .arrow2 {
-    width: 190px;
-    height: 30px;
+    width: 100px;
+    height: 15px;
     margin-top: 10%;
+    margin-left: 7%;
 }
 
 .seatSelect {
@@ -302,24 +304,28 @@ export default {
     border-top: 4px solid black;
     opacity: 0.6;
     transition: 0.3s;
-    font-size: 22px;
+    font-size: 16px;
+}
+
+.seatSelect>h3{
+    font-size: 20px;
+    margin-left: 25px;
 }
 
 .seatSelect:hover {
     border: 4px solid teal;
     border-top: 4px solid black;
-
 }
 
 .seatSelect:focus {
-    width: 600px;
+    width: 400px;
     transform: translate(-0.5%, -10%);
     border-radius: 15px;
     background-color: teal;
     box-shadow: 4px 4px 10px rgb(68, 68, 68);
     color: white;
     opacity: 1;
-    font-size: 22px;
+    font-size: 16px;
 }
 
 .resPriceStandard {
@@ -336,7 +342,7 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 75px;
+    height: 55px;
     padding: 1rem;
     color: white;
     background: teal;
@@ -344,26 +350,26 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 20px;
+    font-size: 14px;
     box-shadow: 2px 2px 20px rgb(1, 83, 83);
 }
 
 .footNav1 {
-    margin-left: 30px;
+    margin-left: 30px;    
+}
+
+.startPrice {
+    font-size: 14px;
+    margin-left: 70%;
 }
 
 .submitBtn {
-    width: 15%;
-    height: 130%;
-    font-size: 25px;
+    width: 12%;
+    height: 150%;
+    font-size: 16px;    
     border-radius: 4px;
     color: white;
     background: teal;
     border: 1px solid white;
-}
-
-.startPrice {
-    font-size: 20px;
-    margin-left: 70%;
 }
 </style>

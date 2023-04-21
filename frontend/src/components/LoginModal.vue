@@ -7,18 +7,18 @@
         <!-- 카카오 아이디로 로그인 -->
         <div @click="kakaoLogin" class="kakaoBtn mb-3" v-if="$route.name !== 'Arrival'">
             <img src="@/assets/kakaoLogo.png" />
-            <br>            
+            <br>
         </div>
         <!-- 카카오 아이디로 로그인(Arrive 페이지용) -->
         <div @click="kakaoLogin2" class="kakaoBtn mb-3" v-if="$route.name == 'Arrival'">
             <img src="@/assets/kakaoLogo.png" />
-            <br>            
+            <br>
         </div>
         <!-- 네이버 아이디로 로그인 -->
         <div @click="naverLogin" class="naverBtn">
             <img src="@/assets/ready_naverLogo.jpg" />
             <br>
-            
+
         </div>
     </div>
 
@@ -29,7 +29,6 @@
 <!--login-modal-end-->
 </template>
 
-    
 <script>
 import axios from 'axios';
 
@@ -41,22 +40,22 @@ export default {
     methods: {
         //카카오 로그인
         kakaoLogin() {
-            if(!this.$store.state.isLogin){                
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback&response_type=code";
+            if (!this.$store.state.isLogin) {
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback&response_type=code";
             }
-            if(this.$route.query.email != null){
+            if (this.$route.query.email != null) {
                 this.$store.dispatch("login")
             }
         },
         //카카오 로그인(Arrive 페이지용)
         kakaoLogin2() {
-            if(!this.$store.state.isLogin){             
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback2&response_type=code";
+            if (!this.$store.state.isLogin) {
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback2&response_type=code";
             }
-            if(this.$route.query.email != null){
+            if (this.$route.query.email != null) {
                 this.$store.dispatch("login")
             }
-        },       
+        },
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
 
@@ -69,7 +68,7 @@ export default {
 
             //window.location.href = "/";
         },
-        naverLogin(){
+        naverLogin() {
             alert('준비중 입니다.')
         }
     },
@@ -79,7 +78,6 @@ export default {
 };
 </script>
 
-    
 <style>
 p {
     color: #999;
@@ -88,9 +86,9 @@ p {
 
 .login-text p {
     color: teal;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 900;
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 .login-modal {
@@ -98,14 +96,11 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    width: 30%;
-    height: 50%;
-
+    width: 20%;
+    height: 20%;
     text-align: center;
     border-radius: 25px;
     background-color: white;
-
     z-index: 8;
     border-radius: 15px;
     box-shadow: -8px -8px 16px -10px rgba(255, 255, 255, 1), 8px 8px 16px -10px rgba(0, 0, 0, .15);
@@ -114,41 +109,40 @@ p {
 
 .loginBtns {
     justify-content: center;
-
 }
 
 .loginBtns>div {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    padding: 20px;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .kakaoBtn>img {
-    width: 53%;
+    width: 60%;
     cursor: pointer;
 }
 
 .naverBtn>img {
     width: 60%;
-    cursor: pointer;       
-    opacity: 0.2;     
+    cursor: pointer;
+    opacity: 0.2;
 }
 
 .closeBtn>button {
-    width: 150px;
-    height: 50px;
+    width: 100px;
+    height: 40px;
     border: none;
     border: 1.5px solid white;
     background: teal;
-    border-radius: 20px;
-    font-size: 24px;
+    border-radius: 10px;
+    font-size: 20px;
     color: white;
     display: table;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 90px;
+    margin-top: 70px;
     margin-bottom: 30px;
 }
 </style>

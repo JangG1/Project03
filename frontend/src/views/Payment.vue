@@ -14,8 +14,8 @@
             <button type="button">
                 <!-- 출발지 -> 도착지 -->
                 <div class="pInfo1">
-                    {{chooseInfo?.fromArea}} &nbsp;
-                    <img src="../assets/arrow2.jpg"> &nbsp;
+                    {{chooseInfo?.fromArea}}
+                    <span class="arrow2">⇀</span>
                     {{chooseInfo?.toArea}}
                 </div>
                 <img src="../assets/vertical.jpg" width="12" class="ver">
@@ -120,7 +120,7 @@
     <!--회원 예약자 정보-->
     <div class="passengerBox">
         <div class="passengerTitle" @click="showPassInfo1">
-            성인 1 [예약자]<span class="arrow">{{arrow}}</span>
+            성인 1 [예약자]<span class="arrow1">{{arrow}}</span>
         </div>
         <div v-if="passInfo" class="passInfo">
             <div class="passInfo1">
@@ -153,7 +153,7 @@
                 </div>
             </div>
 
-            <div class="passInfo1-email" v-if="!isLogin()">
+            <div class="passInfo1-email" v-if="!this.email">
                 <div class="passInfo1-1-email">
                     <h5>이메일<span class="asterisk"> *</span></h5><br>
                     <input type="text" v-model="passEmail1" class="passEmail">
@@ -170,7 +170,10 @@
                 <div class="passInfo1-2-email"></div>
                 <h5 id="hint-email">
                     <img src="@/assets/email.jpg" class="hint-email-img">
-                    &nbsp; <span class="hint-email-text">비회원 예약시 이메일 입력으로 예약 조회가 가능합니다.</span>
+                    &nbsp; <span class="hint-email-text">
+                        <span class="asterisk"> *</span>
+                        예약시 이메일 입력으로 예약 조회가 가능합니다.
+                    </span>
                 </h5>
             </div>
 
@@ -204,7 +207,7 @@
             <span>
                 성인 {{ (pas + 1) }}
             </span>
-            <span class="arrow">{{arrow}}</span>
+            <span class="arrow1">{{arrow}}</span>
         </div>
         <span v-if="pas == addPas1" class="passInfo">
             <div class="passInfo">
@@ -262,7 +265,7 @@
             <span>
                 유아 {{ pas }}
             </span>
-            <span class="arrow">{{arrow}}</span>
+            <span class="arrow1">{{arrow}}</span>
         </div>
         <span v-if="pas == addPas2" class="passInfo">
             <div class="passInfo">
@@ -320,7 +323,7 @@
             <span>
                 소아 {{ pas }}
             </span>
-            <span class="arrow">{{arrow}}</span>
+            <span class="arrow1">{{arrow}}</span>
         </div>
         <span v-if="pas == addPas3" class="passInfo">
             <div class="passInfo">
@@ -376,7 +379,7 @@
 
 <button class="note" @click="showNoteInfo">
     <div class="noteTitle">
-        유의사항 <span class="arrow">{{arrow}}</span>
+        유의사항 <span class="arrow1">{{arrow}}</span>
     </div>
     <div class="note1" v-if="noteInfo">
         <span class="asterisk">*</span> 예약 후 성명 변경은 불가하오니 실제 탑승하실 분의 여권에 기재된 영문 성명으로 정확하게 입력하시기 바랍니다.
@@ -410,7 +413,7 @@
 
 <button class="document" @click="showDocumentInfo">
     <div class="documentTitle">
-        구비 서류 안내 <span class="arrow">{{arrow}}</span>
+        구비 서류 안내 <span class="arrow1">{{arrow}}</span>
     </div>
     <div class="document1" v-if="documentInfo">
         <h4>
@@ -454,7 +457,7 @@
         </div>
     </div>
     <div class="holdPoint" v-if="PointPaymentInfo">
-        보유하신 포인트 : {{ holdPoint + "p"}}
+        보유하신 포인트 : {{ AddComma2(holdPoint) + "p"}}
         <button type="button" class="addPoint" @click="addPoint">
             포인트 충전하기
         </button>
@@ -463,7 +466,7 @@
 
 <div class="payFootNav">
     <div class="payFootNav1">예상 결제 금액</div>
-    <div class="payStartPrice">{{AddComma1(returnInfo?.totalPrice)}} 원</div>    
+    <div class="payStartPrice">{{AddComma2(returnInfo?.totalPrice)}} 원</div>
     <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 
@@ -516,6 +519,7 @@ export default {
             PointPaymentInfo: false,
             holdPoint: this.$store.state.holdPoint,
             name: '',
+            email: this.$store.state.userInfo.email,
             emailText: false,
             emailSelect: true,
             addAdult: [],
@@ -672,7 +676,6 @@ export default {
                 })
             }
 
-            console.log(this.addAdult)
             this.addPas1 = true
             return this.passInfo = false;
         },
@@ -784,7 +787,6 @@ export default {
 
         },
         addPassInfo3Push(value) {
-            console.log(" 유아입력 " + value)
             let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             //해당 인덱스 공란 경우 등록
@@ -864,7 +866,6 @@ export default {
 
         },
         addPassInfo4Push(value) {
-            console.log(" 소아입력 " + value)
             let genderSelected = document.querySelector('input[type=radio][name=gender]:checked');
 
             //해당 인덱스 공란 경우 등록
@@ -1179,7 +1180,7 @@ export default {
 </script>
 
 <style>
-.PayModalView {    
+.PayModalView {
     padding: 20px;
     position: fixed;
     top: 45%;
@@ -1213,23 +1214,23 @@ export default {
 
 @media (max-width: 700px) {
     .PayModalView {
-    content: url(@/assets/Logo2.png);
-    padding: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 25%;
-    height: 25%;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 2px 2px 10px lightgrey;
-}
+        content: url(@/assets/Logo2.png);
+        padding: 20px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 25%;
+        height: 25%;
+        border-radius: 15px;
+        background-color: white;
+        box-shadow: 2px 2px 10px lightgrey;
+    }
 }
 
 .pRight {
-    width: 22%;
-    height: 310px;    
+    width: 270px;
+    height: 310px;
     margin-left: 970px;
     padding: 40px 0;
     background-color: rgba(34, 168, 168, 0.712);
@@ -1238,42 +1239,42 @@ export default {
 }
 
 .pPayInfo {
-        border-left: none;
-        border-right: none;
-        width: 250px;
-        height: 210px;
-        padding-left: 7%;
-        font-size: 12px;
-        font-weight: 900;
-        color: white;
-    }
+    border-left: none;
+    border-right: none;
+    width: 250px;
+    height: 210px;
+    padding-left: 7%;
+    font-size: 12px;
+    font-weight: 900;
+    color: white;
+}
 
-    .pPayInfo h5 {
-        font-weight: 900;
-        font-size: 18px;
-    }
+.pPayInfo h5 {
+    font-weight: 900;
+    font-size: 18px;
+}
 
-    .pTotal {
-        font-weight: 900;
-        color: white;
-    }
+.pTotal {
+    font-weight: 900;
+    color: white;
+}
 
-    .pTotalPrice {
-        width: 270px;
-        padding: 20px;
-        padding-top: 20px;
-        font-size: 14px;
-        color: white;
-        font-weight: 900;
-    }
+.pTotalPrice {
+    width: 270px;
+    padding: 20px;
+    padding-top: 20px;
+    font-size: 14px;
+    color: white;
+    font-weight: 900;
+}
 
-    .pPayInfo {
-        color: white;
-    }
+.pPayInfo {
+    color: white;
+}
 
-    .pTotalPrice {
-        color: white;
-    }
+.pTotalPrice {
+    color: white;
+}
 
 .IATAModalView {
     position: fixed;
@@ -1289,7 +1290,7 @@ export default {
 }
 
 .IATAModalView::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
     /*스크롤바의 너비*/
 }
 
@@ -1335,10 +1336,17 @@ h4 {
     margin-left: 14px;
 }
 
-.arrow {
+.arrow1 {
     color: white;
     float: right;
     margin-right: 30px;
+}
+
+.arrow2 {    
+    font-size: 22px;
+    font-weight: 900;
+    margin-right: 9px;        
+    vertical-align: middle;
 }
 
 .pSchedule {
@@ -1371,15 +1379,15 @@ h4 {
 }
 
 .pInfoImg {
-    margin-left: 10px;    
+    margin-left: 10px;
 }
 
 .pInfo button:hover {
     border: 2px solid teal;
 }
 
-.pInfo3{
-    margin-top: 3px;    
+.pInfo3 {
+    margin-top: 3px;
 }
 
 .consentInfoTitle {
@@ -1445,7 +1453,7 @@ h4 {
 .paySubmitBtn {
     width: 15%;
     height: 150%;
-    font-size: 16px;    
+    font-size: 16px;
     border-radius: 4px;
     color: white;
     background: teal;
@@ -1493,7 +1501,7 @@ h4 {
 }
 
 .pasNameHint {
-    background-color: rgba(245, 245, 245, 0.555);
+    background-color: rgba(236, 234, 234, 0.555);
     width: 900px;
     height: 90px;
     margin-left: 8.5%;
@@ -1563,7 +1571,7 @@ h4 {
 .emailText {
     width: 160px;
     height: 50px;
-    padding: 20px;
+    padding-left: 10px;
     border: 2px solid teal;
     background-color: white;
     color: #999;
@@ -1624,7 +1632,7 @@ h4 {
 }
 
 .hint-email-text {
-    font-size: 14px;
+    font-size: 11px;
 }
 
 .maleBtn,
@@ -1723,7 +1731,7 @@ h4 {
     width: 897.5px;
     text-align: left;
     padding: 20px;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .document1>h4 {

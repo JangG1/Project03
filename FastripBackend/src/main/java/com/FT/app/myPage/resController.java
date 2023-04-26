@@ -113,7 +113,9 @@ public class ResController {
 	// 예약 내역 저장
 	@PostMapping("/res/resPost")
 	public void addResList(@RequestBody ResList resList) {
+		System.out.println("1");
 		System.out.println(resList);
+		System.out.println("2");
 		resRepository.save(resList);
 	}
 	

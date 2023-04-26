@@ -60,7 +60,7 @@
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
                 <h3>{{res.start}}</h3>
-                <span> {{ chooseInfo?.fromArea }}</span>
+                <span class="startArea"> {{ chooseInfo?.fromArea }}</span>
                 <div class="flight">
                     <img src="@/assets/Logo.png" class="flightLogo">
                     {{ res?.flight }}
@@ -69,7 +69,7 @@
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
             <div class="arriveTime">
                 <h3>{{res.arrive}} </h3>
-                <span>{{ chooseInfo?.toArea }}</span>
+                <span class="arriveArea">{{ chooseInfo?.toArea }}</span>
             </div>
         </div>
 
@@ -104,11 +104,10 @@
     </div>
 </div>
 
- <!-- 로그인 모달 -->
+<!-- 로그인 모달 -->
 <div v-if="!isLogin">
     <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
 </div>
-
 </template>
 
 <script>
@@ -244,7 +243,7 @@ export default {
 }
 
 .flight {
-    margin-top: 15px;
+    margin-top: 10px;
     color: #999;
     font-size: 2px;
 }
@@ -283,7 +282,7 @@ export default {
 .arrInfo {
     margin-left: auto;
     margin-right: auto;
-    width: 880px;    
+    width: 880px;
 }
 
 .arrInfo button {
@@ -306,14 +305,13 @@ export default {
     border: 2px solid teal;
 }
 
-.arrInfo2{
+.arrInfo2 {
     margin-top: 0.3%;
 }
 
-.arrInfo3{
+.arrInfo3 {
     margin-top: 0.6%;
 }
-
 
 .arrStartInfo {
     margin-left: 20%;
@@ -322,14 +320,14 @@ export default {
 }
 
 .arrStartInfo button {
-    color: white;    
+    color: white;
     width: 700px;
     height: 70px;
     background-color: rgba(34, 168, 168, 0.689);
     font-size: 16px;
     border: 0.5px solid #999;
     display: flex;
-    box-shadow: 4px 4px 4px rgb(68, 68, 68);    
+    box-shadow: 4px 4px 4px rgb(68, 68, 68);
 }
 
 .arrStartInfo span {
@@ -380,8 +378,14 @@ export default {
 }
 
 .startTime>h3,
-.arriveTime>h3{
+.arriveTime>h3 {
     font-size: 20px;
+}
+
+.startArea,
+.arriveArea {
+    font-size: 1px !important;
+    width: 70px;
 }
 
 .timeSelect span {
@@ -404,7 +408,7 @@ export default {
     font-size: 16px;
 }
 
-.seatSelect>h3{
+.seatSelect>h3 {
     font-size: 20px;
     margin-left: 25px;
 }
@@ -452,10 +456,11 @@ export default {
 }
 
 .arrFootNav1 {
-    margin-left: 30px;    
+    margin-left: 30px;
 }
 
 .arrStartPrice {
+    width: 150px;
     font-size: 14px;
     margin-left: 65%;
 }
@@ -463,7 +468,7 @@ export default {
 .arrSubmitBtn1 {
     width: 15%;
     height: 150%;
-    font-size: 14px;    
+    font-size: 14px;
     border-radius: 4px;
     margin-left: 2%;
     color: white;
@@ -474,7 +479,7 @@ export default {
 .arrSubmitBtn2 {
     width: 15%;
     height: 150%;
-    font-size: 14px;    
+    font-size: 14px;
     font-weight: 900;
     border-radius: 4px;
     color: rgb(6, 165, 165);
@@ -483,12 +488,11 @@ export default {
     margin-left: 1%;
 }
 
-
 @media (min-width: 1000px) {
     .loginModal {
         content: none;
-        width: 25%;
-        height: 70%;
+        width: 300px;
+        height: 380px;
     }
 }
 </style>

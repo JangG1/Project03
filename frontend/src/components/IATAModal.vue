@@ -7,7 +7,7 @@
             <div class="leftbox1">
                 <img src="../assets/danger1.jpg" class="IATAImg">
             </div>
-            <div>
+            <div class="leftbox2">
                 <h4>발화성/인화성 물질</h4>
                 <li>
                     휘발유, 페인트, 라이터용 등 발화성/인화성 물질
@@ -19,16 +19,17 @@
             <div class="leftbox1">
                 <img src="../assets/danger2.jpg" class="IATAImg" loading="lazy">
             </div>
-            <div>
+            <div class="leftbox2">
                 <h4>무기 및 폭발물 종류</h4>
                 <li>총기, 폭죽 등 무기 및 폭발물 종류</li>
             </div>
         </div>
+
         <div class="leftbox">
             <div class="leftbox1">
                 <img src="../assets/danger3.jpg" class="IATAImg" loading="lazy">
             </div>
-            <div>
+            <div class="leftbox2">
                 <h4>리튬 배터리 장착 전자기기</h4>
                 <li>
                     배터리 용량이 160Wh를 초과하는 리튬<br>
@@ -45,31 +46,30 @@
             </div>
         </div>
     </div>
-    <div class="Dright">
-        <div class="rightbox">
-            <div class="rightbox2">
+        <div class="leftbox">
+            <div class="leftbox1">
                 <img src="../assets/danger4.jpg" class="IATAImg" loading="lazy">
             </div>
-            <div>
+            <div class="leftbox2">
                 <h4>고압가스 용기</h4>
                 <li>산소캔, 부탄가스팬 등 고압가스 용기</li>
             </div>
         </div>
-        <div class="rightbox">
-            <div class="rightbox2">
+        <div class="leftbox">
+            <div class="leftbox1">
                 <img src="../assets/danger5.jpg" class="IATAImg" loading="lazy">
             </div>
-            <div>
+            <div class="leftbox2">
                 <h4>기타 위험 물질</h4>
                 <li>소화기, 에어로졸(살충제 등), 락스, 파마약 등<br>
                     탑승객 및 항공기에 위험이 될 가능성이 있는 <br>
                     물질</li>
             </div>
         </div>
-    </div>
+
 </div>
 <div class="IATAfoot" @click="closeModal">
-    <button class="IATACloseBtn" @click="closeModal">확인</button>
+    <button class="IATACloseBtn" @click="closeModal">확 인</button>
 </div>
 </template>
 
@@ -90,129 +90,71 @@ export default {
 </script>
 
 <style>
-.leftbox h4 {
-    margin-top: 50px;
-    margin-left: 120px;
-    color: rgb(79, 79, 79);
-}
-
-.leftbox li {
-    margin-top: 10px;
-    margin-left: 120px;
-    color: rgb(79, 79, 79);
-}
-
-.rightbox h4 {
-    margin-top: 40px;
-    margin-left: 120px;
-    color: rgb(79, 79, 79);
-}
-
-.rightbox li {
-    margin-top: 10px;
-    margin-left: 120px;
-    color: rgb(79, 79, 79);
-}
-
 .leftbox1 {
     float: left;
+    margin-left: 10px;
 }
 
-.rightbox2 {
-    position: absolute;
+.leftbox2{
+    margin-left: 60px;
+}
+
+.leftbox2 h4 {
+    margin-left: 20px;
+    margin-top: 30px;    
+    font-size: 18px;
+    color: rgb(79, 79, 79);
+}
+
+.leftbox2 li {    
+    margin-left: 20px;
+    margin-top: 10px;    
+    font-size: 12px;
+    color: rgb(79, 79, 79);
 }
 
 .IATAtitle1 {
     color: teal;
-    font-size: 25px;
+    font-size: 15px;
     font-weight: 900;
-    margin-top: 40px;
-    margin-left: 3%;
+    margin-top: 20px;
+    margin-left: 6%;
 }
 
 .IATAtitle2 {
-    margin-left: 3%;
-}
-
-.Dleft {
-    margin-left: 3%;
-}
-
-.Dright {
-    margin-left: 3%;
-    margin-bottom: 10%;
-    overflow: auto;
+    font-size: 14px;
+    margin-left: 6%;
 }
 
 .IATAImg {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
 }
 
-.IATAfoot {
-    display: flex;
+.IATAfoot {    
     bottom: 0;
     left: 0;
     right: 0;
-    height: 75px;
+    height: 55px;
+    padding: 1rem;
     color: white;
     background: teal;
     font-weight: bold;
+    display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 14px;
     box-shadow: 2px 2px 20px rgb(1, 83, 83);
-    cursor: pointer;
+    margin-top: 50px;    
 }
 
-.IATACloseBtn {
+.IATACloseBtn {    
+    height: 150%;
+    font-size: 14px;    
+    border-radius: 4px;
+    margin-left: 170px;    
     color: white;
     background: teal;
     border: none;
-    margin-left: 50%;
-    margin-right: 50%;
-    padding: 19px 0;
-    font-size: 24px;
-
-}
-
-/* 화면 축소 전 후 */
-
-@media (min-width: 2050px) {
-    .rightbox h4 {
-        margin-top: 60px;
-    }
-
-    .Dleft {
-        margin-left: 1%;
-        float: left;
-        overflow: auto;
-    }
-
-    .Dright {
-        float: right;
-        margin-top: 100px;
-        margin-right: 60px;
-        overflow: auto;
-    }
-
-    .IATAfoot {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 75px;
-        padding: 1rem;
-        color: white;
-        background: teal;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 20px;
-        box-shadow: 2px 2px 20px rgb(1, 83, 83);
-    }
-
-    .IATACloseBtn {}
-
 }
 </style>

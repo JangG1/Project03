@@ -22,7 +22,7 @@
             </div>
             <div class="infoRight">
                 <span class="listRight">{{addAdult?.[index].korName}}</span><br><br>
-                <span class="listRight">{{addAdult?.[index].engLastName}} {{addAdult?.[index].engFirstName}}</span><br><br>                
+                <span class="listRight">{{addAdult?.[index].engLastName}} {{addAdult?.[index].engFirstName}}</span><br><br>
                 <span class="listRight">{{addAdult?.[index].birthday}}</span><br><br>
                 <span class="listRight">{{addAdult?.[index].gender}}</span>
             </div>
@@ -130,11 +130,16 @@
         </div>
         <div class="infoRight">
             <span class="listRight">포인트 결제</span><br><br>
-            <span class="listRight">{{holdPoint - totalPoint}}</span><br><br>
+            <span class="listRight">{{AddComma(holdPoint - totalPoint)}}</span><br><br>
         </div>
     </div>
 
     <button type="button" class="reserBtn" @click="submit()">예약 하기</button>
+</div>
+
+<!-- 로딩화면 -->
+<div class="layerPopup" v-show="isLoading">
+    <div class="spinner"></div>
 </div>
 </template>
 
@@ -217,8 +222,12 @@ export default {
         closeModal() {
             this.$emit('closeModal')
         },
+        AddComma(num) {
+            let regexp = /\B(?=(\d{3})+(?!\d))/g;
+
+            return num.toString().replace(regexp, ",");
+        },
         submit() {
-            this.$store.dispatch("setLoading", true);
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             let returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
@@ -235,12 +244,21 @@ export default {
 
             let email = "";
 
+            //로그인 상태 이메일
+            if (this.$store.state.isLogin == true) {
+                if (this.$store.state.userInfo.email == "") {
+                    email = this.passEmail1 + "@" + this.passEmail2;
+                } else if (this.$store.state.userInfo.email != "") {
+                    email = this.userInfo.email;
+                }
+            }
+            
+            //비로그인 상태 이메일
             if (this.$store.state.isLogin == false) {
                 email = this.passEmail1 + "@" + this.passEmail2;
-            } else if (this.$store.state.isLogin == true) {
-                email = this.userInfo.email;
             }
 
+            this.$store.dispatch("setLoading", true);
             axios.post("http://58.225.45.251:8200/api/res/resPost", {
                     email: email,
                     seat: this.chooseInfo.seat,
@@ -271,10 +289,9 @@ export default {
                     console.log(err)
                     console.log("예약자 정보 안보내짐")
                 })
-            this.$store.dispatch("setLoading", false);
+                this.$store.dispatch("setLoading", false);
         },
         submit2() { //추가 승객
-            this.$store.dispatch("setLoading", true);
             let addAdult = this.addAdult
             let addChild = this.addChild
             let addInfant = this.addInfant
@@ -293,6 +310,7 @@ export default {
                 birthday: this.birthday
             }];
 
+            this.$store.dispatch("setLoading", true);
             axios.post("http://58.225.45.251:8200/api/res/resPost/addPas", {
                     addAdult: addAdult,
                     addChild: addChild,
@@ -313,9 +331,11 @@ export default {
             this.$store.dispatch("addAdult", addAdult);
             this.$store.dispatch("addChild", addChild);
             this.$store.dispatch("addInfant", addInfant);
-            alert("예약이 완료 되었습니다.")
+            
             this.$store.dispatch("setLoading", false);
-            this.$router.push('Complete');
+            
+            alert("예약이 완료 되었습니다.")
+            this.$router.push('Complete');            
         },
     },
     mounted() {},
@@ -323,7 +343,7 @@ export default {
 </script>
 
 <style>
-.infoTitle{
+.infoTitle {
     display: flex;
 }
 
@@ -335,13 +355,13 @@ export default {
     font-size: 20px;
 }
 
-.payCloseBtn {    
+.payCloseBtn {
     color: teal;
     font-weight: 900;
     font-size: 18px;
     border: 1px solid white;
     background-color: white;
-    margin-left: 110px;
+    margin-left: 100px;
     margin-top: 10px;
 }
 
@@ -413,5 +433,42 @@ export default {
     border-radius: 4px;
     background-color: teal;
     margin-left: 125px;
+}
+
+.layerPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 0 0;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 8px solid #f3f3f3;
+    /* Light grey */
+    border-top: 8px solid teal;
+    /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spinner 2s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>

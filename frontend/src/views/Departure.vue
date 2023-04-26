@@ -42,7 +42,7 @@
         <div type="button" class="timeSelect" style="cursor: default">
             <div class="startTime">
                 <h3>{{res.start}}</h3>
-                <span> {{ chooseInfo?.fromArea }}</span><br>
+                <span class="startArea"> {{ chooseInfo?.fromArea }}</span><br>
                 <div class="flight">
                     <img src="@/assets/Logo.png" class="flightLogo">
                     {{ res?.flight }}
@@ -51,7 +51,7 @@
             <img type="image" class="arrow2" src="../assets/arrow.jpg">
             <div class="arriveTime">
                 <h3>{{res?.arrive}} </h3>
-                <span>{{ chooseInfo?.toArea }}</span>
+                <span class="arriveArea">{{ chooseInfo?.toArea }}</span>
             </div><br>
         </div>
 
@@ -179,9 +179,10 @@ export default {
 }
 
 .flight {
-    margin-top: 15px;
+    margin-top: 10px;
     color: #999;
-    font-size: 2px;
+    font-size: 1px ;
+    width: 70px;
 }
 
 .flightLogo {
@@ -285,6 +286,12 @@ export default {
 .startTime>h3,
 .arriveTime>h3{
     font-size: 20px;
+}
+
+.startArea,
+.arriveArea{
+    font-size: 1px !important;
+    width: 70px;
 }
 
 .timeSelect span {

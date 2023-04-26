@@ -35,19 +35,120 @@
     </div>
 
     <!----- 배너&예약박스 시작 ---------------------------------------------------->
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 
-        <div class="carousel-inner" data-aos="fade-down" data-aos-duration="2000">
+    <!--항공 예약 박스-->
+    <div class="resForm" data-aos="fade-down" data-aos-duration="2000">
+        <div class="res-area-select">
+            <button type="button" @click="toggleRoundTrip" class="btn-field" id="resRoundTrip">왕복</button>
+            <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
+            <br>
+            <br>
+            <div class="FromTo">
+                <!--FromArea-->
+                <span v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000">{{ fromImgName.substring(0,3) }}<br>{{ fromImgName.substring(3,10) }}</span>
+                <span v-if="toBtn2" type="button" id="toValue" class="toBtn" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000">{{ toImgName.substring(0,3) }}<br>{{ toImgName.substring(3,10) }}</span>
+                <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
+                    <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea" data-aos="fade-down" data-aos-duration="2000"></FromArea>
+                </div>
 
-            <!--배너 좌우 이동 버튼-->
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-            </button>
+                <!--Area Change-->
+                <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy" />
+
+                <!--ToArea-->
+                <span v-if="fromBtn2" type="button" class="fromBtn" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000">{{ fromImgName.substring(0,3) }}<br>{{ fromImgName.substring(3,10) }}</span>
+                <span v-if="toBtn1" type="button" class="toBtn" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000">{{ toImgName.substring(0,3) }}<br>{{ toImgName.substring(3,10) }}</span>
+                <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
+                    <ToArea @close="toAreaPopUp" @update-toArea="updateToArea" data-aos="fade-down" data-aos-duration="2000"></ToArea>
+                </div>
+            </div>
+            <br>
+            <br>
+            <hr>
+
+            <!--여행 날짜 선택-->
+
+            <!--왕복 날짜 선택-->
+            <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos="flip-down" data-aos-delay="100" modelAuto range>
+                <template #month="{ value }">
+                    {{ value + 1 + "월"}}
+                </template>
+                <template #month-overlay="{ value }">
+                    {{ value + 1 + "월"}}
+                </template>
+            </Datepicker>
+            <div type="button" class="selectDate1" v-if="selectDate1">
+                <div class="selectDate2">
+                    {{Format1(bothWay)}}
+                </div>
+            </div>
+
+            <!--편도 날짜 선택-->
+            <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder=" 가는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos-delay="100" data-aos="flip-down">
+                <template #month="{ value }">
+                    {{ value + 1 + "월"}}
+                </template>
+                <template #month-overlay="{ value }">
+                    {{ value + 1 + "월"}}
+                </template>
+            </Datepicker>
+            <div type="button" class="selectDate1" v-if="selectDate2">
+                <div class="selectDate2">
+                    {{Format2(oneWay)}}
+                </div>
+            </div>
+
+        </div>
+
+        <!--승객수 팝업-->
+        <button type="button" class="btn-field" id="resPassenger" @click="countModalPopUp">
+            <div class="count1">승객 수 </div>
+            <div class="countImg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
+            </div>
+            <div class="count2">
+                <span class="adultCount">성인{{AdultCount}}명</span>
+                <span v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</span>
+                <span v-if="InfantCount > 0" class="infantCount">, 유아{{InfantCount}}명</span>
+            </div>
+        </button>
+
+        <div v-if="countModal" class="countModal" :class="{ active : countModal }">
+            <HeadCount @close="countModalPopUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
+        </div>
+        <div>
+
+        </div>
+        <!--좌석 선택-->
+
+        <select id="inputState" class="form-select">
+            <option selected>좌석 등급</option>
+            <option>일반석</option>
+            <option>프레스티지석</option>
+            <option>일등석</option>
+        </select>
+
+        <input type="submit" @click="submit()" value="항공편 검색" class="submit-btn">
+
+    </div>
+    <!--항공 예약박스 종료-->
+
+    <!--배너 시작-->
+    <!--좌우 슬라이드 버튼-->
+    <div data-aos="fade-down" data-aos-duration="2000">
+    <button type="button" class="bannerPrev" @click="bannerPrev"></button>
+    <button type="button" class="bannerNext" @click="bannerNext"></button>
+    </div>
+
+    <div class="slidea_wrapper" data-aos="fade-down" data-aos-duration="2000">
+
+        <div class="slidesa flex">
 
             <!--배너1-->
-            <div class="carousel-item active">
-                <!--배너 이미지1-->                
+            <div class="bannerBox">
+                <!--배너 이미지1-->
+                <!-- <img class="banner" src="../assets/bannerImage/1.jpg"> -->
                 <div class="mainBanner"></div>
                 <div class="container1">
                     <div class="carousel-caption">
@@ -58,7 +159,7 @@
             </div>
 
             <!--배너2-->
-            <div class="carousel-item">
+            <div class="bannerBox">
                 <!--배너 이미지2-->
                 <img class="banner" src="../assets/bannerImage/2.jpg">
                 <div class="container2">
@@ -71,20 +172,20 @@
             </div>
 
             <!--배너3-->
-            <div class="carousel-item">
+            <div class="bannerBox">
                 <!--배너 이미지3-->
                 <img class="banner" src="../assets/bannerImage/3.jpg">
                 <div class="container3">
                     <div class="carousel-caption">
-                        <h2>Chūbu, Fuji</h2>
-                        <h3>in Japan</h3>                        
+                        <h2>Chubu, Fuji</h2>
+                        <h3>in Japan</h3>
                         <h4 @click="ing">자세히 보기</h4>
                     </div>
                 </div>
             </div>
 
             <!--배너4-->
-            <div class="carousel-item">
+            <div class="bannerBox">
                 <!--배너 이미지4-->
                 <img class="banner" src="../assets/bannerImage/4.jpg">
                 <div class="container4">
@@ -96,106 +197,10 @@
                 </div>
             </div>
 
-            <!--항공 예약 박스-->
-            <!--------------------------------------------------------------------------------->
-
-            <div class="resForm">
-                <div class="res-area-select">
-                    <button type="button" @click="toggleRoundTrip" class="btn-field" id="resRoundTrip">왕복</button>
-                    <button type="button" @click="toggleOneWay" class="btn-field" id="resOneWay">편도</button>
-                    <br>
-                    <br>
-                    <div class="FromTo">
-                        <!--FromArea-->
-                        <img v-if="fromBtn1" type="button" id="fromValue" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
-                        <img v-if="toBtn2" type="button" id="toValue" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
-                        <div v-if="fromAreaView == true" class="fromAreaView" :class="{ active : fromAreaView }">
-                            <FromArea @close="fromAreaPopUp" @update-fromArea="updateFromArea" data-aos="fade-down" data-aos-duration="2000"></FromArea>
-                        </div>
-                        <!--Area Change-->
-                        <img type="button" class="ppg-refresh" src="../assets/change.png" @click="change" loading="lazy" />
-
-                        <!--ToArea-->
-                        <img v-if="fromBtn2" type="button" class="fromBtn" :src="require(`../assets/FromArea/${fromImgName}.jpg`)" @click="fromAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
-                        <img v-if="toBtn1" type="button" class="toBtn" :src="require(`../assets/ToArea/${toImgName}.jpg`)" @click="toAreaPopUp" width="200" data-aos="fade" data-aos-duration="2000" />
-                        <div v-if="toAreaView == true" class="toAreaView" :class="{ active : toAreaView }">
-                            <ToArea @close="toAreaPopUp" @update-toArea="updateToArea" data-aos="fade-down" data-aos-duration="2000"></ToArea>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <hr>
-
-                    <!--여행 날짜 선택-->
-
-                    <!--왕복 날짜 선택-->
-                    <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos="flip-down" data-aos-delay="100" modelAuto range>                        
-                        <template #month="{ value }">
-                            {{ value + 1 + "월"}}
-                        </template>
-                        <template #month-overlay="{ value }">
-                            {{ value + 1 + "월"}}
-                        </template>
-                    </Datepicker>
-                    <div type="button" class="selectDate1" v-if="selectDate1">
-                        <div class="selectDate2">
-                            {{Format1(bothWay)}}
-                        </div>
-                    </div>
-
-                    <!--편도 날짜 선택-->
-                    <Datepicker v-if="datePickerShow2" class="datePicker" @update:model-value="datepickerShow2" v-model="oneWay" placeholder=" 가는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos-delay="100" data-aos="flip-down">
-                        <template #month="{ value }">
-                            {{ value + 1 + "월"}}
-                        </template>
-                        <template #month-overlay="{ value }">
-                            {{ value + 1 + "월"}}
-                        </template>
-                    </Datepicker>
-                    <div type="button" class="selectDate1" v-if="selectDate2">
-                        <div class="selectDate2">
-                            {{Format2(oneWay)}}
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--승객수 팝업-->
-                <button type="button" class="btn-field" id="resPassenger" @click="countModalPopUp">
-                    <div class="count1">승객 수 </div>
-                    <div class="countImg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg>
-                    </div>
-                    <div class="count2">
-                        <span class="adultCount">성인{{AdultCount}}명</span>
-                        <span v-if="ChildCount > 0" class="childCount">, 소아{{ChildCount}}명</span>
-                        <span v-if="InfantCount > 0" class="infantCount">, 유아{{InfantCount}}명</span>
-                    </div>
-                </button>
-
-                <div v-if="countModal" class="countModal" :class="{ active : countModal }" >
-                    <HeadCount @close="countModalPopUp()" :AdultCount="AdultCount" :ChildCount="ChildCount" :InfantCount="InfantCount" @update-count="updateCount"></HeadCount>
-                </div>
-                <div>
-
-                </div>
-                <!--좌석 선택-->
-
-                <select id="inputState" class="form-select">
-                    <option selected>좌석 등급</option>
-                    <option>일반석</option>
-                    <option>프레스티지석</option>
-                    <option>일등석</option>
-                </select>
-
-                <input type="submit" @click="submit()" value="항공편 검색" class="submit-btn">
-
-            </div>
-
         </div>
+
     </div>
+    <!--배너 종료-->
     <!----- 배너&예약박스 종료 ---------------------------------------------------->
 
     <!-- 조회버튼 -->
@@ -290,6 +295,9 @@ import NoticeModal from "@/components/NoticeModal.vue";
 import VueCookies from 'vue-cookies'
 import AOS from 'aos';
 import "aos/dist/aos.css";
+import data from "../components/Banner.json";
+
+const imageUrls = data;
 
 export default {
     name: 'HelloWorld',
@@ -320,23 +328,23 @@ export default {
             count: 1,
             fromAreaView: false,
             toAreaView: false,
-            showModal: false, //true일 때 모달창 보여짐
-            modalDatas: [], //모달에 보낼 데이터 배열
             AdultCount: 1,
             ChildCount: 0,
             InfantCount: 0,
-            fromImgName: 'SEL',
-            toImgName: 'main',
+            fromImgName: 'SEL 서울',
+            toImgName: 'TO 도착지',
             image: "",
             fromBtn1: true,
             toBtn1: true,
             fromBtn2: false,
             toBtn2: false,
-            NoticeModalView: true,
+            NoticeModalView: false,
             week: ['일', '월', '화', '수', '목', '금', '토'],
             startDate: [this.startYear, this.startMonth, this.startDay, this.startWeek],
             startYear: "",
             returnDate: [this.returnYear, this.returnMonth, this.returnDay, this.returnWeek],
+            currentcIdx: 0,
+            imageUrls: imageUrls,
         }
     },
     created() {
@@ -358,6 +366,39 @@ export default {
     methods: {
         ing() {
             alert('준비중입니다.')
+        },
+        bannerPrev() {
+            let slideCount = imageUrls.length
+
+            if (this.currentIdx > 0) {
+                this.bannerSlide(this.currentIdx - 1);
+            } else {
+                this.bannerSlide(slideCount - 5);
+            }
+        },
+        bannerNext() {
+            let slideCount = imageUrls.length
+
+            if (this.currentIdx < slideCount - 5) {
+                this.bannerSlide(this.currentIdx + 1);
+            } else {
+                this.bannerSlide(0);
+            }
+
+        },
+        bannerSlide(num) {
+            let slides = document.querySelector('.slidesa'),
+                slide = document.querySelectorAll('.bannerBox'),
+                slideCount = slide.length,
+                slideWidth = 1000,
+                slideMargin = 20
+
+            slides.style.width =
+                (slideWidth + slideMargin) * slideCount - slideMargin + 'px';
+
+            slides.style.left = -num * 1282 + 'px';
+
+            this.currentIdx = num;
         },
         logout() {
             let access_token = this.$store.state.userInfo.access_token;
@@ -385,7 +426,7 @@ export default {
             }
         },
         NoticeModalPopUp() {
-            this.NoticeModalView = false
+            this.NoticeModalView = false;
         },
         datepickerShow1() {
             this.datePickerShow1 = false;
@@ -594,15 +635,93 @@ export default {
         this.getNoticeView();
         this.hideParams();
         this.setParamInfo();
+        this.bannerNext();
     }
 
 }
 </script>
 
 <style>
-.loginModal{    
-    width: 25%;
-    height: 65%;
+li {
+    list-style: none;
+    padding-bottom: 1%;
+}
+
+.slidea_wrapper {
+    width: 100%;
+    height: 470px;
+    margin-top: 10px;    
+    z-index: 1;        
+    overflow: hidden;    
+}
+
+.slidesa {
+    position: absolute;
+    transition: left 0.5s ease-out;    
+}
+
+.bannerBox {
+    margin-right: 1%;
+    border-radius: 20px;
+    position: relative;
+}
+
+.mainBanner {
+    border-radius: 15px;
+    border: 1px solid #999;
+    background: rgba(255, 255, 255, 0.712);
+    width: 1240px;
+    height: 462px;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.banner {
+    width: 1240px;
+    margin-left: 1%;
+    height: 460px;
+    border-radius: 8px;
+    border-top-left-radius: 20px;
+    overflow: hidden;
+}
+
+.bannerPrev {
+    margin-left: 480px;
+    margin-top: 17%;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    border-top: 10px solid #9999998d;
+    border-right: 10px solid #9999998d;
+    transform: rotate(225deg);
+    position: absolute;
+    z-index: 2;
+}
+
+.bannerNext {
+    margin-left: 90%;
+    margin-top: 17%;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    border-top: 10px solid #9999998d;
+    border-right: 10px solid #9999998d;
+    transform: rotate(45deg);
+    position: absolute;
+    z-index: 2;
+}
+
+.bannerPrev:hover,
+.bannerNext:hover {
+    border-top: 10px solid #999;
+    border-right: 10px solid #999;
+}
+
+.loginModal {
+    width: 300px;
+    height: 380px;
 }
 
 .homeNavigation {
@@ -616,11 +735,12 @@ export default {
 
 .homeNavBar>a,
 .homeSubLink>a {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'SEBANG_Gothic_Bold';
     color: white;
     font-weight: 900;
     margin-top: 1%;
     margin-left: 3%;
+    text-decoration-line: none;
 }
 
 .homeNavBar>a:visited,
@@ -659,7 +779,7 @@ export default {
 }
 
 .homeLoginText {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'SEBANG_Gothic_Bold';
     font-size: 14px;
     font-weight: 900;
     margin-top: 14%;
@@ -669,7 +789,7 @@ export default {
 }
 
 .homeLogoutBtn {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'SEBANG_Gothic_Bold';
     color: white;
     font-weight: 900;
     padding: 10px 0;
@@ -679,7 +799,7 @@ export default {
     cursor: pointer;
 }
 
-.part1 {    
+.part1 {
     background: url("../assets/part2.jpg") fixed;
     padding-bottom: 5%;
 }
@@ -712,11 +832,6 @@ a {
 /* 예약박스 & 배너 시작 */
 /* 예약박스 시작 */
 
-.carousel-inner {
-    margin-top: 10px;
-    height: 470px;
-}
-
 .resForm {
     width: 400px;
     height: 460px;
@@ -725,27 +840,24 @@ a {
     border-radius: 20px;
     background-color: rgba(252, 252, 252, 0.952);
     margin: 0 auto;
-    margin-top: 0.5%;
+    margin-top: 1%;
     margin-left: 1.5%;
     position: absolute;
     padding: 10px;
     text-align: center;
+    z-index: 10;
 }
 
 .res-area-select {
-    height: 46%;
+    height: 45%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.612) 0%, rgb(237, 237, 237) 100%);
     border-radius: 30px;
     border: 1px solid rgb(193, 188, 188);
-    padding: 10px;        
-}
-
-.FromTo{
-    margin-bottom: 10px;
+    padding: 10px;
 }
 
 #resRoundTrip,
-#resOneWay {      
+#resOneWay {
     display: inline;
     margin-left: 5%;
     margin-right: 8%;
@@ -769,8 +881,7 @@ a {
 .ppg-refresh {
     width: 10%;
     height: 10%;
-    margin: 0rem 1rem 0rem 1rem;
-    vertical-align: middle;
+    margin: 0rem 1rem 2rem 1rem;
     cursor: pointer;
     border: 4px solid rgb(225, 225, 225);
     border-radius: 10px;
@@ -778,10 +889,13 @@ a {
 
 .fromBtn,
 .toBtn {
+    font-size: 20px;
     width: 37%;
     height: 80px;
     border: 4px solid rgb(225, 225, 225);
     border-radius: 20px;
+    background-color: white;
+    padding: 6px 0;
 }
 
 .fromAreaView,
@@ -819,16 +933,15 @@ a {
 .fromBtn:hover,
 .toBtn:hover,
 .ppg-refresh:hover,
-.datePicker:hover,
+.dp__menu:hover,
+.dp__pointer:hover,
 .selectDate1:hover,
 .selectDate2:hover,
-.btn-field:hover,
 .form-select:hover,
 .submit-btn:hover,
 #resPassenger:hover {
-    border: 2.5px solid teal;
+    border: 2.5px solid teal !important;
 }
-
 
 .calendar {
     width: 1%;
@@ -837,40 +950,50 @@ a {
     margin-left: 12px;
 }
 
-.dp__menu{
-    width: 25%;        
-    height: 50%;
-    margin-top: 7%;    
+.dp__action_row {
+    width: 430px !important;
+}
+
+.dp__menu {
+    width: 35%;
+    height: 67%;
+    margin-top: 7%;
 }
 
 .dp__pointer {
-    width: 100%;        
-    height: 29px;            
+    width: 100%;
+    height: 29px;
 }
 
-.datePicker{
-    width: 80%;        
+.dp__input {
+    font-size: 10px !important;
+    font-family: 'SEBANG_Gothic_Bold' !important;
+}
+
+.datePicker {
+    width: 80%;
     height: 40px;
     border-radius: 10px;
     border: 1px solid rgb(193, 188, 188);
-    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);    
+    box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
     margin-left: auto;
-    margin-right: auto;      
-    padding: 4px;    
-    z-index:2;
+    margin-right: auto;
+    padding: 4px;
+    z-index: 2;
 }
 
 .selectDate1 {
-    width: 80%;    
+    font-family: 'SEBANG_Gothic_Bold';
+    width: 80%;
     border: 1px solid rgb(193, 188, 188);
     border-radius: 10px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
     box-shadow: -4px -4px 10px -8px rgba(255, 255, 255, 1), 4px 4px 10px -8px rgba(0, 0, 0, .3);
     margin-left: auto;
-    margin-right: auto;    
+    margin-right: auto;
     padding: 4px;
-    font-size: 11px;
-    z-index:1;
+    font-size: 10px;
+    z-index: 1;
 }
 
 .selectDate2 {
@@ -878,13 +1001,12 @@ a {
     color: #999;
     border: 1px solid rgb(193, 188, 188);
     border-radius: 4px;
-    background-color: white;    
+    background-color: white;
     text-align: center;
     padding: 9px;
 }
 
-
-#resPassenger{
+#resPassenger {
     width: 90%;
     height: 10%;
     color: #626262;
@@ -906,7 +1028,7 @@ a {
     color: #626262;
     background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(237, 237, 237) 100%);
     border: 1px solid rgb(193, 188, 188);
-    border-radius: 10px;    
+    border-radius: 10px;
     color: #999;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
     margin-top: 15px;
@@ -934,7 +1056,7 @@ a {
 }
 
 .countImg {
-    float: right;    
+    float: right;
     margin-right: 3%;
     color: #626262;
 }
@@ -954,13 +1076,13 @@ a {
     font-size: 14px;
 }
 
-.countModal {    
+.countModal {
     position: fixed;
     z-index: 1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;    
+    width: 60%;
     border-radius: 15px;
     background-color: rgb(244, 244, 244);
     box-shadow: 2px 2px 10px lightgrey;
@@ -968,7 +1090,7 @@ a {
 
 .form-select {
     border: 1px solid rgb(193, 188, 188);
-    border-radius: 20px;    
+    border-radius: 20px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.963) 0%, rgba(237, 237, 237, 0.959) 100%);
     display: table;
     margin-left: auto;
@@ -988,7 +1110,7 @@ a {
     background: rgb(13, 165, 165);
     display: table;
     margin-left: auto;
-    margin-right: auto;            
+    margin-right: auto;
 }
 
 /* 예약박스 종료 */
@@ -997,133 +1119,74 @@ a {
 .container1 h2 {
     color: rgba(0, 128, 128, 0.445);
     font-size: 120px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50%;
 }
 
 .container1 h3 {
     color: rgba(0, 128, 128, 0.445);
     margin-bottom: 100px;
     font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50%;
 }
 
 .container2 h2 {
     color: rgba(238, 203, 30, 0.959);
     font-size: 120px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50%;
 }
 
 .container2 h3 {
     color: rgba(238, 203, 30, 0.959);
     font-size: 30px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50%;
 }
 
 .container2 h4 {
     color: rgba(238, 203, 30, 0.959);
     font-size: 15px;
     margin-bottom: 70px;
+    margin-left: 50%;
     cursor: pointer;
 }
 
 .container3 h2 {
     color: rgb(249, 214, 250);
     font-size: 60px;
-    margin-left: 58%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 75%;
+    white-space: nowrap;
 }
 
 .container3 h3 {
     color: rgb(249, 214, 250);
-    font-size: 30px;
-    margin-left: 83%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 26px;
+    margin-left: 90%;
+    white-space: nowrap;
 }
 
 .container3 h4 {
     color: rgb(249, 214, 250);
-    font-size: 15px;
-    margin-left: 88%;
+    font-size: 13px;
+    margin-left: 90%;
     margin-bottom: 240px;
 }
 
 .container4 h2 {
     color: rgb(234, 246, 255);
     font-size: 90px;
-    margin-left: 48%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 70%;
 }
 
 .container4 h3 {
     color: rgb(234, 246, 255);
-    font-size: 17px;
-    margin-left: 52%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+    margin-left: 75%;
 }
 
 .container4 h4 {
     color: rgb(234, 246, 255);
-    font-size: 15px;
-    margin-left: 54%;
+    font-size: 14px;
+    margin-left: 75%;
     margin-bottom: 80px;
-}
-
-.carousel-caption {
-    margin-left: 33.5%;
-    color: white;
-}
-
-.carousel-caption > h4{
-    cursor: pointer;
-}
-
-.carousel-indicators {
-    margin-left: 35%;
-    color: rgba(213, 181, 22, 0.959);
-}
-
-.mainBanner {
-    background: rgba(255, 255, 255, 0.712);
-}
-
-.mainBanner,
-.banner {
-    border-radius: 15px;
-    border: 1px solid #999;
-    width: 98%;
-    height: 462px;
-    margin-left: 1%;
-    margin-right: 1%;
-}
-
-.bannerImg {
-    border: 10px solid #999;
-}
-
-.carousel-control-prev {
-    /* 사이즈 */
-    width: 40px;
-    height: 40px;
-    border-top: 8px solid #999;
-    /* 선 두께 */
-    border-right: 8px solid #999;
-    /* 각도 */
-    transform: rotate(225deg);
-    top: 48%;
-    left: 460px;
-}
-
-.carousel-control-next {
-    /* 사이즈 */
-    width: 40px;
-    height: 40px;
-    /* 선 두께 */
-    border-top: 8px solid #999;
-    border-right: 8px solid #999;
-    /* 각도 */
-    transform: rotate(45deg);
-    top: 48%;
-    right: 50px;
 }
 
 /* 배너 종료 */
@@ -1149,7 +1212,7 @@ a {
     color: white;
 }
 
-.refer button {    
+.refer button {
     font-weight: 900;
 }
 
@@ -1165,13 +1228,13 @@ a {
     margin-bottom: 10%;
 }
 
-.travelTip {    
+.travelTip {
     text-align: center;
     margin-bottom: 2%;
 }
 
 .travelTip>h1 {
-    font-size: 40px;    
+    font-size: 40px;
 }
 
 .side {
@@ -1180,7 +1243,7 @@ a {
     margin-top: 8%;
 }
 
-.side>h2{
+.side>h2 {
     font-size: 30px;
 }
 
@@ -1199,8 +1262,8 @@ a {
     font-size: 14px;
 }
 
-.sideTip1 {    
-    padding: 20px 0px;    
+.sideTip1 {
+    padding: 20px 0px;
 }
 
 .Footer {
@@ -1216,7 +1279,7 @@ a {
     padding-bottom: 50px;
 }
 
-.FootLeft>p {    
+.FootLeft>p {
     font-size: 16px;
     font-weight: 900;
 }
@@ -1237,6 +1300,7 @@ a {
 .FootRight>a {
     font-size: 16px;
     color: black;
+    text-decoration-line: none;
 }
 
 .FootRight>a:visited {
@@ -1327,110 +1391,4 @@ a {
         margin-bottom: 80px;
     }
 }
-
-/* 화면 축소 전 후 */
-
-/*@media (min-width: 1900px) {
-    .NoticeModalView {
-        left: 70%
-    }
-
-    .container1 h2 {
-        font-size: 240px;
-    }
-
-    .container1 h3 {
-        font-size: 40px;
-        margin-bottom: 20px;
-    }
-
-    .container2 h2 {
-        font-size: 160px;
-    }
-
-    .container2 h3 {
-        font-size: 40px;
-    }
-
-    .container2 h4 {
-        font-size: 30px;
-        margin-bottom: 170px;
-    }
-
-}*/
-
-/* 화면 축소 전 후 */
-
-/*@media (min-width: 1600px) {
-    .container3 h2 {
-        font-size: 80px;
-        margin-left: 60%;
-    }
-
-    .container3 h3 {
-        font-size: 30px;
-        margin-left: 85%;
-    }
-
-    .container3 h4 {
-        font-size: 25px;
-        margin-left: 85%;
-        margin-bottom: 440px;
-    }
-
-    .container4 h2 {
-        font-size: 100px;
-        margin-left: 70%;
-    }
-
-    .container4 h3 {
-        font-size: 20px;
-        margin-left: 70%;
-    }
-
-    .container4 h4 {
-        font-size: 25px;
-        margin-left: 75%;
-        margin-bottom: 220px;
-    }
-}*/
-
-/* 화면 축소 전 후 */
-
-/*@media (min-width: 2000px) {
-
-    .container3 h2 {
-        font-size: 100px;
-        margin-left: 10%;
-    }
-
-    .container3 h3 {
-        font-size: 40px;
-        margin-left: 30%;
-    }
-
-    .container3 h4 {
-        font-size: 30px;
-        margin-left: 30%;
-        margin-bottom: 200px;
-    }
-
-    .container4 h2 {
-        font-size: 140px;
-        margin-left: 10%;
-    }
-
-    .container4 h3 {
-        font-size: 25px;
-        margin-left: 10%;
-    }
-
-    .container4 h4 {
-        font-size: 30px;
-        margin-left: 10%;
-        margin-bottom: 200px;
-    }
-
-}*/
-
 </style>

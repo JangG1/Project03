@@ -7,16 +7,23 @@
             <PassengerModal @close="passengerModal" :user="user"></PassengerModal>
         </span>
         <!--예약 취소 모달-->
-        <span v-if="resCancelView" class="passengerView">
+        <span v-if="resCancelView" class="resCancelView">
             <ResCancelModal @close="resDelModal"></ResCancelModal>
         </span>
 
         <div v-if="res == ''" class="resBlank">
             <img src="../assets/magnifier.jpg"><br>
-            <span v-if="this.$store.state.isLogin == true">예약 내역 없음.</span><br>
+            <span v-if="this.$store.state.userInfo.email != ''">예약 내역 없음.</span>
+            <br>
             <div v-if="this.$store.state.isLogin == false">
                 <input type="text" v-model="emailValue" class="emailTextBar" @keyup.enter="getData(emailValue)" placeholder="이메일을 입력해주세요.">
                 <input type="button" class="emailGetData" @click="getData(emailValue)" value="비회원 조회하기">
+            </div>
+            <div v-if="this.$store.state.isLogin == true">
+                <span v-if="this.$store.state.userInfo.email == ''">
+                    <input type="text" v-model="emailValue" class="emailTextBar" @keyup.enter="getData(emailValue)" placeholder="이메일을 입력해주세요.">
+                    <input type="button" class="emailGetData" @click="getData(emailValue)" value="비회원 조회하기">
+                </span>
             </div>
         </div>
 
@@ -76,6 +83,11 @@
     <div class="FootRight">
         <a class="topBtn" href="#top">✈ Top</a>
     </div>
+</div>
+
+<!-- 로딩화면 -->
+<div class="layerPopup" v-show="isLoading">
+    <div class="spinner"></div>
 </div>
 </template>
 
@@ -149,12 +161,21 @@ export default {
             //로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
             //로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
             let email = '';
-            if (this.$store.state.isLogin == true) {
-                email = this.$store.state.userInfo.email;
-            } else if (this.$store.state.isLogin == false) {
-                email = value;
 
+            //로그인 상태
+            if (this.$store.state.isLogin == true) {
+                if (this.$store.state.userInfo.email == "") {
+                    email = value;
+                } else if (this.$store.state.userInfo.email != "") {
+                    email = this.$store.state.userInfo.email;
+                }
             }
+
+            //비로그인 상태
+            if (this.$store.state.isLogin == false) {
+                email = value;
+            }
+
             this.$store.dispatch("setLoading", true);
             axios.get('http://58.225.45.251:8200/api/res/resList/' + email)
                 .then((res) => {
@@ -189,7 +210,7 @@ export default {
 
     },
     mounted() {
-        if (this.$store.state.isLogin === true) {
+        if (this.$store.state.userInfo.email != "") {
             this.getData();
         }
     }
@@ -223,7 +244,7 @@ export default {
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10%;
-    height: 380px;    
+    height: 380px;
     background-color: white;
     border-radius: 6px;
     border: 2px solid teal;
@@ -245,6 +266,20 @@ export default {
     /*스크롤바 트랙 색상*/
 }
 
+.resCancelView {
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28%;
+    height: 38%;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 10px lightgrey;
+    z-index: 1;
+}
+
 .passengerView {
     content: url(@/assets/Logo2.png);
     padding: 20px;
@@ -253,7 +288,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 20%;
-    height: 15%;
+    height: 30%;
     border-radius: 15px;
     background-color: white;
     box-shadow: 2px 2px 10px lightgrey;
@@ -272,7 +307,7 @@ export default {
         left: 50%;
         transform: translate(-50%, -50%);
         width: 35%;
-        height: 38%;
+        height: 70%;
         border-radius: 15px;
         background-color: white;
         box-shadow: 2px 2px 10px lightgrey;
@@ -280,8 +315,7 @@ export default {
     }
 
     .passengerView::-webkit-scrollbar {
-        width: 15px;
-
+        width: 10px;
     }
 
     .passengerView::-webkit-scrollbar-thumb {
@@ -313,7 +347,7 @@ export default {
     border-radius: 4px;
     background-color: teal;
     color: white;
-    padding: 4px;
+    height: 20px;
 }
 
 .Footer {
@@ -340,12 +374,17 @@ export default {
     margin-top: 60px;
 }
 
+.FootRight>a {
+    text-decoration-line: none;
+}
+
 .topBtn,
 a:hover,
 a:visited,
 a:active {
     color: rgb(77, 77, 77);
 }
+
 .emailGetData {
     border: 3px solid teal;
     border-radius: 4px;
@@ -371,19 +410,19 @@ a:active {
 }
 
 .resDelBtn {
+    height: 18px;
     color: white;
     font-weight: 900;
     background-color: teal;
     border: none;
     border-radius: 4px;
-    padding: 4px;
-    font-size: 12px;
+    font-size: 10px;
 }
-
 
 tr {
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
+    white-space: nowrap;
 }
 
 th {
@@ -394,16 +433,54 @@ th {
 }
 
 td {
-    padding: 16px;
-    font-size: 12px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 12px;
+    font-size: 10px;
+    vertical-align: middle;
 }
 
 thead {
     font-weight: 900;
 }
+
 .oneWay {
     padding-left: 100px;
     padding-right: 100px;
+}
+
+.layerPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 0 0;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 8px solid #f3f3f3;
+    /* Light grey */
+    border-top: 8px solid teal;
+    /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spinner 2s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>

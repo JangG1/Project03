@@ -175,13 +175,12 @@ h4 {
 }
 
 .descBtn {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border: 1.5px solid #616161;
     border-radius: 20px;
     margin-left: 4px;
-    font-size: 9px;
-    font-weight: 900;
+    font-size: 1px;    
 }
 
 .descBtn:hover {

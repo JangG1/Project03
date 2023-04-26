@@ -81,15 +81,12 @@ export default createStore({
         state.OAuth = payload
     },
     setConsent1(state) {
-        console.log(state.consentBtn1)
         state.consentBtn1 = "선택1"
     },
     setConsent2(state) {
-        console.log(state.consentBtn2)
         state.consentBtn2 = "선택2"
     },
     setResNo(state, payload){
-        console.log(state.payload)
         state.res_no = payload
     },
     setHoldPoint(state, payload) {
@@ -153,11 +150,9 @@ export default createStore({
             commit("loginSuccess", userInfo)
         },
         async consentBtn1({ commit }, payload) {
-                console.log(payload)
                 commit('setConsent1', payload)
         },
         async consentBtn2({ commit }, payload) {
-            console.log(payload)
             commit('setConsent2', payload)
         },
         async res_no({ commit }, payload) {

@@ -124,7 +124,7 @@
         </div>
         <div class="comInfoRight">
             <span class="listRight">포인트 결제</span><br><br>
-            <span class="listRight">{{holdPoint}}</span><br><br>
+            <span class="listRight">{{AddComma(holdPoint)}}</span><br><br>
         </div>
     </div>
 
@@ -171,9 +171,6 @@ export default {
     props: {},
     methods: {
         home() {
-            /*this.$router.replace({
-                name: 'Home'
-            })*/
             this.$router.push('/')
         },
         Reservation() {
@@ -385,11 +382,13 @@ a:active {
         float: right;
         margin-right: 150px;
         margin-top: 80px;
+        text-decoration-line: none;
     }
 
     .FootRight>a {
         font-size: 16px;
         color: black;
+        text-decoration-line: none;
     }
 
     .FootRight>a:visited {

@@ -78,7 +78,7 @@ public class KakaoAPI {
 		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
 		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
 				kakaoProfileRequest2, String.class);
-
+		
 		// Kakao Object
 		ObjectMapper objectMapper2 = new ObjectMapper();
 		KakaoProfile kakaoProfile = null;
@@ -94,8 +94,6 @@ public class KakaoAPI {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println(kakaoProfile.getId());
 		
 		// KakaoProfile 정보 재정의
 		User kakaoUser = User.builder()				
@@ -106,9 +104,8 @@ public class KakaoAPI {
 				.birthday(kakaoProfile.getKakao_account().getBirthday())
 				.access_token(access_token)
 				.refresh_token(refresh_token)
-				.login_id(kakaoProfile.getId())
+				.loginId(kakaoProfile.getId())
 				.login_date(formatedNow).build();
-
 
 		return kakaoUser;		
 	}

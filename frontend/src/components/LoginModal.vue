@@ -18,8 +18,12 @@
         <div @click="naverLogin" class="naverBtn">
             <img src="@/assets/ready_naverLogo.jpg" />
             <br>
-
         </div>
+        <br>
+        <span class="loginHint">
+            <span class="asterisk"> *</span>
+            비회원시에도 모든 기능이 가능합니다.
+        </span>
     </div>
 
     <div class="closeBtn">
@@ -79,16 +83,10 @@ export default {
 </script>
 
 <style>
-p {
-    color: #999;
-    font-size: 24px;
-}
-
-.login-text p {
+.login-text>p {
     color: teal;
     font-size: 20px;
     font-weight: 900;
-    padding-top: 15px;
 }
 
 .login-modal {
@@ -96,12 +94,10 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20%;
-    height: 20%;
     text-align: center;
     border-radius: 25px;
     background-color: white;
-    z-index: 8;
+    z-index: 11;
     border-radius: 15px;
     box-shadow: -8px -8px 16px -10px rgba(255, 255, 255, 1), 8px 8px 16px -10px rgba(0, 0, 0, .15);
     border: 3px solid rgb(193, 188, 188);
@@ -142,7 +138,16 @@ p {
     display: table;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 70px;
     margin-bottom: 30px;
+}
+
+.loginHint {
+    font-size: 12px;
+    margin-left: 6px;
+    opacity: 0.9;
+}
+
+.asterisk{
+    color: red;
 }
 </style>

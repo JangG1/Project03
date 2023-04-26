@@ -21,14 +21,21 @@ public class UserService {
 
 	private final UserRepository userRepository;	
 	
-	
 	@Transactional(readOnly = true)
+	public User 회원찾기(Long id) {		
+		User user = userRepository.findByLoginId(id).orElseGet(()->{
+			return new User();
+		});		
+		return user;
+	}
+	
+	/*@Transactional(readOnly = true)
 	public User 회원찾기(String email) {		
 		User user = userRepository.findByEmail(email).orElseGet(()->{
 			return new User();
 		});		
 		return user;
-	}
+	}*/
 	
 	@Transactional
 	public int 회원가입(User user) {
@@ -40,5 +47,7 @@ public class UserService {
 		}
 		
 	}
+	
+
 
 }

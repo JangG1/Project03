@@ -110,15 +110,16 @@ export default {
 </script>
 
 <style>
-#app {
-    font-family: "NanumBarunGothicBold";
-    white-space: nowrap;            
+#app {    
+    font-family: 'SEBANG_Gothic_Bold';
+    white-space: nowrap;
 }
 
 @font-face {
-    font-family: "NanumBarunGothicBold";
-    src: url('assets/fonts/NanumBarunGothic.eot')format('eot');
-    src: url('assets/fonts/NanumBarunGothic.woff')format('woff');
+    font-family: 'SEBANG_Gothic_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 
@@ -133,11 +134,12 @@ export default {
 
 .navBar>a,
 .subLink>a {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'SEBANG_Gothic_Bold';
     color: white;
-    font-weight: 900;
+    font-weight: 100;
     margin-top: 1%;
     margin-left: 3%;
+    text-decoration-line: none;
 }
 
 .navBar>a:visited,
@@ -176,7 +178,7 @@ export default {
 }
 
 .loginText {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'SEBANG_Gothic_Bold';
     font-size: 14px;
     font-weight: 900;
     margin-top: 14%;
@@ -185,8 +187,8 @@ export default {
     color: white;
 }
 
-.logoutBtn {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+.logoutBtn {    
+    font-family: 'SEBANG_Gothic_Bold';
     color: white;
     font-weight: 900;
     padding: 10px 0;
@@ -234,7 +236,6 @@ export default {
 }
 
 .loginModal {
-    content: url("@/assets/Logo2.png");
     width: 200px;
     height: 200px;
 }

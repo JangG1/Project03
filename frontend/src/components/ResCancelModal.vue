@@ -58,7 +58,7 @@ export default {
 .resDelCloseBtn {
     color: teal;
     font-weight: 900;
-    font-size: 22px;
+    font-size: 20px;
     float: right;
     border: 1px solid white;
     background-color: white;
@@ -75,23 +75,24 @@ export default {
     background-color: teal;
     border: none;
     border-radius: 4px;
-    padding: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin: 5%;    
-    font-size: 22px;
+    font-size: 16px;
 }
 
 .resDelText{
-    padding: 40px 0;    
+    padding: 16px 0;    
 }
 
 .resDelText h3{    
+    font-size: 18px;
     font-weight: 900;
 }
 
 .resDelText h4{
-    font-size: 26px;
+    font-size: 18px;
     font-weight: 900;
 }
 

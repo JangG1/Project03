@@ -46,12 +46,12 @@ public class ResList {
 	private String email;		
 	
 	@Enumerated(EnumType.STRING)
-	private Seat seat; //Enum 사용 (일반석, 이코노미, 비즈니스)
+	private Seat seat; //Enum 사용 (일반석, 프레스티지석, 일등석)
 	
 	@Column(nullable = false, length = 50)
 	private String seatClass1;
 	
-	@Column(nullable = false, length = 50)
+	@Column(length = 50)
 	private String seatClass2;
 	
 	@Enumerated(EnumType.STRING)
@@ -60,7 +60,7 @@ public class ResList {
 	@Column(nullable = false, length = 50)
 	private String flight1;
 	
-	@Column(nullable = false, length = 50)
+	@Column(length = 50)
 	private String flight2;
 	
 	@Column(nullable = false, length = 50)
@@ -93,10 +93,10 @@ public class ResList {
 	@Column(nullable = false, length = 10)
 	private String arriveTime1;
 	
-	@Column(nullable = false, length = 10)
+	@Column(length = 10)
 	private String startTime2;
 	
-	@Column(nullable = false, length = 10)
+	@Column(length = 10)
 	private String arriveTime2;
 	
 	@CreationTimestamp // 값을 비워두고 insert해도 시간이 자동으로 입력

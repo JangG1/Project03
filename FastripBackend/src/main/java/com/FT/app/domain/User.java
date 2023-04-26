@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +39,7 @@ public class User {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = true, length = 50)
     private String email;
     
     @Column(nullable = false, length = 100)
@@ -50,10 +51,10 @@ public class User {
     @Column(nullable = false, length = 100)
     private String profile;
     
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String gender;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String birthday;
     
     @Column(nullable = false, length = 100)
@@ -63,7 +64,7 @@ public class User {
     private String access_token;
     
     @Column(nullable = false, length = 100)
-    private Long login_id;
+    private Long loginId;
     
     //@CreationTimestamp
     @Column(nullable = false, length = 50)

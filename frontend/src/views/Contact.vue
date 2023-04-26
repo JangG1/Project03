@@ -113,14 +113,14 @@ export default {
 
 <style>
 .backImg {
-    background: url("../assets/bannerImage/contact.jpg") fixed;        
+    background: url("../assets/bannerImage/contact.jpg") fixed;
 }
 
 .ctTitle {
-    margin-left: 480px;    
+    margin-left: 480px;
     color: white;
     font-weight: 900;
-    font-size: 90px;    
+    font-size: 90px;
 }
 
 .contBox {
@@ -133,7 +133,7 @@ export default {
     border-bottom-left-radius: 60px;
     width: 630px;
     height: 340px;
-    margin-left: 170px;    
+    margin-left: 170px;
 }
 
 .boxRight {
@@ -141,15 +141,15 @@ export default {
     border-top-right-radius: 60px;
     border-bottom-right-radius: 60px;
     width: 330px;
-    height: 340px;    
-    margin-bottom: 200px;    
+    height: 340px;
+    margin-bottom: 200px;
 }
 
 .boxLeftBot {
-    height: 210px;
+    height: 230px;
     border-right: 10px dashed rgb(134, 134, 134);
     display: flex;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .boxTitleLeft:not(.boxTitleImg1, .boxTitleImg2) {
@@ -178,18 +178,18 @@ export default {
     display: flex;
 }
 
-.boxTitleLeft1{
+.boxTitleLeft1 {
     margin-top: 10px;
 }
 
 .boxTitleLeft1-1 {
     font-size: 20px;
     margin-left: 60px;
-    
+
 }
 
 .boxTitleLeft1-2 {
-    font-size: 16px;    
+    font-size: 16px;
     margin-left: 60px;
 }
 
@@ -210,7 +210,7 @@ export default {
 }
 
 .boxTitleImg2 {
-    margin-left: 80px;        
+    margin-left: 80px;
     width: 80px;
     height: 80px;
 }
@@ -298,21 +298,20 @@ export default {
 }
 
 .lBoxBot2,
-.lBoxBot3{
+.lBoxBot3 {
     cursor: pointer;
 }
-
 
 .lBox4>img {
     width: 40px;
     height: 150px;
     margin-top: 20px;
-    margin-left: 110px;    
+    margin-left: 110px;
 }
 
 .lBox4-1,
 .lBox5-1 {
     color: #999;
-    margin-right: 40px;    
+    margin-right: 40px;
 }
 </style>

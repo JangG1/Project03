@@ -40,7 +40,7 @@ export default {
                 })
         },
          test2() {
-            axios.post("http://127.0.0.1:8200/api/axiosTest", {
+            axios.post("http://192.168.56.1:8200/api/axiosTest", {
                     test: this.test
                 })
                 .then(res => {
@@ -57,8 +57,6 @@ export default {
 
     },
     mounted() {
-        this.hideParams();
-        this.setParamInfo();
     },
 }
 </script>

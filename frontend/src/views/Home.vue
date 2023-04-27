@@ -6,6 +6,7 @@
             <a class="homeLogoLink" href="/">Fastrip</a>
             <div class="homeSubLink">
                 <a href="/">Home</a>
+                <a href="/Test">Test</a>
                 <a href="#part2">Destinations</a>
                 <a href="/Reservation">Reservation</a>
                 <a href="/Contact">Contact</a>

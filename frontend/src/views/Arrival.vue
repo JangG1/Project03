@@ -11,7 +11,7 @@
             <!-- 출발지 -> 도착지 -->
             <div class="info1">
                 {{chooseInfo?.fromArea}} &nbsp;
-                <img src="../assets/arrow2.jpg"> &nbsp;
+                <span class="arrow2">⇀</span>
                 {{chooseInfo?.toArea}}
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
@@ -36,7 +36,9 @@
             </div>
         </button>
     </div>
+
     <br>
+    
     <div class="arrStartInfo">
         <button type="button">
             <div>
@@ -151,7 +153,7 @@ export default {
         },
         getUserInfo() {
             if (this.$store.state.isLogin == true) {
-                axios.get('http://58.225.45.251:8200/api/kakao/info')
+                axios.get('http://52.44.188.93:8200/api/kakao/info')
                     .then((response) => {
                         this.userInfo = response.data
                         console.log(this.userInfo)
@@ -313,13 +315,9 @@ export default {
     margin-top: 0.6%;
 }
 
-.arrStartInfo {
-    margin-left: 20%;
-    width: 2000px;
-    display: flex;
-}
-
 .arrStartInfo button {
+    margin-left: auto;
+    margin-right: auto;
     color: white;
     width: 700px;
     height: 70px;
@@ -337,10 +335,6 @@ export default {
 
 .arrStartInfo button div {
     padding: 21px;
-}
-
-.arrStartInfoImg {
-    margin-left: 14px;
 }
 
 .day-seat-select {

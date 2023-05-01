@@ -12,9 +12,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.FT.app.Repo.UserRepository;
+import com.FT.app.Repo.KakaoUserRepository;
 import com.FT.app.domain.KakaoProfile;
-import com.FT.app.domain.User;
+import com.FT.app.domain.KakaoUser;
 import com.FT.app.login.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -30,7 +30,7 @@ public class KakaoAPI {
 	private UserService userService;
 	
 	//인가코드 받은 후 유저정보 및 토큰 전달
-	public  User KakaoAPI(String code,String redNum) { //redNum = redirectNumber
+	public  KakaoUser KakaoAPI(String code,String redNum) { //redNum = redirectNumber
 		System.out.println("여기는 API : " + code);
 		
 		RestTemplate rt = new RestTemplate();
@@ -43,7 +43,9 @@ public class KakaoAPI {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", "89675f71eb67437191dff96a64831fe8");
-		params.add("redirect_uri", "http://58.225.45.251:8200/api/auth/kakao/callback"+redNum);
+		params.add("redirect_uri", "http://52.44.188.93:8200/api/auth/kakaoLogin/main"+redNum);
+		//params.add("redirect_uri", "http://58.225.45.251:8200/api/auth/kakaoLogin/main"+redNum);
+		//params.add("redirect_uri", "http://localhost:8200/api/auth/kakao/callback"+redNum);
 		params.add("code", code);
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
@@ -79,6 +81,7 @@ public class KakaoAPI {
 		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
 				kakaoProfileRequest2, String.class);
 		
+		
 		// Kakao Object
 		ObjectMapper objectMapper2 = new ObjectMapper();
 		KakaoProfile kakaoProfile = null;
@@ -96,7 +99,7 @@ public class KakaoAPI {
 		}
 		
 		// KakaoProfile 정보 재정의
-		User kakaoUser = User.builder()				
+		KakaoUser kakaoUser = KakaoUser.builder()				
 				.email(kakaoProfile.getKakao_account().getEmail())
 				.name(kakaoProfile.getProperties().getNickname()).password("Fastrip123") // 임시 비밀번호
 				.profile(kakaoProfile.getProperties().getProfile_image())

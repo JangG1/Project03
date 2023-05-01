@@ -101,6 +101,12 @@ export default createStore({
         state.isLoginError = false
         state.userInfo = payload
     },
+    kakaoLoginOn(state) {
+        state.isKakaoLogin = true
+    },
+    naverloginOn(state) {
+        state.isNaverLogin = true
+    },
     loginError(state) {
         state.isLogin = false
         state.isLoginError = true
@@ -145,8 +151,11 @@ export default createStore({
                 gender: info.gender,
                 birthday: info.birthday,
                 access_token: info.access_token,
-                refresh_token: info.refreshtoken
+                refresh_token: info.refreshtoken,
+                OAuth: info.OAuth,
             }
+
+            console.log(userInfo)
             commit("loginSuccess", userInfo)
         },
         async consentBtn1({ commit }, payload) {

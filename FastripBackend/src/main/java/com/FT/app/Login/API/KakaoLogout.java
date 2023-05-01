@@ -12,9 +12,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.FT.app.Repo.UserRepository;
 import com.FT.app.domain.KakaoProfile;
-import com.FT.app.domain.User;
 import com.FT.app.login.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;

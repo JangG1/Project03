@@ -33,7 +33,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 //@DynamicInsert
-public class User {
+public class NaverUser {
 	
     @Id 
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -48,7 +48,7 @@ public class User {
     @Column(nullable = false, length = 100)
 	private String password;
     
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 200)
     private String profile;
     
     @Column(nullable = true, length = 50)
@@ -57,14 +57,14 @@ public class User {
     @Column(nullable = true, length = 50)
     private String birthday;
     
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 200)
+    private String loginId;
+    
+    @Column(nullable = false, length = 200)
     private String refresh_token;
     
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 200)
     private String access_token;
-    
-    @Column(nullable = false, length = 100)
-    private Long loginId;
     
     //@CreationTimestamp
     @Column(nullable = false, length = 50)

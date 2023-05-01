@@ -6,20 +6,35 @@
             <a class="homeLogoLink" href="/">Fastrip</a>
             <div class="homeSubLink">
                 <a href="/">Home</a>
-                <a href="/Test">Test</a>
                 <a href="#part2">Destinations</a>
                 <a href="/Reservation">Reservation</a>
                 <a href="/Contact">Contact</a>
             </div>
-            <!-- 로그인 썸네일 -->
             <!--로그인-->
-            <div class="homeLoginBtn" @click="loginModal = true">
-                <ProfileItem :profile="getProfile" :email="getEmail" />
-                <div class="homeLoginText" v-if="!isLogin">Login</div>
+            <div class="homeLoginBtn1" v-if="!isLogin">
+                <ProfileItem class="homeLoginBtn1-1" :profile="getProfile" :email="getEmail" @click="showLoginMenu"/>
+                <div class="homeLoginText" v-if="!isLogin" @click="loginModal = true">Login</div>
             </div>
-            <!--로그아웃-->
-            <div class="homeLogoutBtn" @click="logout" v-if="isLogin">
+
+            <div class="homeLoginBtn2" v-if="isLogin">
+                <ProfileItem :profile="getProfile" :email="getEmail" @click="showLoginMenu"/>                
+            </div>
+
+            <div class="homeLoginName" v-if="isLogin">
+                {{ this.$store.state.userInfo.lastName }}{{ this.$store.state.userInfo.firstName }} 님
+            </div>
+
+            <div class="loginMenu" v-if="loginMenu">
+
+            <!--카카오 로그아웃-->
+            <div class="homeLogoutBtn" @click="kakaoLogout" v-show="OAuth === 'kakao'">
                 Logout
+            </div>
+            <!--네이버 로그아웃-->
+            <div class="homeLogoutBtn" @click="naverLogout" v-show="OAuth === 'naver'">
+                Logout
+            </div>
+
             </div>
         </div>
         <!-- 로그인 모달 -->
@@ -69,7 +84,7 @@
             <!--여행 날짜 선택-->
 
             <!--왕복 날짜 선택-->
-            <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" data-aos="flip-down" data-aos-delay="100" modelAuto range>
+            <Datepicker v-if="datePickerShow1" class="datePicker" @update:model-value="datepickerShow1" v-model="bothWay" placeholder=" 가는날 ~ 오는날" format="yyyy-MM-dd" :min-date="new Date()" :partial-range="false" data-aos="flip-down" data-aos-delay="100" modelAuto range>
                 <template #month="{ value }">
                     {{ value + 1 + "월"}}
                 </template>
@@ -138,8 +153,8 @@
     <!--배너 시작-->
     <!--좌우 슬라이드 버튼-->
     <div data-aos="fade-down" data-aos-duration="2000">
-    <button type="button" class="bannerPrev" @click="bannerPrev"></button>
-    <button type="button" class="bannerNext" @click="bannerNext"></button>
+        <button type="button" class="bannerPrev" @click="bannerPrev"></button>
+        <button type="button" class="bannerNext" @click="bannerNext"></button>
     </div>
 
     <div class="slidea_wrapper" data-aos="fade-down" data-aos-duration="2000">
@@ -316,6 +331,8 @@ export default {
     data() {
         return {
             loginModal: false,
+            loginMenu: false,
+            OAuth: this.$store.state.userInfo.OAuth,
             toBtn: "",
             fromBtn: "",
             bothWay: [],
@@ -358,15 +375,15 @@ export default {
             return this.$store.state.userInfo.profile;
         },
         isLogin() {
-            if (this.$store.state.isLogin == true) {
-                //console.log("로그인 되었습니다.")
-            }
             return this.$store.state.isLogin;
         },
     },
     methods: {
         ing() {
             alert('준비중입니다.')
+        },
+        showLoginMenu(){
+            this.loginMenu = (this.loginMenu) ? false : true
         },
         bannerPrev() {
             let slideCount = imageUrls.length
@@ -401,30 +418,42 @@ export default {
 
             this.currentIdx = num;
         },
-        logout() {
+        kakaoLogout() {
             let access_token = this.$store.state.userInfo.access_token;
-            let email = this.$store.state.userInfo.email;
 
-            axios.get('http://58.225.45.251:8200/api/kakao/logout/' + access_token, {
-                    params: {
-                        email: email
-                    }
-                })
+            axios.get('http://52.44.188.93:8200/api/kakao/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
+                    this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
                 })
+                this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
+        },
+        naverLogout() {
+            let access_token = this.$store.state.userInfo.access_token;
 
-            this.$store.dispatch("logout");
-            this.$router.push('/')
-
+            axios.get('http://52.44.188.93:8200/api/naver/logout/main/' + access_token)
+                .then((response) => {
+                    alert(response.data)
+                this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
+                })
+                this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
         },
         hideParams() {
-            history.pushState(null, "", `/`)
+            history.pushState(null, "", `/`)            
         },
         setParamInfo() {
             if (this.$route.query.email != null) {
                 this.$store.dispatch("setUserInfo", this.$route.query)
-            }
+                location.reload();
+            }            
         },
         NoticeModalPopUp() {
             this.NoticeModalView = false;
@@ -651,14 +680,14 @@ li {
 .slidea_wrapper {
     width: 100%;
     height: 470px;
-    margin-top: 10px;    
-    z-index: 1;        
-    overflow: hidden;    
+    margin-top: 10px;
+    z-index: 1;
+    overflow: hidden;
 }
 
 .slidesa {
     position: absolute;
-    transition: left 0.5s ease-out;    
+    transition: left 0.5s ease-out;
 }
 
 .bannerBox {
@@ -720,6 +749,29 @@ li {
     border-right: 10px solid #999;
 }
 
+.loginMenu{
+    border: none;
+    border-radius: 10px;
+    width: 70px;
+    background-color: white;
+    position: absolute;
+    margin-left: 88%;
+    margin-top: 6%;
+    text-align: center;
+    z-index: 20;
+}
+
+.loginMenu:after {
+    content: "";
+    border-top: 0px solid transparent;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 17px solid white;
+    position: absolute;
+    top: -15px;
+    left: 25px;   
+}
+
 .loginModal {
     width: 300px;
     height: 380px;
@@ -773,10 +825,15 @@ li {
     font-weight: 900;
 }
 
-.homeLoginBtn {
+.homeLoginBtn1-1 {
+    pointer-events: none;
+}
+
+.homeLoginBtn1,
+.homeLoginBtn2 {
     display: flex;
     margin-top: 1.4%;
-    margin-left: 6%;
+    margin-left: 5%;
 }
 
 .homeLoginText {
@@ -791,13 +848,26 @@ li {
 
 .homeLogoutBtn {
     font-family: 'SEBANG_Gothic_Bold';
-    color: white;
+    color: teal;
     font-weight: 900;
     padding: 10px 0;
     margin-top: 1.4%;
     margin-left: 1.2%;
-    font-size: 14px;
+    font-size: 11px;
     cursor: pointer;
+}
+
+.homeLoginName{
+    font-family: 'SEBANG_Gothic_Bold';
+    color: white;
+    font-weight: 900;
+    padding: 10px 0;
+    margin-top: 1.6%;
+    margin-left: 1%;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    pointer-events: none;
 }
 
 .part1 {
@@ -952,7 +1022,7 @@ a {
 }
 
 .dp__action_row {
-    width: 430px !important;
+    width: 100% !important;
 }
 
 .dp__menu {

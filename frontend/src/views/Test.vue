@@ -4,12 +4,11 @@
 
 <input type="text" v-model="test">{{ this.state }}<br>
 
-<button type="button" @click="test1()">test1</button>58.225.45.251<br>
+<button type="button" @click="test1()">test1</button>AWS http://52.44.188.93:8200/api/<br>
 <button type="button" @click="test2()">test2</button>127.0.0.1<br>
-
+<button type="button" @click="kakaoLogin()">kakaoLogin</button><br>
 </template>
 
-    
 <script>
 import axios from 'axios';
 
@@ -25,7 +24,7 @@ export default {
     created() {},
     methods: {
         test1() {
-            axios.post("http://58.225.45.251:8200/api/axiosTest", {
+            axios.post("http://52.44.188.93:8200/api/axiosTest", {
                     test: this.test
                 })
                 .then(res => {
@@ -39,7 +38,7 @@ export default {
                     this.state = "안보내짐"
                 })
         },
-         test2() {
+        test2() {
             axios.post("http://192.168.56.1:8200/api/axiosTest", {
                     test: this.test
                 })
@@ -55,13 +54,17 @@ export default {
                 })
         },
 
+        kakaoLogin() {
+
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://52.44.188.93:8200/api/auth/kakaoLogin/main&response_type=code";
+
+        },
+
     },
-    mounted() {
-    },
+    mounted() {},
 }
 </script>
 
-    
 <style>
 .b1,
 .b2,

@@ -3,7 +3,7 @@
 <hr>
 
 
-Demo : http://fastrip.shop <br>
+Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2]<br>
 Youtube : 
 
 <br>
@@ -16,15 +16,22 @@ Youtube :
 
 <h3>📚 Skill 📚</h3>
 <div>
+ <h4>🖥 Front</h4>
+ <br>
 <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=Vue.js&logoColor=white">
 <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML&logoColor=white">
 <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS&logoColor=white">
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"><br>
+  <h4>🎛 Back</h4>
+  <br>
 <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
 <img src="https://img.shields.io/badge/Java-1E8CBE?style=for-the-badge&logo=Java&logoColor=white">
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"><br>
+  <h4>📡 Server</h4>
+  <br>
 <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=Linux&logoColor=black">
 <img src="https://img.shields.io/badge/CentOS-262577?style=for-the-badge&logo=CentOS&logoColor=white">
+ubuntu
 </div>
 
 <br>
@@ -62,6 +69,7 @@ Youtube :
 <img src="https://img.shields.io/badge/Workbench-21759B?style=for-the-badge&logo=MySQL&logoColor=white">
 <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
+AWS EC2
 </div>
 
 <br>
@@ -75,5 +83,7 @@ Youtube :
 
 <h3>👷‍♂️ Improvements 👷‍♂️</h3>
 <li> 모바일 버전의 Fastrip </li>
+<li> 반응형 UX/UI 디테일 수정 </li>
+<li> Naver Login API </li>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=footer&fontSize=90" />

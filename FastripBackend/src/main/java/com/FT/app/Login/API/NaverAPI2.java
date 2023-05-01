@@ -12,9 +12,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.FT.app.Repo.KakaoUserRepository;
-import com.FT.app.domain.KakaoProfile;
-import com.FT.app.domain.KakaoUser;
+import com.FT.app.domain.NaverProfile;
+import com.FT.app.domain.NaverUser;
 import com.FT.app.login.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -24,14 +23,13 @@ import com.google.gson.JsonParser;
 
 import lombok.RequiredArgsConstructor;
 
-//Arrive 페이지 전용
-public class KakaoAPI2 {
+public class NaverAPI2 {
 	
 	@Autowired
 	private UserService userService;
 	
 	//인가코드 받은 후 유저정보 및 토큰 전달
-	public  KakaoUser KakaoAPI(String code,String redNum) { //redNum = redirectNumber
+	public  NaverUser NaverAPI2(String code, String redNum, String state) { //redNum = redirectNumber
 		System.out.println("여기는 API : " + code);
 		
 		RestTemplate rt = new RestTemplate();
@@ -43,16 +41,18 @@ public class KakaoAPI2 {
 		// HttpBody 오브젝트 생성
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "89675f71eb67437191dff96a64831fe8");
-		params.add("redirect_uri", "http://52.44.188.93:8200/api/auth/kakaoLogin/arrival"+redNum);
+		params.add("client_id", "z_xevkfqoAuqghG2b8CF");
+		params.add("client_secret", "z_xevkfqoAuqghG2b8CF");
+		params.add("redirect_uri", "http://52.44.188.93:8200/api/auth/naverLogin/arrival"+redNum);
 		params.add("code", code);
+		params.add("state", state);
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
+		HttpEntity<MultiValueMap<String, String>> naverTokenRequest = new HttpEntity<>(params, headers);
 
 		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
-				kakaoTokenRequest, String.class);
+		ResponseEntity<String> response = rt.exchange("https://nid.naver.com/oauth2.0/token", HttpMethod.POST,
+				naverTokenRequest, String.class);
 
 		JsonParser jParser = new JsonParser();
 
@@ -74,40 +74,41 @@ public class KakaoAPI2 {
 		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
+		HttpEntity<MultiValueMap<String, String>> naverProfileRequest2 = new HttpEntity<>(headers2);
 
 		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
-				kakaoProfileRequest2, String.class);
+		ResponseEntity<String> response2 = rt2.exchange("https://kapi.naver.com/v2/user/me", HttpMethod.POST,
+				naverProfileRequest2, String.class);
 		
-		// Kakao Object
+		// Naver Object
 		ObjectMapper objectMapper2 = new ObjectMapper();
-		KakaoProfile kakaoProfile = null;
+		NaverProfile naverProfile = null;
 
 		// 현재날짜, 시간 구하기(로그인 시간)
 		LocalDateTime now = LocalDateTime.now();
 		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
 
 		try {
-			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
+			naverProfile = objectMapper2.readValue(response2.getBody(), NaverProfile.class);
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
 		
-		// KakaoProfile 정보 재정의
-		KakaoUser kakaoUser = KakaoUser.builder()				
-				.email(kakaoProfile.getKakao_account().getEmail())
-				.name(kakaoProfile.getProperties().getNickname()).password("Fastrip123") // 임시 비밀번호
-				.profile(kakaoProfile.getProperties().getProfile_image())
-				.gender(kakaoProfile.getKakao_account().getGender())
-				.birthday(kakaoProfile.getKakao_account().getBirthday())
+		// naverProfile 정보 재정의
+		NaverUser naverUser = NaverUser.builder()
+				.email(naverProfile.getResponse().getEmail())
+				.name(naverProfile.getResponse().getName())
+				.password("Fastrip123")
+				.profile(naverProfile.getResponse().getProfile_image())
+				.gender(naverProfile.getResponse().getGender())
+				.birthday(naverProfile.getResponse().getBirthday())
 				.access_token(access_token)
 				.refresh_token(refresh_token)
-				.loginId(kakaoProfile.getId())
+				.loginId(naverProfile.getResponse().getId())
 				.login_date(formatedNow).build();
 
-		return kakaoUser;		
+		return naverUser;		
 	}
 }

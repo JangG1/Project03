@@ -44,12 +44,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.FT.app.Repo.ResRepository;
-import com.FT.app.Repo.UserRepository;
+import com.FT.app.Repo.KakaoUserRepository;
 import com.FT.app.domain.KakaoProfile;
-import com.FT.app.domain.User;
+import com.FT.app.domain.KakaoUser;
 import com.FT.app.login.API.KakaoAPI;
 import com.FT.app.login.API.KakaoAPI2;
-import com.FT.app.login.API.KakaoLogout;
 import com.FT.app.login.service.UserService;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -63,32 +62,32 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor // 의존성 주입 final 필요(02/07 Service 호출 시 NPE 발생)
-public class LoginController {
+public class KakaoLoginController {
 
-	private final UserRepository userRepository;
+	private final KakaoUserRepository kakaoUserRepository;
 
 	@Autowired
 	private UserService userService;
-
-	@PostMapping("/axiosTest")
-	public void axiosTest(@RequestBody String test) {
-		System.out.println(test);
+	
+	@GetMapping("/axiosTest")
+	public @ResponseBody void axiosTest(String test) {
+		System.out.println("인가 코드 : " + test);
 	}
 
 	// Kakao User 정보 가져오기
-	@GetMapping("/auth/kakao/callback")
-	public @ResponseBody RedirectView kakaoCallback(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
+	@GetMapping("/auth/kakaoLogin/main")
+	public @ResponseBody RedirectView kakaoCallback3(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println("인가 코드 : " + code);
 
 		KakaoAPI kakaoAPI = new KakaoAPI();
 		String redNum = ""; // redNum = redirectNumber
 
 		// KakaoAPI 인가 코드 전송 및 유저 정보 응답
-		User kakaoUser = (User) kakaoAPI.KakaoAPI(code, redNum);
+		KakaoUser kakaoUser = (KakaoUser) kakaoAPI.KakaoAPI(code, redNum);
 		System.out.println("kakaoUser" + kakaoUser);
 
 		// 기존 회원 찾기(중복)
-		User originUser = userService.회원찾기(kakaoUser.getLoginId());
+		KakaoUser originUser = userService.카카오회원찾기(kakaoUser.getLoginId());
 
 		if (originUser.getLoginId() != null) {
 			System.out.println(originUser.getName() + "님 환영합니다");
@@ -122,7 +121,7 @@ public class LoginController {
 			originUser.setRefresh_token(kakaoUser.getRefresh_token());
 			originUser.setLogin_date(formatedNow);
 
-			userService.회원가입(originUser); // 기존 정보 수정 후 저장
+			userService.카카오회원가입(originUser); // 기존 정보 수정 후 저장
 		}
 
 		// 기존 회원 아닐시 새로 등록
@@ -142,7 +141,7 @@ public class LoginController {
 				kakaoUser.setBirthday("");
 			}
 
-			userService.회원가입(kakaoUser);
+			userService.카카오회원가입(kakaoUser);
 		}
 
 		// 프론트로 리다이렉트
@@ -151,9 +150,8 @@ public class LoginController {
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://fastrip.shop/");
 
-		System.out.println("회원 가입이나 수정은 문제X");
 
-		Optional<User> totalUser = userRepository.findByLoginId(kakaoUser.getLoginId());
+		Optional<KakaoUser> totalUser = kakaoUserRepository.findByLoginId(kakaoUser.getLoginId());
 
 		// 리다이렉트 시 로그인 email 기준 User object 전달
 		redirectView.addStaticAttribute("email", totalUser.get().getEmail());
@@ -163,6 +161,7 @@ public class LoginController {
 		redirectView.addStaticAttribute("birthday", totalUser.get().getBirthday());
 		redirectView.addStaticAttribute("access_token", totalUser.get().getAccess_token());
 		redirectView.addStaticAttribute("refreshtoken", totalUser.get().getRefresh_token());
+		redirectView.addStaticAttribute("OAuth", "kakao");
 
 		// 리다이렉트 url parameter 암호화
 		redirectView.setExposePathVariables(false);
@@ -172,19 +171,19 @@ public class LoginController {
 	}
 
 	// Kakao User 정보 가져오기(도착지 선택 페이지(Arrive)에서 결제 페이지 넘어갈시 로그인이 필요한 경우)
-	@GetMapping("/auth/kakao/callback2")
-	public @ResponseBody RedirectView kakaoCallback2(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
+	@GetMapping("/auth/kakaoLogin/arrival")
+	public @ResponseBody RedirectView kakaoCallback4(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println("인가 코드 : " + code);
 
 		KakaoAPI2 kakaoAPI2 = new KakaoAPI2();
 		String redNum = ""; // redNum = redirectNumber
 		
 		// KakaoAPI 인가 코드 전송 및 유저 정보 응답
-		User kakaoUser = (User) kakaoAPI2.KakaoAPI(code, redNum);
+		KakaoUser kakaoUser = (KakaoUser) kakaoAPI2.KakaoAPI(code, redNum);
 		System.out.println("kakaoUser" + kakaoUser);
 
 		// 기존 회원 찾기(중복)
-		User originUser = userService.회원찾기(kakaoUser.getLoginId());
+		KakaoUser originUser = userService.카카오회원찾기(kakaoUser.getLoginId());
 
 		if (originUser.getLoginId() != null) {
 			System.out.println(originUser.getName() + "님 환영합니다");
@@ -218,7 +217,7 @@ public class LoginController {
 			originUser.setRefresh_token(kakaoUser.getRefresh_token());
 			originUser.setLogin_date(formatedNow);
 
-			userService.회원가입(originUser); // 기존 정보 수정 후 저장
+			userService.카카오회원가입(originUser); // 기존 정보 수정 후 저장
 		}
 
 		// 기존 회원 아닐시 새로 등록
@@ -238,7 +237,7 @@ public class LoginController {
 				kakaoUser.setBirthday("");
 			}
 
-			userService.회원가입(kakaoUser);
+			userService.카카오회원가입(kakaoUser);
 		}
 
 		// 프론트로 리다이렉트
@@ -247,9 +246,7 @@ public class LoginController {
 		RedirectView redirectView = new RedirectView();
 		redirectView.setUrl("http://fastrip.shop/Arrival");
 
-		System.out.println("회원 가입이나 수정은 문제X");
-
-		Optional<User> totalUser = userRepository.findByLoginId(kakaoUser.getLoginId());
+		Optional<KakaoUser> totalUser = kakaoUserRepository.findByLoginId(kakaoUser.getLoginId());
 
 		// 리다이렉트 시 로그인 email 기준 User object 전달
 		redirectView.addStaticAttribute("email", totalUser.get().getEmail());
@@ -259,7 +256,8 @@ public class LoginController {
 		redirectView.addStaticAttribute("birthday", totalUser.get().getBirthday());
 		redirectView.addStaticAttribute("access_token", totalUser.get().getAccess_token());
 		redirectView.addStaticAttribute("refreshtoken", totalUser.get().getRefresh_token());
-
+		redirectView.addStaticAttribute("OAuth", "kakao");
+		
 		// 리다이렉트 url parameter 암호화
 		redirectView.setExposePathVariables(false);
 		redirectView.setExposeModelAttributes(true);
@@ -268,7 +266,7 @@ public class LoginController {
 	}
 
 	// Kakao 로그아웃
-	@GetMapping("/kakao/logout/{access_token}")
+	@GetMapping("/kakao/logout/main/{access_token}")
 	public String kakaoLogout(@PathVariable("access_token") String access_token) {
 		System.out.println("Access Token : " + access_token);
 
@@ -281,13 +279,6 @@ public class LoginController {
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
 		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 
-		// Http 요청하기 -> POST방식 -> response 변수의 응답 받음.
-		// Kakao 일반 로그아웃(토큰만 만료)
-		/*
-		 * ResponseEntity<String> response =
-		 * rt.exchange("https://kapi.kakao.com/v1/user/logout", HttpMethod.POST,
-		 * kakaoProfileRequest, String.class);
-		 */
 
 		// Kakao 연결끊기 시 사용
 		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/unlink", HttpMethod.POST,

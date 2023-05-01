@@ -5,41 +5,54 @@
         <!-- Fastrip 로고 -->
         <a class="logoLink" href="/">Fastrip</a>
 
-        <div class="subLink">            
-        <a class="homeLink" href="/">Home</a>
-        <a href="/">Destinations</a>
-        <a href="/Reservation">Reservation</a>
-        <a href="/Contact">Contact</a>
+        <div class="subLink">
+            <a class="homeLink" href="/">Home</a>
+            <a href="/">Destinations</a>
+            <a href="/Reservation">Reservation</a>
+            <a href="/Contact">Contact</a>
         </div>
         <!-- 로그인 썸네일 -->
-            <!--로그인-->
-            <!-- <div class="email" v-if="isLogin">{{ this.$store.state.userInfo.email }} 님</div> -->
-            <div class="loginBtn" @click="loginModal = true">
-                <ProfileItem :profile="getProfile"/>
-                <div class="loginText" v-if="!isLogin">Login</div>
+        <!--로그인-->
+        <div class="loginBtn1" v-if="!isLogin">
+            <ProfileItem class="loginBtn1-1" :profile="getProfile" :email="getEmail" @click="showLoginMenu" />
+            <div class="loginText" v-if="!isLogin" @click="loginModal = true">Login</div>
+        </div>
+
+        <div class="loginBtn2" v-if="isLogin">
+            <ProfileItem :profile="getProfile" :email="getEmail" @click="showLoginMenu" />
+        </div>
+
+        <div class="loginName" v-if="isLogin">
+            {{ this.$store.state.userInfo.lastName }}{{ this.$store.state.userInfo.firstName }} 님
+        </div>
+
+        <div class="loginMenu" v-if="loginMenu">
+
+            <!--카카오 로그아웃-->
+            <div class="logoutBtn" @click="kakaoLogout" v-show="OAuth === 'kakao'">
+                Logout
             </div>
-            <!--로그아웃-->
-            <div class="logoutBtn" @click="logout" v-if="isLogin">
+            <!--네이버 로그아웃-->
+            <div class="logoutBtn" @click="naverLogout" v-show="OAuth === 'naver'">
                 Logout
             </div>
 
+        </div>
     </div>
 </div>
-    <!-- 로그인 모달 -->
-    <div v-if="!isLogin">
-        <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
-    </div>
+<!-- 로그인 모달 -->
+<div v-if="!isLogin">
+    <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
+</div>
 
+<!-- <Home v-if="$route.name !== 'Arrival'"></Home>     -->
 
+<!-- 로딩화면 -->
+<div class="layerPopup" v-show="isLoading">
+    <div class="spinner"></div>
+</div>
 
-    <!-- <Home v-if="$route.name !== 'Arrival'"></Home>     -->
-
-    <!-- 로딩화면 -->
-    <div class="layerPopup" v-show="isLoading">
-        <div class="spinner"></div>
-    </div>
-
-    <router-view></router-view>
+<router-view></router-view>
 </template>
 
 <script>
@@ -52,6 +65,8 @@ export default {
     data() {
         return {
             loginModal: false,
+            loginMenu: false,            
+            OAuth: this.$store.state.userInfo.OAuth,
         };
     },
     components: {
@@ -65,9 +80,6 @@ export default {
             return this.$store.state.userInfo.profile;
         },
         isLogin() {
-            if (this.$store.state.isLogin == true) {
-                //console.log("로그인 되었습니다.")
-            }
             return this.$store.state.isLogin;
         },
         isLoading() {
@@ -75,30 +87,45 @@ export default {
         },
     },
     methods: {
+        showLoginMenu() {
+            this.loginMenu = (this.loginMenu) ? false : true
+        },
         hideParams() {
             history.pushState(null, "", `/`)
         },
         setParamInfo() {
             if (this.$route.query.email != null) {
                 this.$store.dispatch("setUserInfo", this.$route.query)
+                location.reload();
             }
         },
-        logout() {
+        kakaoLogout() {
             let access_token = this.$store.state.userInfo.access_token;
-            let email = this.$store.state.userInfo.email;
 
-            axios.get('http://58.225.45.251:8200/api/kakao/logout/' + access_token, {
-                params: {
-                    email: email
-                }
-                })
+            axios.get('http://58.225.45.251:8200/api/kakao/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
+                    this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
                 })
+                this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
+        },
+        naverLogout() {
+            let access_token = this.$store.state.userInfo.access_token;
 
-            this.$store.dispatch("logout");
-            this.$router.push('/')
-
+            axios.get('http://58.225.45.251:8200/api/naver/logout/main/' + access_token)
+                .then((response) => {
+                    alert(response.data)
+                this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
+                })
+                this.$store.dispatch("logout");
+                    this.$router.push('/')
+                    location.reload();
         },
     },
 
@@ -110,9 +137,12 @@ export default {
 </script>
 
 <style>
-#app {    
+#app {
     font-family: 'SEBANG_Gothic_Bold';
     white-space: nowrap;
+    /* max-width: 70%;
+    margin: 0 auto;
+    overflow: hidden; */
 }
 
 @font-face {
@@ -121,7 +151,6 @@ export default {
     font-weight: normal;
     font-style: normal;
 }
-
 
 .navigation {
     height: 75px;
@@ -171,6 +200,53 @@ export default {
     font-weight: 900;
 }
 
+.loginBtn1-1 {
+    pointer-events: none;
+}
+
+.loginBtn1,
+.loginBtn2 {
+    display: flex;
+    margin-top: 1.4%;
+    margin-left: 5%;
+}
+
+.loginName {
+    font-family: 'SEBANG_Gothic_Bold';
+    color: white;
+    font-weight: 900;
+    padding: 10px 0;
+    margin-top: 1.6%;
+    margin-left: 1%;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    pointer-events: none;
+}
+
+.loginMenu {
+    border: none;
+    border-radius: 10px;
+    width: 70px;
+    background-color: white;
+    position: absolute;
+    margin-left: 88%;
+    margin-top: 6%;
+    text-align: center;
+    z-index: 20;
+}
+
+.loginMenu:after {
+    content: "";
+    border-top: 0px solid transparent;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 17px solid white;
+    position: absolute;
+    top: -15px;
+    left: 25px;
+}
+
 .loginBtn {
     display: flex;
     margin-top: 1.4%;
@@ -187,14 +263,14 @@ export default {
     color: white;
 }
 
-.logoutBtn {    
+.logoutBtn {
     font-family: 'SEBANG_Gothic_Bold';
-    color: white;
+    color: teal;
     font-weight: 900;
     padding: 10px 0;
     margin-top: 1.4%;
     margin-left: 1.2%;
-    font-size: 14px;
+    font-size: 11px;
     cursor: pointer;
 }
 
@@ -205,7 +281,7 @@ export default {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
+    z-index: 10;
     justify-content: center;
     align-items: center;
     margin: 0 0 0 0;

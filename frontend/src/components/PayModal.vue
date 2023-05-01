@@ -259,7 +259,7 @@ export default {
             }
 
             this.$store.dispatch("setLoading", true);
-            axios.post("http://58.225.45.251:8200/api/res/resPost", {
+            axios.post("http://52.44.188.93:8200/api/res/resPost", {
                     email: email,
                     seat: this.chooseInfo.seat,
                     seatClass1: this.startInfo.seatClass1,
@@ -311,7 +311,7 @@ export default {
             }];
 
             this.$store.dispatch("setLoading", true);
-            axios.post("http://58.225.45.251:8200/api/res/resPost/addPas", {
+            axios.post("http://52.44.188.93:8200/api/res/resPost/addPas", {
                     addAdult: addAdult,
                     addChild: addChild,
                     addInfant: addInfant,

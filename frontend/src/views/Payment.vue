@@ -1064,13 +1064,13 @@ export default {
             }
         },
         Gender1() {
-            if (this.gender1 == "male") {
+            if (this.gender1 == "male" || this.gender1 == "M") {
                 let target = document.getElementById('maleBtn1');
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
                 target.value = "남자" + "  ✔"
                 this.gender1 = "남자"
-            } else if (this.gender1 == "female") {
+            } else if (this.gender1 == "female" || this.gender1 == "F") {
                 let target = document.getElementById('femaleBtn1');
                 target.style.color = "teal"
                 target.style.border = "3px solid teal"
@@ -1307,11 +1307,11 @@ export default {
 
 .pStep {
     float: right;
+    display: flex;
     margin-right: 50px;
     margin-bottom: 30px;
     margin-top: 0.1%;
     font-size: 20px;
-    display: flex;
 }
 
 .pPayInfo hr {

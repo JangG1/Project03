@@ -15,8 +15,13 @@
             <br>
         </div>
         <!-- 네이버 아이디로 로그인 -->
-        <div @click="naverLogin" class="naverBtn">
-            <img src="@/assets/ready_naverLogo.jpg" />
+        <div @click="naverLogin" class="naverBtn" v-if="$route.name !== 'Arrival'">
+            <img src="@/assets/naverLogo.jpg" />
+            <br>
+        </div>
+        <!-- 네이버 아이디로 로그인 -->
+        <div @click="naverLogin" class="naverBtn"  v-if="$route.name == 'Arrival'">
+            <img src="@/assets/naverLogo.jpg" />
             <br>
         </div>
         <br>
@@ -34,8 +39,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: "LoginModal",
     props: {
@@ -45,35 +48,29 @@ export default {
         //카카오 로그인
         kakaoLogin() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback&response_type=code";
-            }
-            if (this.$route.query.email != null) {
-                this.$store.dispatch("login")
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://52.44.188.93:8200/api/auth/kakaoLogin/main&response_type=code";
+                //window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
+                this.$store.dispatch("kakaoLogin")
             }
         },
         //카카오 로그인(Arrive 페이지용)
         kakaoLogin2() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://58.225.45.251:8200/api/auth/kakao/callback2&response_type=code";
-            }
-            if (this.$route.query.email != null) {
-                this.$store.dispatch("login")
-            }
-        },
-        logout() {
-            let access_token = this.$store.state.userInfo.access_token;
-
-            axios.get('http://58.225.45.251:8200/api/kakao/logout/' + access_token)
-                .then((response) => {
-                    alert(response.data)
-                })
-
-            this.$store.dispatch("logout");
-
-            //window.location.href = "/";
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://52.44.188.93:8200/api/auth/kakaoLogin/arrival&response_type=code";
+                this.$store.dispatch("kakaoLogin")
+            }                    
         },
         naverLogin() {
-            alert('준비중 입니다.')
+            if (!this.$store.state.isLogin) {
+                window.location.href = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=z_xevkfqoAuqghG2b8CF&redirect_uri=http://52.44.188.93:8200/api/auth/naverLogin/main&state=hLiDdL2uhPtsftcU1"
+                this.$store.dispatch("naverLogin")
+            }                
+        },
+        naverLogin2() {
+            if (!this.$store.state.isLogin) {
+                window.location.href = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=z_xevkfqoAuqghG2b8CF&redirect_uri=http://52.44.188.93:8200/api/auth/naverLogin/arrival&state=hLiDdL2uhPtsftcU1"
+                this.$store.dispatch("naverLogin")
+            }                            
         }
     },
     mounted() {
@@ -121,9 +118,8 @@ export default {
 }
 
 .naverBtn>img {
-    width: 60%;
+    width: 68%;
     cursor: pointer;
-    opacity: 0.2;
 }
 
 .closeBtn>button {
@@ -147,7 +143,7 @@ export default {
     opacity: 0.9;
 }
 
-.asterisk{
+.asterisk {
     color: red;
 }
 </style>

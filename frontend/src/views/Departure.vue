@@ -11,7 +11,7 @@
             <!-- 출발지 -> 도착지 -->
             <div class="info1">
                 {{chooseInfo?.fromArea}} &nbsp;
-                <img src="../assets/arrow2.jpg"> &nbsp;
+                <span class="arrow2">⇀</span>
                 {{chooseInfo?.toArea}}
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">

@@ -38,7 +38,7 @@ import com.FT.app.Repo.AddPasRepository;
 import com.FT.app.Repo.ResRepository;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.Seat;
-import com.FT.app.domain.User;
+import com.FT.app.domain.KakaoUser;
 import com.FT.app.domain.Way;
 import com.FT.app.myPage.domain.AddPassenger;
 import com.FT.app.myPage.domain.ResList;

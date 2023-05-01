@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.FT.app.Repo.UserRepository;
-import com.FT.app.domain.User;
+import com.FT.app.Repo.KakaoUserRepository;
+import com.FT.app.Repo.NaverUserRepository;
+import com.FT.app.domain.KakaoUser;
+import com.FT.app.domain.NaverUser;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,28 +21,29 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 
-	private final UserRepository userRepository;	
+	private final KakaoUserRepository kakaoUserRepository;	
+	private final NaverUserRepository naverUserRepository;
 	
 	@Transactional(readOnly = true)
-	public User 회원찾기(Long id) {		
-		User user = userRepository.findByLoginId(id).orElseGet(()->{
-			return new User();
+	public KakaoUser 카카오회원찾기(Long id) {		
+		KakaoUser user = kakaoUserRepository.findByLoginId(id).orElseGet(()->{
+			return new KakaoUser();
 		});		
 		return user;
 	}
 	
-	/*@Transactional(readOnly = true)
-	public User 회원찾기(String email) {		
-		User user = userRepository.findByEmail(email).orElseGet(()->{
-			return new User();
+	@Transactional(readOnly = true)
+	public NaverUser 네이버회원찾기(String id) {		
+		NaverUser user = naverUserRepository.findByLoginId(id).orElseGet(()->{
+			return new NaverUser();
 		});		
 		return user;
-	}*/
+	}
 	
 	@Transactional
-	public int 회원가입(User user) {
+	public int 카카오회원가입(KakaoUser user) {
 		try {
-			userRepository.save(user);
+			kakaoUserRepository.save(user);
 			return 1;
 		} catch (Exception e) {
 			return -1;
@@ -48,6 +51,15 @@ public class UserService {
 		
 	}
 	
-
+	@Transactional
+	public int 네이버회원가입(NaverUser user) {
+		try {
+			naverUserRepository.save(user);
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
+		
+	}
 
 }

@@ -1026,9 +1026,9 @@ a {
 }
 
 .dp__menu {
-    width: 35%;
-    height: 67%;
-    margin-top: 7%;
+    width: 30%;
+    height: 64%;
+    margin-top: 5%;
 }
 
 .dp__pointer {

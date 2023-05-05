@@ -16,6 +16,4 @@ public interface ResRepository extends JpaRepository<ResList, Integer>{//Integer
 	 void deleteByEmail(String email);
 
 	void save(String testValue);
-	 
-	//void save(HashMap<String, Object> resList);
 }

@@ -48,27 +48,26 @@ export default {
         //카카오 로그인
         kakaoLogin() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://52.44.188.93:8200/api/auth/kakaoLogin/main&response_type=code";
-                //window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://localhost:8200/api/auth/kakao/callback&response_type=code";
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?";                
                 this.$store.dispatch("kakaoLogin")
             }
         },
         //카카오 로그인(Arrive 페이지용)
         kakaoLogin2() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=89675f71eb67437191dff96a64831fe8&redirect_uri=http://52.44.188.93:8200/api/auth/kakaoLogin/arrival&response_type=code";
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?";
                 this.$store.dispatch("kakaoLogin")
             }                    
         },
         naverLogin() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=z_xevkfqoAuqghG2b8CF&redirect_uri=http://52.44.188.93:8200/api/auth/naverLogin/main&state=hLiDdL2uhPtsftcU1"
+                window.location.href = "https://nid.naver.com/oauth2.0/authorize?"
                 this.$store.dispatch("naverLogin")
             }                
         },
         naverLogin2() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=z_xevkfqoAuqghG2b8CF&redirect_uri=http://52.44.188.93:8200/api/auth/naverLogin/arrival&state=hLiDdL2uhPtsftcU1"
+                window.location.href = "https://nid.naver.com/oauth2.0/authorize?"
                 this.$store.dispatch("naverLogin")
             }                            
         }

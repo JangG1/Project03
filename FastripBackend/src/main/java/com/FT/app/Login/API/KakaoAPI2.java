@@ -43,7 +43,7 @@ public class KakaoAPI2 {
 		// HttpBody 오브젝트 생성
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "89675f71eb67437191dff96a64831fe8");
+		params.add("client_id", "");
 		params.add("redirect_uri", "http://52.44.188.93:8200/api/auth/kakaoLogin/arrival"+redNum);
 		params.add("code", code);
 

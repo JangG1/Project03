@@ -466,7 +466,7 @@
 
 <div class="payFootNav">
     <div class="payFootNav1">예상 결제 금액</div>
-    <div class="payStartPrice">{{AddComma2(returnInfo?.totalPrice)}} 원</div>
+    <div class="payStartPrice">{{AddComma1(returnInfo?.totalPrice)}} 원</div>
     <button type="button" class="paySubmitBtn" @click="PayModalPopUp()">예약 하기</button>
 </div>
 

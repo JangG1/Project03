@@ -11,7 +11,7 @@
             <!-- 출발지 -> 도착지 -->
             <div class="info1">
                 {{chooseInfo?.fromArea}} &nbsp;
-                <span class="arrow2">⇀</span>
+                <span class="arrow">⇀</span>
                 {{chooseInfo?.toArea}}
             </div>
             <img src="../assets/vertical.jpg" width="12" class="ver">
@@ -385,6 +385,13 @@ export default {
 .timeSelect span {
     font-size: 14px;
     color: #999;
+}
+
+.arrow {    
+    font-size: 22px;
+    font-weight: 900;
+    margin-right: 9px;        
+    vertical-align: middle;
 }
 
 .arrow2 {

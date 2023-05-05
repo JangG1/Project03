@@ -204,8 +204,8 @@ public class NaverLoginController {
 	// Naver 로그아웃
 	@GetMapping("/naver/logout/main/{access_token}")
 	public String naverLogout(@PathVariable("access_token") String access_token) {
-	    String clientId = "z_xevkfqoAuqghG2b8CF";
-	    String clientSecret = "GbpSqQRfDn";
+	    String clientId = "";
+	    String clientSecret = "";
 	    String url = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id={clientId}&client_secret={clientSecret}&service_provider=NAVER&access_token={accessToken}";
 
 	    RestTemplate rt = new RestTemplate();

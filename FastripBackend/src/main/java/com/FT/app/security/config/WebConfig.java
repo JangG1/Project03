@@ -11,7 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://fastrip.shop")
-                //.allowedOrigins("http://localhost:8200")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);

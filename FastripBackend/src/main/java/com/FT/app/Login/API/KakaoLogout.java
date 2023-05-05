@@ -31,7 +31,7 @@ public class KakaoLogout {
 
 		// HttpBody 오브젝트 생성
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("client_id", "89675f71eb67437191dff96a64831fe8");
+		params.add("client_id", "");
 		params.add("logout_redirect_uri", "http://localhost:8080/Test");
 		System.out.println("2");
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기

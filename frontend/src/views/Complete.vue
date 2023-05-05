@@ -42,8 +42,8 @@
             <div class="comInfoRight">
                 <span class="listRight">{{addChild[index]?.korName}}</span><br><br>
                 <span class="listRight">{{addChild[index]?.engLastName}} {{addChild[index]?.engFirstName}}</span><br><br>
-                <span class="listRight">{{addChild[index]?.gender}}</span><br><br>
-                <span class="listRight">{{addChild[index]?.birthday}}</span>
+                <span class="listRight">{{addChild[index]?.birthday}}</span><br><br>
+                <span class="listRight">{{addChild[index]?.gender}}</span>
             </div>
         </div>
     </span>
@@ -63,8 +63,8 @@
             <div class="comInfoRight">
                 <span class="listRight">{{addInfant[index]?.korName}}</span><br><br>
                 <span class="listRight">{{addInfant[index]?.engLastName}} {{addInfant[index]?.engFirstName}}</span><br><br>
-                <span class="listRight">{{addInfant[index]?.gender}}</span><br><br>
-                <span class="listRight">{{addInfant[index]?.birthday}}</span>
+                <span class="listRight">{{addInfant[index]?.birthday}}</span><br><br>
+                <span class="listRight">{{addInfant[index]?.gender}}</span>
             </div>
         </div>
     </span>

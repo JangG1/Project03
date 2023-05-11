@@ -1,6 +1,7 @@
 <template>
 <div>
     <img class="profile" :src="profile"/>
+    <!-- <lottie-player class="profile" src="https://assets1.lottiefiles.com/packages/lf20_voi0gxts.json"  background="transparent"  speed="1" loop autoplay ></lottie-player> -->
 </div>
 </template>
 

@@ -1,7 +1,6 @@
 <template>
 <div class="backImg">
-    <span class="ctTitle" data-aos="fade-up" data-aos-delay="300" data-aos-easing="ease-ou" data-aos-duration="2000">Contact.</span>
-
+    <span class="ctTitle" data-aos="fade-up" data-aos-delay="300" data-aos-easing="ease-ou" data-aos-duration="2000">Contact.</span>    
     <div class="contBox" data-aos="fade-left" data-aos-delay="300" data-aos-easing="ease-ou" data-aos-duration="2000">
         <!--boxLeft-->
         <div class="boxLeft">
@@ -94,7 +93,7 @@ export default {
     data() {
         return {
             show: true,
-            text: "",
+            text: ""
         }
     },
     created() {
@@ -112,6 +111,7 @@ export default {
 </script>
 
 <style>
+
 .backImg {
     background: url("../assets/bannerImage/contact.jpg") fixed;
 }

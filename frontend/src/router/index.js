@@ -7,12 +7,6 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  // {
-  //   path: '/Departure/:fromArea/:toArea/:seat/:startYear/:startMonth/:startDay/:startWeek/:returnYear/:returnMonth/:returnDay/:returnWeek/:AdultCount/:ChildCount/:InfantCount',
-  //   name: 'Departure',
-  //   component: () => import('../views/Departure.vue'),
-  //   props: true
-  // },  
   {
     path: "/LoginModal",
     name: "LoginModal",
@@ -36,9 +30,9 @@ const routes = [
     props: true
   },  
   {
-    path: '/Arrival',
-    name: 'Arrival',
-    component: () => import('../views/Arrival.vue'),
+    path: '/Return',
+    name: 'Return',
+    component: () => import('../views/Return.vue'),
     props: true
   },
   {

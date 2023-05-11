@@ -75,8 +75,10 @@
 <!-- FOOTER -->
 <div class="Footer">
     <div class="FootLeft">
-        <img class="footLogo" src="../assets/Logo2.png" loading="lazy">
-        <span> Fastrip</span>
+        <div class="footLogoBox">
+        <lottie-player class="footLogo1" src="https://assets9.lottiefiles.com/packages/lf20_ghibwmba.json"  background="transparent"  speed="1"  loading="lazy" loop autoplay ></lottie-player>
+        <div class="footLogo2"> Fastrip</div>
+        </div>
         <p>&copy; 2022 Company, Fastrip</p>
     </div>
 
@@ -87,7 +89,7 @@
 
 <!-- 로딩화면 -->
 <div class="layerPopup" v-show="isLoading">
-    <div class="spinner"></div>
+    <lottie-player class="spinner" src="https://lottie.host/58eb1044-6d4b-4b7f-ae3b-a761224976b3/cMVyp5Jjeh.json"  background="transparent"  speed="1" loop autoplay ></lottie-player>        
 </div>
 </template>
 
@@ -177,7 +179,7 @@ export default {
             }
 
             this.$store.dispatch("setLoading", true);
-            axios.get('http://52.44.188.93:8200/api/res/resList/' + email)
+            axios.get('http://58.225.45.251:8200/api/res/resList/' + email)
                 .then((res) => {
                     this.res = res.data
                     this.user = res.data
@@ -355,27 +357,46 @@ export default {
     border-top: 1px solid;
 
 }
-
 .FootLeft {
     float: left;
-    margin-left: 280px;
-    margin-top: 30px;
-    font-size: 40px;
+    margin-left: 120px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 900;
+    padding-bottom: 50px;
 }
 
-.footLogo {
-    width: 100px;
-    height: 70px;
+.footLogoBox{
+    display: flex;        
 }
+
+.footLogo1 {
+    width: 35%;
+    height: 60px;    
+    margin-bottom: 10px;
+}
+
+.footLogo2 {    
+    padding: 15px 0;
+    margin-left: 5px;
+    font-size: 24px;
+}
+
 
 .FootRight {
     float: right;
-    margin-right: 280px;
-    margin-top: 60px;
+    margin-right: 150px;
+    margin-top: 80px;
 }
 
 .FootRight>a {
+    font-size: 16px;
+    color: black;
     text-decoration-line: none;
+}
+
+.FootRight>a:visited {
+    color: black;
 }
 
 .topBtn,
@@ -446,7 +467,6 @@ thead {
     padding-left: 100px;
     padding-right: 100px;
 }
-
 .layerPopup {
     position: fixed;
     top: 0;
@@ -454,33 +474,16 @@ thead {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
+    z-index: 30;
     justify-content: center;
     align-items: center;
     margin: 0 0 0 0;
 }
 
 .spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border: 8px solid #f3f3f3;
-    /* Light grey */
-    border-top: 8px solid teal;
-    /* Blue */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spinner 2s linear infinite;
-}
-
-@keyframes spinner {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    position: absolute;    
+    left: 30%;
+    width: 550px;
+    height: 550px;    
 }
 </style>

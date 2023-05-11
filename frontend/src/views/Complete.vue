@@ -1,6 +1,7 @@
 <template>
 <div>
     <div>
+        <lottie-player class="completeLogo" src="https://lottie.host/baa5facb-579b-4b4b-bcf8-e2c781c571d3/JobKpEsGX9.json"  background="transparent"  speed="1.2" loop autoplay ></lottie-player>
         <span class="comTitle">예약이 완료되었습니다.</span><br>
     </div>
 
@@ -136,8 +137,10 @@
 <!-- FOOTER -->
 <footer class="Footer">
     <div class="FootLeft">
-        <img class="footLogo" src="../assets/Logo2.png">
-        <span> Fastrip</span>
+        <div class="footLogoBox">
+        <lottie-player class="footLogo1" src="https://assets9.lottiefiles.com/packages/lf20_ghibwmba.json"  background="transparent"  speed="1"  loading="lazy" loop autoplay ></lottie-player>
+        <div class="footLogo2"> Fastrip</div>
+        </div>
         <p>&copy; 2022 Company, Fastrip</p>
     </div>
 
@@ -198,13 +201,18 @@ export default {
 </script>
 
 <style>
+.completeLogo{
+    width: 200px;
+    height: 200px;
+    margin-left: 42%;
+}
+
 .comTitle {
     color: teal;
     font-weight: 900;
     font-size: 30px;
     text-align: center;
-    display: block;
-    padding: 60px 0;
+    display: block;    
 }
 
 .comInfoList,
@@ -259,7 +267,7 @@ a:active {
         font-size: 40px;
         text-align: center;
         display: block;
-        padding: 80px 0;
+        padding-bottom: 20px;
     }
 
     .comInfoList {
@@ -353,47 +361,53 @@ a:active {
         font-weight: 900;
     }
 
-    .Footer {
-        border-top: 1px solid;
-    }
+    
+.Footer {
+    margin-top: 100px;
+    border-top: 1px solid;
 
-    .FootLeft {
-        float: left;
-        margin-left: 120px;
-        margin-top: 50px;
-        font-size: 20px;
-        font-weight: 900;
-        padding-bottom: 50px;
-    }
+}
+.FootLeft {
+    float: left;
+    margin-left: 120px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 900;
+    padding-bottom: 50px;
+}
 
-    .FootLeft>p {
-        font-size: 16px;
-        font-weight: 900;
-    }
+.footLogoBox{
+    display: flex;        
+}
 
-    .footLogo {
-        width: 35%;
-        height: 60px;
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
+.footLogo1 {
+    width: 35%;
+    height: 60px;    
+    margin-bottom: 10px;
+}
 
-    .FootRight {
-        float: right;
-        margin-right: 150px;
-        margin-top: 80px;
-        text-decoration-line: none;
-    }
+.footLogo2 {    
+    padding: 15px 0;
+    margin-left: 5px;
+    font-size: 24px;
+}
 
-    .FootRight>a {
-        font-size: 16px;
-        color: black;
-        text-decoration-line: none;
-    }
 
-    .FootRight>a:visited {
-        color: black;
-    }
+.FootRight {
+    float: right;
+    margin-right: 150px;
+    margin-top: 80px;
+}
+
+.FootRight>a {
+    font-size: 16px;
+    color: black;
+    text-decoration-line: none;
+}
+
+.FootRight>a:visited {
+    color: black;
+}
 
     .topBtn {
         color: rgb(77, 77, 77);

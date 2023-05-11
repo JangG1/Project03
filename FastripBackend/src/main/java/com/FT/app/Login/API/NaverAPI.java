@@ -44,7 +44,7 @@ public class NaverAPI {
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", "");
 		params.add("client_secret", "");
-		params.add("redirect_uri", "http://52.44.188.93:8200/api/auth/kakaoLogin/main"+redNum);
+		params.add("redirect_uri", "http://58.225.45.251:8200/api/auth/kakaoLogin/main"+redNum);
 		params.add("code", code);
 		params.add("state", state);
 

@@ -1,10 +1,11 @@
 <template>
 <div class="navigation" v-if="this.$route.name !== 'Home'">
+
     <!-- 네비게이션 바-->
     <div class="navBar">
         <!-- Fastrip 로고 -->
+        <lottie-player class="logo" src="https://assets9.lottiefiles.com/packages/lf20_ghibwmba.json" background="transparent" speed="1" loop autoplay></lottie-player>
         <a class="logoLink" href="/">Fastrip</a>
-
         <div class="subLink">
             <a class="homeLink" href="/">Home</a>
             <a href="/">Destinations</a>
@@ -14,7 +15,7 @@
         <!-- 로그인 썸네일 -->
         <!--로그인-->
         <div class="loginBtn1" v-if="!isLogin">
-            <ProfileItem class="loginBtn1-1" :profile="getProfile" :email="getEmail" @click="showLoginMenu" />
+            <lottie-player class="loginBtn1-1" src="https://assets1.lottiefiles.com/packages/lf20_voi0gxts.json"  background="transparent"  speed="1" loop autoplay ></lottie-player>
             <div class="loginText" v-if="!isLogin" @click="loginModal = true">Login</div>
         </div>
 
@@ -45,11 +46,9 @@
     <LoginModal class="loginModal" @closeModal="loginModal = false" :loginModal="loginModal" />
 </div>
 
-<!-- <Home v-if="$route.name !== 'Arrival'"></Home>     -->
-
 <!-- 로딩화면 -->
 <div class="layerPopup" v-show="isLoading">
-    <div class="spinner"></div>
+    <lottie-player class="spinner" src="https://lottie.host/58eb1044-6d4b-4b7f-ae3b-a761224976b3/cMVyp5Jjeh.json" background="transparent" speed="1" loop autoplay></lottie-player>
 </div>
 
 <router-view></router-view>
@@ -65,7 +64,7 @@ export default {
     data() {
         return {
             loginModal: false,
-            loginMenu: false,            
+            loginMenu: false,
             OAuth: this.$store.state.userInfo.OAuth,
         };
     },
@@ -94,38 +93,35 @@ export default {
             history.pushState(null, "", `/`)
         },
         setParamInfo() {
-            if (this.$route.query.email != null) {
                 this.$store.dispatch("setUserInfo", this.$route.query)
-                location.reload();
-            }
         },
         kakaoLogout() {
             let access_token = this.$store.state.userInfo.access_token;
 
-            axios.get('http://58.225.45.251:8200/api/kakao/logout/main/' + access_token)
+            axios.get('http://52.44.188.93:8200/api/kakao/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
                     this.$store.dispatch("logout");
                     this.$router.push('/')
                     location.reload();
                 })
-                this.$store.dispatch("logout");
-                    this.$router.push('/')
-                    location.reload();
+            this.$store.dispatch("logout");
+            this.$router.push('/')
+            location.reload();
         },
         naverLogout() {
             let access_token = this.$store.state.userInfo.access_token;
 
-            axios.get('http://58.225.45.251:8200/api/naver/logout/main/' + access_token)
+            axios.get('http://52.44.188.93:8200/api/naver/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
-                this.$store.dispatch("logout");
+                    this.$store.dispatch("logout");
                     this.$router.push('/')
                     location.reload();
                 })
-                this.$store.dispatch("logout");
-                    this.$router.push('/')
-                    location.reload();
+            this.$store.dispatch("logout");
+            this.$router.push('/')
+            location.reload();
         },
     },
 
@@ -181,13 +177,20 @@ export default {
     color: white;
 }
 
-.logoLink {
-    font-size: 30px;
+.logo {
+    position: absolute;
+    width: 70px;
+    height: 70px;
     padding-left: 1%;
 }
 
+.logoLink {
+    font-size: 30px;
+    padding-left: 3%;
+}
+
 .subLink {
-    margin-left: 42%;
+    margin-left: 40%;
     margin-top: 2%;
 }
 
@@ -201,15 +204,26 @@ export default {
 }
 
 .loginBtn1-1 {
-    pointer-events: none;
+    pointer-events: none;    
+    width: 60px;
+    height: 60px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
 }
 
-.loginBtn1,
+.loginBtn1{
+    display: flex;    
+    margin-left: 4.5%;
+}
+
 .loginBtn2 {
-    display: flex;
-    margin-top: 1.4%;
+    display: flex;    
+    margin-top: 1.3%;
     margin-left: 5%;
 }
+
 
 .loginName {
     font-family: 'SEBANG_Gothic_Bold';
@@ -255,17 +269,17 @@ export default {
 
 .loginText {
     font-family: 'SEBANG_Gothic_Bold';
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 900;
-    margin-top: 14%;
-    margin-left: 24%;
+    margin-top: 27%;
+    margin-left: 10%;
     cursor: pointer;
     color: white;
 }
 
 .logoutBtn {
     font-family: 'SEBANG_Gothic_Bold';
-    color: teal;
+    color: rgb(1, 115, 189);
     font-weight: 900;
     padding: 10px 0;
     margin-top: 1.4%;
@@ -281,7 +295,7 @@ export default {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    z-index: 10;
+    z-index: 30;
     justify-content: center;
     align-items: center;
     margin: 0 0 0 0;
@@ -289,26 +303,9 @@ export default {
 
 .spinner {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    border: 8px solid #f3f3f3;
-    /* Light grey */
-    border-top: 8px solid teal;
-    /* Blue */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spinner 2s linear infinite;
-}
-
-@keyframes spinner {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    left: 30%;
+    width: 550px;
+    height: 550px;
 }
 
 .loginModal {

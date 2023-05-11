@@ -1,7 +1,8 @@
 <template>
+    <lottie-player class="cloudBack1" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="1.5" loop autoplay></lottie-player>
 <div class="rec" data-aos="fade-down" data-aos-delay="250" data-aos-easing="ease-out" data-aos-duration="2000">
     <div>지금 떠나기 좋은 여행</div>
-    <div class="rec2">Recommended travel destinations</div>
+    <div class="rec2">Recommended travel destinations</div>        
 </div>
 
 <!--좌우 슬라이드 버튼-->
@@ -10,14 +11,17 @@
     <button type="button" class="prodNext" @click="prodNext"></button>
 </div>
 <!--추천 여행지 박스-->
-<div class="slided_wrapper" data-aos="flip-down" data-aos-duration="2000">
+<div class="slided_wrapper" data-aos="flip-down" data-aos-duration="2000">    
+    <lottie-player class="cloudBack1" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="1" loop autoplay></lottie-player>
+    <lottie-player class="cloudBack1" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="1.5" loop autoplay></lottie-player>
+    <lottie-player class="cloudBack2" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="2.5" loop autoplay></lottie-player>
     <ul class="slidesd flex">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url" loading="lazy">
             <li><img class="slidesdImg" :src="imageUrl?.url"></li>
             <li><span id="prodCity">{{imageUrl?.city}}</span></li>
             <li><span id="prodWay">{{imageUrl?.way}}</span></li>
             <li><span id="prodPrice">{{"KRW " + imageUrl?.price}}</span></li>
-            <li><button type="button" class="detailBtn" @click="ing">자세히 보기</button></li>
+            <li><button type="button" class="detailBtn" @click="ing">자세히 보기</button></li>                        
         </span>
         <div class="moreBox">
             <img src="../assets/Logo3.png" class="moreLogo"><br>
@@ -93,14 +97,14 @@ export default {
 .rec {
     color: white;
     text-align: center;
-    font-size: 60px;
+    font-size: 50px;
     padding-top: 10%;
-    margin-bottom: 10%;
+    margin-bottom: 2%;
 }
 
 .rec2 {
     font-family: 'SEBANG_Gothic_Bold';
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .moreBox {
@@ -135,18 +139,29 @@ export default {
 }
 
 .slidesdImg {
-    width: 98%;
-    height: 250px;
+    width: 97%;
+    height: 255px;
     border-radius: 8px;
     border-top-left-radius: 20px;
+}
+
+.cloudBack1{
+    display: flex;
+    position: absolute;            
+}
+
+.cloudBack2{
+    display: flex;
+    position: absolute;        
 }
 
 .slided_wrapper {
     position: relative;
     width: 68%;
-    height: 700px;
+    height: 400px;
     overflow: hidden;
     margin-left: 200px;
+    margin-bottom: 200px;    
 }
 
 .slidesd {
@@ -160,8 +175,8 @@ export default {
     width: 190px;
     height: 380px;
     /* background-color: rgba(3, 47, 19, 0.803); */
-    background-color: rgba(22, 122, 122, 0.507);
-    
+    /*background-color: rgba(22, 122, 122, 0.507);*/
+    background-color: rgba(84, 126, 173, 0.852);
 }
 
 #prodCity,
@@ -187,7 +202,7 @@ export default {
 .prodPrev {
     position: absolute;
     margin-left: 100px;
-    margin-top: 15%;
+    margin-top: 10%;
     width: 50px;
     height: 50px;
     border: none;
@@ -200,7 +215,7 @@ export default {
 .prodNext {
     position: absolute;
     margin-left: 87%;
-    margin-top: 15%;
+    margin-top: 10%;
     width: 50px;
     height: 50px;
     border: none;

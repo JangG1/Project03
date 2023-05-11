@@ -62,13 +62,14 @@ import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequiredArgsConstructor // 의존성 주입 final 필요(02/07 Service 호출 시 NPE 발생)
+@RequiredArgsConstructor
 public class NaverLoginController {
 
+	//  private final > @Autowired
+	// 순환참조 방지, 불변성을 얻을 수 있음
 	private final NaverUserRepository naverUserRepository;
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
 
 	// Naver User 정보 가져오기
 	@GetMapping("/auth/naverLogin/main")
@@ -113,8 +114,7 @@ public class NaverLoginController {
 		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
 		// 포워드 = 특정 URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
 		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://fastrip.shop/");
-//		redirectView.setUrl("http://localhost:9200");
+		redirectView.setUrl("http://fastrip.shop/");		
 
 		Optional<NaverUser> totalUser = naverUserRepository.findByLoginId(naverUser.getLoginId());
 		
@@ -137,7 +137,7 @@ public class NaverLoginController {
 
 	// Naver User 정보 가져오기(도착지 선택 페이지(Arrive)에서 결제 페이지 넘어갈시 로그인이 필요한 경우)
 	// Naver User 정보 가져오기
-		@GetMapping("/auth/naverLogin/arrival")
+		@GetMapping("/auth/naverLogin/return")
 		public @ResponseBody RedirectView naverCallback2(String code, String state) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 			System.out.println("인가 코드 : " + code);
 			System.out.println("state : " + state);
@@ -179,8 +179,7 @@ public class NaverLoginController {
 			// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
 			// 포워드 = 특정 URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
 			RedirectView redirectView = new RedirectView();
-			redirectView.setUrl("http://fastrip.shop/Arrival");
-//			redirectView.setUrl("http://localhost:9200");
+			redirectView.setUrl("http://fastrip.shop/Return");
 
 			Optional<NaverUser> totalUser = naverUserRepository.findByLoginId(naverUser.getLoginId());
 			

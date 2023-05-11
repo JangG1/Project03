@@ -43,7 +43,7 @@ public class NaverAPI2 {
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", "");
 		params.add("client_secret", "");
-		params.add("redirect_uri", "http://52.44.188.93:8200/api/auth/naverLogin/arrival"+redNum);
+		params.add("redirect_uri", "http://58.225.45.251:8200/api/auth/naverLogin/return"+redNum);
 		params.add("code", code);
 		params.add("state", state);
 

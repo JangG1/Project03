@@ -5,22 +5,22 @@
     </div>
     <div class="loginBtns mt-4 mb-5">
         <!-- 카카오 아이디로 로그인 -->
-        <div @click="kakaoLogin" class="kakaoBtn mb-3" v-if="$route.name !== 'Arrival'">
+        <div @click="kakaoLogin" class="kakaoBtn mb-3" v-if="$route.name !== 'Return'">
             <img src="@/assets/kakaoLogo.png" />
             <br>
         </div>
         <!-- 카카오 아이디로 로그인(Arrive 페이지용) -->
-        <div @click="kakaoLogin2" class="kakaoBtn mb-3" v-if="$route.name == 'Arrival'">
+        <div @click="kakaoLogin2" class="kakaoBtn mb-3" v-if="$route.name == 'Return'">
             <img src="@/assets/kakaoLogo.png" />
             <br>
         </div>
         <!-- 네이버 아이디로 로그인 -->
-        <div @click="naverLogin" class="naverBtn" v-if="$route.name !== 'Arrival'">
+        <div @click="naverLogin" class="naverBtn" v-if="$route.name !== 'Return'">
             <img src="@/assets/naverLogo.jpg" />
             <br>
         </div>
         <!-- 네이버 아이디로 로그인 -->
-        <div @click="naverLogin" class="naverBtn"  v-if="$route.name == 'Arrival'">
+        <div @click="naverLogin" class="naverBtn"  v-if="$route.name == 'Return'">
             <img src="@/assets/naverLogo.jpg" />
             <br>
         </div>
@@ -46,35 +46,32 @@ export default {
     },
     methods: {
         //카카오 로그인
-        kakaoLogin() {
+        kakaoLogin() {            
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://kauth.kakao.com/oauth/authorize?";                
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=&redirect_uri=http://58.225.45.251:8200/api/auth/kakaoLogin/main&response_type=code";                
                 this.$store.dispatch("kakaoLogin")
             }
         },
-        //카카오 로그인(Arrive 페이지용)
+        //카카오 로그인(Return 페이지용)
         kakaoLogin2() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://kauth.kakao.com/oauth/authorize?";
+                window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=&redirect_uri=http://58.225.45.251:8200/api/auth/kakaoLogin/return&response_type=code";
                 this.$store.dispatch("kakaoLogin")
             }                    
         },
         naverLogin() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://nid.naver.com/oauth2.0/authorize?"
+                window.location.href = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=&redirect_uri=http://58.225.45.251:8200/api/auth/naverLogin/main&state=hLiDdL2uhPtsftcU1"
                 this.$store.dispatch("naverLogin")
             }                
         },
         naverLogin2() {
             if (!this.$store.state.isLogin) {
-                window.location.href = "https://nid.naver.com/oauth2.0/authorize?"
+                window.location.href = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=&redirect_uri=http://58.225.45.251:8200/api/auth/naverLogin/return&state=hLiDdL2uhPtsftcU1"
                 this.$store.dispatch("naverLogin")
             }                            
         }
     },
-    mounted() {
-
-    }
 };
 </script>
 

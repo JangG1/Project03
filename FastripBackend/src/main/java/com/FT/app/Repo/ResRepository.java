@@ -2,6 +2,7 @@ package com.FT.app.Repo;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,7 @@ public interface ResRepository extends JpaRepository<ResList, Integer>{//Integer
 	 
 	 void deleteByEmail(String email);
 
-	void save(String testValue);
+	 void save(Map<String, Object> resList);
+
+	
 }

@@ -161,7 +161,7 @@ export default {
             if (this.chooseInfo.returnYear == "") {
                 this.$router.push('Payment')
             } else if (this.chooseInfo.returnYear != "") {
-                this.$router.push('Arrival')
+                this.$router.push('Return')
             }
 
         }

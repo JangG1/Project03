@@ -30,12 +30,10 @@ export default {
             this.$emit('close')
         },
         resCancel() {
-
-            axios.post("http://52.44.188.93:8200/api/res/remove/" + this.res_no)
+            axios.post("http://58.225.45.251:8200/api/res/remove/" + this.res_no)
                 .then(res => {
                     console.log(res)
-                    console.log("보내짐")
-                    
+                    console.log("보내짐")                    
                 })
                 .catch(err => {
                     console.log(err)
@@ -43,8 +41,7 @@ export default {
                 })
                 alert("예약이 취소되었습니다.")
                 //삭제 후 페이지 새로고침
-                window.location.reload()
-                
+                window.location.reload()                
         },
     },
     mounted() {

@@ -3,6 +3,7 @@
     <!----- 네비게이션 바 시작---------------------------------------------------->
     <div class="homeNavigation" id="top">
         <div class="homeNavBar">
+            <lottie-player class="logo" src="https://lottie.host/39b9b68f-feb8-4266-a8dc-6b1776b63009/EvYrxkkokt.json" background="transparent" speed="1" loop autoplay></lottie-player>
             <a class="homeLogoLink" href="/">Fastrip</a>
             <div class="homeSubLink">
                 <a href="/">Home</a>
@@ -11,13 +12,13 @@
                 <a href="/Contact">Contact</a>
             </div>
             <!--로그인-->
-            <div class="homeLoginBtn1" v-if="!isLogin">
-                <ProfileItem class="homeLoginBtn1-1" :profile="getProfile" :email="getEmail" @click="showLoginMenu"/>
+            <div class="homeLoginBtn1" v-if="!isLogin">                
+                <lottie-player class="homeLoginBtn1-1" src="https://assets1.lottiefiles.com/packages/lf20_voi0gxts.json"  background="transparent"  speed="1" loop autoplay ></lottie-player>
                 <div class="homeLoginText" v-if="!isLogin" @click="loginModal = true">Login</div>
             </div>
 
-            <div class="homeLoginBtn2" v-if="isLogin">
-                <ProfileItem :profile="getProfile" :email="getEmail" @click="showLoginMenu"/>                
+            <div class="homeLoginBtn2" v-if="isLogin">                
+                <ProfileItem :profile="getProfile" :email="getEmail" @click="showLoginMenu" />
             </div>
 
             <div class="homeLoginName" v-if="isLogin">
@@ -26,14 +27,14 @@
 
             <div class="loginMenu" v-if="loginMenu">
 
-            <!--카카오 로그아웃-->
-            <div class="homeLogoutBtn" @click="kakaoLogout" v-show="OAuth === 'kakao'">
-                Logout
-            </div>
-            <!--네이버 로그아웃-->
-            <div class="homeLogoutBtn" @click="naverLogout" v-show="OAuth === 'naver'">
-                Logout
-            </div>
+                <!--카카오 로그아웃-->
+                <div class="homeLogoutBtn" @click="kakaoLogout" v-show="OAuth === 'kakao'">
+                    Logout
+                </div>
+                <!--네이버 로그아웃-->
+                <div class="homeLogoutBtn" @click="naverLogout" v-show="OAuth === 'naver'">
+                    Logout
+                </div>
 
             </div>
         </div>
@@ -164,10 +165,11 @@
             <!--배너1-->
             <div class="bannerBox">
                 <!--배너 이미지1-->
-                <!-- <img class="banner" src="../assets/bannerImage/1.jpg"> -->
+                <!--<img class="banner" src="../assets/bannerImage/sky.jpg">-->
                 <div class="mainBanner"></div>
                 <div class="container1">
                     <div class="carousel-caption">
+                        <lottie-player class="mainBannerLottie" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="2" loop autoplay></lottie-player>
                         <h2>Fastrip</h2>
                         <h3>Airline Ticketing</h3>
                     </div>
@@ -249,7 +251,6 @@
 </div>
 
 <div class="recommendProduct" id="part3">
-    <div class="">
         <div class="">
             <br>
             <div class="travelTip" data-aos="fade-down" data-aos-delay="100" data-aos-easing="linear" data-aos-duration="2000">
@@ -257,15 +258,13 @@
                 <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
                 <a @click="ing">자세히 보기</a>
             </div>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="100" data-aos-easing="linear" data-aos-duration="2000">
-            <img class="travelImg" src="../assets/travel1.jpg" loading="lazy" />
-        </div>
-    </div>
+            <lottie-player class="travelImg" src="https://lottie.host/fd6489a0-d695-4dbb-93c9-d3ce20ee3161/8wrhs8DhPd.json" data-aos="fade-up" data-aos-delay="50" data-aos-easing="linear" data-aos-duration="1000" background="transparent" speed="1" loop autoplay></lottie-player>
+        </div>                    
 </div>
 
 <!--여행 도우미-->
 <div class="part4" id="part4">
+    <lottie-player class="part4Lottie" src="https://assets1.lottiefiles.com/packages/lf20_jlmgqgx2.json" background="transparent" speed="1" loop autoplay></lottie-player>
     <div class="side" data-aos="fade-right" data-aos-delay="150" data-aos-easing="ease-out" data-aos-duration="2000">
         <h2>여행의 완성을 위한 경험</h2>
     </div>
@@ -287,8 +286,11 @@
 <!-- FOOTER -->
 <footer class="Footer">
     <div class="FootLeft">
-        <img class="footLogo" src="../assets/Logo2.png" loading="lazy">
-        <span> Fastrip</span>
+        <!-- <img class="footLogo" src="../assets/Logo2.png" loading="lazy"> -->
+        <div class="footLogoBox">
+            <lottie-player class="footLogo1" src="https://assets9.lottiefiles.com/packages/lf20_ghibwmba.json" background="transparent" speed="1" loading="lazy" loop autoplay></lottie-player>
+            <div class="footLogo2"> Fastrip</div>
+        </div>
         <p>&copy; 2022 Company, Fastrip</p>
     </div>
 
@@ -382,7 +384,7 @@ export default {
         ing() {
             alert('준비중입니다.')
         },
-        showLoginMenu(){
+        showLoginMenu() {
             this.loginMenu = (this.loginMenu) ? false : true
         },
         bannerPrev() {
@@ -421,39 +423,36 @@ export default {
         kakaoLogout() {
             let access_token = this.$store.state.userInfo.access_token;
 
-            axios.get('http://52.44.188.93:8200/api/kakao/logout/main/' + access_token)
+            axios.get('http://58.225.45.251:8200/api/kakao/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
                     this.$store.dispatch("logout");
                     this.$router.push('/')
                     location.reload();
                 })
-                this.$store.dispatch("logout");
-                    this.$router.push('/')
-                    location.reload();
+            this.$store.dispatch("logout");
+            this.$router.push('/')
+            location.reload();
         },
         naverLogout() {
             let access_token = this.$store.state.userInfo.access_token;
 
-            axios.get('http://52.44.188.93:8200/api/naver/logout/main/' + access_token)
+            axios.get('http://58.225.45.251:8200/api/naver/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
-                this.$store.dispatch("logout");
+                    this.$store.dispatch("logout");
                     this.$router.push('/')
                     location.reload();
                 })
-                this.$store.dispatch("logout");
-                    this.$router.push('/')
-                    location.reload();
+            this.$store.dispatch("logout");
+            this.$router.push('/')
+            location.reload();
         },
         hideParams() {
-            history.pushState(null, "", `/`)            
+            history.pushState(null, "", `/`)
         },
         setParamInfo() {
-            if (this.$route.query.email != null) {
-                this.$store.dispatch("setUserInfo", this.$route.query)
-                location.reload();
-            }            
+            this.$store.dispatch("setUserInfo", this.$route.query)
         },
         NoticeModalPopUp() {
             this.NoticeModalView = false;
@@ -679,7 +678,7 @@ li {
 
 .slidea_wrapper {
     width: 100%;
-    height: 470px;
+    height: 480px;
     margin-top: 10px;
     z-index: 1;
     overflow: hidden;
@@ -696,12 +695,18 @@ li {
     position: relative;
 }
 
+.mainBannerLottie{    
+    position: absolute;
+    margin-left: 30%;
+    z-index: 1;
+}
+
 .mainBanner {
     border-radius: 15px;
-    border: 1px solid #999;
-    background: rgba(255, 255, 255, 0.712);
+    border: 1.5px solid white;
+    background: rgba(255, 255, 255, 0.368);
     width: 1240px;
-    height: 462px;
+    height: 480px;
     margin-left: 1%;
     margin-right: 1%;
 }
@@ -709,10 +714,12 @@ li {
 .banner {
     width: 1240px;
     margin-left: 1%;
-    height: 460px;
+    height: 480px;
+    border: 1.5px solid white;
     border-radius: 8px;
     border-top-left-radius: 20px;
     overflow: hidden;
+    opacity: 0.95;
 }
 
 .bannerPrev {
@@ -722,8 +729,8 @@ li {
     height: 50px;
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    border-top: 10px solid #9999998d;
-    border-right: 10px solid #9999998d;
+    border-top: 10px solid #d7d7d78d;
+    border-right: 10px solid #d7d7d78d;
     transform: rotate(225deg);
     position: absolute;
     z-index: 2;
@@ -736,8 +743,8 @@ li {
     height: 50px;
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    border-top: 10px solid #9999998d;
-    border-right: 10px solid #9999998d;
+    border-top: 10px solid #d7d7d78d;
+    border-right: 10px solid #d7d7d78d;
     transform: rotate(45deg);
     position: absolute;
     z-index: 2;
@@ -745,18 +752,18 @@ li {
 
 .bannerPrev:hover,
 .bannerNext:hover {
-    border-top: 10px solid #999;
-    border-right: 10px solid #999;
+    border-top: 10px solid #c8c8c8c3;
+    border-right: 10px solid #c8c8c8c3;
 }
 
-.loginMenu{
+.loginMenu {
     border: none;
     border-radius: 10px;
     width: 70px;
     background-color: white;
     position: absolute;
     margin-left: 88%;
-    margin-top: 6%;
+    margin-top: 5.7%;
     text-align: center;
     z-index: 20;
 }
@@ -769,7 +776,7 @@ li {
     border-bottom: 17px solid white;
     position: absolute;
     top: -15px;
-    left: 25px;   
+    left: 25px;
 }
 
 .loginModal {
@@ -778,8 +785,8 @@ li {
 }
 
 .homeNavigation {
-    height: 75px;
-    background-color: rgba(22, 122, 122, 0.507);
+    height: 65px;
+    background-color: rgba(22, 122, 122, 0);
 }
 
 .homeNavBar {
@@ -808,11 +815,11 @@ li {
 
 .homeLogoLink {
     font-size: 30px;
-    padding-left: 1%;
+    padding-left: 3%;
 }
 
 .homeSubLink {
-    margin-left: 42%;
+    margin-left: 40%;
     margin-top: 2%;
 }
 
@@ -827,28 +834,38 @@ li {
 
 .homeLoginBtn1-1 {
     pointer-events: none;
+    width: 60px;
+    height: 60px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
 }
 
-.homeLoginBtn1,
+.homeLoginBtn1{
+    display: flex;    
+    margin-left: 4.5%;
+}
+
 .homeLoginBtn2 {
-    display: flex;
-    margin-top: 1.4%;
+    display: flex;    
+    margin-top: 1.3%;
     margin-left: 5%;
 }
 
 .homeLoginText {
     font-family: 'SEBANG_Gothic_Bold';
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 900;
-    margin-top: 14%;
-    margin-left: 24%;
+    margin-top: 27%;
+    margin-left: 10%;
     cursor: pointer;
     color: white;
 }
 
 .homeLogoutBtn {
     font-family: 'SEBANG_Gothic_Bold';
-    color: teal;
+    color: rgb(1, 115, 189);
     font-weight: 900;
     padding: 10px 0;
     margin-top: 1.4%;
@@ -857,34 +874,42 @@ li {
     cursor: pointer;
 }
 
-.homeLoginName{
+.homeLoginName {
     font-family: 'SEBANG_Gothic_Bold';
     color: white;
     font-weight: 900;
     padding: 10px 0;
-    margin-top: 1.6%;
-    margin-left: 1%;
-    font-size: 12px;
+    margin-top: 1.4%;
+    margin-left: 1.2%;
+    font-size: 13px;
     cursor: pointer;
     text-align: center;
     pointer-events: none;
 }
 
 .part1 {
-    background: url("../assets/part2.jpg") fixed;
+    background: url("../assets/bannerImage/sky2.jpg") fixed;
     padding-bottom: 5%;
 }
 
 .part2 {
-    background: url("../assets/part2.jpg") fixed;
+    background: url("../assets/bannerImage/sky2.jpg") fixed;
     margin-bottom: 10%;
 }
 
 .part4 {
-    background: url("../assets/part4.jpg");
-    padding-top: 10%;
-    padding-bottom: 20%;
+    /* background: url("../assets/part4.jpg"); */
+    /* padding-top: 10%;
+    padding-bottom: 20%; */
+    display: flex;
+    background-color: rgba(44, 129, 85, 0.784);
+    border-top: 1px solid teal;
+}
 
+.part4Lottie {
+    width: 800px;
+    height: 800px;
+    margin-left: 35%;
 }
 
 h1,
@@ -911,7 +936,7 @@ a {
     border-radius: 20px;
     background-color: rgba(252, 252, 252, 0.952);
     margin: 0 auto;
-    margin-top: 1%;
+    margin-top: 1.5%;
     margin-left: 1.5%;
     position: absolute;
     padding: 10px;
@@ -1027,7 +1052,7 @@ a {
 
 .dp__menu {
     width: 30%;
-    height: 64%;
+    height: 67%;
     margin-top: 5%;
 }
 
@@ -1179,6 +1204,7 @@ a {
     font-size: 14px;
     color: white;
     background: rgb(13, 165, 165);
+    /* background: rgb(1,114, 185); */
     display: table;
     margin-left: auto;
     margin-right: auto;
@@ -1188,14 +1214,15 @@ a {
 /* 배너 시작 */
 
 .container1 h2 {
-    color: rgba(0, 128, 128, 0.445);
+    color: white;
     font-size: 120px;
     margin-left: 50%;
+    z-index: 50;
 }
 
 .container1 h3 {
-    color: rgba(0, 128, 128, 0.445);
-    margin-bottom: 100px;
+    color: white;
+    margin-bottom: 120px;
     font-size: 30px;
     margin-left: 50%;
 }
@@ -1288,30 +1315,37 @@ a {
 }
 
 .recommendProduct {
-    margin-top: 10%;
-    margin-bottom: 3%;
+    margin-top: 10%;    
 }
 
 .travelImg {
-    width: 30%;
-    height: 40%;
-    margin-left: 36%;
+    width: 27%;
+    height: 70% !important;
+    margin-left: 38%;
     margin-bottom: 10%;
 }
 
 .travelTip {
     text-align: center;
-    margin-bottom: 2%;
 }
 
 .travelTip>h1 {
-    font-size: 40px;
+    font-size: 30px;
+}
+
+.travelTip>h3 {
+    font-size: 20px;
+}
+
+.travelTip>a {
+    font-size: 20px;
 }
 
 .side {
     color: white;
     margin-left: 6%;
-    margin-top: 8%;
+    margin-top: 16%;
+    position: absolute;
 }
 
 .side>h2 {
@@ -1322,10 +1356,11 @@ a {
     width: 360px;
     height: 115px;
     margin-left: 4%;
-    margin-top: 2%;
+    margin-top: 24%;
     border: 4px solid white;
     border-radius: 10px;
     color: white;
+    position: absolute;
 }
 
 .sideTip1>a,
@@ -1355,11 +1390,20 @@ a {
     font-weight: 900;
 }
 
-.footLogo {
+.footLogoBox {
+    display: flex;
+}
+
+.footLogo1 {
     width: 35%;
     height: 60px;
-    margin-right: 10px;
     margin-bottom: 10px;
+}
+
+.footLogo2 {
+    padding: 15px 0;
+    margin-left: 5px;
+    font-size: 24px;
 }
 
 .FootRight {

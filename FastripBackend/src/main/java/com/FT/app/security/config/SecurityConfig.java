@@ -49,7 +49,7 @@ public class SecurityConfig {
 
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop","http://localhost:9200"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

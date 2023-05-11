@@ -100,6 +100,7 @@ export default createStore({
         state.isLogin = true
         state.isLoginError = false
         state.userInfo = payload
+        location.reload()
     },
     kakaoLoginOn(state) {
         state.isKakaoLogin = true
@@ -126,23 +127,23 @@ export default createStore({
         commit("logout")
     },
     setLoading({ commit }, payload) {
-        if (payload) {
+        if (payload == true) {
             commit("onLoad");
-        } else {
+        } else if ((payload == false)) {
             commit("offLoad");
         }
-        },
-        chooseInfo({ commit }, payload) {        
+    },
+    chooseInfo({ commit }, payload) {        
             commit("setChooseInfo", payload)
-        },
-        startInfo({ commit }, payload) {        
+    },
+    startInfo({ commit }, payload) {        
             commit("setStartInfo", payload)
-        },
-        returnInfo({ commit }, payload) {       
+    },
+    returnInfo({ commit }, payload) {       
             commit("setReturnInfo", payload)
-        },
-        async setUserInfo({ commit }, payload) {                                
-            let info = payload            
+    },
+    async setUserInfo({ commit }, payload) {                                
+            let info = payload                        
             let userInfo = {
                 lastName: info.name.substr(0,1),
                 firstName: info.name.substr(1,3),
@@ -157,31 +158,31 @@ export default createStore({
 
             console.log(userInfo)
             commit("loginSuccess", userInfo)
-        },
-        async consentBtn1({ commit }, payload) {
+    },
+    async consentBtn1({ commit }, payload) {
                 commit('setConsent1', payload)
-        },
-        async consentBtn2({ commit }, payload) {
+    },
+    async consentBtn2({ commit }, payload) {
             commit('setConsent2', payload)
-        },
-        async res_no({ commit }, payload) {
+    },
+    async res_no({ commit }, payload) {
             commit('setResNo', payload)
-        },
-        async holdPoint({ commit }, payload) {
+    },
+    async holdPoint({ commit }, payload) {
             commit('setHoldPoint', payload)
-        },
-        async engName({ commit }, payload) {
+    },
+    async engName({ commit }, payload) {
             commit('setEngName', payload)
-        },
-        async addAdult({ commit }, payload) {
+    },
+    async addAdult({ commit }, payload) {
             commit('setAddAdult', payload)
-        },
-        async addChild({ commit }, payload) {
+    },
+    async addChild({ commit }, payload) {
             commit('setAddChild', payload)
-        },
-        async addInfant({ commit }, payload) {
+    },
+    async addInfant({ commit }, payload) {
             commit('setAddInfant', payload)
-        },
+    },
     },
   modules: {
   },

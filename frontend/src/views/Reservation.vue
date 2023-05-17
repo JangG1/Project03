@@ -1,6 +1,6 @@
 <template>
 <div class="res" data-aos="fade-right" data-aos-delay="300" data-aos-easing="ease-out">
-    <div class="resTitle">예약 조회</div>
+    <div class="resTitle">예약 조회</div>    
     <div class="table-responsive">
         <!--예약자 정보 모달-->
         <span v-if="passengerView" class="passengerView">
@@ -182,7 +182,7 @@ export default {
             axios.get('http://58.225.45.251:8200/api/res/resList/' + email)
                 .then((res) => {
                     this.res = res.data
-                    this.user = res.data
+                    this.user = res.data                    
                 })
                 .catch(err => {
                     console.log(err)

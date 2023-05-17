@@ -1,5 +1,5 @@
 <template>
-    <lottie-player class="cloudBack1" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="1.5" loop autoplay></lottie-player>
+    <lottie-player class="cloudBack1" src="https://assets7.lottiefiles.com/packages/lf20_unJ8q8.json" background="transparent" speed="2" loop autoplay></lottie-player>
 <div class="rec" data-aos="fade-down" data-aos-delay="250" data-aos-easing="ease-out" data-aos-duration="2000">
     <div>지금 떠나기 좋은 여행</div>
     <div class="rec2">Recommended travel destinations</div>        
@@ -11,10 +11,7 @@
     <button type="button" class="prodNext" @click="prodNext"></button>
 </div>
 <!--추천 여행지 박스-->
-<div class="slided_wrapper" data-aos="flip-down" data-aos-duration="2000">    
-    <lottie-player class="cloudBack1" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="1" loop autoplay></lottie-player>
-    <lottie-player class="cloudBack1" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="1.5" loop autoplay></lottie-player>
-    <lottie-player class="cloudBack2" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="2.5" loop autoplay></lottie-player>
+<div class="slided_wrapper" data-aos="flip-down" data-aos-duration="2000">        
     <ul class="slidesd flex">
         <span class="prodBox" v-for="imageUrl in imageUrls" :key="imageUrl" :src="imageUrl.url" loading="lazy">
             <li><img class="slidesdImg" :src="imageUrl?.url"></li>

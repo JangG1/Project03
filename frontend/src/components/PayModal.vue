@@ -231,6 +231,24 @@ export default {
             const startDate = this.chooseInfo.startYear + "-" + this.chooseInfo.startMonth + "-" + this.chooseInfo.startDay + '(' + this.chooseInfo.startWeek + ')';
             let returnDate = this.chooseInfo.returnYear + "-" + this.chooseInfo.returnMonth + "-" + this.chooseInfo.returnDay + '(' + this.chooseInfo.returnWeek + ')';
 
+            let addAdult = this.addAdult
+            let addChild = this.addChild
+            let addInfant = this.addInfant
+
+            let korName = this.korLastName + this.korFirstName;
+
+            let userInfo = [{
+                korName: korName
+            }, {
+                engLastName: this.engLastName
+            }, {
+                engFirstName: this.engFirstName
+            }, {
+                gender: this.gender
+            }, {
+                birthday: this.birthday
+            }];
+
             if (this.chooseInfo.returnYear != "") {
                 this.way = "왕복"
             } else {
@@ -278,54 +296,22 @@ export default {
                     startTime1: this.startInfo.startTime1,
                     arriveTime1: this.startInfo.arriveTime1,
                     startTime2: this.returnInfo.startTime2,
-                    arriveTime2: this.returnInfo.arriveTime2
-                })
-                .then(res => {
-                    console.log(res)
-                    console.log("예약자 정보 보내짐")
-                    this.submit2();
-                })
-                .catch(err => {
-                    console.log(err)
-                    console.log("예약자 정보 안보내짐")
-                })
-                this.$store.dispatch("setLoading", false);
-        },
-        submit2() { //추가 승객
-            let addAdult = this.addAdult
-            let addChild = this.addChild
-            let addInfant = this.addInfant
-
-            let korName = this.korLastName + this.korFirstName;
-
-            let userInfo = [{
-                korName: korName
-            }, {
-                engLastName: this.engLastName
-            }, {
-                engFirstName: this.engFirstName
-            }, {
-                gender: this.gender
-            }, {
-                birthday: this.birthday
-            }];
-
-            this.$store.dispatch("setLoading", true);
-            axios.post("http://58.225.45.251:8200/api/res/resPost/addPas", {
+                    arriveTime2: this.returnInfo.arriveTime2,
                     addAdult: addAdult,
                     addChild: addChild,
                     addInfant: addInfant,
                 })
                 .then(res => {
                     console.log(res)
-                    console.log("추가 승객 보내짐")
+                    console.log("예약자 정보 보내짐")
                 })
                 .catch(err => {
                     console.log(err)
-                    console.log("추가 승객 안보내짐")
+                    console.log("예약자 정보 안보내짐")
                 })
+                this.$store.dispatch("setLoading", false);
 
-            let usePoint = this.holdPoint - this.totalPoint;
+                let usePoint = this.holdPoint - this.totalPoint;
             this.$store.dispatch("holdPoint", usePoint);
             this.$store.dispatch("setUserInfo2", userInfo);
             this.$store.dispatch("addAdult", addAdult);
@@ -335,7 +321,7 @@ export default {
             this.$store.dispatch("setLoading", false);
             
             alert("예약이 완료 되었습니다.")
-            this.$router.push('Complete');            
+            this.$router.push('Complete');           
         },
     },
     mounted() {},

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1"
-     xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     width="100" height="50">
-
 <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&width=300&section=header&text=Fastrip&fontSize=90"/>
 
 <hr>
@@ -55,7 +49,8 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <img src="https://img.shields.io/badge/Vuex-4FC08D?style=for-the-badge&logo=Vue.js&logoColor=white">
 <img src="https://img.shields.io/badge/Vuex persistedstate-FD5F07?style=for-the-badge&logo=Vue.js&logoColor=white">
 <img src="https://img.shields.io/badge/vue cookies-D4AA00?style=for-the-badge&logo=Vue.js&logoColor=white">
-<img src="https://img.shields.io/badge/Vue DatePicker-4BB749?style=for-the-badge&logo=Vue.js&logoColor=white"><br>
+<img src="https://img.shields.io/badge/Vue DatePicker-4BB749?style=for-the-badge&logo=Vue.js&logoColor=white">
+<img src="https://img.shields.io/badge/Lottie-03C75A?style=for-the-badge&logo=Lottie&logoColor=white"><br><br>
   <h4>🎛 Back</h4>
 <br>
 <img src="https://img.shields.io/badge/Kakao Login API-FFCD00?style=for-the-badge&logo=Kakao&logoColor=black">
@@ -92,7 +87,7 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <h3>🔨 Advanced Feature 🔨</h3>
 <h3> 1. Main Page & Login </h3> <br>
  <kbd>
-<img width="820" src="https://user-images.githubusercontent.com/91955876/236756878-e2c1a762-2a49-4bcc-9a15-2f3f6d9cf341.gif">
+<img width="820" src="https://github.com/JangG1/Project03/assets/91955876/0c0738f1-d588-4f66-9996-668408e4f64e.gif">
   </kbd><br>
  
 <h3>👉 Description<h3>
@@ -151,7 +146,7 @@ Youtube : https://youtu.be/RBMja0z1ClM
  
 <h3> 3. Reservation Page </h3> <br>
  <kbd>
-<img width="820" src="https://user-images.githubusercontent.com/91955876/236759547-d78a446a-5e6b-4116-8a27-0195c0e98eae.gif">
+<img width="820" src="https://github.com/JangG1/Project03/assets/91955876/919c6946-2d40-4e78-afc6-15be6f553396.gif">
   </kbd><br>
  
 <h3>👉 Description<h3>
@@ -176,7 +171,7 @@ Youtube : https://youtu.be/RBMja0z1ClM
 
 <h3>👷‍♂️ Improvements 👷‍♂️</h3>
 <li> Mobile Version Fastrip </li>
-<li> Responsive UX/UI Detail Modify </li>
+<li> UI/UX detail modification according to the resolution </li>
 <li> Code Refactoring [Method Check, Debug Check] </li>
 <li> JavaScript -> TypeScript </li>
 

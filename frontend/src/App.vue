@@ -98,7 +98,7 @@ export default {
         kakaoLogout() {
             let access_token = this.$store.state.userInfo.access_token;
 
-            axios.get('http://52.44.188.93:8200/api/kakao/logout/main/' + access_token)
+            axios.get('http://58.225.45.251:8200/api/kakao/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
                     this.$store.dispatch("logout");
@@ -112,7 +112,7 @@ export default {
         naverLogout() {
             let access_token = this.$store.state.userInfo.access_token;
 
-            axios.get('http://52.44.188.93:8200/api/naver/logout/main/' + access_token)
+            axios.get('http://58.225.45.251:8200/api/naver/logout/main/' + access_token)
                 .then((response) => {
                     alert(response.data)
                     this.$store.dispatch("logout");

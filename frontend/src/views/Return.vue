@@ -144,11 +144,12 @@ export default {
     },
     methods: {
         hideParams() {
-            history.pushState(null, "", `/Arrival`)
+            history.pushState(null, "", `/Return`)
         },
         setParamInfo() {
             if (this.$route.query.email != null) {
                 this.$store.dispatch("setUserInfo", this.$route.query)
+                location.reload()
             }
         },
         getUserInfo() {

@@ -52,7 +52,7 @@ const routes = [
     name: 'Complete',
     component: () => import('@/views/Complete.vue'),
     props: true
-  },
+  }
 ]
 
 const router = createRouter({

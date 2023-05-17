@@ -100,7 +100,6 @@ export default createStore({
         state.isLogin = true
         state.isLoginError = false
         state.userInfo = payload
-        location.reload()
     },
     kakaoLoginOn(state) {
         state.isKakaoLogin = true

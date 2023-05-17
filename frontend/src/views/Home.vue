@@ -169,7 +169,7 @@
                 <div class="mainBanner"></div>
                 <div class="container1">
                     <div class="carousel-caption">
-                        <lottie-player class="mainBannerLottie" src="https://lottie.host/43c17833-b292-42fb-9584-3f9e894067eb/AFMNtt7osQ.json" background="transparent" speed="2" loop autoplay></lottie-player>
+                        <lottie-player class="mainBannerLottie" src="https://assets7.lottiefiles.com/packages/lf20_unJ8q8.json" background="transparent" speed="2" loop autoplay></lottie-player>
                         <h2>Fastrip</h2>
                         <h3>Airline Ticketing</h3>
                     </div>
@@ -258,7 +258,7 @@
                 <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
                 <a @click="ing">자세히 보기</a>
             </div>
-            <lottie-player class="travelImg" src="https://lottie.host/fd6489a0-d695-4dbb-93c9-d3ce20ee3161/8wrhs8DhPd.json" data-aos="fade-up" data-aos-delay="50" data-aos-easing="linear" data-aos-duration="1000" background="transparent" speed="1" loop autoplay></lottie-player>
+            <lottie-player class="travelImg" src="https://assets4.lottiefiles.com/packages/lf20_pNWSdrwrSb.json" data-aos="fade-up" data-aos-delay="50" data-aos-easing="linear" data-aos-duration="1000" background="transparent" speed="1" loop autoplay></lottie-player>
         </div>                    
 </div>
 
@@ -358,7 +358,7 @@ export default {
             toBtn1: true,
             fromBtn2: false,
             toBtn2: false,
-            NoticeModalView: false,
+            NoticeModalView: true,
             week: ['일', '월', '화', '수', '목', '금', '토'],
             startDate: [this.startYear, this.startMonth, this.startDay, this.startWeek],
             startYear: "",
@@ -452,7 +452,10 @@ export default {
             history.pushState(null, "", `/`)
         },
         setParamInfo() {
-            this.$store.dispatch("setUserInfo", this.$route.query)
+            if (this.$route.query.email != null) {
+                this.$store.dispatch("setUserInfo", this.$route.query)
+                location.reload()
+            }
         },
         NoticeModalPopUp() {
             this.NoticeModalView = false;
@@ -1039,21 +1042,14 @@ a {
     border: 2.5px solid teal !important;
 }
 
-.calendar {
-    width: 1%;
-    height: 1%;
-    float: left;
-    margin-left: 12px;
-}
-
 .dp__action_row {
     width: 100% !important;
 }
 
 .dp__menu {
-    width: 30%;
+    width: 30%;    
     height: 67%;
-    margin-top: 5%;
+    margin-top: 6%;
 }
 
 .dp__pointer {

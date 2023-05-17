@@ -34,13 +34,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.FT.app.Repo.AddPasRepository;
 import com.FT.app.Repo.ResRepository;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.Seat;
 import com.FT.app.domain.KakaoUser;
 import com.FT.app.domain.Way;
-import com.FT.app.myPage.domain.AddPassenger;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -57,22 +55,23 @@ import org.hibernate.cfg.Configuration;
 
 @RestController
 public class ResController {
+	
 	@Autowired
 	private ResRepository resRepository;
-
-	@Autowired
-	private AddPasRepository addPasRepository;
 	
-	// 예약 내역 전부 조회
-	@GetMapping("/res/all")
-	public List<ResList> all() {
-		return resRepository.findAll();
+	// 로그인 email 기준 예약 내역 전부 조회
+	@GetMapping("/res/resList/{email}")
+	public List<ResList> getResList(@PathVariable("email") String email) {
+		//List<ResList> a = resRepository.findByEmail(email);
+		//예외처리 구현 필요
+		
+		return resRepository.findByEmail(email);
 	}
-	
+
 	// id(res_no) 기준으로 추가 승객 예약내역 조회
 	@GetMapping("/res/addPas/{id}")
 	public Map getAddPasDetail(@PathVariable int id) {
-		AddPassenger addPasList = addPasRepository.findById(id).orElseThrow(() -> {
+		ResList addPasList = resRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("없는 정보 입니다.");
 		});
 	    
@@ -100,48 +99,52 @@ public class ResController {
 		 
 		return allMemberMap;
 	}
-
-	// 로그인 email 기준 예약 내역 전부 조회
-	@GetMapping("/res/resList/{email}")
-	public List<ResList> getResList(@PathVariable("email") String email) {
-		//List<ResList> a = resRepository.findByEmail(email);
-		//예외처리 구현 필요
-		
-		return resRepository.findByEmail(email);
-	}
-
-	// 예약 내역 저장
-	@PostMapping("/res/resPost")
-	public void addResList(@RequestBody ResList resList) {
-		System.out.println(resList);
-		resRepository.save(resList);
-	}
 	
-	@PostMapping("/res/resPost/addPas")//추가 승객(성인, 유아, 소아) 정보 저장
-	public void addPasList(@RequestBody HashMap<String, Object> resList) throws IOException {
-		///////추가 승객 시작///////(정상작동 2/23 02:33)
-		String addAdultInfo = resList.get("addAdult").toString();
-		String addChildInfo = resList.get("addChild").toString();
-		String addInfantInfo = resList.get("addInfant").toString();
+	// 예약 내역 저장
+	@PostMapping("/res/resPost")	
+	public void addResList(@RequestBody HashMap<String, Object> resAllList) {
+		System.out.println(resAllList);	
+
+		ResList resList = new ResList();
+
+		// 여행 정보
+		resList.setEmail((String) resAllList.get("email"));
+		String seatString = (String) resAllList.get("seat"); 
+		resList.setSeat(Seat.valueOf(seatString));  // String을 직접 캐스팅할수 없기 때문에 .valueOf 으로 열거형 상수로 변환	
+		resList.setSeatClass1((String) resAllList.get("seatClass1"));
+		resList.setSeatClass2((String) resAllList.get("seatClass2"));
+		String wayString = (String) resAllList.get("way");
+		resList.setWay(Way.valueOf(wayString));
+		resList.setFlight1((String) resAllList.get("flight1"));
+		resList.setFlight2((String) resAllList.get("flight2"));
+		resList.setFromArea((String) resAllList.get("fromArea"));
+		resList.setToArea((String) resAllList.get("toArea"));
+		resList.setOneWayArea((String) resAllList.get("oneWayArea"));
+		resList.setStartDate((String) resAllList.get("startDate"));
+		resList.setReturnDate((String) resAllList.get("returnDate"));
+		resList.setAdultCount((int) resAllList.get("adultCount"));
+		resList.setChildCount((int) resAllList.get("childCount"));
+		resList.setInfantCount((int) resAllList.get("infantCount"));
+		resList.setStartTime1((String) resAllList.get("startTime1"));
+		resList.setArriveTime1((String) resAllList.get("arriveTime1"));
+		resList.setStartTime2((String) resAllList.get("startTime2"));
+		resList.setArriveTime2((String) resAllList.get("arriveTime2"));
 		
-		AddPassenger addPas = new AddPassenger();
-		
-		Map<String, String> addAdult = addPas.getAddAdult();
-		Map<String, String> addChild = addPas.getAddChild();
-		Map<String, String> addInfant = addPas.getAddInfant();
-		addAdult.put("addAdult", addAdultInfo);
-		addChild.put("addChild", addChildInfo);
-		addInfant.put("addInfant", addInfantInfo);			
-		
-		addPasRepository.save(addPas);
-		///////추가 승객 종료///////									
+		// 추가 승객
+		Map<String, String> addAdult = resList.getAddAdult();
+		Map<String, String> addChild = resList.getAddChild();
+		Map<String, String> addInfant = resList.getAddInfant();
+		addAdult.put("addAdult", resAllList.get("addAdult").toString());
+		addChild.put("addChild", resAllList.get("addChild").toString());
+		addInfant.put("addInfant", resAllList.get("addInfant").toString());
+
+		resRepository.save(resList);
 	}
 	
 	// id(res_no) 기준으로 예약내역(승객 정보), 추가 승객 정보 삭제
 	@PostMapping("/res/remove/{id}")
 	public void detailDelete(@PathVariable int id) {
 		resRepository.deleteById(id);
-		addPasRepository.deleteById(id);
 		System.out.println(id + "번째 예약 정보가 삭제되었습니다.");
 	}
 	

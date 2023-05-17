@@ -1,7 +1,7 @@
 <template>
 <div>
     <div>
-        <lottie-player class="completeLogo" src="https://lottie.host/baa5facb-579b-4b4b-bcf8-e2c781c571d3/JobKpEsGX9.json"  background="transparent"  speed="1.2" loop autoplay ></lottie-player>
+        <lottie-player class="completeLogo" src="https://assets5.lottiefiles.com/packages/lf20_5wEHL02hAL.json"  background="transparent"  speed="1.2" loop autoplay ></lottie-player>
         <span class="comTitle">예약이 완료되었습니다.</span><br>
     </div>
 

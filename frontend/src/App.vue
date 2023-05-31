@@ -15,7 +15,7 @@
         <!-- 로그인 썸네일 -->
         <!--로그인-->
         <div class="loginBtn1" v-if="!isLogin">
-            <lottie-player class="loginBtn1-1" src="https://assets1.lottiefiles.com/packages/lf20_voi0gxts.json"  background="transparent"  speed="1" loop autoplay ></lottie-player>
+            <lottie-player class="loginBtn1-1" src="https://assets1.lottiefiles.com/packages/lf20_voi0gxts.json" background="transparent" speed="1" loop autoplay></lottie-player>
             <div class="loginText" v-if="!isLogin" @click="loginModal = true">Login</div>
         </div>
 
@@ -48,7 +48,6 @@
 
 <!-- 로딩화면 -->
 <div class="layerPopup" v-show="isLoading">
-    <lottie-player class="spinner" src="https://lottie.host/58eb1044-6d4b-4b7f-ae3b-a761224976b3/cMVyp5Jjeh.json" background="transparent" speed="1" loop autoplay></lottie-player>
 </div>
 
 <router-view></router-view>
@@ -93,7 +92,7 @@ export default {
             history.pushState(null, "", `/`)
         },
         setParamInfo() {
-                this.$store.dispatch("setUserInfo", this.$route.query)
+            this.$store.dispatch("setUserInfo", this.$route.query)
         },
         kakaoLogout() {
             let access_token = this.$store.state.userInfo.access_token;
@@ -135,11 +134,18 @@ export default {
 <style>
 #app {
     font-family: 'SEBANG_Gothic_Bold';
-    white-space: nowrap;
-    /* max-width: 70%;
-    margin: 0 auto;
-    overflow: hidden; */
+    white-space: nowrap;    
 }
+
+/*@media (min-width: 1300px) {
+    #app {
+        font-family: 'SEBANG_Gothic_Bold';
+        white-space: nowrap;
+        max-width: 90%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+}*/
 
 @font-face {
     font-family: 'SEBANG_Gothic_Bold';
@@ -186,11 +192,11 @@ export default {
 
 .logoLink {
     font-size: 30px;
-    padding-left: 3%;
+    padding-left: 35px;
 }
 
 .subLink {
-    margin-left: 40%;
+    margin-left: 500px;
     margin-top: 2%;
 }
 
@@ -204,7 +210,7 @@ export default {
 }
 
 .loginBtn1-1 {
-    pointer-events: none;    
+    pointer-events: none;
     width: 60px;
     height: 60px;
     margin-top: 6px;
@@ -213,17 +219,16 @@ export default {
     cursor: pointer;
 }
 
-.loginBtn1{
-    display: flex;    
+.loginBtn1 {
+    display: flex;
     margin-left: 4.5%;
 }
 
 .loginBtn2 {
-    display: flex;    
+    display: flex;
     margin-top: 1.3%;
     margin-left: 5%;
 }
-
 
 .loginName {
     font-family: 'SEBANG_Gothic_Bold';

@@ -12,12 +12,12 @@
                 <a href="/Contact">Contact</a>
             </div>
             <!--로그인-->
-            <div class="homeLoginBtn1" v-if="!isLogin">                
-                <lottie-player class="homeLoginBtn1-1" src="https://assets1.lottiefiles.com/packages/lf20_voi0gxts.json"  background="transparent"  speed="1" loop autoplay ></lottie-player>
+            <div class="homeLoginBtn1" v-if="!isLogin">
+                <lottie-player class="homeLoginBtn1-1" src="https://assets1.lottiefiles.com/packages/lf20_voi0gxts.json" background="transparent" speed="1" loop autoplay></lottie-player>
                 <div class="homeLoginText" v-if="!isLogin" @click="loginModal = true">Login</div>
             </div>
 
-            <div class="homeLoginBtn2" v-if="isLogin">                
+            <div class="homeLoginBtn2" v-if="isLogin">
                 <ProfileItem :profile="getProfile" :email="getEmail" @click="showLoginMenu" />
             </div>
 
@@ -239,9 +239,10 @@
         </button>
 
     </div>
-</div>
 
-<div class="part2" id="part2">
+<!--</div>
+
+<div class="part2" id="part2">-->
 
     <!-- 추천 여행지 -->
     <Product></Product>
@@ -251,15 +252,15 @@
 </div>
 
 <div class="recommendProduct" id="part3">
-        <div class="">
-            <br>
-            <div class="travelTip" data-aos="fade-down" data-aos-delay="100" data-aos-easing="linear" data-aos-duration="2000">
-                <h1>복잡한 여행을 Easy하게!</h1><br>
-                <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
-                <a @click="ing">자세히 보기</a>
-            </div>
-            <lottie-player class="travelImg" src="https://assets4.lottiefiles.com/packages/lf20_pNWSdrwrSb.json" data-aos="fade-up" data-aos-delay="50" data-aos-easing="linear" data-aos-duration="1000" background="transparent" speed="1" loop autoplay></lottie-player>
-        </div>                    
+    <div class="">
+        <br>
+        <div class="travelTip" data-aos="fade-down" data-aos-delay="100" data-aos-easing="linear" data-aos-duration="2000">
+            <h1>복잡한 여행을 Easy하게!</h1><br>
+            <h3>전자서식을 작성하시면 여행이 한결 여유로워집니다.</h3><br>
+            <a @click="ing">자세히 보기</a>
+        </div>
+        <lottie-player class="travelImg" src="https://assets4.lottiefiles.com/packages/lf20_pNWSdrwrSb.json" data-aos="fade-up" data-aos-delay="50" data-aos-easing="linear" data-aos-duration="1000" background="transparent" speed="1" loop autoplay></lottie-player>
+    </div>
 </div>
 
 <!--여행 도우미-->
@@ -300,6 +301,8 @@
 </footer>
 </template>
 
+    
+    
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
 import ProfileItem from "@/components/ProfileItem.vue";
@@ -672,7 +675,8 @@ export default {
 
 }
 </script>
-
+    
+    
 <style>
 li {
     list-style: none;
@@ -680,15 +684,15 @@ li {
 }
 
 .slidea_wrapper {
-    width: 100%;
+    width: 1260px;
     height: 480px;
-    margin-top: 10px;
+    margin-top: 10px;    
     z-index: 1;
-    overflow: hidden;
+    overflow: hidden;    
 }
 
 .slidesa {
-    position: absolute;
+    position: relative;
     transition: left 0.5s ease-out;
 }
 
@@ -698,7 +702,7 @@ li {
     position: relative;
 }
 
-.mainBannerLottie{    
+.mainBannerLottie {
     position: absolute;
     margin-left: 30%;
     z-index: 1;
@@ -727,7 +731,7 @@ li {
 
 .bannerPrev {
     margin-left: 480px;
-    margin-top: 17%;
+    margin-top: 230px;
     width: 50px;
     height: 50px;
     border: none;
@@ -740,8 +744,8 @@ li {
 }
 
 .bannerNext {
-    margin-left: 90%;
-    margin-top: 17%;
+    margin-left: 1175px;
+    margin-top: 230px;
     width: 50px;
     height: 50px;
     border: none;
@@ -802,7 +806,7 @@ li {
     color: white;
     font-weight: 900;
     margin-top: 1%;
-    margin-left: 3%;
+    margin-left: 10px;
     text-decoration-line: none;
 }
 
@@ -818,11 +822,11 @@ li {
 
 .homeLogoLink {
     font-size: 30px;
-    padding-left: 3%;
+    padding-left: 65px;
 }
 
 .homeSubLink {
-    margin-left: 40%;
+    margin-left: 500px;
     margin-top: 2%;
 }
 
@@ -845,15 +849,15 @@ li {
     cursor: pointer;
 }
 
-.homeLoginBtn1{
-    display: flex;    
-    margin-left: 4.5%;
+.homeLoginBtn1 {
+    display: flex;
+    margin-left: 40px;
 }
 
 .homeLoginBtn2 {
-    display: flex;    
+    display: flex;
     margin-top: 1.3%;
-    margin-left: 5%;
+    margin-left: 40px;
 }
 
 .homeLoginText {
@@ -891,8 +895,8 @@ li {
 }
 
 .part1 {
-    background: url("../assets/bannerImage/sky2.jpg") fixed;
-    padding-bottom: 5%;
+    background: url("../assets/bannerImage/sky2.jpg") fixed;   
+    background-size: cover;
 }
 
 .part2 {
@@ -903,7 +907,7 @@ li {
 .part4 {
     /* background: url("../assets/part4.jpg"); */
     /* padding-top: 10%;
-    padding-bottom: 20%; */
+        padding-bottom: 20%; */
     display: flex;
     background-color: rgba(44, 129, 85, 0.784);
     border-top: 1px solid teal;
@@ -1047,7 +1051,7 @@ a {
 }
 
 .dp__menu {
-    width: 30%;    
+    width: 30%;
     height: 67%;
     margin-top: 6%;
 }
@@ -1311,7 +1315,7 @@ a {
 }
 
 .recommendProduct {
-    margin-top: 10%;    
+    margin-top: 10%;
 }
 
 .travelImg {

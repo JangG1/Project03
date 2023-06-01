@@ -25,18 +25,17 @@
                 {{ this.$store.state.userInfo.lastName }}{{ this.$store.state.userInfo.firstName }} 님
             </div>
 
-            <div class="loginMenu" v-if="loginMenu">
-
-                <!--카카오 로그아웃-->
-                <div class="homeLogoutBtn" @click="kakaoLogout" v-show="OAuth === 'kakao'">
-                    Logout
-                </div>
-                <!--네이버 로그아웃-->
-                <div class="homeLogoutBtn" @click="naverLogout" v-show="OAuth === 'naver'">
-                    Logout
-                </div>
-
+            <div class="loginMenu" v-if="loginMenu=true"></div>
+            <img class="loginMenu" v-if="loginMenu=true" src="../assets/cloud.png">
+            <!--카카오 로그아웃-->
+            <div class="homeLogoutBtn" @click="kakaoLogout">
+                Logout
             </div>
+            <!--네이버 로그아웃-->
+            <div class="homeLogoutBtn" @click="naverLogout" v-if="loginMenu" v-show="OAuth === 'naver'">
+                Logout
+            </div>
+
         </div>
         <!-- 로그인 모달 -->
         <div v-if="!isLogin">
@@ -240,7 +239,7 @@
 
     </div>
 
-<!--</div>
+    <!--</div>
 
 <div class="part2" id="part2">-->
 
@@ -301,8 +300,6 @@
 </footer>
 </template>
 
-    
-    
 <script>
 import Datepicker from '@vuepic/vue-datepicker';
 import ProfileItem from "@/components/ProfileItem.vue";
@@ -675,8 +672,7 @@ export default {
 
 }
 </script>
-    
-    
+
 <style>
 li {
     list-style: none;
@@ -686,9 +682,9 @@ li {
 .slidea_wrapper {
     width: 1260px;
     height: 480px;
-    margin-top: 10px;    
+    margin-top: 10px;
     z-index: 1;
-    overflow: hidden;    
+    overflow: hidden;
 }
 
 .slidesa {
@@ -766,13 +762,14 @@ li {
 .loginMenu {
     border: none;
     border-radius: 10px;
-    width: 70px;
-    background-color: white;
+    width: 110px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0);
     position: absolute;
-    margin-left: 88%;
-    margin-top: 5.7%;
+    margin-left: 1084px;
+    margin-top: 46px;
     text-align: center;
-    z-index: 20;
+    z-index: 30;
 }
 
 .loginMenu:after {
@@ -780,10 +777,11 @@ li {
     border-top: 0px solid transparent;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 17px solid white;
+    border-bottom: 17px solid rgb(248, 248, 248);
     position: absolute;
-    top: -15px;
-    left: 25px;
+    top: 13px;
+    left: 45px;
+    z-index: 29;
 }
 
 .loginModal {
@@ -851,13 +849,13 @@ li {
 
 .homeLoginBtn1 {
     display: flex;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 .homeLoginBtn2 {
     display: flex;
     margin-top: 1.3%;
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 .homeLoginText {
@@ -872,13 +870,18 @@ li {
 
 .homeLogoutBtn {
     font-family: 'SEBANG_Gothic_Bold';
+    font-size: 12px;
     color: rgb(1, 115, 189);
-    font-weight: 900;
-    padding: 10px 0;
-    margin-top: 1.4%;
-    margin-left: 1.2%;
-    font-size: 11px;
+    border: none;
+    border-radius: 10px;
+    width: 130px;
+    background-color: rgba(255, 255, 255, 0);
+    position: absolute;
+    margin-left: 1075px;
+    margin-top: 86px;
+    text-align: center;
     cursor: pointer;
+    z-index: 31;
 }
 
 .homeLoginName {
@@ -895,7 +898,7 @@ li {
 }
 
 .part1 {
-    background: url("../assets/bannerImage/sky2.jpg") fixed;   
+    background: url("../assets/bannerImage/sky2.jpg") fixed;
     background-size: cover;
 }
 
@@ -1303,6 +1306,7 @@ a {
     text-align: center;
     margin-top: 2%;
     font-size: 16px;
+    margin-bottom: 6%;
 }
 
 .refer>button>a {

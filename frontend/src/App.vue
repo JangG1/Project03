@@ -27,14 +27,14 @@
             {{ this.$store.state.userInfo.lastName }}{{ this.$store.state.userInfo.firstName }} 님
         </div>
 
-       <div class="loginMenu" v-if="loginMenu"></div>
-            <img class="loginMenu" v-if="loginMenu" src="../assets/cloud.png">
+        <div class="loginMenu" v-if="loginMenu"></div>
+            <img class="loginMenu" v-if="loginMenu" src="@/assets/cloud.png">
             <!--카카오 로그아웃-->
-            <div class="homeLogoutBtn" @click="kakaoLogout" v-if="loginMenu" v-show="OAuth === 'kakao'">
+            <div class="logoutBtn" @click="kakaoLogout" v-if="loginMenu" v-show="OAuth === 'kakao'">
                 Logout
             </div>
             <!--네이버 로그아웃-->
-            <div class="homeLogoutBtn" @click="naverLogout" v-if="loginMenu" v-show="OAuth === 'naver'">
+            <div class="logoutBtn" @click="naverLogout" v-if="loginMenu" v-show="OAuth === 'naver'">
                 Logout
             </div>
     </div>

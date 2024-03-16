@@ -5,7 +5,8 @@
 <hr>
 
 <h3> ✈ Fastrip Preview ✈ <h3> 
-Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2] <br>
+Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2] (Close) 
+ <br>
 Youtube : https://youtu.be/RBMja0z1ClM
 
 <br>

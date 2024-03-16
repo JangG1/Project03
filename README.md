@@ -9,7 +9,7 @@
 Demo(Closed) : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2] 
 </blockquote >
  <br>
- <blockquote  style="color:black">
+ <blockquote>
 Youtube : https://youtu.be/RBMja0z1ClM
  </blockquote >
 

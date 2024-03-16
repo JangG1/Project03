@@ -5,11 +5,13 @@
 <hr>
 
 <h3> ✈ Fastrip Preview ✈ <h3> 
-<h4 style="color:red">
+<blockquote  style="color:gray">
 Demo(Closed) : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2] 
-</h4>
+</blockquote >
  <br>
+ <blockquote  style="color:black">
 Youtube : https://youtu.be/RBMja0z1ClM
+ </blockquote >
 
 <br>
 

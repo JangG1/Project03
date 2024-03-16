@@ -5,8 +5,9 @@
 <hr>
 
 <h3> ✈ Fastrip Preview ✈ <h3> 
- ```markdown
+<blockquote style="color:gray">
 Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2] (Closed) 
+</blockquote>
  <br>
 Youtube : https://youtu.be/RBMja0z1ClM
 

@@ -1,7 +1,7 @@
 # .gitignore
 
 # Ignore properties files
-FastripBackend/src/main/resources/application.properties
+FastripBackend/src/main/resources/*.properties
 
 HELP.md
 target/

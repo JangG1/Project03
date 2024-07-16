@@ -7,10 +7,10 @@
 <h3> 📰 CI/CD Status 📰 </h3>
 
 ### 🖥 Frontend 
-[![Frontend Build and Test Status](https://github.com/JangG1/Project03/actions/workflows/Fastrip_Frontend_Build_Test.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip_Frontend_Build_Test.yml)
+[![Frontend CI](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml)
 
 ### 🎛 Backend
-[![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip_Backend_CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip_Backend_CI.yml)
+[![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml)
 
 
 <hr>

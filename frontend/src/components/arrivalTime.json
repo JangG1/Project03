@@ -1,0 +1,40 @@
+[
+    {
+        "flight": "FT-0005",
+        "start": "12:40",
+        "arrive": "16:50",
+        "standard": "스탠다드",
+        "flex": "플랙스",
+        "priceStandard": "400000",
+        "priceFlex": "480000"
+    }, 
+    {
+        "flight": "FT-0006",
+        "start": "14:50",
+        "arrive": "19:00",
+        "standard": "스탠다드",
+        "flex": "플랙스",
+        "priceStandard": "550000",
+        "priceFlex": "630000"
+    }
+    , 
+    {
+        "flight": "FT-0007",
+        "start": "16:20",
+        "arrive": "20:30",
+        "standard": "스탠다드",
+        "flex": "플랙스",
+        "priceStandard": "400000",
+        "priceFlex": "480000"
+    }
+    , 
+    {
+        "flight": "FT-0008",
+        "start": "17:40",
+        "arrive": "21:50",
+        "standard": "스탠다드",
+        "flex": "플랙스",
+        "priceStandard": "350000",
+        "priceFlex": "430000"
+    }
+]

@@ -1,0 +1,50 @@
+[{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec1.jpg?raw=true",
+    "city": "서울/인천 - 두바이",
+    "way": "일반석/왕복",
+    "price": "1,168,300"
+},
+{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec2.jpg?raw=true",
+    "city": "서울/인천 - 오사카",
+    "way": "일반석/왕복",
+    "price": "508,800"
+},
+{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec3.jpg?raw=true",
+    "city": "서울/인천 - 싱가포르",
+    "way": "일반석/왕복",
+    "price": "1,471,600"
+},
+{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec4.jpg?raw=true",
+    "city": "서울/인천 - 바르셀로나",
+    "way": "일반석/왕복",
+    "price": "1,626,600"
+},
+{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec5.jpg?raw=true",
+    "city": "서울/인천 - 치앙마이",
+    "way": "일반석/왕복",
+    "price": "913,900"
+},
+{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec6.jpg?raw=true",
+    "city": "서울/인천 - 부다페스트",
+    "way": "일반석/왕복",
+    "price": "1,364,500"
+},
+{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec7.jpg?raw=true",
+    "city": "서울/인천 - 타이베이",
+    "way": "일반석/왕복",
+    "price": "548,300"
+},
+{
+    "url": "https://github.com/JangG1/Project03-images/blob/main/rec8.jpg?raw=true",
+    "city": "서울/인천 - 예루살렘",
+    "way": "일반석/왕복",
+    "price": "1,435,300"
+}
+
+]

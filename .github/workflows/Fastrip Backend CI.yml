@@ -1,0 +1,32 @@
+name: Fastrip Backend CI
+
+on:
+  push:
+    branches:
+      - master  # main 브랜치에 푸시할 때 트리거
+  pull_request:
+    branches:
+      - master  # main 브랜치에 PR을 보낼 때 트리거
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'  # 사용할 Java 버전
+
+      - name: Build with Maven
+        run: |
+          cd FastripBackend  # Java 애플리케이션 폴더로 이동
+          mvn install  # Maven으로 빌드 실행
+
+      - name: Run tests
+        run: |
+          cd backend
+          mvn test  # 테스트 실행

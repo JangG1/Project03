@@ -181,9 +181,9 @@ export default {
     return {
       week: ["일", "월", "화", "수", "목", "금", "토"],
       res: [],
+      user: [],
       passengerView: false,
       resCancelView: false,
-      user: [],
       isLoading: true,
     };
   },
@@ -225,7 +225,6 @@ export default {
       return year + "-" + month + "-" + day + "(" + date + ") ";
     },
     emailGetData(value) {
-      console.log("1 : " + value);
       this.getData(value);
     },
     getData(value) {
@@ -234,7 +233,6 @@ export default {
       //로그인 상태에서 예약 완료시 예약데이터에 name과 email 전송
       //로그인 상태에서 email 기준으로 예약되었던 email과 매칭 후 예약 내역 조회
       let email = "";
-
       //로그인 상태
       if (this.$store.state.isLogin == true) {
         if (this.$store.state.userInfo.email == "") {
@@ -243,7 +241,6 @@ export default {
           email = this.$store.state.userInfo.email;
         }
       }
-
       //비로그인 상태
       if (this.$store.state.isLogin == false) {
         email = value;
@@ -267,11 +264,11 @@ export default {
     passengerModal(value) {
       //예약자 정보 팝업
       this.passengerView = this.passengerView ? false : true;
-      this.$store.dispatch("res_no", value);
+      //this.$store.dispatch("res_no", value);
+      this.$store.dispatch("pasInfo", this.user?.[value - 1].passengers);
     },
     resDelModal(value) {
       //예약 취소 팝업
-      console.log(value);
       this.resCancelView = this.resCancelView ? false : true;
       this.$store.dispatch("res_no", value);
     },

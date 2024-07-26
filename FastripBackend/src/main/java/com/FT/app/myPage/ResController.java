@@ -34,13 +34,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.FT.app.Repo.KakaoUserRepository;
 import com.FT.app.Repo.ResRepository;
-import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.Seat;
-import com.FT.app.domain.KakaoUser;
 import com.FT.app.domain.Way;
 import com.FT.app.Login.service.UserService;
+import com.FT.app.myPage.domain.Passenger;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -62,9 +60,6 @@ import org.hibernate.cfg.Configuration;
 @RequiredArgsConstructor //클래스에 선언된 final 변수들, 필드들을 매개변수로 하는 생성자를 자동으로 생성해주는 어노테이션
 public class ResController {
 	
-	//@Autowired
-	//private ResRepository resRepository;
-	
 	//@Autowired 생략 가능
 	// 생성자 주입으로 NullPointerException 방지 가능
 	private final ResRepository resRepository;
@@ -75,76 +70,77 @@ public class ResController {
 		return resRepository.findByEmail(email);
 	}
 	
-	// id(res_no) 기준으로 추가 승객 예약내역 조회
-	@GetMapping("/res/addPas/{id}")
-	public Map getAddPasDetail(@PathVariable int id) {
-		ResList addPasList = resRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("없는 정보 입니다.");
-		});
-	    
-		//AddPassenger -> String 형변환
-		String addAdultInfo = addPasList.getAddAdult().toString();
-		String addChildInfo = addPasList.getAddChild().toString();
-		String addInfantInfo = addPasList.getAddInfant().toString();
-		
-		//String -> JsonObject 형변환
-		JsonParser parser = new JsonParser();
-		JsonObject obj1 = (JsonObject)parser.parse(addAdultInfo);
-		JsonObject obj2 = (JsonObject)parser.parse(addChildInfo);
-		JsonObject obj3 = (JsonObject)parser.parse(addInfantInfo);
-		
-		// 하나의 JsonObject로 모든 승객 정보(성인, 유아, 소아) 추가
-		JsonObject allMemberList = new JsonObject();
-		allMemberList.add("adult",obj1);
-		allMemberList.add("child",obj2);
-		allMemberList.add("infant",obj3);		
-	    
-		//JsonObject -> Hashmap 형변환
-		Gson gson =new Gson();
-		Map allMemberMap =new HashMap();		
-		allMemberMap = (Map)gson.fromJson(allMemberList, allMemberMap.getClass());
+	 @PostMapping("/res/resPost")
+	    public void addResList(@RequestBody Map<String, Object> resAllList) {
+		 System.out.println(resAllList);
 		 
-		return allMemberMap;
-	}
+	        ResList resList = ResList.builder()
+	                .email((String) resAllList.get("email"))
+	                .seat(Seat.valueOf((String) resAllList.get("seat")))
+	                .seatClass1((String) resAllList.get("seatClass1"))
+	                .seatClass2((String) resAllList.get("seatClass2"))
+	                .way(Way.valueOf((String) resAllList.get("way")))
+	                .flight1((String) resAllList.get("flight1"))
+	                .flight2((String) resAllList.get("flight2"))
+	                .fromArea((String) resAllList.get("fromArea"))
+	                .toArea((String) resAllList.get("toArea"))
+	                .oneWayArea((String) resAllList.get("oneWayArea"))
+	                .startDate((String) resAllList.get("startDate"))
+	                .returnDate((String) resAllList.get("returnDate"))
+	                .adultCount((int) resAllList.get("adultCount"))
+	                .childCount((int) resAllList.get("childCount"))
+	                .infantCount((int) resAllList.get("infantCount"))
+	                .startTime1((String) resAllList.get("startTime1"))
+	                .arriveTime1((String) resAllList.get("arriveTime1"))
+	                .startTime2((String) resAllList.get("startTime2"))
+	                .arriveTime2((String) resAllList.get("arriveTime2"))
+	                .build();
+
+	        //하나의 요소(성인, 아동, 유아 중 1)은 혼자 혹은 여러명을 가지기에 각 타입을 Map으로 여러명을 한 데 모으고
+	        //모여진 하나의 Map을 List에 하나의 요소로 추가
+	        //ex) 하나의 List(Passenger)에 요소 3가지(성인=Map1, 아동=Map2, 유아=Map3) 추가
+	        List<Map<String, String>> addAdults = (List<Map<String, String>>) resAllList.get("addAdult");
+	        for (Map<String, String> addAdult : addAdults) { // 혼자 혹은 여러멍이기에 반복문
+	        	Passenger passenger = Passenger.builder()
+	                    .type("ADULT")	                    
+	                    .korName(addAdult.get("korName"))
+	                    .engFirstName(addAdult.get("engFirstName"))
+	                    .engLastName(addAdult.get("engLastName"))
+	                    .gender(addAdult.get("gender"))	                    
+	                    .birthday(addAdult.get("birthday"))
+	                    .build();
+	            resList.Passenger(passenger);
+	        }
+
+	        List<Map<String, String>> addChildren = (List<Map<String, String>>) resAllList.get("addChild");
+	        for (Map<String, String> addChild : addChildren) {// 혼자 혹은 여러멍이기에 반복문
+	        	Passenger passenger = Passenger.builder()
+	                    .type("CHILD")	                    
+	                    .korName(addChild.get("korName"))
+	                    .engFirstName(addChild.get("engFirstName"))
+	                    .engLastName(addChild.get("engLastName"))
+	                    .gender(addChild.get("gender"))
+	                    .birthday(addChild.get("birthday"))
+	                    .build();
+	            resList.Passenger(passenger);
+	        }
+
+	        List<Map<String, String>> addInfants = (List<Map<String, String>>) resAllList.get("addInfant");
+	        for (Map<String, String> addInfant : addInfants) {// 혼자 혹은 여러멍이기에 반복문
+	        	Passenger passenger = Passenger.builder()
+	                    .type("INFANT")
+	                    .korName(addInfant.get("korName"))
+	                    .engFirstName(addInfant.get("engFirstName"))
+	                    .engLastName(addInfant.get("engLastName"))
+	                    .gender(addInfant.get("gender"))
+	                    .birthday(addInfant.get("birthday"))
+	                    .build();
+	            resList.Passenger(passenger);
+	        }
+
+	        resRepository.save(resList);
+	    }
 	
-	// 예약 내역 저장
-	@PostMapping("/res/resPost")	
-	public void addResList(@RequestBody HashMap<String, Object> resAllList) {
-		ResList resList = new ResList();
-
-		// 여행 정보
-		resList.setEmail((String) resAllList.get("email"));
-		String seatString = (String) resAllList.get("seat"); 
-		resList.setSeat(Seat.valueOf(seatString));  // String을 직접 캐스팅할수 없기 때문에 .valueOf 으로 열거형 상수로 변환	
-		resList.setSeatClass1((String) resAllList.get("seatClass1"));
-		resList.setSeatClass2((String) resAllList.get("seatClass2"));
-		String wayString = (String) resAllList.get("way");
-		resList.setWay(Way.valueOf(wayString)); // String을 직접 캐스팅할수 없기 때문에 .valueOf 으로 열거형 상수로 변환	
-		resList.setFlight1((String) resAllList.get("flight1"));
-		resList.setFlight2((String) resAllList.get("flight2"));
-		resList.setFromArea((String) resAllList.get("fromArea"));
-		resList.setToArea((String) resAllList.get("toArea"));
-		resList.setOneWayArea((String) resAllList.get("oneWayArea"));
-		resList.setStartDate((String) resAllList.get("startDate"));
-		resList.setReturnDate((String) resAllList.get("returnDate"));
-		resList.setAdultCount((int) resAllList.get("adultCount"));
-		resList.setChildCount((int) resAllList.get("childCount"));
-		resList.setInfantCount((int) resAllList.get("infantCount"));
-		resList.setStartTime1((String) resAllList.get("startTime1"));
-		resList.setArriveTime1((String) resAllList.get("arriveTime1"));
-		resList.setStartTime2((String) resAllList.get("startTime2"));
-		resList.setArriveTime2((String) resAllList.get("arriveTime2"));
-		
-		// 추가 승객
-		Map<String, String> addAdult = resList.getAddAdult();
-		Map<String, String> addChild = resList.getAddChild();
-		Map<String, String> addInfant = resList.getAddInfant();
-		addAdult.put("addAdult", resAllList.get("addAdult").toString());
-		addChild.put("addChild", resAllList.get("addChild").toString());
-		addInfant.put("addInfant", resAllList.get("addInfant").toString());
-
-		resRepository.save(resList);
-	}
 	
 	// id(res_no) 기준으로 예약내역(승객 정보), 추가 승객 정보 삭제
 	@PostMapping("/res/remove/{id}")

@@ -110,7 +110,7 @@ public class KakaoAPI {
 		}
 
 		// KakaoProfile 정보 재정의
-		KakaoUser kakaoUser = KakaoUser.builder().id(kakaoProfile.getId())
+		KakaoUser kakaoUser = KakaoUser.builder().loginId(kakaoProfile.getId())
 				.email(kakaoProfile.getKakao_account().getEmail()).name(kakaoProfile.getProperties().getNickname())
 				.password("Fastrip123") // 임시 비밀번호
 				.profile(kakaoProfile.getProperties().getProfile_image())

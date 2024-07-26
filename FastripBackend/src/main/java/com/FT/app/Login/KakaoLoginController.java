@@ -60,6 +60,10 @@ import com.google.gson.JsonParser;
 
 import lombok.RequiredArgsConstructor;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
+
 @RestController
 @RequiredArgsConstructor //클래스에 선언된 final 변수들, 필드들을 매개변수로 하는 생성자를 자동으로 생성해주는 어노테이션
 public class KakaoLoginController {
@@ -72,216 +76,127 @@ public class KakaoLoginController {
 
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakaoLogin/main")
-	public @ResponseBody RedirectView kakaoCallback3(String code) {
-		System.out.println("인가 코드 : " + code);
+	public @ResponseBody RedirectView kakaoCallback(String code) {
+	    System.out.println("인가 코드 : " + code);
 
-		KakaoAPI kakaoAPI = new KakaoAPI();
-		String redNum = ""; // redNum = redirectNumber
+	    KakaoAPI kakaoAPI = new KakaoAPI();
+	    String redNum = ""; // redNum = redirectNumber
 
-		// KakaoAPI 인가 코드 전송 및 유저 정보 응답
-		KakaoUser kakaoUser = (KakaoUser) kakaoAPI.KakaoAPI(code, redNum);
-		System.out.println(kakaoUser);
+	    // KakaoAPI 인가 코드 전송 및 유저 정보 응답
+	    KakaoUser kakaoUser = (KakaoUser) kakaoAPI.KakaoAPI(code, redNum);
+	    System.out.println(kakaoUser);
 
-		// 기존 회원 찾기(중복)
-		KakaoUser originUser = userService.카카오회원찾기(kakaoUser.getLoginId());
+	    // 기존 회원 찾기(중복)
+	    KakaoUser originUser = userService.카카오회원찾기(kakaoUser.getLoginId());
 
-		if (originUser.getLoginId() != null) {
-			System.out.println(originUser.getName() + "님 환영합니다");
+	    if (originUser.getLoginId() != null) {
+	        System.out.println(originUser.getName() + "님 환영합니다");
 
-			// 동의 항목 미체크시
-			if (kakaoUser.getEmail() == null) {
-				originUser.setEmail("");
-			} else {
-				originUser.setEmail(kakaoUser.getEmail());
-			}
+	        // 동의 항목 미체크시
+	        originUser.setEmail(kakaoUser.getEmail() == null ? "" : kakaoUser.getEmail());
+	        originUser.setGender(kakaoUser.getGender() == null ? "" : kakaoUser.getGender());
+	        originUser.setBirthday(kakaoUser.getBirthday() == null ? "" : kakaoUser.getBirthday());
 
-			if (kakaoUser.getGender() == null) {
-				originUser.setGender("");
-			} else {
-				originUser.setGender(kakaoUser.getGender());
-			}
+	        // 현재날짜, 시간 구하기(로그인 시간)
+	        LocalDateTime now = LocalDateTime.now();
+	        String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
 
-			if (kakaoUser.getBirthday() == null) {
-				originUser.setBirthday("");
-			} else {
-				originUser.setBirthday(kakaoUser.getBirthday());
-			}
+	        // 기존 정보 업데이트(자주 바뀌는 정보)
+	        originUser.setProfile(kakaoUser.getProfile());
+	        originUser.setAccess_token(kakaoUser.getAccess_token());
+	        originUser.setRefresh_token(kakaoUser.getRefresh_token());
+	        originUser.setLogin_date(formatedNow);
+	        userService.카카오회원가입(originUser); // 기존 정보 수정 후 저장
+	    } else {
+	        System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
+	        kakaoUser.setEmail(kakaoUser.getEmail() == null ? "" : kakaoUser.getEmail());
+	        kakaoUser.setGender(kakaoUser.getGender() == null ? "" : kakaoUser.getGender());
+	        kakaoUser.setBirthday(kakaoUser.getBirthday() == null ? "" : kakaoUser.getBirthday());
+	        userService.카카오회원가입(kakaoUser);
+	    }
 
-			// 현재날짜, 시간 구하기(로그인 시간)
-			LocalDateTime now = LocalDateTime.now();
-			String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
+	    // JWT 생성
+	    String jwt = Jwts.builder()
+	            .claim("email", originUser.getEmail())
+	            .claim("name", originUser.getName())
+	            .claim("profile", originUser.getProfile())
+	            .claim("gender", originUser.getGender())
+	            .claim("birthday", originUser.getBirthday())
+	            .claim("access_token", originUser.getAccess_token())
+	            .claim("refreshtoken", originUser.getRefresh_token())
+	            .claim("OAuth", "kakao")
+	            .setIssuedAt(new Date())
+	            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
+	            .signWith(SignatureAlgorithm.HS256, "secretkey")
+	            .compact();
 
-			// 기존 정보 업데이트(자주 바뀌는 정보)
-			originUser.setProfile(kakaoUser.getProfile());
-			originUser.setAccess_token(kakaoUser.getAccess_token());
-			originUser.setRefresh_token(kakaoUser.getRefresh_token());
-			originUser.setLogin_date(formatedNow);
-			userService.카카오회원가입(originUser); // 기존 정보 수정 후 저장
-		}
-
-		// 기존 회원 아닐시 새로 등록
-		if (originUser.getLoginId() == null) {
-			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
-			// 동의 항목 미체크시
-			if (kakaoUser.getEmail() == null) {
-				kakaoUser.setEmail("");
-			}
-			if (kakaoUser.getGender() == null) {
-				kakaoUser.setGender("");
-			}
-			if (kakaoUser.getBirthday() == null) {
-				kakaoUser.setBirthday("");
-			}
-			userService.카카오회원가입(kakaoUser);
-		}
-		// 프론트로 리다이렉트
-		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
-		// 포워드 = 특정 URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
-		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:9200/");
-		
-		//현재는 사용만료
-		//redirectView.setUrl("http://fastrip.shop/");
-
-		Optional<KakaoUser> totalUser = kakaoUserRepository.findByLoginId(kakaoUser.getLoginId());
-
-		// 리다이렉트 시 로그인 email 기준 User object 전달
-		redirectView.addStaticAttribute("email", totalUser.get().getEmail());
-		redirectView.addStaticAttribute("name", totalUser.get().getName());
-		redirectView.addStaticAttribute("profile", totalUser.get().getProfile());
-		redirectView.addStaticAttribute("gender", totalUser.get().getGender());
-		redirectView.addStaticAttribute("birthday", totalUser.get().getBirthday());
-		redirectView.addStaticAttribute("access_token", totalUser.get().getAccess_token());
-		redirectView.addStaticAttribute("refreshtoken", totalUser.get().getRefresh_token());
-		redirectView.addStaticAttribute("OAuth", "kakao");
-
-		// 리다이렉트 url parameter 암호화
-		redirectView.setExposePathVariables(false);
-		redirectView.setExposeModelAttributes(true);
-
-		return redirectView;
+	    // 프론트로 리다이렉트
+	    RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("http://localhost:9200/?token=" + jwt);
+	    
+	    return redirectView;
 	}
 
 	// Kakao User 정보 가져오기(도착지 선택 페이지(Arrive)에서 결제 페이지 넘어갈시 로그인이 필요한 경우)
 	@GetMapping("/auth/kakaoLogin/return")
-	public @ResponseBody RedirectView kakaoCallback4(String code) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
-		System.out.println("인가 코드 : " + code);
+	public @ResponseBody RedirectView kakaoCallback2(String code) {
+	    System.out.println("인가 코드 : " + code);
 
-		KakaoAPI2 kakaoAPI2 = new KakaoAPI2();
-		String redNum = ""; // redNum = redirectNumber
-		
-		// KakaoAPI 인가 코드 전송 및 유저 정보 응답
-		KakaoUser kakaoUser = (KakaoUser) kakaoAPI2.KakaoAPI(code, redNum);
-		System.out.println("kakaoUser" + kakaoUser);
+	    KakaoAPI2 kakaoAPI2 = new KakaoAPI2();
+	    String redNum = ""; // redNum = redirectNumber
+	    
+	    // KakaoAPI 인가 코드 전송 및 유저 정보 응답
+	    KakaoUser kakaoUser = (KakaoUser) kakaoAPI2.KakaoAPI(code, redNum);
+	    System.out.println("kakaoUser" + kakaoUser);
 
-		// 기존 회원 찾기(중복)
-		KakaoUser originUser = userService.카카오회원찾기(kakaoUser.getLoginId());
+	    // 기존 회원 찾기(중복)
+	    KakaoUser originUser = userService.카카오회원찾기(kakaoUser.getLoginId());
 
-		if (originUser.getLoginId() != null) {
-			System.out.println(originUser.getName() + "님 환영합니다");
+	    if (originUser.getLoginId() != null) {
+	        System.out.println(originUser.getName() + "님 환영합니다");
 
-			// 동의 항목 미체크시
-			if (kakaoUser.getEmail() == null) {
-				originUser.setEmail("");
-			} else {
-				originUser.setEmail(kakaoUser.getEmail());
-			}
+	        originUser.setEmail(kakaoUser.getEmail() == null ? "" : kakaoUser.getEmail());
+	        originUser.setGender(kakaoUser.getGender() == null ? "" : kakaoUser.getGender());
+	        originUser.setBirthday(kakaoUser.getBirthday() == null ? "" : kakaoUser.getBirthday());
 
-			if (kakaoUser.getGender() == null) {
-				originUser.setGender("");
-			} else {
-				originUser.setGender(kakaoUser.getGender());
-			}
+	        LocalDateTime now = LocalDateTime.now();
+	        String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
 
-			if (kakaoUser.getBirthday() == null) {
-				originUser.setBirthday("");
-			} else {
-				originUser.setBirthday(kakaoUser.getBirthday());
-			}
+	        originUser.setProfile(kakaoUser.getProfile());
+	        originUser.setAccess_token(kakaoUser.getAccess_token());
+	        originUser.setRefresh_token(kakaoUser.getRefresh_token());
+	        originUser.setLogin_date(formatedNow);
 
-			// 현재날짜, 시간 구하기(로그인 시간)
-			LocalDateTime now = LocalDateTime.now();
-			String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
+	        userService.카카오회원가입(originUser);
+	    } else {
+	        System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
 
-			// 기존 정보 업데이트(자주 바뀌는 정보)
-			originUser.setProfile(kakaoUser.getProfile());
-			originUser.setAccess_token(kakaoUser.getAccess_token());
-			originUser.setRefresh_token(kakaoUser.getRefresh_token());
-			originUser.setLogin_date(formatedNow);
+	        kakaoUser.setEmail(kakaoUser.getEmail() == null ? "" : kakaoUser.getEmail());
+	        kakaoUser.setGender(kakaoUser.getGender() == null ? "" : kakaoUser.getGender());
+	        kakaoUser.setBirthday(kakaoUser.getBirthday() == null ? "" : kakaoUser.getBirthday());
 
-			userService.카카오회원가입(originUser); // 기존 정보 수정 후 저장
-		}
+	        userService.카카오회원가입(kakaoUser);
+	    }
 
-		// 기존 회원 아닐시 새로 등록
-		if (originUser.getLoginId() == null) {
-			System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다");
+	    // JWT 생성
+	    String jwt = Jwts.builder()
+	            .claim("email", originUser.getEmail())
+	            .claim("name", originUser.getName())
+	            .claim("profile", originUser.getProfile())
+	            .claim("gender", originUser.getGender())
+	            .claim("birthday", originUser.getBirthday())
+	            .claim("access_token", originUser.getAccess_token())
+	            .claim("refreshtoken", originUser.getRefresh_token())
+	            .claim("OAuth", "kakao")
+	            .setIssuedAt(new Date())
+	            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
+	            .signWith(SignatureAlgorithm.HS256, "secretkey")
+	            .compact();
 
-			// 동의 항목 미체크시
-			if (kakaoUser.getEmail() == null) {
-				kakaoUser.setEmail("");
-			}
+	    RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("http://localhost:9200/Return?token=" + jwt);
 
-			if (kakaoUser.getGender() == null) {
-				kakaoUser.setGender("");
-			}
-
-			if (kakaoUser.getBirthday() == null) {
-				kakaoUser.setBirthday("");
-			}
-
-			userService.카카오회원가입(kakaoUser);
-		}
-
-		// 프론트로 리다이렉트
-		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
-		// 포워드 = 특정 URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
-		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:9200/Return");
-		
-		//만료
-		//redirectView.setUrl("http://fastrip.shop/Return");
-
-		Optional<KakaoUser> totalUser = kakaoUserRepository.findByLoginId(kakaoUser.getLoginId());
-
-		// 리다이렉트 시 로그인 email 기준 User object 전달
-		redirectView.addStaticAttribute("email", totalUser.get().getEmail());
-		redirectView.addStaticAttribute("name", totalUser.get().getName());
-		redirectView.addStaticAttribute("profile", totalUser.get().getProfile());
-		redirectView.addStaticAttribute("gender", totalUser.get().getGender());
-		redirectView.addStaticAttribute("birthday", totalUser.get().getBirthday());
-		redirectView.addStaticAttribute("access_token", totalUser.get().getAccess_token());
-		redirectView.addStaticAttribute("refreshtoken", totalUser.get().getRefresh_token());
-		redirectView.addStaticAttribute("OAuth", "kakao");
-		
-		// 리다이렉트 url parameter 암호화
-		redirectView.setExposePathVariables(false);
-		redirectView.setExposeModelAttributes(true);
-
-		return redirectView;
-	}
-
-	// Kakao 로그아웃
-	@GetMapping("/kakao/logout/main/{access_token}")
-	public String kakaoLogout(@PathVariable("access_token") String access_token) {
-		System.out.println("Access Token : " + access_token);
-
-		RestTemplate rt = new RestTemplate();
-
-		// HttpHeader 오브젝트 생성
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "Bearer " + access_token);
-
-		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
-
-
-		// Kakao 연결끊기 시 사용
-		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/unlink", HttpMethod.POST,
-				kakaoProfileRequest, String.class);
-
-		System.out.println("로그아웃 id : " + response.getBody());
-
-		return "로그아웃 되었습니다.";
+	    return redirectView;
 	}
 
 }

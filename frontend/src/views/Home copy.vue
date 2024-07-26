@@ -451,12 +451,6 @@ export default {
         hideParams() {
             history.pushState(null, "", `/`)
         },
-        setParamInfo() {
-            if (this.$route.query.email != null) {
-                this.$store.dispatch("setUserInfo", this.$route.query)
-                location.reload()
-            }
-        },
         NoticeModalPopUp() {
             this.NoticeModalView = false;
         },
@@ -666,7 +660,6 @@ export default {
     mounted() {
         this.getNoticeView();
         this.hideParams();
-        this.setParamInfo();
         this.bannerNext();
     }
 

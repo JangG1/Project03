@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -59,6 +60,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -76,7 +79,7 @@ public class NaverLoginController {
 	public @ResponseBody RedirectView naverCallback(String code, String state) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 		System.out.println("인가 코드 : " + code);
 		System.out.println("state : " + state);
-		System.out.println("여기가 메인이고");
+		
 		NaverAPI naverAPI = new NaverAPI();
 		String redNum = ""; // redNum = redirectNumber
 
@@ -110,36 +113,29 @@ public class NaverLoginController {
 			userService.네이버회원가입(naverUser);
 		}
 
-		// 프론트로 리다이렉트
-		// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
-		// 포워드 = 특정 URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
-		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("http://localhost:9200/");
-		
-		//현재는 사용만료
-		//redirectView.setUrl("http://fastrip.shop/");	
+	    // JWT 생성
+	    String jwt = Jwts.builder()
+	            .claim("email", originUser.getEmail())
+	            .claim("name", originUser.getName())
+	            .claim("profile", originUser.getProfile())
+	            .claim("gender", originUser.getGender())
+	            .claim("birthday", originUser.getBirthday())
+	            .claim("access_token", originUser.getAccess_token())
+	            .claim("refreshtoken", originUser.getRefresh_token())
+	            .claim("OAuth", "naver")
+	            .setIssuedAt(new Date())
+	            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
+	            .signWith(SignatureAlgorithm.HS256, "secretkey")
+	            .compact();
 
-		Optional<NaverUser> totalUser = naverUserRepository.findByLoginId(naverUser.getLoginId());
-		
-		// 리다이렉트 시 로그인 email 기준 User object 전달
-		redirectView.addStaticAttribute("email", totalUser.get().getEmail());
-		redirectView.addStaticAttribute("name", totalUser.get().getName());
-		redirectView.addStaticAttribute("profile", totalUser.get().getProfile());
-		redirectView.addStaticAttribute("gender", totalUser.get().getGender());
-		redirectView.addStaticAttribute("birthday", totalUser.get().getBirthday());
-		redirectView.addStaticAttribute("access_token", totalUser.get().getAccess_token());
-		redirectView.addStaticAttribute("refreshtoken", totalUser.get().getRefresh_token());
-		redirectView.addStaticAttribute("OAuth", "naver");
-
-		// 리다이렉트 url parameter 암호화
-		redirectView.setExposePathVariables(false);
-		redirectView.setExposeModelAttributes(true);
-
-		return redirectView;
+	    // 프론트로 리다이렉트
+	    RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl("http://localhost:9200/?token=" + jwt);
+	    
+	    return redirectView;
 	}
 
 	// Naver User 정보 가져오기(도착지 선택 페이지(Arrive)에서 결제 페이지 넘어갈시 로그인이 필요한 경우)
-	// Naver User 정보 가져오기
 		@GetMapping("/auth/naverLogin/return")
 		public @ResponseBody RedirectView naverCallback2(String code, String state) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
 			System.out.println("인가 코드 : " + code);
@@ -178,51 +174,28 @@ public class NaverLoginController {
 				userService.네이버회원가입(naverUser);
 			}
 
-			// 프론트로 리다이렉트
-			// 리다이렉트 = 클라이언트의 요청에 의해 서버의 DB에 변화가 생기는 작업에 사용
-			// 포워드 = 특정 URL에 대해 외부에 공개되지 말아야 하는 부분을 가리는데 사용 또는 조회
-			RedirectView redirectView = new RedirectView();
-			redirectView.setUrl("http://localhost:9200/Return");
-		
-			//현재는 사용만료
-			//redirectView.setUrl("http://fastrip.shop/");
+		    // JWT 생성
+		    String jwt = Jwts.builder()
+		            .claim("email", originUser.getEmail())
+		            .claim("name", originUser.getName())
+		            .claim("profile", originUser.getProfile())
+		            .claim("gender", originUser.getGender())
+		            .claim("birthday", originUser.getBirthday())
+		            .claim("access_token", originUser.getAccess_token())
+		            .claim("refreshtoken", originUser.getRefresh_token())
+		            .claim("OAuth", "naver")
+		            .setIssuedAt(new Date())
+		            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
+		            .signWith(SignatureAlgorithm.HS256, "secretkey")
+		            .compact();
 
-			Optional<NaverUser> totalUser = naverUserRepository.findByLoginId(naverUser.getLoginId());
-			
-			// 리다이렉트 시 로그인 email 기준 User object 전달
-			redirectView.addStaticAttribute("email", totalUser.get().getEmail());
-			redirectView.addStaticAttribute("name", totalUser.get().getName());
-			redirectView.addStaticAttribute("profile", totalUser.get().getProfile());
-			redirectView.addStaticAttribute("gender", totalUser.get().getGender());
-			redirectView.addStaticAttribute("birthday", totalUser.get().getBirthday());
-			redirectView.addStaticAttribute("access_token", totalUser.get().getAccess_token());
-			redirectView.addStaticAttribute("refreshtoken", totalUser.get().getRefresh_token());
-			redirectView.addStaticAttribute("OAuth", "naver");
-
-			// 리다이렉트 url parameter 암호화
-			redirectView.setExposePathVariables(false);
-			redirectView.setExposeModelAttributes(true);
-
-			return redirectView;
+		    // 프론트로 리다이렉트
+		    RedirectView redirectView = new RedirectView();
+		    redirectView.setUrl("http://localhost:9200/Return?token=" + jwt);
+		    
+		    return redirectView;
 		}
 
-	// Naver 로그아웃
-	@GetMapping("/naver/logout/main/{access_token}")
-	public String naverLogout(@PathVariable("access_token") String access_token) {
-	    String clientId = "z_xevkfqoAuqghG2b8CF";
-	    String clientSecret = "GbpSqQRfDn";
-	    String url = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id={clientId}&client_secret={clientSecret}&service_provider=NAVER&access_token={accessToken}";
-
-	    RestTemplate rt = new RestTemplate();
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON);
-
-	    HttpEntity<String> request = new HttpEntity<>(headers);
-
-	    String result = rt.postForObject(url, request, String.class, clientId, clientSecret, access_token);
-	    System.out.println(result);
-
-	    return "로그아웃 되었습니다.";
-	}
+	
 
 }

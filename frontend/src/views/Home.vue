@@ -497,6 +497,7 @@ import VueCookies from "vue-cookies";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import data from "../components/Banner.json";
+import { jwtDecode } from "jwt-decode"; // {} 명명된 보내기
 
 const imageUrls = data;
 
@@ -646,9 +647,22 @@ export default {
       history.pushState(null, "", `/`);
     },
     setParamInfo() {
-      if (this.$route.query.email != null) {
-        this.$store.dispatch("setUserInfo", this.$route.query);
-        location.reload();
+      const queryParams = this.$route.query;
+      if (queryParams.token) {
+        const token = queryParams.token;
+
+        try {
+          // JWT 디코드
+          const decodedToken = jwtDecode(token);
+
+          this.$store.dispatch("setUserInfo", decodedToken);
+          //this.$store.dispatch("loginSuccess", true);
+          console.log("JWT 저장 완료");
+
+          location.reload();
+        } catch (error) {
+          console.error("JWT 디코딩 실패:", error);
+        }
       }
     },
     NoticeModalPopUp() {

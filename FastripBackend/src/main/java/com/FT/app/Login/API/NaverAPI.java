@@ -36,8 +36,8 @@ public class NaverAPI {
 	
 	//인가코드 받은 후 유저정보 및 토큰 전달
 	public  NaverUser NaverAPI(String code, String redNum, String state) { //redNum = redirectNumber
-		System.out.println("여기는 API : " + code);
-		System.out.println("여기는 API : " + state);
+		System.out.println("여기는 API1 : " + code);
+		System.out.println("여기는 API2 : " + state);
 		
 		RestTemplate rt = new RestTemplate();
 

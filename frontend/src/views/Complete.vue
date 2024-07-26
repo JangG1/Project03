@@ -153,9 +153,6 @@
 <script>
 export default {
     name: 'HelloWorld',
-    components: {
-
-    },
     data() {
         return {
             chooseInfo: this.$store.state.chooseInfo,

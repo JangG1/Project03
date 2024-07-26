@@ -1,7 +1,7 @@
 # .gitignore
 
 # Ignoring specific Vue file
-src/components/LoginModal.vue
+frontend/src/components/LoginModal.vue
 
 # Ignore properties files
 FastripBackend/src/main/resources/*.properties

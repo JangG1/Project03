@@ -6,6 +6,8 @@ frontend/.env
 # Ignore properties files
 FastripBackend/src/main/resources/*.properties
 
+.github/workflows
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

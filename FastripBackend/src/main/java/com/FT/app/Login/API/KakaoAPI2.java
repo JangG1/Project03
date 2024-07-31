@@ -34,7 +34,8 @@ public class KakaoAPI2 {
     ConfigLoader configLoader = new ConfigLoader();
     
     String kakaoID = configLoader.getKakaoSID();
-	   
+    String exIP = configLoader.getExIP();
+    
 	//인가코드 받은 후 유저정보 및 토큰 전달
 	public  KakaoUser KakaoAPI(String code,String redNum) { //redNum = redirectNumber
 		System.out.println("여기는 API : " + code);
@@ -50,7 +51,7 @@ public class KakaoAPI2 {
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", kakaoID); 
 		//local
-		params.add("redirect_uri", "http://localhost:8200/api/auth/kakaoLogin/return"+redNum);
+		params.add("redirect_uri", exIP + ":8200/api/auth/kakaoLogin/return"+redNum);
 		//외부IP
 		//params.add("redirect_uri",  env.getProperty("redirect.uri")+redNum);
 		params.add("code", code);

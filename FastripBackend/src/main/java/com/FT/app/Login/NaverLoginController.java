@@ -49,6 +49,7 @@ import com.FT.app.Repo.ResRepository;
 import com.FT.app.Repo.NaverUserRepository;
 import com.FT.app.domain.NaverUser;
 import com.FT.app.domain.NaverUser;
+import com.FT.app.Login.API.ConfigLoader;
 import com.FT.app.Login.API.NaverAPI;
 import com.FT.app.Login.API.NaverAPI2;
 import com.FT.app.Login.service.UserService;
@@ -74,6 +75,10 @@ public class NaverLoginController {
 
 	private final UserService userService;
 
+    ConfigLoader configLoader = new ConfigLoader();
+    
+    String exIP = configLoader.getExIP();
+    
 	// Naver User 정보 가져오기
 	@GetMapping("/auth/naverLogin/main")
 	public @ResponseBody RedirectView naverCallback(String code, String state) { // 프론트(Vue)에서 인가 코드 받는 즉시 code 변수 삽입
@@ -130,7 +135,7 @@ public class NaverLoginController {
 
 	    // 프론트로 리다이렉트
 	    RedirectView redirectView = new RedirectView();
-	    redirectView.setUrl("http://localhost:9200/?token=" + jwt);
+	    redirectView.setUrl(exIP + "/?token=" + jwt);
 	    
 	    return redirectView;
 	}
@@ -190,8 +195,8 @@ public class NaverLoginController {
 		            .compact();
 
 		    // 프론트로 리다이렉트
-		    RedirectView redirectView = new RedirectView();
-		    redirectView.setUrl("http://localhost:9200/Return?token=" + jwt);
+		    RedirectView redirectView = new RedirectView();		    
+		    redirectView.setUrl(exIP + "/Return?token=" + jwt);
 		    
 		    return redirectView;
 		}

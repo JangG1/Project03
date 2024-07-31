@@ -6,18 +6,19 @@
 
 <h3> 📰 CI/CD Status 📰 </h3>
 
-### 🖥 Frontend 
+### 🖥 Frontend
+
 [![Frontend CI](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml)
 
 ### 🎛 Backend
-[![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml)
 
+[![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml)
 
 <hr>
 
-<h3> ✈ Fastrip Preview ✈ </h3> 
+<h3> ✈ Fastrip Preview ✈ </h3>
 
-~~Demo(DNS 만료) : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2]~~ 
+~~Demo(DNS 만료) : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2]~~
 <br>
 Youtube : https://youtu.be/RBMja0z1ClM
 
@@ -80,7 +81,6 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <br>
 <hr>
 
-
 <h3>🛠️ Tool 🛠️</h3>
 <div>
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white">
@@ -97,6 +97,23 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <br>
 <hr>
 
+<h3>📈 Architecture 📉</h3>
+
+### 1. OAuth Login(KAKAO/NAVER)
+
+![Login(테두리)](https://github.com/user-attachments/assets/5a1fbdfc-a670-4a26-a1f4-9a99db587423)
+
+### 2. Reservation(예약, 조회, 삭제)
+
+![Reservatio(테두리)](https://github.com/user-attachments/assets/518c557f-293f-421d-9099-c9667fc83063)
+
+### 3.ERD
+
+![ERD(테두리)](https://github.com/user-attachments/assets/5a5aa8fe-8863-498e-9073-54c449ec2d8f)
+
+<br>
+<hr>
+
 <h3>🔨 Advanced Feature 🔨</h3>
 <h3> 1. Main Page & Login </h3> <br>
  <kbd>
@@ -104,7 +121,6 @@ Youtube : https://youtu.be/RBMja0z1ClM
   </kbd><br>
  
 <h3>👉 Description<h3>
-
 
 <h3>1. 로그인 </h3>
   <h4>

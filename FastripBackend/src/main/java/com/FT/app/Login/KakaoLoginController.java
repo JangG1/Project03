@@ -47,6 +47,7 @@ import com.FT.app.Repo.ResRepository;
 import com.FT.app.Repo.KakaoUserRepository;
 import com.FT.app.domain.KakaoProfile;
 import com.FT.app.domain.KakaoUser;
+import com.FT.app.Login.API.ConfigLoader;
 import com.FT.app.Login.API.KakaoAPI;
 import com.FT.app.Login.API.KakaoAPI2;
 import com.FT.app.Login.service.UserService;
@@ -74,6 +75,10 @@ public class KakaoLoginController {
 
 	private final UserService userService;
 
+    ConfigLoader configLoader = new ConfigLoader();
+        
+    String exIP = configLoader.getExIP();
+    
 	// Kakao User 정보 가져오기
 	@GetMapping("/auth/kakaoLogin/main")
 	public @ResponseBody RedirectView kakaoCallback(String code) {
@@ -132,7 +137,7 @@ public class KakaoLoginController {
 
 	    // 프론트로 리다이렉트
 	    RedirectView redirectView = new RedirectView();
-	    redirectView.setUrl("http://localhost:9200/?token=" + jwt);
+	    redirectView.setUrl(exIP + "/?token=" + jwt);
 	    
 	    return redirectView;
 	}
@@ -193,8 +198,8 @@ public class KakaoLoginController {
 	            .signWith(SignatureAlgorithm.HS256, "secretkey")
 	            .compact();
 
-	    RedirectView redirectView = new RedirectView();
-	    redirectView.setUrl("http://localhost:9200/Return?token=" + jwt);
+	    RedirectView redirectView = new RedirectView();	    
+	    redirectView.setUrl(exIP + "/Return?token=" + jwt);
 
 	    return redirectView;
 	}

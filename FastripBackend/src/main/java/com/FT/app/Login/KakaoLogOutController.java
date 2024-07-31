@@ -23,7 +23,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,12 +44,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.FT.app.Repo.ResRepository;
-import com.FT.app.Repo.NaverUserRepository;
-import com.FT.app.domain.NaverUser;
-import com.FT.app.domain.NaverUser;
-import com.FT.app.Login.API.ConfigLoader;
-import com.FT.app.Login.API.NaverAPI;
-import com.FT.app.Login.API.NaverAPI2;
+import com.FT.app.Repo.KakaoUserRepository;
+import com.FT.app.domain.KakaoProfile;
+import com.FT.app.domain.KakaoUser;
+import com.FT.app.Login.API.KakaoAPI;
+import com.FT.app.Login.API.KakaoAPI2;
 import com.FT.app.Login.service.UserService;
 import com.FT.app.myPage.domain.ResList;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -62,38 +60,42 @@ import com.google.gson.JsonParser;
 
 import lombok.RequiredArgsConstructor;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
+
 @RestController
-@RequiredArgsConstructor
-public class NaverLoginOutController {
+@RequiredArgsConstructor //클래스에 선언된 final 변수들, 필드들을 매개변수로 하는 생성자를 자동으로 생성해주는 어노테이션
+public class KakaoLogOutController {
 
 	//  private final > @Autowired
 	// 순환참조 방지, 불변성을 얻을 수 있음
-	private final NaverUserRepository naverUserRepository;
+	private final KakaoUserRepository kakaoUserRepository;
 
 	private final UserService userService;
 
-	  ConfigLoader configLoader = new ConfigLoader();
+	// Kakao 로그아웃
+	@GetMapping("/kakao/logout/main/{access_token}")
+	public String kakaoLogout(@PathVariable("access_token") String access_token) {
+		System.out.println("Access Token : " + access_token);
 
-	    String naverSID = configLoader.getNaverSID();
-	    String naverSPW = configLoader.getNaverSPW();   
-	    
-	// Naver 로그아웃
-	@GetMapping("/naver/logout/main/{access_token}")
-	public String naverLogout(@PathVariable("access_token") String access_token) {
-	    String clientId = naverSID;
-	    String clientSecret = naverSPW;
-	    String url = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id={clientId}&client_secret={clientSecret}&service_provider=NAVER&access_token={accessToken}";
+		RestTemplate rt = new RestTemplate();
 
-	    RestTemplate rt = new RestTemplate();
-	    HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_JSON);
+		// HttpHeader 오브젝트 생성
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + access_token);
 
-	    HttpEntity<String> request = new HttpEntity<>(headers);
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 
-	    String result = rt.postForObject(url, request, String.class, clientId, clientSecret, access_token);
-	    System.out.println(result);
 
-	    return "로그아웃 되었습니다.";
+		// Kakao 연결끊기 시 사용
+		ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v1/user/unlink", HttpMethod.POST,
+				kakaoProfileRequest, String.class);
+
+		System.out.println("로그아웃 id : " + response.getBody());
+
+		return "로그아웃 되었습니다.";
 	}
 
 }

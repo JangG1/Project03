@@ -36,7 +36,8 @@ public class KakaoAPI {
     ConfigLoader configLoader = new ConfigLoader();
     
     String kakaoID = configLoader.getKakaoSID();
-
+    String exIP = configLoader.getExIP();
+    
 	// 인가코드 받은 후 유저정보 및 토큰 전달
 	public KakaoUser KakaoAPI(String code, String redNum) { // redNum = redirectNumber
 		System.out.println("여기는 API : " + code);
@@ -55,9 +56,7 @@ public class KakaoAPI {
 
 		params.add("client_id", kakaoID);
 		// local
-		params.add("redirect_uri", "http://localhost:8200/api/auth/kakaoLogin/main" + redNum);
-		// 외부IP
-		// params.add("redirect_uri", env.getProperty("redirect.uri")+redNum);
+		params.add("redirect_uri", exIP + ":8200/api/auth/kakaoLogin/main" + redNum); 
 		params.add("code", code);
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기

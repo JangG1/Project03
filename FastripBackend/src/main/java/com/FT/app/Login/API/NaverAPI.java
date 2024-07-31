@@ -33,7 +33,8 @@ public class NaverAPI {
 
     String naverSID = configLoader.getNaverSID();
     String naverSPW = configLoader.getNaverSPW();   
-	
+    String exIP = configLoader.getExIP();
+    
 	//인가코드 받은 후 유저정보 및 토큰 전달
 	public  NaverUser NaverAPI(String code, String redNum, String state) { //redNum = redirectNumber
 		System.out.println("여기는 API1 : " + code);
@@ -50,7 +51,7 @@ public class NaverAPI {
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", naverSID);		
 		params.add("client_secret", naverSPW);
-		params.add("redirect_uri", "http://localhost:8200/api/auth/naverLogin/main"+redNum);
+		params.add("redirect_uri", exIP + ":8200/api/auth/naverLogin/main"+redNum);
 		params.add("code", code);
 		params.add("state", state);
 

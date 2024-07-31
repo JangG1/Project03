@@ -18,6 +18,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.FT.app.Login.API.ConfigLoader;
+
 
 // WebSecurityConfigurerAdapter 사용 중지(2022.02.21)
 //Security Config 설정 공식 문서 : https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
@@ -25,6 +27,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig {
 
+    ConfigLoader configLoader = new ConfigLoader();
+        
+    String exIP = configLoader.getExIP();
+    
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
@@ -50,7 +56,7 @@ public class SecurityConfig {
 
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop","http://localhost:9200"));
+        configuration.setAllowedOriginPatterns(Arrays.asList(exIP, exIP+":9200"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

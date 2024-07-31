@@ -36,4 +36,8 @@ public class ConfigLoader {
     public String getNaverSPW() {
         return getProperty("naver.client.pw");
     }
+    
+    public String getExIP() {
+        return getProperty("ex.ip");
+    }
 }

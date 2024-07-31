@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { KAKAO_KEY, NAVER_KEY } from "../config";
+import { KAKAO_KEY, NAVER_KEY, EX_IP } from "../config";
 
 export default {
   name: "LoginModal",
@@ -55,7 +55,9 @@ export default {
         window.location.href =
           "https://kauth.kakao.com/oauth/authorize?client_id=" +
           KAKAO_KEY +
-          "&redirect_uri=http://localhost:8200/api/auth/kakaoLogin/main&response_type=code";
+          "&redirect_uri=" +
+          EX_IP +
+          ":8200/api/auth/kakaoLogin/main&response_type=code";
         this.$store.dispatch("kakaoLogin");
       }
     },
@@ -65,7 +67,9 @@ export default {
         window.location.href =
           "https://kauth.kakao.com/oauth/authorize?client_id=" +
           KAKAO_KEY +
-          "&redirect_uri=http://localhost:8200/api/auth/kakaoLogin/return&response_type=code";
+          "&redirect_uri=" +
+          EX_IP +
+          ":8200/api/auth/kakaoLogin/return&response_type=code";
         this.$store.dispatch("kakaoLogin");
       }
     },
@@ -74,7 +78,9 @@ export default {
         window.location.href =
           "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
           NAVER_KEY +
-          "&redirect_uri=http://localhost:8200/api/auth/naverLogin/main&state=hLiDdL2uhPtsftcU1";
+          "&redirect_uri=" +
+          EX_IP +
+          ":8200/api/auth/naverLogin/main&state=hLiDdL2uhPtsftcU1";
         this.$store.dispatch("naverLogin");
       }
     },
@@ -84,7 +90,9 @@ export default {
         window.location.href =
           "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
           NAVER_KEY +
-          "&redirect_uri=http://localhost:8200/api/auth/naverLogin/return&state=hLiDdL2uhPtsftcU1";
+          "&redirect_uri=" +
+          EX_IP +
+          ":8200/api/auth/naverLogin/return&state=hLiDdL2uhPtsftcU1";
         this.$store.dispatch("naverLogin");
       }
     },

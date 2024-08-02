@@ -138,7 +138,6 @@ public class KakaoLoginController {
 	    // 프론트로 리다이렉트
 	    RedirectView redirectView = new RedirectView();
 	    redirectView.setUrl(exIP + "/?token=" + jwt);
-	    
 	    return redirectView;
 	}
 

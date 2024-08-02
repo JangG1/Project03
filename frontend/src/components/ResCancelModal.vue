@@ -16,6 +16,7 @@
 
 <script>
 import axios from 'axios'
+import { EX_IP } from "../config";
 
 export default {
     data() {
@@ -30,7 +31,7 @@ export default {
             this.$emit('close')
         },
         resCancel() {
-            axios.post("http://58.225.45.251:8200/api/res/remove/" + this.res_no)
+            axios.post(EX_IP+":8200/api/res/remove/" + this.res_no)
                 .then(res => {
                     console.log(res)
                     console.log("보내짐")                    

@@ -177,6 +177,7 @@
 
 <script>
 import axios from "axios";
+import { EX_IP } from "../config";
 
 export default {
   name: "HelloWorld",
@@ -329,7 +330,7 @@ export default {
 
       this.$store.dispatch("setLoading", true);
       axios
-        .post("http://58.225.45.251:8200/api/res/resPost", {
+        .post(EX_IP+":8200/api/res/resPost", {
           email: email,
           seat: this.chooseInfo.seat,
           seatClass1: this.startInfo.seatClass1,

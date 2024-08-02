@@ -169,6 +169,7 @@ import PassengerModal from "@/components/PassengerModal";
 import ResCancelModal from "@/components/ResCancelModal";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { EX_IP } from "../config";
 
 export default {
   name: "HelloWorld",
@@ -185,6 +186,7 @@ export default {
       passengerView: false,
       resCancelView: false,
       isLoading: true,
+      targetPas: [],
     };
   },
   created() {
@@ -247,7 +249,7 @@ export default {
       }
       this.$store.dispatch("setLoading", true);
       axios
-        .get("http://58.225.45.251:8200/api/res/resList/" + email)
+        .get(EX_IP + ":8200/api/res/resList/" + email)
         .then((res) => {
           this.res = res.data;
           this.user = res.data;
@@ -262,10 +264,11 @@ export default {
       //this.$store.dispatch("setLoading", false);
     },
     passengerModal(value) {
+      this.targetPas = this.user.find((item) => item.res_no === value);
       //예약자 정보 팝업
       this.passengerView = this.passengerView ? false : true;
-      //this.$store.dispatch("res_no", value);
-      this.$store.dispatch("pasInfo", this.user?.[value - 1].passengers);
+
+      this.$store.dispatch("pasInfo", this.targetPas.passengers);
     },
     resDelModal(value) {
       //예약 취소 팝업

@@ -222,7 +222,7 @@ export default createStore({
           infant++;
         }
       }
-      console.log("??");
+
       commit("adultCount", adult);
       commit("childCount", child);
       commit("infantCount", infant);

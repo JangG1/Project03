@@ -13,7 +13,7 @@
           loop
           autoplay
         ></lottie-player>
-        <a class="homeLogoLink" href="/">Fastrip</a>
+        <a class="homeLogoLink" href="/">TEST Fastrip</a>
       </div>
 
       <div class="homeSubLink">
@@ -498,6 +498,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import data from "../components/Banner.json";
 import { jwtDecode } from "jwt-decode"; // {} 명명된 보내기
+import { EX_IP } from "../config";
 
 const imageUrls = data;
 
@@ -617,7 +618,7 @@ export default {
       let access_token = this.$store.state.userInfo.access_token;
 
       axios
-        .get("http://58.225.45.251:8200/api/kakao/logout/main/" + access_token)
+        .get(EX_IP + ":8200/api/kakao/logout/main/" + access_token)
         .then((response) => {
           alert(response.data);
           this.$store.dispatch("logout");
@@ -632,7 +633,7 @@ export default {
       let access_token = this.$store.state.userInfo.access_token;
 
       axios
-        .get("http://58.225.45.251:8200/api/naver/logout/main/" + access_token)
+        .get(EX_IP + ":8200/api/naver/logout/main/" + access_token)
         .then((response) => {
           alert(response.data);
           this.$store.dispatch("logout");

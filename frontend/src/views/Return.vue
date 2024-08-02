@@ -179,6 +179,7 @@ import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { jwtDecode } from "jwt-decode";
+import { EX_IP } from "../config";
 
 const at = arrivalTime;
 
@@ -227,7 +228,7 @@ export default {
     getUserInfo() {
       if (this.$store.state.isLogin == true) {
         axios
-          .get("http://58.225.45.251:8200/api/kakao/info")
+          .get(EX_IP + ":8200/api/kakao/info")
           .then((response) => {
             this.userInfo = response.data;
             console.log(this.userInfo);

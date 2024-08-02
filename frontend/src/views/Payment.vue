@@ -1540,7 +1540,6 @@ export default {
         return false;
       }
 
-      console.log("1");
       if (this.holdPoint < this.totalPoint) {
         alert("포인트가 모자랍니다.");
         return false;
@@ -1551,7 +1550,6 @@ export default {
           this.$store.state.consentBtn1 == "선택1" &&
           this.$store.state.consentBtn2 == "선택2"
         ) {
-          console.log("2");
           this.PayModalView = true;
         }
       }

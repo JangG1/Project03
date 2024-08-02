@@ -1,0 +1,29 @@
+name: Deploy Frontend to Oracle VM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest  # GitHub Actions의 CI 환경에서 Ubuntu 최신 버전에서 실행.
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # 저장소의 파일을 CI 환경으로 체크아웃.
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # GitHub Secrets에서 SSH 개인 키를 사용하여 Oracle VM에 접근.
+
+    - name: Deploy Frontend to Oracle VM
+      run: |
+        ssh -o StrictHostKeyChecking=no username@your-vm-ip << 'EOF'
+          cd /var/www  # Oracle VM에서 프론트엔드 프로젝트가 위치한 경로입니다.
+          git pull origin main  # GitHub 저장소에서 최신 코드를 가져옵니다.
+          npm install
+          npm run build
+          sudo cp -r dist/* /var/www/html/  # 빌드 결과물을 웹 서버의 루트 디렉토리로 복사합니다.
+        EOF

@@ -22,7 +22,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no username@your-vm-ip << 'EOF'
           # 프론트엔드 프로젝트 디렉토리로 이동
-          cd /var/www  # 프론트엔드 프로젝트가 위치한 디렉토리로 수정
+          cd /var/www/dist  # 프론트엔드 프로젝트가 위치한 디렉토리로 수정
 
           # 최신 코드 가져오기
           git pull origin main

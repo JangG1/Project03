@@ -20,8 +20,6 @@ jobs:
 
     - name: Deploy Backend to Oracle VM
       run: |
-        ssh -o StrictHostKeyChecking=no username@your-vm-ip << 'EOF'
-          cd /opt/tomcat/webapps
-          git pull origin main
-          ./build_and_deploy.sh  # 빌드 및 배포 스크립트를 실행.
+        ssh -o StrictHostKeyChecking=no dio@10.0.2.15 << 'EOF'                
+          ./deploy_backend.sh  # 빌드 및 배포 스크립트를 실행.
         EOF

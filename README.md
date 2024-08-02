@@ -14,6 +14,11 @@
 
 [![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml)
 
+### 🖥 Distribution
+Front
+[![Frontend CI](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml)
+Back
+[![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml)
 <hr>
 
 <h3> ✈ Fastrip Preview ✈ </h3>

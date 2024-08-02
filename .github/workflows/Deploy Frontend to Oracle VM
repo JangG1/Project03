@@ -20,17 +20,6 @@ jobs:
 
     - name: Deploy Frontend to Oracle VM
       run: |
-        ssh -o StrictHostKeyChecking=no username@your-vm-ip << 'EOF'
-          # 프론트엔드 프로젝트 디렉토리로 이동
-          cd /var/www/dist  # 프론트엔드 프로젝트가 위치한 디렉토리로 수정
-
-          # 최신 코드 가져오기
-          git pull origin main
-
-          # 종속성 설치 및 빌드
-          npm install
-          npm run build
-
-          # 빌드 결과물 복사
-          sudo cp -r dist/* /var/www/html/  # 빌드 결과물을 웹 서버의 루트 디렉토리로 복사.
+        ssh -o StrictHostKeyChecking=no dio@10.0.2.15 << 'EOF'          
+          /fastrip/deploy_frontend.sh
         EOF

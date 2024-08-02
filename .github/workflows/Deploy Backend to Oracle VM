@@ -1,0 +1,27 @@
+name: Deploy Backend to Oracle VM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest  # GitHub Actions의 CI 환경에서 Ubuntu 최신 버전에서 실행.
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # 저장소의 파일을 CI 환경으로 체크아웃.
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # GitHub Secrets에서 SSH 개인 키를 사용하여 Oracle VM에 접근.
+
+    - name: Deploy Backend to Oracle VM
+      run: |
+        ssh -o StrictHostKeyChecking=no username@your-vm-ip << 'EOF'
+          cd /opt/tomcat/webapps
+          git pull origin main
+          ./build_and_deploy.sh  # 빌드 및 배포 스크립트를 실행.
+        EOF

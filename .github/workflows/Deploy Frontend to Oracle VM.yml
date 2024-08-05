@@ -24,4 +24,15 @@ jobs:
 
     - name: Deploy Frontend to Oracle VM
       run: |
-        ssh -o StrictHostKeyChecking=no dio@192.168.0.6 '/fastrip/deploy/deploy_front.sh'
+        ssh -o StrictHostKeyChecking=no dio@192.168.0.6 'bash -s' << 'EOF'
+          cd /fastrip/frontend || { echo "Failed to change directory to /fastrip/frontend"; exit 1; }
+          if ! git diff-index --quiet HEAD --; then
+              git add .
+              git commit -m "Automated commit before merging changes"
+          fi
+          git fetch origin
+          git merge origin/master || { echo "Merge failed"; exit 1; }
+          npm install || { echo "Failed to install dependencies"; exit 1; }
+          npm run build || { echo "Build failed"; exit 1; }
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S cp -r dist/* /var/www/dist || { echo "Failed to copy files"; exit 1; }
+        EOF

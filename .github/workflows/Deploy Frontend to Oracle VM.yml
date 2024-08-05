@@ -24,6 +24,6 @@ jobs:
         
     - name: Deploy Frontend to Oracle VM
       run: |
-        ssh -v -i C:/Users/ft569/.ssh/id_rsa -o StrictHostKeyChecking=no dio@192.168.0.6 << 'EOF'
+        ssh -v -o StrictHostKeyChecking=no dio@192.168.0.6 << 'EOF'
           /fastrip/deploy/deploy_front.sh
         EOF

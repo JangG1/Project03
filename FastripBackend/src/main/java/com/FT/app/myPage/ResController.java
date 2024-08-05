@@ -69,6 +69,7 @@ public class ResController {
 		return resRepository.findByEmail(email);
 	}
 	
+	// 예약 정보 저장(+승객 정보 포함)
 	 @PostMapping("/res/resPost")
 	    public void addResList(@RequestBody Map<String, Object> resAllList) {
 		 System.out.println(resAllList);

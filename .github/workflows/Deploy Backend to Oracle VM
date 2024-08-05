@@ -1,13 +1,17 @@
 name: Deploy Backend to Oracle VM
 
+concurrency: 
+  group: production
+  cancel-in-progress: true
+
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
-  deploy-backend:
-    runs-on: ubuntu-latest  # GitHub Actions의 CI 환경에서 Ubuntu 최신 버전에서 실행.
+  deploy:
+    runs-on: [self-hosted, linux, x64]
 
     steps:
     - name: Checkout code
@@ -20,6 +24,6 @@ jobs:
 
     - name: Deploy Backend to Oracle VM
       run: |
-        ssh -o StrictHostKeyChecking=no dio@10.0.2.15 << 'EOF'                
+        ssh -v -i ~/.ssh/github_actions_key -o StrictHostKeyChecking=no dio@192.168.0.6 << 'EOF'
           ./deploy_backend.sh  # 빌드 및 배포 스크립트를 실행.
         EOF

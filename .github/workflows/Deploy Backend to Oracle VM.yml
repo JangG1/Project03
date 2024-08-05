@@ -21,5 +21,5 @@ jobs:
     - name: Deploy Backend to Oracle VM
       run: |
         ssh -v -i ~/.ssh/github_actions_key -o StrictHostKeyChecking=no dio@192.168.0.6 << 'EOF'
-          /fastrip/deploy_backend.sh  # 빌드 및 배포 스크립트를 실행.
+          /fastrip/deploy/deploy_back.sh  # 빌드 및 배포 스크립트를 실행.
         EOF

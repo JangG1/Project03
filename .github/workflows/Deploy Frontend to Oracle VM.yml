@@ -24,8 +24,4 @@ jobs:
 
     - name: Deploy Frontend to Oracle VM
       run: |
-        ssh -o StrictHostKeyChecking=no dio@192.168.0.6 << 'EOF'
-          sudo -S /fastrip/deploy/deploy_front.sh
-        EOF
-      env:
-        SUDO_ASKPASS: /usr/bin/ssh-askpass
+        ssh -o StrictHostKeyChecking=no dio@192.168.0.6 '/fastrip/deploy/deploy_front.sh'

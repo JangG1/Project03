@@ -13,7 +13,7 @@
           loop
           autoplay
         ></lottie-player>
-        <a class="homeLogoLink" href="/">TEST123 Fastrip</a>
+        <a class="homeLogoLink" href="/">TEST Fastrip</a>
       </div>
 
       <div class="homeSubLink">

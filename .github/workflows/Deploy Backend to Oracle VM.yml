@@ -1,9 +1,5 @@
 name: Deploy Backend to Oracle VM
 
-concurrency: 
-  group: production
-  cancel-in-progress: true
-
 on:
   push:
     branches: [ master ]

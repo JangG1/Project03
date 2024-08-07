@@ -8,19 +8,12 @@
 
 ### 🖥 Frontend
 
-[![Frontend CI](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml)
+[![Deploy Frontend to Oracle VM](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Frontend%20to%20Oracle%20VM.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Frontend%20to%20Oracle%20VM.yml)
 
 ### 🎛 Backend
 
-[![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml)
+[![Deploy Backend to Oracle VM](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Backend%20to%20Oracle%20VM.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Backend%20to%20Oracle%20VM.yml)
 
-### ⛓ Distribution
-
-Front
-[![Frontend CI](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Frontend.js.yml)
-
-Back
-[![Fastrip Backend CI with Maven](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Fastrip%20Backend%20CI.yml)
 <hr>
 
 <h3> ✈ Fastrip Preview ✈ </h3>

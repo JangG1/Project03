@@ -71,14 +71,15 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <img src="https://img.shields.io/badge/Vuex persistedstate-FD5F07?style=for-the-badge&logo=Vue.js&logoColor=white">
 <img src="https://img.shields.io/badge/vue cookies-D4AA00?style=for-the-badge&logo=Vue.js&logoColor=white">
 <img src="https://img.shields.io/badge/Vue DatePicker-4BB749?style=for-the-badge&logo=Vue.js&logoColor=white">
-<img src="https://img.shields.io/badge/Lottie-03C75A?style=for-the-badge&logo=Lottie&logoColor=white"><br><br>
+<img src="https://img.shields.io/badge/JWT decode-AF38F9?style=for-the-badge&logo=JWT&logoColor=white"><br>
   <h4>🎛 Back</h4>
 <br>
 <img src="https://img.shields.io/badge/Kakao Login API-FFCD00?style=for-the-badge&logo=Kakao&logoColor=black">
 <img src="https://img.shields.io/badge/Naver Login API-03C75A?style=for-the-badge&logo=Naver&logoColor=white">
 <img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
 <img src="https://img.shields.io/badge/Lombok-DC382D?style=for-the-badge&logo=Lombok&logoColor=white">
- <img src="https://img.shields.io/badge/hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white"><br>
+<img src="https://img.shields.io/badge/hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white">
+<img src="https://img.shields.io/badge/JWT-AF38F9?style=for-the-badge&logo=JWT&logoColor=white"><br>
   <h4>📡 Server</h4>
 <br>
 <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white">

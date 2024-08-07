@@ -198,6 +198,14 @@ export default {
   font-style: normal;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+}
+
 .navigation {
   height: 75px;
   background: linear-gradient(

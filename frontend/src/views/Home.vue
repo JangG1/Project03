@@ -963,14 +963,17 @@ li {
 }
 
 .homeSubRoute > a:visited {
+  text-decoration: none;
   color: white;
 }
 
 .homeSubRoute > a:hover {
+  text-decoration: none;
   color: white;
 }
 
 .homeSubRoute > a {
+  text-decoration: none;
   font-size: 16px;
   font-family: "SEBANG_Gothic_Bold";
   color: white;
@@ -985,6 +988,7 @@ li {
 }
 
 .homeLogoLink {
+  text-decoration: none;
   float: left;
   font-size: 30px;
   color: white;
@@ -993,7 +997,18 @@ li {
   margin-left: 5%;
 }
 
+.homeLogoLink:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.homeLogoLink:visited {
+  text-decoration: none;
+  color: white;
+}
+
 .homeSubLink {
+  text-decoration: none;
   width: 30%;
   display: flex;
   margin-left: 38%;
@@ -1001,8 +1016,17 @@ li {
 }
 
 .homeSubLink > a {
+  text-decoration: none;
   font-size: 16px;
   padding: 10px;
+}
+
+.homeSubLink > a:hover {
+  color: white;
+}
+
+.homeSubLink > a:visited {
+  color: white;
 }
 
 .homeSubRoute {
@@ -1109,6 +1133,10 @@ a {
   font-size: 24px;
   margin-left: 20px;
   cursor: pointer;
+}
+
+a:hover {
+  color: white;
 }
 
 /* 예약박스 & 배너 시작 */
@@ -1529,11 +1557,21 @@ a {
 }
 
 .refer > button > a {
+  text-decoration: none;
   font-size: 16px;
   color: white;
 }
 
+.refer > button > a:hover {
+  color: white;
+}
+
+.refer > button > a:visited {
+  color: white;
+}
+
 .refer button {
+  text-decoration: none;
   font-weight: 900;
 }
 
@@ -1553,15 +1591,26 @@ a {
 }
 
 .travelTip > h1 {
+  text-decoration: none;
   font-size: 30px;
 }
 
 .travelTip > h3 {
+  text-decoration: none;
   font-size: 20px;
 }
 
 .travelTip > a {
+  text-decoration: none;
   font-size: 20px;
+}
+
+.travelTip > a:hover {
+  color: white;
+}
+
+.travelTip > a:visited {
+  color: white;
 }
 
 .side {
@@ -1588,7 +1637,18 @@ a {
 
 .sideTip1 > a,
 .sideTip2 > a {
+  text-decoration: none;
   font-size: 14px;
+}
+
+.sideTip1 > a:hover,
+.sideTip2 > a:hover {
+  color: white;
+}
+
+.sideTip1 > a:visited,
+.sideTip2 > a:visited {
+  color: white;
 }
 
 .sideTip1 {
@@ -1639,6 +1699,10 @@ a {
   font-size: 16px;
   color: black;
   text-decoration-line: none;
+}
+
+.FootRight > a:hover {
+  color: black;
 }
 
 .FootRight > a:visited {

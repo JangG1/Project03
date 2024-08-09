@@ -4,7 +4,7 @@
 <img width="960" alt="FastripMain" src="https://user-images.githubusercontent.com/91955876/236676025-418a56e0-134a-43fd-89f3-a1e6979dd8a7.PNG">
 <hr>
 
-<h3> 📰 CI/CD Status 📰 </h3> 
+<h3> 📰 CI/CD Status 📰 </h3>
 
 ### 🖥 Frontend
 
@@ -18,7 +18,7 @@
 
 <h3> ✈ Fastrip Preview ✈ </h3>
 
-~~Demo(DNS 만료) : http://fastrip.shop (resolution 1920 x 1080, 1080p) [AWS, EC2]~~
+Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p)
 <br>
 Youtube : https://youtu.be/RBMja0z1ClM
 

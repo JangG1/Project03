@@ -10,9 +10,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-        		.allowedOrigins("http://localhost:9200")
-        		//만료
-                //.allowedOrigins("http://fastrip.shop")
+        		//.allowedOrigins("http://localhost:9200")
+        		.allowedOrigins("http://fastrip.shop")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);

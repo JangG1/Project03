@@ -29,6 +29,7 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <li> 상세하고 직관적인 예매 내역 조회/삭제 </li>
 <li> 배포시 가상컴퓨터(AWS or Oracle VM) 내 프론트, 백엔드, 데이터베이스 각 서버를 별도 분리 </li>
 <li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 (GitHub Actions 사용) </li>
+<li> OAuth Secret Key, 사용자 정보, IP 주소등 민감한 정보를 담은 파일이나 데이터를 JWT나 OpenSSL을 통해 암호화 및 복호화해 사용 </li>
 <hr>
 
 <h3>📚 Skill 📚</h3>
@@ -78,6 +79,7 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <br>
 <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white">
 <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=black">
+<img src="https://img.shields.io/badge/OpenSSL-721412?style=for-the-badge&logo=OpenSSL&logoColor=white">
 </div>
 
 <br>

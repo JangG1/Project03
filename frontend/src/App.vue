@@ -221,6 +221,7 @@ a:hover {
 }
 
 .subLink {
+  text-decoration: none;
   width: 30%;
   display: flex;
   margin-left: 38%;
@@ -232,6 +233,7 @@ a:hover {
 }
 
 .subRoute > a {
+  text-decoration: none;
   font-size: 16px;
   font-family: "SEBANG_Gothic_Bold";
   color: white;
@@ -256,12 +258,18 @@ a:hover,
 }
 
 .logoLink {
+  text-decoration: none;
   float: left;
   font-size: 30px;
   color: white;
   text-align: center;
   line-height: 70px;
   margin-left: 5%;
+}
+
+.logoLink:hover,
+.logoLink:visited {
+  color: white;
 }
 
 .loginBtn {

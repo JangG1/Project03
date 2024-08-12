@@ -112,7 +112,11 @@ Youtube : https://youtu.be/RBMja0z1ClM
 
 ![Reservatio(테두리)](https://github.com/user-attachments/assets/518c557f-293f-421d-9099-c9667fc83063)
 
-### 3.ERD
+### 3. CI/CD ###
+
+![CI_CD(테두리)](https://github.com/user-attachments/assets/7f61f24c-0f56-4609-9b7f-8a198eb7731f)
+
+### 4. ERD
 
 ![ERD(테두리)](https://github.com/user-attachments/assets/5a5aa8fe-8863-498e-9073-54c449ec2d8f)
 

@@ -114,7 +114,7 @@ Youtube : https://youtu.be/RBMja0z1ClM
 
 ### 3. CI/CD ###
 
-![CI_CD(테두리)](https://github.com/user-attachments/assets/7f61f24c-0f56-4609-9b7f-8a198eb7731f)
+![image](https://github.com/user-attachments/assets/ec568b7a-ed9b-4ed7-adf5-28babe48cbeb)
 
 ### 4. ERD
 

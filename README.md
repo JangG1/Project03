@@ -18,9 +18,9 @@
 
 <h3> ✈ Fastrip Preview ✈ </h3>
 
-Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p)
+Demo : http://fastrip.shop
 <br>
-[Fastrip 시연 영상] Youtube : https://youtu.be/RBMja0z1ClM
+Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 
 
 

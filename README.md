@@ -22,6 +22,8 @@ Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p)
 <br>
 Youtube : https://youtu.be/RBMja0z1ClM
 
+
+
 <br>
 
 <h3>🎯 Purpose 🎯</h3>

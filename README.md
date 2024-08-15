@@ -21,7 +21,7 @@
 Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p)
 <br>
 Youtube : https://youtu.be/RBMja0z1ClM
-[![Watch the video](https://img.youtube.com/vi/RBMja0z1ClM/hqdefault.jpg)](https://www.youtube.com/watch?v=RBMja0z1ClM)
+[![Watch the video](https://img.youtube.com/vi/RBMja0z1ClM/mqdefault.jpg)](https://www.youtube.com/watch?v=RBMja0z1ClM)
 
 <br>
 

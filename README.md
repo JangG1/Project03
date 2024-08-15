@@ -20,7 +20,7 @@
 
 Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p)
 <br>
-Youtube : https://youtu.be/RBMja0z1ClM
+[Fastrip 시연 영상] Youtube : https://youtu.be/RBMja0z1ClM
 
 
 

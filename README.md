@@ -214,5 +214,5 @@ Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 <li> UI/UX detail modification according to the resolution </li>
 <li> Code Refactoring [Method Check, Debug Check] </li>
 <li> JavaScript -> TypeScript </li>
-
+<li> Security Enhancement </li>
 <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=footer&fontSize=90" />

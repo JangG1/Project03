@@ -129,7 +129,7 @@ public class NaverLoginController {
 	            .claim("refreshtoken", originUser.getRefresh_token())
 	            .claim("OAuth", "naver")
 	            .setIssuedAt(new Date())
-	            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
+	            .setExpiration(new Date(System.currentTimeMillis() + 180000)) // 1일 유효기간
 	            .signWith(SignatureAlgorithm.HS256, "secretkey")
 	            .compact();
 
@@ -190,7 +190,7 @@ public class NaverLoginController {
 		            .claim("refreshtoken", originUser.getRefresh_token())
 		            .claim("OAuth", "naver")
 		            .setIssuedAt(new Date())
-		            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
+		            .setExpiration(new Date(System.currentTimeMillis() + 180000)) // 1일 유효기간
 		            .signWith(SignatureAlgorithm.HS256, "secretkey")
 		            .compact();
 

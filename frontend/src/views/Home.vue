@@ -657,10 +657,10 @@ export default {
           const decodedToken = jwtDecode(token);
 
           this.$store.dispatch("setUserInfo", decodedToken);
-          //this.$store.dispatch("loginSuccess", true);
+
           console.log("JWT 저장 완료");
 
-          location.reload();
+          location.reload(); //페이지 새로고침
         } catch (error) {
           console.error("JWT 디코딩 실패:", error);
         }

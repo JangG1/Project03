@@ -131,13 +131,13 @@ public class KakaoLoginController {
 	            .claim("refreshtoken", originUser.getRefresh_token())
 	            .claim("OAuth", "kakao")
 	            .setIssuedAt(new Date())
-	            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
-	            .signWith(SignatureAlgorithm.HS256, "secretkey")
+	            .setExpiration(new Date(System.currentTimeMillis() + 180000)) // 3분 유효기간
+	            .signWith(SignatureAlgorithm.HS256, "Fastrip_JWT_SK") //HS256(암호 알고리즘)
 	            .compact();
 
 	    // 프론트로 리다이렉트
 	    RedirectView redirectView = new RedirectView();
-	    //redirectView.setUrl(exIP + "/?token=" + jwt);	    
+	    //redirectView.setUrl(exIP + "/?token=" + jwt);	    //로컬용
 	    redirectView.setUrl("http://fastrip.shop/?token=" + jwt);
 	    return redirectView;
 	}
@@ -194,7 +194,7 @@ public class KakaoLoginController {
 	            .claim("refreshtoken", originUser.getRefresh_token())
 	            .claim("OAuth", "kakao")
 	            .setIssuedAt(new Date())
-	            .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1일 유효기간
+	            .setExpiration(new Date(System.currentTimeMillis() + 180000)) // 1일 유효기간
 	            .signWith(SignatureAlgorithm.HS256, "secretkey")
 	            .compact();
 

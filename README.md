@@ -18,18 +18,19 @@
 
 <h3> ✈ Fastrip Preview ✈ </h3>
 
-Demo : http://fastrip.shop (resolution 1920 x 1080, 1080p)
+Demo : http://fastrip.shop
 <br>
-Youtube : https://youtu.be/RBMja0z1ClM
+Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
+
+
 
 <br>
 
 <h3>🎯 Purpose 🎯</h3>
 <li> OAuth 소셜 로그인을 통한 간편하고 신속한 항공 예매 웹사이트 </li>
 <li> 상세하고 직관적인 예매 내역 조회/삭제 </li>
-<li> 배포시 가상컴퓨터(AWS or Oracle VM) 내 프론트, 백엔드, 데이터베이스 각 서버를 별도 분리 </li>
-<li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 (GitHub Actions 사용) </li>
-<li> OAuth Secret Key, 사용자 정보, IP 주소등 민감한 정보를 담은 파일이나 데이터를 JWT나 OpenSSL을 통해 암호화 및 복호화해 사용 </li>
+<li> CI/CD 파이프라인 구축으로 git push 명령어만으로 테스트와 빌드, 배포 과정을 자동화 <br> (GitHub Actions, Shell Script) </li>
+<li> OAuth Secret Key, 사용자 정보, IP 주소등 민감한 정보를 담은 파일이나 데이터를 JWT나 OpenSSL을 통해 <br>  암호화 및 복호화해 사용 </li>
 <hr>
 
 <h3>📚 Skill 📚</h3>
@@ -112,7 +113,11 @@ Youtube : https://youtu.be/RBMja0z1ClM
 
 ![Reservatio(테두리)](https://github.com/user-attachments/assets/518c557f-293f-421d-9099-c9667fc83063)
 
-### 3.ERD
+### 3. CI/CD ###
+
+![CI_CD(테두리)](https://github.com/user-attachments/assets/8b443532-946a-451e-b395-a61001ef9183)
+
+### 4. ERD
 
 ![ERD(테두리)](https://github.com/user-attachments/assets/5a5aa8fe-8863-498e-9073-54c449ec2d8f)
 
@@ -129,16 +134,17 @@ Youtube : https://youtu.be/RBMja0z1ClM
 
 <h3>1. 로그인 </h3>
   <h4>
-- 로그인은 소셜 로그인 으로만 이루어 지며 카카오, 네이버가 있습니다.(*비회원시에도 모든 기능이 가능합니다.)<br>
-- 프론트에서는 인가코드의 전달만 하며 모든 처리과정은 백엔드 에서 진행됩니다.<br>
-- 프론트에서 받은 인가코드를 통해 각 해당하는 로그인 API 를 호출하며 응답으로 해당 유저가  동의 항목에 체크 정보들을 데이터베이스에 저장함과 동시에 파라미터를 프론트에 전달합니다.
-(파라미터는 자동 초기화)
+- 로그인은 OAuth 소셜 로그인으로만 이루어 지며 카카오, 네이버가 있습니다.<br>(*비회원시에도 모든 기능이 가능합니다.)<br>
+- 프론트에서는 백엔드로 인가코드의 전달만 하며 모든 처리과정은 백엔드 에서 진행됩니다.<br>
+- 프론트에서 받은 인가코드를 통해 각 로그인 API의 토큰 요청과 사용자 정보를 호출하며, <br>
+   해당 유저가 동의 항목에 체크한 항목의 정보들을 데이터베이스에 저장(회원가입)함과 동시에 사용자 정보를 <br>
+   JWT토큰으로 인코딩 후 RedirectView객체를 통해 프론트에 전달합니다.
  <br>
        
   </h4>
 <h3>2. 로그아웃  </h3>
  <h4>
-- 로그인 시 받은 정보 Access Token을 백엔드 에  전달하여 로그아웃 진행
+- 로그인 시 받은 정보 Access Token(또는 Refresh Token)을 백엔드에  전달하여 로그아웃 진행
   </h4>
 <br>
  
@@ -208,5 +214,5 @@ Youtube : https://youtu.be/RBMja0z1ClM
 <li> UI/UX detail modification according to the resolution </li>
 <li> Code Refactoring [Method Check, Debug Check] </li>
 <li> JavaScript -> TypeScript </li>
-
+<li> Security Enhancement </li>
 <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=footer&fontSize=90" />

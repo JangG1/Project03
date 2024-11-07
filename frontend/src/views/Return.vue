@@ -227,13 +227,10 @@ export default {
     },
     getUserInfo() {
       if (this.$store.state.isLogin == true) {
-        axios
-          .get(EX_IP + ":8200/api/kakao/info")
-          .then((response) => {
-            this.userInfo = response.data;
-            console.log(this.userInfo);
-            this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
-          });
+        axios.get(EX_IP + ":8200/api/kakao/info").then((response) => {
+          this.userInfo = response.data;
+          this.$store.dispatch("setUserInfo", JSON.stringify(this.userInfo));
+        });
       }
     },
     AddComma(num) {
@@ -265,8 +262,6 @@ export default {
       this.seatClass2 = seatClass;
     },
     selectFlight(index) {
-      console.log(this.at[index].flight);
-
       let flight = this.at[index].flight;
 
       this.flight2 = flight;

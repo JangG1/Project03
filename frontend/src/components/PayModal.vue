@@ -328,34 +328,38 @@ export default {
         email = this.passEmail1 + "@" + this.passEmail2;
       }
 
-      console.log("비로그인 시 이메일 : " + email);
-
       this.$store.dispatch("setLoading", true);
       axios
-        .post(EX_IP + ":8200/api/res/resPost", {
-          email: email,
-          seat: this.chooseInfo.seat,
-          seatClass1: this.startInfo.seatClass1,
-          seatClass2: this.returnInfo.seatClass2,
-          way: this.way,
-          flight1: this.startInfo.flight1,
-          flight2: this.returnInfo.flight2,
-          fromArea: this.chooseInfo.fromArea,
-          toArea: this.chooseInfo.toArea,
-          oneWayArea: "",
-          startDate: startDate,
-          returnDate: returnDate,
-          infantCount: this.chooseInfo.InfantCount,
-          childCount: this.chooseInfo.ChildCount,
-          adultCount: this.chooseInfo.AdultCount,
-          startTime1: this.startInfo.startTime1,
-          arriveTime1: this.startInfo.arriveTime1,
-          startTime2: this.returnInfo.startTime2,
-          arriveTime2: this.returnInfo.arriveTime2,
-          addAdult: addAdult,
-          addChild: addChild,
-          addInfant: addInfant,
-        })
+        .post(
+          EX_IP + ":8200/api/res/resPost",
+          {
+            email: email,
+            seat: this.chooseInfo.seat,
+            seatClass1: this.startInfo.seatClass1,
+            seatClass2: this.returnInfo.seatClass2,
+            way: this.way,
+            flight1: this.startInfo.flight1,
+            flight2: this.returnInfo.flight2,
+            fromArea: this.chooseInfo.fromArea,
+            toArea: this.chooseInfo.toArea,
+            oneWayArea: "",
+            startDate: startDate,
+            returnDate: returnDate,
+            infantCount: this.chooseInfo.InfantCount,
+            childCount: this.chooseInfo.ChildCount,
+            adultCount: this.chooseInfo.AdultCount,
+            startTime1: this.startInfo.startTime1,
+            arriveTime1: this.startInfo.arriveTime1,
+            startTime2: this.returnInfo.startTime2,
+            arriveTime2: this.returnInfo.arriveTime2,
+            addAdult: addAdult,
+            addChild: addChild,
+            addInfant: addInfant,
+          },
+          {
+            withCredentials: true, // 인증 관련 정보와 함께 요청을 보냄
+          }
+        )
         .then((res) => {
           console.log(res);
           console.log("예약자 정보 보내짐");

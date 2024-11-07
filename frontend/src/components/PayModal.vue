@@ -328,9 +328,11 @@ export default {
         email = this.passEmail1 + "@" + this.passEmail2;
       }
 
+      console.log("비로그인 시 이메일 : " + email);
+
       this.$store.dispatch("setLoading", true);
       axios
-        .post(EX_IP+":8200/api/res/resPost", {
+        .post(EX_IP + ":8200/api/res/resPost", {
           email: email,
           seat: this.chooseInfo.seat,
           seatClass1: this.startInfo.seatClass1,

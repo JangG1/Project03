@@ -57,10 +57,11 @@ public class SecurityConfig {
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         //configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop", exIP, exIP+":9200", exIP+":8200"));
-        configuration.setAllowedOrigins(Arrays.asList("http://fastrip.shop", exIP, exIP + ":9200", exIP + ":8200"));
+        //configuration.setAllowedOrigins(Arrays.asList("http://fastrip.shop", exIP, exIP + ":9200", exIP + ":8200"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
+        //configuration.setAllowCredentials(true);
         configuration.addExposedHeader("Authorization");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

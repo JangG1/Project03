@@ -178,6 +178,8 @@ export default {
 #app {
   font-family: "SEBANG_Gothic_Bold";
   white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*@media (min-width: 1300px) {

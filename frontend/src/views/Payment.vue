@@ -1,13 +1,12 @@
 <template>
+  <!--<div class="pStep">
+    <div>① 검색</div>
+    &nbsp;
+    <div>② 항공편</div>
+    &nbsp;
+    <div class="step3">❸ 결제</div>
+  </div>-->
   <div>
-    <div class="pStep">
-      <div>① 검색</div>
-      &nbsp;
-      <div>② 항공편</div>
-      &nbsp;
-      <div class="step3">❸ 결제</div>
-    </div>
-
     <div class="pInfo">
       <div class="pLeft">
         <div class="pSchedule">여행 일정</div>
@@ -1611,19 +1610,19 @@ export default {
 }
 
 .pRight {
-  width: 270px;
-  height: 310px;
-  margin-left: 970px;
+  width: 290px;
+  height: 330px;
+  margin-left: 76%;
   padding: 40px 0;
   background-color: rgba(34, 168, 168, 0.712);
   border-radius: 10px;
-  position: absolute;
+  position: fixed;
 }
 
 .pPayInfo {
   border-left: none;
   border-right: none;
-  width: 250px;
+  width: 270px;
   height: 210px;
   padding-left: 7%;
   font-size: 12px;
@@ -1642,16 +1641,12 @@ export default {
 }
 
 .pTotalPrice {
-  width: 270px;
+  width: 290px;
   padding: 20px;
-  padding-top: 20px;
-  font-size: 14px;
+  padding-top: 26px;
+  font-size: 19px;
   color: white;
   font-weight: 900;
-}
-
-.pPayInfo {
-  color: white;
 }
 
 .pTotalPrice {
@@ -1741,7 +1736,7 @@ h4 {
 
 .pInfo {
   margin-left: 3%;
-  width: 900px;
+  width: 70%;
 }
 
 .pInfo button {
@@ -1754,6 +1749,7 @@ h4 {
   box-shadow: 4px 4px 4px rgb(68, 68, 68);
   float: left;
   margin-bottom: 30px;
+  overflow: hidden;
 }
 
 .pInfo button div {
@@ -1784,19 +1780,19 @@ h4 {
 .pStartInfo,
 .pArriveInfo {
   margin-left: 5%;
-  width: 100px;
 }
 
 .pStartInfo button,
 .pArriveInfo button {
   color: white;
-  width: 850px;
+  width: 70%;
   height: 70px;
   background-color: rgba(34, 168, 168, 0.689);
   font-size: 16px;
   border: 0.5px solid #999;
   display: flex;
   box-shadow: 4px 4px 4px rgb(68, 68, 68);
+  overflow: hidden;
 }
 
 .pStartInfo button div,
@@ -1883,7 +1879,7 @@ h4 {
 
 .pasNameHint {
   background-color: rgba(236, 234, 234, 0.555);
-  width: 900px;
+  width: 65%;
   height: 90px;
   margin-left: 8.5%;
   padding: 30px 0;
@@ -1896,7 +1892,7 @@ h4 {
   font-size: 16px;
   color: white;
   background: teal;
-  width: 900px;
+  width: 65%;
   height: 60px;
   padding-bottom: 25px;
   padding-top: 20px;
@@ -1907,7 +1903,7 @@ h4 {
 }
 
 .passText {
-  width: 250px;
+  width: 160%;
   height: 50px;
   float: left;
   padding: 20px;
@@ -1964,7 +1960,7 @@ h4 {
 }
 
 .passInfo {
-  width: 900px;
+  width: 65%;
   border: none;
   margin-left: 8.5%;
 }
@@ -1975,10 +1971,11 @@ h4 {
   height: 20%;
   border: 1px solid;
   padding-top: 60px;
-  padding-left: 80px;
+  padding-left: 10%;
   padding-bottom: 80px;
   display: flex;
   font-size: 13px;
+  overflow: hidden;
 }
 
 .passInfo2 {
@@ -1986,18 +1983,19 @@ h4 {
   height: 20%;
   border: 1px solid;
   padding-top: 80px;
-  padding-left: 80px;
+  padding-left: 10%;
   padding-bottom: 50px;
   display: flex;
   border-bottom: none;
+  overflow: hidden;
 }
 
 .passInfo1-2 {
-  margin-left: 200px;
+  margin-left: 30%;
 }
 
 .passInfo1-2-email {
-  margin-left: 120px;
+  margin-left: 20%;
 }
 
 #hint-email {
@@ -2045,7 +2043,7 @@ h4 {
 }
 
 .passInfo2-2 {
-  margin-left: 170px;
+  margin-left: 18.5%;
   position: relative;
 }
 
@@ -2058,8 +2056,8 @@ h4 {
 
 .insertTip {
   float: right;
-  margin-right: 23%;
-  margin-top: 1%;
+  margin-right: 18%;
+  margin-top: 1.5%;
 }
 
 .passCheckBtn {
@@ -2071,20 +2069,13 @@ h4 {
   border-radius: 4px;
   font-weight: 900;
   font-size: 20px;
-  margin-left: 740px;
+  margin-left: 85%;
   margin-bottom: 30px;
 }
 
-.note {
-  width: 910px;
-  border: none;
-  margin-left: 8.2%;
-  margin-bottom: 2%;
-  background: white;
-  display: block;
-}
-
+.note,
 .document {
+  width: 100%;
   border: none;
   margin-left: 8.2%;
   margin-bottom: 2%;
@@ -2097,7 +2088,7 @@ h4 {
   font-size: 16px;
   color: white;
   background: teal;
-  width: 897.5px;
+  width: 65.7%;
   height: 60px;
   padding-bottom: 25px;
   padding-top: 20px;
@@ -2109,10 +2100,11 @@ h4 {
 .note1,
 .document1 {
   border: 1px solid;
-  width: 897.5px;
+  width: 65.7%;
   text-align: left;
   padding: 20px;
   font-size: 13px;
+  overflow: hidden;
 }
 
 .document1 > h4 {
@@ -2120,7 +2112,7 @@ h4 {
 }
 
 .consent {
-  width: 900px;
+  width: 65.7%;
   padding-bottom: 25px;
   padding-top: 25px;
   padding-left: 40px;
@@ -2129,6 +2121,7 @@ h4 {
   margin-left: 8.5%;
   font-size: 14px;
   margin-bottom: 2%;
+  overflow: hidden;
 }
 
 .consent > h4 {
@@ -2147,13 +2140,16 @@ h4 {
 }
 
 .IATAList {
-  float: right;
-  margin-right: 40px;
+  width: 90px;
+  height: 40px;
   color: white;
   background-color: teal;
   border: none;
   border-radius: 4px;
-  padding: 10px;
+  font-weight: 900;
+  font-size: 20px;
+  margin-left: 43%;
+  margin-bottom: 3px;
 }
 
 .paymentInfoTitle {
@@ -2167,7 +2163,7 @@ h4 {
 }
 
 .payment {
-  width: 900px;
+  width: 65%;
   height: 310px;
   border: 1px solid black;
   background: white;
@@ -2220,12 +2216,13 @@ h4 {
 .addPoint {
   width: 180px;
   height: 40px;
-  float: right;
-  font-size: 18px;
-  margin-right: 80px;
   color: white;
   background-color: teal;
   border: none;
   border-radius: 4px;
+  font-weight: 900;
+  font-size: 20px;
+  margin-left: 50%;
+  margin-bottom: 3px;
 }
 </style>

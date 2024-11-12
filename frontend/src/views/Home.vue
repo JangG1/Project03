@@ -1259,10 +1259,24 @@ a:hover {
   width: 100% !important;
 }
 
+/* 시간 선택 비활성화*/
+.dp__button,
+.dp__arrow_top,
+.dp__arrow_bottom {
+  width: 0% !important;
+  height: 0% !important;
+}
+
 .dp__menu {
-  width: 30%;
-  height: 67%;
-  margin-top: 6%;
+  position: fixed;
+  z-index: 1;
+  top: 20% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  border-radius: 15px;
+  background-color: rgb(244, 244, 244);
+  box-shadow: 2px 2px 10px lightgrey;
 }
 
 .dp__pointer {
@@ -1412,15 +1426,42 @@ a:hover {
 }
 
 .countModal {
+  content: url(@/assets/Logo2.png);
+  padding: 20px;
   position: fixed;
-  z-index: 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
+  width: 20%;
+  height: 30%;
   border-radius: 15px;
-  background-color: rgb(244, 244, 244);
+  background-color: white;
   box-shadow: 2px 2px 10px lightgrey;
+  overflow: auto;
+}
+
+/* 화면 축소 전 후 */
+
+@media (min-width: 1110px) {
+  .countModal {
+    content: none;
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-radius: 15px;
+    background-color: rgb(244, 244, 244);
+    box-shadow: 2px 2px 10px lightgrey;
+  }
+
+  .countModal::-webkit-scrollbar,
+  .countModal::-webkit-scrollbar-thumb,
+  .countModal::-webkit-scrollbar-track {
+    display: block;
+  }
 }
 
 .form-select {
@@ -1458,6 +1499,9 @@ a:hover {
 
 .container1 {
   margin-top: 7%;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .container1 h2 {

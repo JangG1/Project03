@@ -330,7 +330,8 @@ export default {
 }
 
 .ver {
-  margin-top: 17px;
+  margin-top: auto;
+  margin-bottom: auto;
   margin-left: 14px;
 }
 
@@ -430,7 +431,8 @@ export default {
 .arriveTime {
   float: right;
   margin-top: 8%;
-  margin-right: 8%;
+  margin-left: auto;
+  margin-right: 5%;
 }
 
 .startTime > h3,

@@ -1,11 +1,11 @@
 <template>
-  <!--<div class="pStep">
+  <div class="pStep">
     <div>① 검색</div>
     &nbsp;
     <div>② 항공편</div>
     &nbsp;
     <div class="step3">❸ 결제</div>
-  </div>-->
+  </div>
   <div>
     <div class="pInfo">
       <div class="pLeft">
@@ -1593,7 +1593,7 @@ export default {
 
 /* 화면 축소 전 후 */
 
-@media (max-width: 700px) {
+@media (max-width: 1150px) {
   .PayModalView {
     content: url(@/assets/Logo2.png);
     padding: 20px;
@@ -1687,7 +1687,7 @@ export default {
   display: flex;
   margin-right: 50px;
   margin-bottom: 30px;
-  margin-top: 0.1%;
+  margin-top: 2%;
   font-size: 20px;
 }
 

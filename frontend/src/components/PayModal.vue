@@ -389,25 +389,30 @@ export default {
 
 <style>
 .infoTitle {
-  display: flex;
+  position: relative; /* 자식 요소의 절대 위치 기준이 됨 */
+  display: flex; /* 수평으로 배치 */
+  align-items: center; /* 수직 가운데 정렬 */
+  justify-content: space-between; /* 양 끝에 요소 정렬 */
+  padding: 10px;
+  color: teal;
 }
 
 .title {
-  margin-top: 2%;
-  margin-left: 140px;
-  color: teal;
-  font-weight: 900;
-  font-size: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-left: 37%;
 }
 
 .payCloseBtn {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* 부모 요소의 오른쪽에 위치 */
+  transform: translateY(-50%); /* 수직 중앙 정렬 */
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
   color: teal;
-  font-weight: 900;
-  font-size: 18px;
-  border: 1px solid white;
-  background-color: white;
-  margin-left: 100px;
-  margin-top: 10px;
 }
 
 .infoList {
@@ -468,7 +473,7 @@ export default {
 }
 
 .reserBtn {
-  width: 150px;
+  width: 35%;
   height: 40px;
   font-size: 20px;
   font-weight: 900;
@@ -476,7 +481,7 @@ export default {
   border: 1px solid white;
   border-radius: 4px;
   background-color: teal;
-  margin-left: 125px;
+  margin-left: 33%;
 }
 
 .layerPopup {

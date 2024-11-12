@@ -1260,7 +1260,7 @@ a:hover {
 }
 
 /* 시간 선택 비활성화*/
-.dp__button,
+
 .dp__arrow_top,
 .dp__arrow_bottom {
   width: 0% !important;
@@ -1268,7 +1268,6 @@ a:hover {
 }
 
 .dp__menu {
-  position: fixed;
   z-index: 1;
   top: 20% !important;
   left: 50% !important;

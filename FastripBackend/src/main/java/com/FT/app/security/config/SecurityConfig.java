@@ -57,7 +57,6 @@ public class SecurityConfig {
 
     public CorsConfigurationSource configurationSource() {    	
         CorsConfiguration configuration = new CorsConfiguration();
-        //configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop", exIP, exIP+":9200", exIP+":8200"));        
         configuration.setAllowedOriginPatterns(Arrays.asList("http://www.fastrip.shop", "http://www.fastrip.shop:9200", exIP, exIP+":9200", exIP+":8200"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");

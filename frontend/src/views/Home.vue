@@ -89,9 +89,6 @@
         :loginModal="loginModal"
       />
     </div>
-    <!----- 네비게이션 바 시작---------------------------------------------------->
-
-    <!----- 네비게이션 바 종료 ---------------------------------------------------->
 
     <!--공지 모달-->
     <div
@@ -846,7 +843,7 @@ export default {
         return false;
       }
 
-      if (this.fromImgName == "SEL") {
+      if (this.fromImgName == "SEL 서울") {
         alert("출발지를 선택해주세요.");
         return false;
       }

@@ -54,19 +54,19 @@ public class SecurityConfig {
         return http.build();
     }
 
-    public CorsConfigurationSource configurationSource() {
+    public CorsConfigurationSource configurationSource() {    	
         CorsConfiguration configuration = new CorsConfiguration();
-        //configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop", exIP, exIP+":9200", exIP+":8200"));
-        //configuration.setAllowedOrigins(Arrays.asList("http://fastrip.shop", exIP, exIP + ":9200", exIP + ":8200"));
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        //configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop", exIP, exIP+":9200", exIP+":8200"));        
+        configuration.setAllowedOrigins(Arrays.asList("http://www.fastrip.shop:9200", exIP, exIP+":9200", exIP+":8200"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-        //configuration.setAllowCredentials(true); //인증 관리
+        configuration.setAllowCredentials(true); // 인증 관련 요청 허용
         configuration.addExposedHeader("Authorization");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 
 }

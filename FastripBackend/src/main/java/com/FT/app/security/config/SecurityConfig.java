@@ -57,11 +57,10 @@ public class SecurityConfig {
     public CorsConfigurationSource configurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         //configuration.setAllowedOriginPatterns(Arrays.asList("http://fastrip.shop", exIP, exIP+":9200", exIP+":8200"));
-        //configuration.setAllowedOrigins(Arrays.asList("http://fastrip.shop", exIP, exIP + ":9200", exIP + ":8200"));
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("http://www.fastrip.shop:9200")); // 명시적으로 프론트 도메인 설정
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
-        //configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(true); // 인증 관련 요청 허용
         configuration.addExposedHeader("Authorization");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

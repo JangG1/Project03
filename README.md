@@ -29,7 +29,6 @@ Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 API 문서는 Swagger를 통해 확인할 수 있습니다.
 
 - Swagger UI: 준비중
-- 
 <br>
 
 <hr>

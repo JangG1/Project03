@@ -3,6 +3,8 @@ name: Deploy Backend to Oracle VM
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - 'README.md'
   workflow_dispatch:
 
 jobs:

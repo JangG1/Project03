@@ -44,6 +44,7 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.csrf().disable();
         
+        //해당 경로에 대해 Spring Security가 인증을 요구하지 않고 모든 요청을 허용
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/api/**").permitAll();
         http.authorizeRequests().antMatchers("/api/auth/kakao/callback").permitAll();

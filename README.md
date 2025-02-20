@@ -18,13 +18,23 @@
 
 <h3> ✈ Fastrip Preview ✈ </h3>
 
-Demo : http://fastrip.shop
+## Project Demo
+
+Link : https://fastrip.shop
 <br>
 Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 
+## API 명세서
 
+API 문서는 Swagger를 통해 확인할 수 있습니다.
 
+- Swagger UI: 준비중
 <br>
+
+<hr>
+
+<h3> 📅 Period 📅 </h3>
+- 2022/10/16 ~ 2023/03/04 (139Days)
 
 <h3>🎯 Purpose 🎯</h3>
 <li> OAuth 소셜 로그인을 통한 간편하고 신속한 항공 예매 웹사이트 </li>

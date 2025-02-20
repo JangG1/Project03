@@ -8,9 +8,7 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'Project03/frontend'
-    paths-ignore:
-      - 'README.md'
+      - 'frontend/**'
   workflow_dispatch:
 
 jobs:

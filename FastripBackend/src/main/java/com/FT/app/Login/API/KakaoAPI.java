@@ -56,7 +56,7 @@ public class KakaoAPI {
 
 		params.add("client_id", kakaoID);
 		// local
-		params.add("redirect_uri", exIP + ":8200/api/auth/kakaoLogin/main" + redNum); 
+		params.add("redirect_uri", "https://fastrip.store:8200/api/auth/kakaoLogin/main" + redNum);
 		params.add("code", code);
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기

@@ -8,9 +8,8 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'frontend/**'
-    paths-ignore:
-      - 'README.md'
+      - 'frontend/**'    
+      - '!README.md'
   workflow_dispatch:
 
 jobs:

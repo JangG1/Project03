@@ -51,16 +51,20 @@ export default {
     //카카오 로그인
     kakaoLogin() {
       if (!this.$store.state.isLogin) {
-        //백엔드 전송
+        const redirectUri = encodeURIComponent(
+          EX_IP + ":8200/api/auth/kakaoLogin/main"
+        );
+        // 백엔드 전송
         window.location.href =
           "https://kauth.kakao.com/oauth/authorize?client_id=" +
           KAKAO_KEY +
           "&redirect_uri=" +
-          EX_IP +
-          ":8200/api/auth/kakaoLogin/main&response_type=code";
+          redirectUri +
+          "&response_type=code";
         this.$store.dispatch("kakaoLogin");
       }
     },
+
     //카카오 로그인(Return 페이지용)
     kakaoLogin2() {
       if (!this.$store.state.isLogin) {

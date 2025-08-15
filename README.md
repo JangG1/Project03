@@ -46,7 +46,7 @@ Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"><br>
   <h4>🎛 Back</h4>
   <br>
-<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
 <img src="https://img.shields.io/badge/Java-FD5F07?style=for-the-badge&logo=Java&logoColor=white">
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"><br>
   <h4>📡 Server</h4>
@@ -75,14 +75,14 @@ Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 <br>
 <img src="https://img.shields.io/badge/Kakao Login API-FFCD00?style=for-the-badge&logo=Kakao&logoColor=black">
 <img src="https://img.shields.io/badge/Naver Login API-03C75A?style=for-the-badge&logo=Naver&logoColor=white">
-<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=SpringSecurity&logoColor=white">
 <img src="https://img.shields.io/badge/Lombok-DC382D?style=for-the-badge&logo=Lombok&logoColor=white">
 <img src="https://img.shields.io/badge/hibernate-59666C?style=for-the-badge&logo=hibernate&logoColor=white">
 <img src="https://img.shields.io/badge/JWT-AF38F9?style=for-the-badge&logo=JWT&logoColor=white"><br>
   <h4>📡 Server</h4>
 <br>
 <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white">
-<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=black">
+<img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=ApacheTomcat&logoColor=black">
 <img src="https://img.shields.io/badge/OpenSSL-721412?style=for-the-badge&logo=OpenSSL&logoColor=white">
 </div>
 
@@ -91,7 +91,7 @@ Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 
 <h3>🛠️ Tool 🛠️</h3>
 <div>
-<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white">
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white">
 <img src="https://img.shields.io/badge/STS-6DB33F?style=for-the-badge&logo=Spring&logoColor=white">
 <img src="https://img.shields.io/badge/Oracle VirtualBox-183A61?style=for-the-badge&logo=VirtualBox&logoColor=white">
 <img src="https://img.shields.io/badge/FileZilla-BF0000?style=for-the-badge&logo=FileZilla&logoColor=white">
@@ -100,7 +100,7 @@ Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
 <img src="https://img.shields.io/badge/amazon aws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
-<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
+<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHubActions&logoColor=white">
 </div>
 
 <br>

@@ -92,6 +92,8 @@ public class KakaoAPI {
 		ResponseEntity<String> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
 				kakaoProfileRequest2, String.class);
 
+		System.out.println("response2 : " + response2);
+		
 		// Kakao Object
 		ObjectMapper objectMapper2 = new ObjectMapper();
 		KakaoProfile kakaoProfile = null;

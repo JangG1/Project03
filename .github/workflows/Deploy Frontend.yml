@@ -1,4 +1,4 @@
-name: Deploy Frontend to Oracle VM
+name: Deploy Frontend
 
 concurrency: 
   group: production
@@ -8,7 +8,8 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'frontend/**'
+      - 'frontend/**'    
+      - '!README.md'
   workflow_dispatch:
 
 jobs:

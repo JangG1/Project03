@@ -1,4 +1,4 @@
-name: Deploy Backend to Oracle VM
+name: Deploy Backend
 
 on:
   push:

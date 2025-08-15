@@ -8,11 +8,11 @@
 
 ### 🖥 Frontend
 
-[![Deploy Frontend to Oracle VM](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Frontend%20to%20Oracle%20VM.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Frontend%20to%20Oracle%20VM.yml)
+[![Deploy Frontend](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Frontend.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Frontend.yml)
 
 ### 🎛 Backend
 
-[![Deploy Backend to Oracle VM](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Backend%20to%20Oracle%20VM.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Backend%20to%20Oracle%20VM.yml)
+[![Deploy Backend](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Backend.yml/badge.svg)](https://github.com/JangG1/Project03/actions/workflows/Deploy%20Backend.yml)
 
 <hr>
 

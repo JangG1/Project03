@@ -21,14 +21,14 @@ public class KakaoProfile {
 	public KakaoAccount kakao_account;
 	
 	@Data
-	public class Properties {
+	public static class Properties {
 		public String nickname;
 		public String profile_image;
 		public String thumbnail_image;
 	}
 	
 	@Data
-	public class KakaoAccount {
+	public static class KakaoAccount {
 		public Boolean profile_nickname_needs_agreement;
 		public Boolean profile_image_needs_agreement;
 		public Profile profile;
@@ -41,12 +41,13 @@ public class KakaoProfile {
 		public Boolean birthday_needs_agreement;
 		public String birthday;
 		public String birthday_type;
+		public Boolean is_leap_month;
 		public Boolean has_gender;
 		public Boolean gender_needs_agreement;
 		public String gender;
 		
 		@Data
-		public class Profile {
+		public static class Profile {
 			public String nickname;
 			public String thumbnail_image_url;
 			public String profile_image_url;

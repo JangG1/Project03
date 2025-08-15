@@ -58,7 +58,7 @@ public class SecurityConfig {
 
     public CorsConfigurationSource configurationSource() {    	
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("https://www.fastrip.store", "https://www.fastrip.store:9200", exIP, exIP+":9200", exIP+":8200"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("https://www.fastrip.store", "https://www.fastrip.store:8200", exIP, exIP+":9200", exIP+":8200"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true); // 인증 관련 요청 허용

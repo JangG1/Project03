@@ -4,9 +4,8 @@ on:
   push:
     branches: [ master ]
     paths:
-      - 'FastripBackend/**'
-    paths-ignore:
-      - 'README.md'
+      - 'FastripBackend/**'    
+      - '!README.md'
   workflow_dispatch:
 
 jobs:

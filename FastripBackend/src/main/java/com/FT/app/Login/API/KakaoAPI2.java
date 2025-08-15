@@ -50,10 +50,7 @@ public class KakaoAPI2 {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", kakaoID); 
-		//local
-		params.add("redirect_uri", exIP + ":8200/api/auth/kakaoLogin/return"+redNum);
-		//외부IP
-		//params.add("redirect_uri",  env.getProperty("redirect.uri")+redNum);
+		params.add("redirect_uri", "https://fastrip.store:8200/api/auth/kakaoLogin/return"+redNum);		
 		params.add("code", code);
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기

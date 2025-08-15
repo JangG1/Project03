@@ -53,9 +53,7 @@ public class KakaoAPI {
 		// HttpBody 오브젝트 생성
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-
 		params.add("client_id", kakaoID);
-		// local
 		params.add("redirect_uri", "https://fastrip.store:8200/api/auth/kakaoLogin/main" + redNum);
 		params.add("code", code);
 

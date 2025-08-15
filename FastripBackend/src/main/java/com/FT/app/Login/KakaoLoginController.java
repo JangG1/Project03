@@ -138,7 +138,7 @@ public class KakaoLoginController {
 	    // 프론트로 리다이렉트
 	    RedirectView redirectView = new RedirectView();
 	    //redirectView.setUrl(exIP + "/?token=" + jwt);	    //로컬용
-	    redirectView.setUrl("http://fastrip.store/?token=" + jwt);
+	    redirectView.setUrl("https://fastrip.store/?token=" + jwt);
 	    return redirectView;
 	}
 
@@ -200,7 +200,7 @@ public class KakaoLoginController {
 
 	    RedirectView redirectView = new RedirectView();	    
 	    //redirectView.setUrl(exIP + "/Return?token=" + jwt);
-	    redirectView.setUrl("http://fastrip.store/Return?token=" + jwt);
+	    redirectView.setUrl("https://fastrip.store/Return?token=" + jwt);
 	    return redirectView;
 	}
 

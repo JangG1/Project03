@@ -1,4 +1,4 @@
-name: Deploy Frontend to Oracle VM
+name: Deploy Frontend
 
 concurrency: 
   group: production

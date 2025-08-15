@@ -20,7 +20,7 @@
 
 ## Project Demo
 
-Link : https://fastrip.shop
+Link : https://fastrip.store
 <br>
 Youtube : https://youtu.be/RBMja0z1ClM [Fastrip 시연 영상]
 

@@ -15,4 +15,4 @@ app.use(store);
 app.use(Datepicker);
 app.use(AOS);
 app.use(jwtDecode);
-app.mount("#app", "#test");
+app.mount("#app");
